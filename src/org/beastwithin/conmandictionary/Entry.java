@@ -1,4 +1,4 @@
-// $Id: Entry.java 2 2006-09-17 12:33:48Z wwwwolf $
+// $Id: Entry.java 3 2006-09-17 13:19:05Z wwwwolf $
 
 package org.beastwithin.conmandictionary;
 
@@ -50,13 +50,13 @@ public class Entry implements Comparable<Entry> {
 	}
 	
 	public DocumentFragment toXmlElement() {
-		DocumentFragment doc = ConmanDictionary.createXmlDocumentFragment();
-		Element root = ConmanDictionary.createXmlElement("entry");
+		DocumentFragment doc = XmlHelper.createXmlDocumentFragment();
+		Element root = XmlHelper.createXmlElement("entry");
 		doc.appendChild(root);
 		
-		Element term = ConmanDictionary.createXmlElement("term");
+		Element term = XmlHelper.createXmlElement("term");
 		term.setTextContent(this.term);
-		Element definition = ConmanDictionary.createXmlElement("definition");
+		Element definition = XmlHelper.createXmlElement("definition");
 		definition.setTextContent(this.definition);
 		
 		root.appendChild(term);

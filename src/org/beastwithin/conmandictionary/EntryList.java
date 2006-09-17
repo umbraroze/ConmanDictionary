@@ -1,4 +1,4 @@
-// $Id: EntryList.java 2 2006-09-17 12:33:48Z wwwwolf $
+// $Id: EntryList.java 3 2006-09-17 13:19:05Z wwwwolf $
 
 package org.beastwithin.conmandictionary;
 
@@ -21,9 +21,9 @@ public class EntryList extends DefaultListModel {
 		}
 	}
 	public DocumentFragment toXmlElement() {
-		DocumentFragment doc = ConmanDictionary.createXmlDocumentFragment();
+		DocumentFragment doc = XmlHelper.createXmlDocumentFragment();
 		
-		Element root = ConmanDictionary.createXmlElement("definitions");
+		Element root = XmlHelper.createXmlElement("definitions");
 		for(int i = 0; i < this.size(); i++) {
 			Node e = ((Entry)this.getElementAt(i)).toXmlElement().getFirstChild();
 			root.appendChild(e);

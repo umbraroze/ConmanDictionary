@@ -1,4 +1,4 @@
-// $Id: ConmanDictionary.java 3 2006-09-17 13:19:05Z wwwwolf $
+// $Id: ConmanDictionary.java 5 2006-09-22 07:18:57Z wwwwolf $
 
 package org.beastwithin.conmandictionary;
 
@@ -6,9 +6,20 @@ import javax.swing.*;
 import java.io.File;
 import org.w3c.dom.Node;
 
+/**
+ * This is the main class of the program.
+ * 
+ * @author wwwwolf
+ */
 public class ConmanDictionary {
+	/**
+	 * Application name. This will appear in window titles etc.
+	 */
 	public final static String APP_NAME = "Conman's Dictionary";
 	
+	/**
+	 * The main program thread. Fired up by the Swing runner utility.
+	 */
 	private static class MainThread implements Runnable {
 		public void run() {
 			XmlHelper.bringUpXMLFactories();
@@ -31,10 +42,19 @@ public class ConmanDictionary {
 		javax.swing.SwingUtilities.invokeLater(new MainThread());
 	}
 	
+	/**
+	 * This is used to get the main window that the application uses.
+	 * 
+	 * @return the application main window object.
+	 */
 	public static ConmanDictionaryMainWindow getMainWindow() {
 		return mainWin;
 	}
 	
+	/**
+	 * Quits the application. Warns about unsaved changes via dialog
+	 * if there are unsaved changes. 
+	 */
 	public static void quit() {
 		if(checkUnsavedChanges()) {
 			int resp = JOptionPane.showConfirmDialog(mainWin,
@@ -46,10 +66,20 @@ public class ConmanDictionary {
 		}
 		System.exit(0);
 	}
+	/**
+	 * Checks if there are unsaved changes in the dictionaries.
+	 * 
+	 * @return true if there are unsaved changes.
+	 */
 	private static boolean checkUnsavedChanges() {
 		return mainWin.getLeftLanguagePanel().isModified() ||
 			mainWin.getRightLanguagePanel().isModified();
 	}
+	
+	/**
+	 * Clears up the dictionaries. Will prompt if there are unsaved
+	 * changes. 
+	 */
 	public static void newDictionary() {
 		if(checkUnsavedChanges()) {
 			int resp = JOptionPane.showConfirmDialog(
@@ -63,9 +93,16 @@ public class ConmanDictionary {
 		mainWin.getLeftLanguagePanel().clearList();
 		mainWin.getRightLanguagePanel().clearList();
 	}
+	/**
+	 * Opens a dictionary file. Will prompt if there are unsaved
+	 * changes. 
+	 */
 	public static void openDictionary() {
 		System.err.println("openDictionary() unimplemented!");
 	}
+	/**
+	 * Saves dictionary file.
+	 */
 	public static void saveDictionary() {
 		// What's the file?
 
@@ -87,12 +124,17 @@ public class ConmanDictionary {
 					JOptionPane.ERROR_MESSAGE
 				);
 			e.printStackTrace();
-		}
-		
+		}	
 	}
+	/**
+	 * Saves dictionary file with a picked name.
+	 */
 	public static void saveDictionaryAs() {
 		System.err.println("saveDictionaryAs() unimplemented!");
 	}
+	/**
+	 * Shows "About this application" dialog.
+	 */
 	public static void showAboutDialog() {
 		JOptionPane.showMessageDialog(
 				mainWin,

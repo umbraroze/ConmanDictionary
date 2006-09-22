@@ -1,4 +1,4 @@
-// $Id: ConmanDictionaryMainWindow.java 2 2006-09-17 12:33:48Z wwwwolf $
+// $Id: ConmanDictionaryMainWindow.java 5 2006-09-22 07:18:57Z wwwwolf $
 
 package org.beastwithin.conmandictionary;
 
@@ -6,7 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * This class represents the dictionary window.
+ * 
+ * @author wwwwolf
+ */
 public class ConmanDictionaryMainWindow extends JFrame {
+	/**
+	 * Menu listener for the main window.
+	 */
 	private class MainWindowMenuListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String c = e.getActionCommand();
@@ -28,9 +36,14 @@ public class ConmanDictionaryMainWindow extends JFrame {
 		
 	static final long serialVersionUID = 1; 
 	
+	/// The left-side panel showing dictionary entries.
 	private LanguagePanel leftLanguagePanel;
+	/// The right-side panel showing dictionary entries.
 	private LanguagePanel rightLanguagePanel;
 
+	/**
+	 * Constructs the menu bar for the application window.
+	 */
 	private void constructMenuBar() {
 		JMenuItem mi;
 		MainWindowMenuListener ml = new MainWindowMenuListener();
@@ -77,6 +90,9 @@ public class ConmanDictionaryMainWindow extends JFrame {
 		this.setJMenuBar(mb);
 	}
 
+	/**
+	 * Constructs the contents of the application window.
+	 */
 	private void constructContents() {
 		JPanel mainWinContents = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
 		
@@ -91,6 +107,9 @@ public class ConmanDictionaryMainWindow extends JFrame {
 		this.pack();
 	}
 
+	/**
+	 * Creates the main window.
+	 */
 	public ConmanDictionaryMainWindow() {
 		super();
 
@@ -102,10 +121,18 @@ public class ConmanDictionaryMainWindow extends JFrame {
 		constructContents();
 	}
 
+	/**
+	 * Get the left-side language panel.
+	 * @return the left-side language panel.
+	 */
 	public LanguagePanel getLeftLanguagePanel() {
 		return leftLanguagePanel;
 	}
 
+	/**
+	 * Get the right-side language panel.
+	 * @return the right-side language panel.
+	 */
 	public LanguagePanel getRightLanguagePanel() {
 		return rightLanguagePanel;
 	}

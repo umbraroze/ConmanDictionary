@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Conman's Dictionary
+MimeType=application/vnd.beastwithin.condictionary+xml;
+Exec=conmandictionary.sh
+Type=Application
+Terminal=false

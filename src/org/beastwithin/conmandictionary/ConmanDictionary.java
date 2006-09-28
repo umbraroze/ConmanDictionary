@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 7 2006-09-28 11:09:53Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 8 2006-09-28 11:18:23Z wwwwolf $  
  */
 
 
@@ -42,11 +42,20 @@ public class ConmanDictionary {
 	 * The main program thread. Fired up by the Swing runner utility.
 	 */
 	private static class MainThread implements Runnable {
+		String[] args;
+		public MainThread(String args[]) {
+			super();
+			this.args = args;
+		}
 		public void run() {
 			XmlHelper.bringUpXmlFactories();
 			mainWin = new ConmanDictionaryMainWindow();    		
 			mainWin.setVisible(true);
-		}		
+			if(args.length == 1) {
+				currentFile = new File(args[0]);
+				doOpen();
+			}
+		}
 	}
 	
 	/**
@@ -65,7 +74,7 @@ public class ConmanDictionary {
 	 * @param args Program arguments.
 	 */
 	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new MainThread());
+		javax.swing.SwingUtilities.invokeLater(new MainThread(args));
 	}
 	
 	/**
@@ -140,6 +149,9 @@ public class ConmanDictionary {
 		if(ret != JFileChooser.APPROVE_OPTION)
 			return;
 		currentFile = fc.getSelectedFile();
+		doOpen();
+	}
+	private static void doOpen() {
 		try {
 			XmlHelper.loadXmlDocument(currentFile,
 					mainWin.getLeftLanguagePanel(),
@@ -152,7 +164,7 @@ public class ConmanDictionary {
 					JOptionPane.ERROR_MESSAGE
 				);
 			e.printStackTrace();			
-		}
+		}		
 	}
 
 	private static void doSave() {		

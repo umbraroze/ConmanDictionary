@@ -1,4 +1,24 @@
-// $Id: ConmanDictionaryMainWindow.java 5 2006-09-22 07:18:57Z wwwwolf $
+/*  ConmanDictionaryMainWindow.java: main window class.
+ * 
+ *  Conman's Dictionary, a dictionary application for conlang makers.
+ *  Copyright (C) 2006  Urpo Lankinen
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ *  
+ *  $Id: ConmanDictionaryMainWindow.java 6 2006-09-28 08:36:23Z wwwwolf $ 
+ */
 
 package org.beastwithin.conmandictionary;
 
@@ -28,6 +48,8 @@ public class ConmanDictionaryMainWindow extends JFrame {
 				ConmanDictionary.saveDictionary();
 			} else if(c == "file-save-as") {
 				ConmanDictionary.saveDictionaryAs();
+			} else if(c == "settings-languagenames") {
+				ConmanDictionary.setLanguageNames();
 			} else if(c == "help-about") {
 				ConmanDictionary.showAboutDialog();
 			}
@@ -79,6 +101,15 @@ public class ConmanDictionaryMainWindow extends JFrame {
 		mi.addActionListener(ml);
 		fileMenu.add(mi);
 		mb.add(fileMenu);
+		
+		JMenu settingsMenu = new JMenu("Settings");
+		settingsMenu.setMnemonic(KeyEvent.VK_S);
+		mi = new JMenuItem("Language names...",KeyEvent.VK_N);
+		mi.setActionCommand("settings-languagenames");
+		mi.addActionListener(ml);
+		settingsMenu.add(mi);
+		mb.add(settingsMenu);
+		
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		mi = new JMenuItem("About...",KeyEvent.VK_A);
@@ -96,8 +127,8 @@ public class ConmanDictionaryMainWindow extends JFrame {
 	private void constructContents() {
 		JPanel mainWinContents = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
 		
-		leftLanguagePanel = new LanguagePanel("Lang1 to Lang2");
-		rightLanguagePanel = new LanguagePanel("Lang2 to Lang1");
+		leftLanguagePanel = new LanguagePanel("Lang1");
+		rightLanguagePanel = new LanguagePanel("Lang2");
 		
 		mainWinContents.add(leftLanguagePanel);
 		mainWinContents.add(new JSeparator(JSeparator.VERTICAL));

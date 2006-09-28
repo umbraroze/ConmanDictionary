@@ -1,4 +1,24 @@
-// $Id: LanguagePanel.java 2 2006-09-17 12:33:48Z wwwwolf $
+/*  LanguagePanel.java: Dictionary list and entry editor panel in main window.
+ * 
+ *  Conman's Dictionary, a dictionary application for conlang makers.
+ *  Copyright (C) 2006  Urpo Lankinen
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ *  
+ *  $Id: LanguagePanel.java 6 2006-09-28 08:36:23Z wwwwolf $
+ */
 
 package org.beastwithin.conmandictionary;
 
@@ -8,6 +28,13 @@ import javax.swing.*;
 import javax.swing.event.*;
 import org.w3c.dom.*;
 
+/**
+ * Dictionary list and entry editor panel in main window. Consists of
+ * the list of entries, a keyword entry panel, rich text editor for the
+ * definition, and buttons to modify the entry with.
+ * 
+ * @author wwwwolf
+ */
 public class LanguagePanel extends JPanel {
 	/**
 	 * This thing listens to the events from buttons. This uses
@@ -56,6 +83,7 @@ public class LanguagePanel extends JPanel {
 	
 	private boolean modified;
 	
+	private JLabel title;
 	private EntryList entryList;
 	private JList definitionList;
 	private JTextField definitionTerm;
@@ -64,7 +92,7 @@ public class LanguagePanel extends JPanel {
 	private LanguagePanelActionListener actionListener;
 	private LanguagePanelListSelectionListener listSelectionListener;
 	
-	public LanguagePanel(String name) {
+	public LanguagePanel(String title) {
 		super();
 		
 		// Listens to the events
@@ -75,10 +103,12 @@ public class LanguagePanel extends JPanel {
 		this.setLayout(l);
 		
 		// Text that says what we're doing
-		this.add(new JLabel(name));
+		this.title = new JLabel(title);
+		this.add(this.title);
 
 		// Empty list.
 		entryList = new EntryList();
+		entryList.setLanguage(title);
 		
 		// Our list of definitions
 		this.definitionList = new JList(entryList);
@@ -123,6 +153,13 @@ public class LanguagePanel extends JPanel {
 		this.modified = false;
 	}
 
+	public void setTitle(String title) {
+		this.title.setText(title);
+	}
+	public String getTitle() {
+		return this.title.getText();
+	}
+	
 	private void pickedListItemForEditing() {
 		int idx = this.definitionList.getSelectedIndex(); 
 		if(idx == -1)
@@ -187,4 +224,5 @@ public class LanguagePanel extends JPanel {
 		this.modified = false;
 		this.clearEntries();
 	}
+	
 }

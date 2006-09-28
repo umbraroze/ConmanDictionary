@@ -1,4 +1,25 @@
-// $Id: ConmanDictionary.java 5 2006-09-22 07:18:57Z wwwwolf $
+/*  ConmanDictionary.java: Main program.
+ * 
+ *  Conman's Dictionary, a dictionary application for conlang makers.
+ *  Copyright (C) 2006  Urpo Lankinen
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ *  
+ *  $Id: ConmanDictionary.java 6 2006-09-28 08:36:23Z wwwwolf $  
+ */
+
 
 package org.beastwithin.conmandictionary;
 
@@ -12,10 +33,10 @@ import org.w3c.dom.Node;
  * @author wwwwolf
  */
 public class ConmanDictionary {
-	/**
-	 * Application name. This will appear in window titles etc.
-	 */
+	///Application name. This will appear in window titles etc.
 	public final static String APP_NAME = "Conman's Dictionary";
+	///Application version.
+	public final static String APP_VERSION = "version 0.0";
 	
 	/**
 	 * The main program thread. Fired up by the Swing runner utility.
@@ -32,6 +53,11 @@ public class ConmanDictionary {
 	 * Main window.
 	 */
 	private static ConmanDictionaryMainWindow mainWin = null;
+	
+	/**
+	 * Currently open file.
+	 */
+	private static File currentFile = null;
 	
 	/**
 	 * The main program for the application.
@@ -92,30 +118,30 @@ public class ConmanDictionary {
 		}
 		mainWin.getLeftLanguagePanel().clearList();
 		mainWin.getRightLanguagePanel().clearList();
+		currentFile = null;
 	}
 	/**
 	 * Opens a dictionary file. Will prompt if there are unsaved
 	 * changes. 
 	 */
 	public static void openDictionary() {
+		if(checkUnsavedChanges()) {
+			int resp = JOptionPane.showConfirmDialog(
+					mainWin,
+					"There are unsaved changes.\nReally open another file?",
+					"Really open another file?",
+					JOptionPane.YES_NO_OPTION);
+			if(resp != 0)
+				return;
+		}
 		System.err.println("openDictionary() unimplemented!");
 	}
-	/**
-	 * Saves dictionary file.
-	 */
-	public static void saveDictionary() {
-		// What's the file?
 
-		final JFileChooser fc = new JFileChooser();
-		int ret = fc.showSaveDialog(mainWin);
-		if(ret != JFileChooser.APPROVE_OPTION)
-			return;
-		File file = fc.getSelectedFile();
-
+	private static void doSave() {
 		try {
 			Node x[] = { mainWin.getLeftLanguagePanel().toXmlElement().getFirstChild(),
 	                mainWin.getRightLanguagePanel().toXmlElement().getFirstChild() };
-			XmlHelper.saveCurrentXmlDocument(file,x);
+			XmlHelper.saveCurrentXmlDocument(currentFile,x);
 		} catch (XmlSavingException e) {
 			JOptionPane.showMessageDialog(
 					mainWin,
@@ -124,21 +150,58 @@ public class ConmanDictionary {
 					JOptionPane.ERROR_MESSAGE
 				);
 			e.printStackTrace();
-		}	
+		}
+	}
+	
+	/**
+	 * Saves dictionary file.
+	 */
+	public static void saveDictionary() {
+		// What's the file?
+		if(currentFile == null) {
+			saveDictionaryAs();
+		} else {
+			doSave();
+		}
 	}
 	/**
 	 * Saves dictionary file with a picked name.
 	 */
 	public static void saveDictionaryAs() {
-		System.err.println("saveDictionaryAs() unimplemented!");
+		final JFileChooser fc = new JFileChooser();
+		int ret = fc.showSaveDialog(mainWin);
+		if(ret != JFileChooser.APPROVE_OPTION)
+			return;
+		currentFile = fc.getSelectedFile();
+		
+		doSave();
 	}
+	
+	/**
+	 * Shows dialog to set the names of the languages being edited.
+	 */
+	public static void setLanguageNames() {
+		System.err.println("setLanguageNames() unimplemented!");
+	}
+	
 	/**
 	 * Shows "About this application" dialog.
 	 */
 	public static void showAboutDialog() {
+		String appAboutString =
+			APP_NAME + "\n" +
+			APP_VERSION +
+			"\nCopyright © Urpo Lankinen 2006\n\n" +
+			APP_NAME + " comes with ABSOLUTELY NO WARRANTY.\n\n" +
+			"This is free software, and you are welcome to redistribute it\n"+
+			"under the terms of GNU General Public Licence as published by\n"+
+			"the Free Software Foundation; either version 2 of the License, or\n"+
+			"(at your option) any later version.\n" +
+			"Please see COPYING file for more details.\n\n";
+
 		JOptionPane.showMessageDialog(
 				mainWin,
-				APP_NAME + "\nCopyright © Urpo Lankinen 2006\nDistributed under GNU GPL",
+				appAboutString,
 				"About " + APP_NAME,
 				JOptionPane.INFORMATION_MESSAGE
 			);

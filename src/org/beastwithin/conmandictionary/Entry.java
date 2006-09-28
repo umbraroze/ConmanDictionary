@@ -17,19 +17,22 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: Entry.java 6 2006-09-28 08:36:23Z wwwwolf $
+ *  $Id: Entry.java 7 2006-09-28 11:09:53Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
 import org.w3c.dom.*;
+import java.io.*;
 
 /**
  * Describes an entry in the dictionary.
  * 
  * @author wwwwolf
  */
-public class Entry implements Comparable<Entry> {
+public class Entry implements Comparable<Entry>, Serializable {
+	public static final long serialVersionUID = 1; 
+	
 	private String term = "";
 	private String definition = "";
 	

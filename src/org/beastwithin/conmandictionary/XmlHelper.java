@@ -17,17 +17,19 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: XmlHelper.java 6 2006-09-28 08:36:23Z wwwwolf $
+ *  $Id: XmlHelper.java 7 2006-09-28 11:09:53Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
 import java.io.*;
+import java.util.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 /**
  * This class has helper methods that assist in parsing and generating
@@ -49,7 +51,7 @@ public abstract class XmlHelper {
 	public static Element createXmlElement(String name) {
 		return xmlDocument.createElement(name);
 	}
-	public static void bringUpXMLFactories() {
+	public static void bringUpXmlFactories() {
 		xmlDocument = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
@@ -114,5 +116,56 @@ public abstract class XmlHelper {
 					"A processing error occurred during file save.\n"+
 					"Technical information has been printed on console.");
 		}
+	}
+	public static void loadXmlDocument(File f, LanguagePanel p1, LanguagePanel p2)
+		throws XmlLoadingException {
+		Document d = null;
+		DocumentBuilder b = null;
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		
+		try {
+			b = dbf.newDocumentBuilder();
+			d = b.parse(f);
+		} catch(ParserConfigurationException pce) {
+			pce.printStackTrace();
+			throw new XmlLoadingException("Internal error:\n"+
+					"Can't start up XML parser.\n\n" + pce.getMessage());
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+			throw new XmlLoadingException("Can't open the file "+
+					f.toString() + "\n\n" + ioe.getMessage());
+		} catch(SAXException saxe) {
+			saxe.printStackTrace();
+			throw new XmlLoadingException("Can't parse the file "+
+					f.toString() + "\nThe file contains invalid XML markup.\n\n" +
+					"Parser error message: " + saxe.getMessage());
+		}
+		NodeList defs = d.getElementsByTagName("definitions");
+		if(defs.getLength() < 2) {
+			throw new XmlLoadingException("Can't open the file "+
+					f.toString() + "\nThis file has less than 2 dictionary lists.\n");
+		}
+		if(defs.getLength() > 2) {
+			throw new XmlLoadingException("Can't open the file "+
+					f.toString() + "\nThis file has more than 2 dictionary lists.\n");
+		}
+		Node p1data = defs.item(0);
+		Node p2data = defs.item(1);
+		
+		p1.loadContentsFromXml(p1data);
+		p2.loadContentsFromXml(p2data);		
+	}
+	/**
+	 * STUPID WORKAROUND for Java bogosity: Convert NodeList into Vector<Node>. 
+	 * 
+	 * @param list a NodeList.
+	 * @return a vector of Nodes
+	 */
+	public static Vector<Node> vectorifyNodeList(NodeList list) {
+		Vector<Node> x = new Vector<Node>();
+		for(int i = 0; i < list.getLength(); i++) {
+			x.add(list.item(i));
+		}
+		return x;
 	}
 }

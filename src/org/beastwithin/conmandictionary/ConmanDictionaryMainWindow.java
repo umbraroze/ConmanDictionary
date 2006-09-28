@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionaryMainWindow.java 6 2006-09-28 08:36:23Z wwwwolf $ 
+ *  $Id: ConmanDictionaryMainWindow.java 7 2006-09-28 11:09:53Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
@@ -166,5 +166,10 @@ public class ConmanDictionaryMainWindow extends JFrame {
 	 */
 	public LanguagePanel getRightLanguagePanel() {
 		return rightLanguagePanel;
+	}
+	
+	public void changesHaveBeenSaved() {
+		this.leftLanguagePanel.setModified(false);
+		this.rightLanguagePanel.setModified(false);
 	}
 }

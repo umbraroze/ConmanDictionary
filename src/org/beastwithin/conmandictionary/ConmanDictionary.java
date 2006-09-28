@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 6 2006-09-28 08:36:23Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 7 2006-09-28 11:09:53Z wwwwolf $  
  */
 
 
@@ -36,14 +36,14 @@ public class ConmanDictionary {
 	///Application name. This will appear in window titles etc.
 	public final static String APP_NAME = "Conman's Dictionary";
 	///Application version.
-	public final static String APP_VERSION = "version 0.0";
+	public final static String APP_VERSION = "version 0.9";
 	
 	/**
 	 * The main program thread. Fired up by the Swing runner utility.
 	 */
 	private static class MainThread implements Runnable {
 		public void run() {
-			XmlHelper.bringUpXMLFactories();
+			XmlHelper.bringUpXmlFactories();
 			mainWin = new ConmanDictionaryMainWindow();    		
 			mainWin.setVisible(true);
 		}		
@@ -98,8 +98,8 @@ public class ConmanDictionary {
 	 * @return true if there are unsaved changes.
 	 */
 	private static boolean checkUnsavedChanges() {
-		return mainWin.getLeftLanguagePanel().isModified() ||
-			mainWin.getRightLanguagePanel().isModified();
+		return mainWin.getLeftLanguagePanel().getModified() ||
+			mainWin.getRightLanguagePanel().getModified();
 	}
 	
 	/**
@@ -120,6 +120,7 @@ public class ConmanDictionary {
 		mainWin.getRightLanguagePanel().clearList();
 		currentFile = null;
 	}
+	
 	/**
 	 * Opens a dictionary file. Will prompt if there are unsaved
 	 * changes. 
@@ -134,14 +135,32 @@ public class ConmanDictionary {
 			if(resp != 0)
 				return;
 		}
-		System.err.println("openDictionary() unimplemented!");
+		final JFileChooser fc = new JFileChooser();
+		int ret = fc.showOpenDialog(mainWin);
+		if(ret != JFileChooser.APPROVE_OPTION)
+			return;
+		currentFile = fc.getSelectedFile();
+		try {
+			XmlHelper.loadXmlDocument(currentFile,
+					mainWin.getLeftLanguagePanel(),
+					mainWin.getRightLanguagePanel());
+		} catch (XmlLoadingException e) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					e.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			e.printStackTrace();			
+		}
 	}
 
-	private static void doSave() {
+	private static void doSave() {		
 		try {
 			Node x[] = { mainWin.getLeftLanguagePanel().toXmlElement().getFirstChild(),
 	                mainWin.getRightLanguagePanel().toXmlElement().getFirstChild() };
 			XmlHelper.saveCurrentXmlDocument(currentFile,x);
+			mainWin.changesHaveBeenSaved();
 		} catch (XmlSavingException e) {
 			JOptionPane.showMessageDialog(
 					mainWin,
@@ -181,7 +200,11 @@ public class ConmanDictionary {
 	 * Shows dialog to set the names of the languages being edited.
 	 */
 	public static void setLanguageNames() {
-		System.err.println("setLanguageNames() unimplemented!");
+		LanguageNameDialog ld = new LanguageNameDialog(getMainWindow(),"foo","bar");
+		ld.setVisible(true);
+		
+		System.err.println("Ln1: " + ld.getLanguage1() + "\n" +
+				"Ln2: " + ld.getLanguage2());
 	}
 	
 	/**

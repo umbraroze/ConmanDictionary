@@ -17,7 +17,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #
-#  $Id: Doxyfile 6 2006-09-28 08:36:23Z wwwwolf $
+#  $Id: Doxyfile 7 2006-09-28 11:09:53Z wwwwolf $
 
 
 PROJECT_NAME           = "Conman's Dictionary"
@@ -34,8 +34,8 @@ INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = 
 STRIP_FROM_INC_PATH    = 
-SHORT_NAMES            = NO
-JAVADOC_AUTOBRIEF      = NO
+SHORT_NAMES            = YES
+JAVADOC_AUTOBRIEF      = YES
 MULTILINE_CPP_IS_BRIEF = NO
 DETAILS_AT_TOP         = NO
 INHERIT_DOCS           = YES

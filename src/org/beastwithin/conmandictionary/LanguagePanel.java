@@ -17,17 +17,15 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: LanguagePanel.java 7 2006-09-28 11:09:53Z wwwwolf $
+ *  $Id: LanguagePanel.java 11 2006-12-02 15:27:57Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
 import java.awt.*;
-import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import org.w3c.dom.*;
 
 /**
  * Dictionary list and entry editor panel in main window. Consists of
@@ -214,10 +212,6 @@ public class LanguagePanel extends JPanel {
 		return entryList;
 	}
 	
-	public DocumentFragment toXmlElement() {
-		return entryList.toXmlElement();
-	}
-	
 	public boolean getModified() {
 		return this.modified;
 	}
@@ -229,43 +223,4 @@ public class LanguagePanel extends JPanel {
 		this.modified = false;
 		this.clearEntries();
 	}
-	
-	public void loadContentsFromXml(Node xml) {
-		// Set the title
-		String lang = xml.getAttributes().getNamedItem("language").getTextContent();
-		if(lang == null)
-			lang = "Lang1";
-		this.setTitle(lang);
-		this.entryList.removeAllElements();
-		
-		Vector<Node> ndl = XmlHelper.vectorifyNodeList(xml.getChildNodes());
-		
-		// Process each entry.
-		for(Node x : ndl) {
-			String term = null;
-			String definition = null;
-			if(x.getNodeName()=="entry") {
-				// Okay, we found <entry>, so we find <term> and <definition> children.
-				Vector<Node> c = XmlHelper.vectorifyNodeList(x.getChildNodes());
-				for(Node y : c) {
-					if(y.getNodeName() == "term") {
-						term = y.getTextContent();
-					}
-					if(y.getNodeName() == "definition") {
-						definition = y.getTextContent();
-					}
-				}
-				// If we found both, it's time to stick them into our list. 
-				if(term != null && definition != null) {
-					Entry e = new Entry(term, definition);
-					this.entryList.addElement(e);
-				}
-			}
-		}
-		
-		// Last tidy-ups.
-		this.entryList.sort();
-		this.modified = false;
-	}
-
 }

@@ -17,13 +17,14 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: XmlHelper.java 7 2006-09-28 11:09:53Z wwwwolf $
+ *  $Id: XmlHelper.java 11 2006-12-02 15:27:57Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
 import java.io.*;
 import java.util.*;
+
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -40,35 +41,32 @@ import org.xml.sax.SAXException;
  * @author wwwwolf
  */
 public abstract class XmlHelper {
-	private static Document xmlDocument = null;
-	private static DocumentBuilder xmlDocumentBuilder = null;
-	public static Document createXmlDocument() {
-		return xmlDocumentBuilder.newDocument();
+	public static class XmlLoadingException extends Exception {
+		static final long serialVersionUID = 1;
+		public XmlLoadingException(String message) {
+			super(message);
+		}
 	}
-	public static DocumentFragment createXmlDocumentFragment() {
-		return xmlDocument.createDocumentFragment();
+	public static class XmlSavingException extends Exception {
+		static final long serialVersionUID = 1;
+		public XmlSavingException(String message) {
+			super(message);
+		}
 	}
-	public static Element createXmlElement(String name) {
-		return xmlDocument.createElement(name);
-	}
-	public static void bringUpXmlFactories() {
-		xmlDocument = null;
+
+	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel dictionaries[])
+		throws XmlSavingException {
+		
+		DocumentBuilder xmlDocumentBuilder = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			xmlDocumentBuilder = factory.newDocumentBuilder();
-			xmlDocument = xmlDocumentBuilder.newDocument(); 
 		} catch (ParserConfigurationException pce) {
 			System.err.println("Error generating XML");
 			pce.printStackTrace();
 			System.exit(1);
 		}
-	}
-	public static Document newDocument() {
-		return xmlDocumentBuilder.newDocument();
-	}
-	
-	public static void saveCurrentXmlDocument(File targetFile, Node dictionaries[])
-		throws XmlSavingException {
+		
 		// Time to open the file for writing.
 		FileWriter f = null;
 		try {
@@ -77,20 +75,43 @@ public abstract class XmlHelper {
 			throw new XmlSavingException("File was not saved.\n"+
 					"Error opening file for writing.");
 		}
+		
 
-		
 		// Let's build the XML document to save...
-		Document toSave = XmlHelper.newDocument();
+		Document toSave = xmlDocumentBuilder.newDocument();
 		
-		Element root = toSave.createElement("dictionarydatabase");
-		for(int i = 0; i < dictionaries.length; i++) {
-			Node list = dictionaries[i];
-			toSave.adoptNode(list);
-			root.appendChild(list);
+		// OK, here's a document root.
+		Element rootElt = toSave.createElement("dictionarydatabase");
+		// Next we create...
+		for(int dictCount = 0; dictCount < dictionaries.length; dictCount++) {
+			EntryList el = dictionaries[dictCount].getEntryList();
+			
+			// ... a list of definitions for each
+			Element definitionListElt = toSave.createElement("definitions");
+			definitionListElt.setAttribute("language",el.getLanguage());
+			
+			for(int elementCount = 0; elementCount < el.size(); elementCount++) {
+				// And add elements to them.
+				Entry entry = (Entry)el.elementAt(elementCount);
+				Element entryElt = toSave.createElement("entry");
+				
+				Element term = toSave.createElement("term");
+				term.setTextContent(entry.getTerm());
+				Element definition = toSave.createElement("definition");
+				definition.setTextContent(entry.getDefinition());
+				
+				entryElt.appendChild(term);
+				entryElt.appendChild(definition);
+				
+				// Add entry to the definition list...
+				definitionListElt.appendChild(entryElt);	
+			}
+			// ...and a definition list to the document root element.
+			rootElt.appendChild(definitionListElt);
 		}
 		
-		toSave.adoptNode(root);
-		toSave.appendChild(root);
+		// And that's our document.
+		toSave.appendChild(rootElt);
 		toSave.setXmlStandalone(true);
 		
 		// Then, we construct this horrenduous monster to save our shit to disk
@@ -117,6 +138,13 @@ public abstract class XmlHelper {
 					"Technical information has been printed on console.");
 		}
 	}
+
+	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2)
+	throws XmlSavingException {
+		LanguagePanel p[] = {p1, p2}; 
+		saveCurrentXmlDocument(targetFile, p);
+	}
+	
 	public static void loadXmlDocument(File f, LanguagePanel p1, LanguagePanel p2)
 		throws XmlLoadingException {
 		Document d = null;
@@ -151,12 +179,52 @@ public abstract class XmlHelper {
 		}
 		Node p1data = defs.item(0);
 		Node p2data = defs.item(1);
-		
-		p1.loadContentsFromXml(p1data);
-		p2.loadContentsFromXml(p2data);		
+
+		populateLanguagePanelFromXml(p1,p1data);
+		populateLanguagePanelFromXml(p2,p2data);
 	}
+	
+	private static void populateLanguagePanelFromXml(LanguagePanel panel, Node xml) {
+		// Set the title
+		String lang = xml.getAttributes().getNamedItem("language").getTextContent();
+		if(lang == null)
+			lang = "Lang1";
+		panel.setTitle(lang);
+		panel.getEntryList().removeAllElements();
+		
+		Vector<Node> ndl = XmlHelper.vectorifyNodeList(xml.getChildNodes());
+		
+		// Process each entry.
+		for(Node x : ndl) {
+			String term = null;
+			String definition = null;
+			if(x.getNodeName()=="entry") {
+				// Okay, we found <entry>, so we find <term> and <definition> children.
+				Vector<Node> c = XmlHelper.vectorifyNodeList(x.getChildNodes());
+				for(Node y : c) {
+					if(y.getNodeName() == "term") {
+						term = y.getTextContent();
+					}
+					if(y.getNodeName() == "definition") {
+						definition = y.getTextContent();
+					}
+				}
+				// If we found both, it's time to stick them into our list. 
+				if(term != null && definition != null) {
+					Entry e = new Entry(term, definition);
+					panel.getEntryList().addElement(e);
+				}
+			}
+		}
+		
+		// Last tidy-ups.
+		panel.getEntryList().sort();
+		panel.setModified(false);		
+	}
+	
+	
 	/**
-	 * STUPID WORKAROUND for Java bogosity: Convert NodeList into Vector<Node>. 
+	 * FIXME: STUPID WORKAROUND for Java bogosity: Convert NodeList into Vector<Node>. 
 	 * 
 	 * @param list a NodeList.
 	 * @return a vector of Nodes

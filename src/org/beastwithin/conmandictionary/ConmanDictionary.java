@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 8 2006-09-28 11:18:23Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 11 2006-12-02 15:27:57Z wwwwolf $  
  */
 
 
@@ -25,7 +25,6 @@ package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
 import java.io.File;
-import org.w3c.dom.Node;
 
 /**
  * This is the main class of the program.
@@ -48,7 +47,6 @@ public class ConmanDictionary {
 			this.args = args;
 		}
 		public void run() {
-			XmlHelper.bringUpXmlFactories();
 			mainWin = new ConmanDictionaryMainWindow();    		
 			mainWin.setVisible(true);
 			if(args.length == 1) {
@@ -156,7 +154,7 @@ public class ConmanDictionary {
 			XmlHelper.loadXmlDocument(currentFile,
 					mainWin.getLeftLanguagePanel(),
 					mainWin.getRightLanguagePanel());
-		} catch (XmlLoadingException e) {
+		} catch (XmlHelper.XmlLoadingException e) {
 			JOptionPane.showMessageDialog(
 					mainWin,
 					e.getMessage(),
@@ -169,11 +167,11 @@ public class ConmanDictionary {
 
 	private static void doSave() {		
 		try {
-			Node x[] = { mainWin.getLeftLanguagePanel().toXmlElement().getFirstChild(),
-	                mainWin.getRightLanguagePanel().toXmlElement().getFirstChild() };
-			XmlHelper.saveCurrentXmlDocument(currentFile,x);
+			XmlHelper.saveCurrentXmlDocument(currentFile,
+					mainWin.getLeftLanguagePanel(),
+					mainWin.getRightLanguagePanel());
 			mainWin.changesHaveBeenSaved();
-		} catch (XmlSavingException e) {
+		} catch (XmlHelper.XmlSavingException e) {
 			JOptionPane.showMessageDialog(
 					mainWin,
 					e.getMessage(),

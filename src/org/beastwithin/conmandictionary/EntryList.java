@@ -17,14 +17,13 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: EntryList.java 6 2006-09-28 08:36:23Z wwwwolf $
+ *  $Id: EntryList.java 11 2006-12-02 15:27:57Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
 import java.util.*;
-import org.w3c.dom.*;
 
 
 public class EntryList extends DefaultListModel {
@@ -47,17 +46,5 @@ public class EntryList extends DefaultListModel {
 		for(int i = 0; i < a.length; i++) {
 			this.addElement(a[i]);
 		}
-	}
-	public DocumentFragment toXmlElement() {
-		DocumentFragment doc = XmlHelper.createXmlDocumentFragment();
-		
-		Element root = XmlHelper.createXmlElement("definitions");
-		root.setAttribute("language",this.language);
-		for(int i = 0; i < this.size(); i++) {
-			Node e = ((Entry)this.getElementAt(i)).toXmlElement().getFirstChild();
-			root.appendChild(e);
-		}
-		doc.appendChild(root);
-		return doc;
 	}
 }

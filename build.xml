@@ -17,7 +17,7 @@
      along with this program; if not, write to the Free Software
      Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-     $Id: build.xml 6 2006-09-28 08:36:23Z wwwwolf $
+     $Id: build.xml 11 2006-12-02 15:27:57Z wwwwolf $
      ====================================================================== -->
 <project name="ConmanDictionary" default="default">
     <description>
@@ -28,8 +28,9 @@
 	<property name="build"	location="bin"    />
 	<property name="dist"	location="dist"   />
 	<property name="apidoc" location="apidoc" />
+	<property name="jar"	location="conmandictionary.jar" />
 
-    <target name="default" depends="build" />
+    <target name="default" depends="jar" />
 
     <target name="build">
     	<javac srcdir="${src}" destdir="${build}"/>
@@ -37,9 +38,18 @@
 	<target name="clean">
 		<delete dir="${build}/org"/>
 		<delete dir="${apidoc}" />
+		<delete file="${jar}" />
 	</target>
 	<target name="doxygen">
 		<exec executable="doxygen" />
+	</target>
+	<target name="jar" depends="build">
+		<jar
+			destfile="${jar}" 
+			basedir="${build}"
+			manifest="MANIFEST.stub"
+			includes="**/*.class"
+		/>
 	</target>
 </project>
 

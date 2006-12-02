@@ -17,12 +17,11 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: Entry.java 7 2006-09-28 11:09:53Z wwwwolf $
+ *  $Id: Entry.java 11 2006-12-02 15:27:57Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
 
-import org.w3c.dom.*;
 import java.io.*;
 
 /**
@@ -71,24 +70,7 @@ public class Entry implements Comparable<Entry>, Serializable {
 			def = this.definition.substring(0,29) +  "...";
 		return this.term + ": " + def;
 	}
-	
-	public DocumentFragment toXmlElement() {
-		DocumentFragment doc = XmlHelper.createXmlDocumentFragment();
-		Element root = XmlHelper.createXmlElement("entry");
-		doc.appendChild(root);
 		
-		Element term = XmlHelper.createXmlElement("term");
-		term.setTextContent(this.term);
-		Element definition = XmlHelper.createXmlElement("definition");
-		definition.setTextContent(this.definition);
-		
-		root.appendChild(term);
-		root.appendChild(definition);
-		doc.appendChild(root);
-		
-		return doc;
-	}
-	
 	public int compareTo(Entry x) {
 		return (this.getTerm().compareTo(x.getTerm()));
 	}

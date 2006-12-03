@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 13 2006-12-03 13:35:28Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 14 2006-12-03 16:45:00Z wwwwolf $  
  */
 
 
@@ -27,7 +27,7 @@ import javax.swing.*;
 import java.io.File;
 
 /**
- * This is the main class of the program.
+ * Main class of the program.
  * 
  * @author wwwwolf
  */
@@ -90,7 +90,7 @@ public class ConmanDictionary {
 	}
 	
 	/**
-	 * This is used to get the main window that the application uses.
+	 * Used to get the main window that the application uses.
 	 * 
 	 * @return the application main window object.
 	 */
@@ -107,7 +107,8 @@ public class ConmanDictionary {
 			int resp = JOptionPane.showConfirmDialog(mainWin,
 					"There are unsaved changes.\nReally quit?",
 					"Really quit?",
-					JOptionPane.YES_NO_OPTION);
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE);
 			if(resp != 0)
 				return;
 		}
@@ -164,6 +165,11 @@ public class ConmanDictionary {
 		currentFile = fc.getSelectedFile();
 		doOpen();
 	}
+	
+	/**
+	 * The actual method that opens the file. Set currentFile
+	 * before calling this.
+	 */
 	private static void doOpen() {
 		try {
 			XmlHelper.loadXmlDocument(currentFile,
@@ -181,6 +187,10 @@ public class ConmanDictionary {
 		setAppTitle(currentFile);
 	}
 
+	/**
+	 * The actual method that saves the file. Set currentFile
+	 * before calling this.
+	 */
 	private static void doSave() {		
 		try {
 			XmlHelper.saveCurrentXmlDocument(currentFile,
@@ -200,7 +210,8 @@ public class ConmanDictionary {
 	}
 	
 	/**
-	 * Saves dictionary file.
+	 * Saves dictionary file. Will call saveDictionaryAs() if the
+	 * currently edited file hasn't been saved before.
 	 */
 	public static void saveDictionary() {
 		// What's the file?

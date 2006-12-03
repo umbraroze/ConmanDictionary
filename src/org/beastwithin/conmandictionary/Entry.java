@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: Entry.java 11 2006-12-02 15:27:57Z wwwwolf $
+ *  $Id: Entry.java 14 2006-12-03 16:45:00Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -25,7 +25,7 @@ package org.beastwithin.conmandictionary;
 import java.io.*;
 
 /**
- * Describes an entry in the dictionary.
+ * An entry in the dictionary.
  * 
  * @author wwwwolf
  */

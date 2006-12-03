@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: LanguagePanel.java 11 2006-12-02 15:27:57Z wwwwolf $
+ *  $Id: LanguagePanel.java 14 2006-12-03 16:45:00Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -36,12 +36,16 @@ import javax.swing.event.*;
  */
 public class LanguagePanel extends JPanel {
 	/**
-	 * This thing listens to the events from buttons. This uses
-	 * "reflective" thing: Basically, it registers a link to its
-	 * parent object, and asks the parent object to handle the
-	 * event in question.
+	 * Listens to the events from buttons.
+	 *
+	 * This will keep a reference to its parent.
+	 * FIXME: Will this create a non-GCable circular reference? 
+	 * FIXME: Ridiculous name.
+	 *  
+	 * Usage:
+	 * this.actionListener = new LanguagePanelActionListener(this);
 	 */
-	class LanguagePanelActionListener implements ActionListener {
+	private class LanguagePanelActionListener implements ActionListener {
 		private LanguagePanel parent;
 		public LanguagePanelActionListener(LanguagePanel parent) {
 			this.parent = parent;
@@ -61,17 +65,22 @@ public class LanguagePanel extends JPanel {
 	}
 
 	/**
-	 * This thing listens to the list selections. This uses
-	 * "reflective" thing: Basically, it registers a link to its
-	 * parent object, and asks the parent object to handle the
-	 * event in question.
+	 * Listens to the list selections.
+	 * 
+	 * This will keep a reference to its parent.
+	 * FIXME: Will this create a non-GCable circular reference?
+	 * FIXME: Ridiculous name. 
+	 * 
+	 * Usage:
+	 * this.listSelectionListener = new LanguagePanelListSelectionListener(this);
 	 */
-	class LanguagePanelListSelectionListener implements ListSelectionListener {
+	private class LanguagePanelListSelectionListener implements ListSelectionListener {
 		private LanguagePanel parent;
 		public LanguagePanelListSelectionListener(LanguagePanel parent) {
 			this.parent = parent;
 		}
 		public void valueChanged(ListSelectionEvent e) {
+			System.err.printf(e.toString());
 			if(!e.getValueIsAdjusting()) {	
 				this.parent.pickedListItemForEditing();
 			}
@@ -82,7 +91,7 @@ public class LanguagePanel extends JPanel {
 	
 	private boolean modified;
 	
-	private JLabel title;
+	private JLabel languageLabel;
 	private EntryList entryList;
 	private JList definitionList;
 	private JTextField definitionTerm;
@@ -91,7 +100,12 @@ public class LanguagePanel extends JPanel {
 	private LanguagePanelActionListener actionListener;
 	private LanguagePanelListSelectionListener listSelectionListener;
 	
-	public LanguagePanel(String title) {
+	/**
+	 * Constructs the UI.
+	 * 
+	 * @param language Desired language.
+	 */
+	public LanguagePanel(String language) {
 		super();
 		
 		// Listens to the events
@@ -102,12 +116,12 @@ public class LanguagePanel extends JPanel {
 		this.setLayout(l);
 		
 		// Text that says what we're doing
-		this.title = new JLabel(title);
-		this.add(this.title);
+		this.languageLabel = new JLabel(language);
+		this.add(this.languageLabel);
 
 		// Empty list.
 		entryList = new EntryList();
-		entryList.setLanguage(title);
+		entryList.setLanguage(language);
 		
 		// Our list of definitions
 		this.definitionList = new JList(entryList);
@@ -152,14 +166,27 @@ public class LanguagePanel extends JPanel {
 		this.modified = false;
 	}
 
-	public void setTitle(String title) {
-		this.title.setText(title);
-		entryList.setLanguage(title);
+	/**
+	 * Sets the list language.
+	 * @param language Language.
+	 */
+	public void setLanguage(String language) {
+		this.languageLabel.setText(language);
+		entryList.setLanguage(language);
 	}
-	public String getTitle() {
-		return this.title.getText();
+	/**
+	 * Gets the list language.
+	 * @return Language.
+	 */
+	public String getLanguage() {
+		return this.languageLabel.getText();
 	}
 	
+	/**
+	 * Called when a list item is picked for editing by
+	 * LanguagePanelListSelectionListener. 
+	 *
+	 */
 	private void pickedListItemForEditing() {
 		int idx = this.definitionList.getSelectedIndex(); 
 		if(idx == -1)
@@ -167,15 +194,26 @@ public class LanguagePanel extends JPanel {
 		Entry e = (Entry) entryList.getElementAt(idx);
 		this.editEntry(e);
 	}
+	/**
+	 * Fills the editor with the details from the specified editor.
+	 * 
+	 * @param e Entry to be edited.
+	 */
 	private void editEntry(Entry e) {
 		this.definitionTerm.setText(e.getTerm());
 		this.definitionEditor.setText(e.getDefinition());
 	}
+	/**
+	 * Clears the editor.
+	 */
 	private void clearEntries() {
 		this.definitionTerm.setText("");
 		this.definitionEditor.setText("");
 	}
 
+	/**
+	 * Adds the values in the editor as a new entry in the list.
+	 */
 	public void addDefinition() {
 		String term = this.definitionTerm.getText();
 		String definition = this.definitionEditor.getText();
@@ -186,6 +224,9 @@ public class LanguagePanel extends JPanel {
 		this.entryList.sort();
 		this.modified = true;
 	}
+	/**
+	 * Deletes the selected entry.
+	 */
 	public void deleteSelected() {
 		// TODO: Confirmation dialog!
 		int idx = this.definitionList.getSelectedIndex(); 
@@ -196,6 +237,9 @@ public class LanguagePanel extends JPanel {
 		clearEntries();
 		this.modified = true;
 	}
+	/**
+	 * Update the selected item with the new details from the editor.
+	 */
 	public void modifySelected() {
 		int idx = this.definitionList.getSelectedIndex(); 
 		if(idx == -1)
@@ -208,16 +252,31 @@ public class LanguagePanel extends JPanel {
 		this.modified = true;
 	}	
 	
+	/**
+	 * Returns the list of entries.
+	 * @return The entry list.
+	 */
 	public EntryList getEntryList() {
 		return entryList;
 	}
 	
+	/**
+	 * Is this list modified?
+	 * @return Modified?
+	 */
 	public boolean getModified() {
 		return this.modified;
 	}
+	/**
+	 * Sets whether this list is modified.
+	 * @param modified Modified?
+	 */
 	public void setModified(boolean modified) {
 		this.modified = modified;
 	}
+	/**
+	 * Clear all entries in this list.
+	 */
 	public void clearList() {
 		this.entryList.removeAllElements();
 		this.modified = false;

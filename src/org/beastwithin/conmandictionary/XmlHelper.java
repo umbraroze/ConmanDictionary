@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: XmlHelper.java 11 2006-12-02 15:27:57Z wwwwolf $
+ *  $Id: XmlHelper.java 14 2006-12-03 16:45:00Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -33,20 +33,32 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 /**
- * This class has helper methods that assist in parsing and generating
+ * Helper methods that assist in parsing and generating
  * the XML files.
  * 
- * TODO: This code is *severely* ugly.
+ * FIXME: This class has baby-Java. Basically, there *has* to be a
+ * more beautiful way of doing this. It would be neat if the classes
+ * themselves would return an XML fragment that would then be collected
+ * by this helper thing. org.w3c.dom.*, however, is strict about wanting
+ * the small fragments to belong to a specific document instance, etc.
+ * Should investigate using the XMLEncoder / XMLDecoder classes in Java
+ * library instead of rolling our own XML format. 
  * 
  * @author wwwwolf
  */
 public abstract class XmlHelper {
+	/**
+	 * Exception generated when an error occurs while loading an XML file.
+	 */
 	public static class XmlLoadingException extends Exception {
 		static final long serialVersionUID = 1;
 		public XmlLoadingException(String message) {
 			super(message);
 		}
 	}
+	/**
+	 * Exception generated when an error occurs while saving an XML file.
+	 */
 	public static class XmlSavingException extends Exception {
 		static final long serialVersionUID = 1;
 		public XmlSavingException(String message) {
@@ -54,6 +66,13 @@ public abstract class XmlHelper {
 		}
 	}
 
+	/**
+	 * Store the language panels to an XML document.
+	 * 
+	 * @param targetFile Where the file is saved.
+	 * @param dictionaries Dictionaries to save to the file.
+	 * @throws XmlSavingException
+	 */
 	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel dictionaries[])
 		throws XmlSavingException {
 		
@@ -139,13 +158,29 @@ public abstract class XmlHelper {
 		}
 	}
 
+	/**
+	 * Store the language panels to an XML document.
+	 * 
+	 * @param targetFile Where the file is saved.
+	 * @param p1 First panel to save
+	 * @param p2 Second panel to save
+	 * @throws XmlSavingException
+	 */
 	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2)
 	throws XmlSavingException {
 		LanguagePanel p[] = {p1, p2}; 
 		saveCurrentXmlDocument(targetFile, p);
 	}
 	
-	public static void loadXmlDocument(File f, LanguagePanel p1, LanguagePanel p2)
+	/**
+	 * Loads the content of language panels from an XML file.
+	 *  
+	 * @param targetFile File to load the panels from
+	 * @param p1 Left panel.
+	 * @param p2 Right panel.
+	 * @throws XmlLoadingException
+	 */
+	public static void loadXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2)
 		throws XmlLoadingException {
 		Document d = null;
 		DocumentBuilder b = null;
@@ -153,7 +188,7 @@ public abstract class XmlHelper {
 		
 		try {
 			b = dbf.newDocumentBuilder();
-			d = b.parse(f);
+			d = b.parse(targetFile);
 		} catch(ParserConfigurationException pce) {
 			pce.printStackTrace();
 			throw new XmlLoadingException("Internal error:\n"+
@@ -161,21 +196,21 @@ public abstract class XmlHelper {
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 			throw new XmlLoadingException("Can't open the file "+
-					f.toString() + "\n\n" + ioe.getMessage());
+					targetFile.toString() + "\n\n" + ioe.getMessage());
 		} catch(SAXException saxe) {
 			saxe.printStackTrace();
 			throw new XmlLoadingException("Can't parse the file "+
-					f.toString() + "\nThe file contains invalid XML markup.\n\n" +
+					targetFile.toString() + "\nThe file contains invalid XML markup.\n\n" +
 					"Parser error message: " + saxe.getMessage());
 		}
 		NodeList defs = d.getElementsByTagName("definitions");
 		if(defs.getLength() < 2) {
 			throw new XmlLoadingException("Can't open the file "+
-					f.toString() + "\nThis file has less than 2 dictionary lists.\n");
+					targetFile.toString() + "\nThis file has less than 2 dictionary lists.\n");
 		}
 		if(defs.getLength() > 2) {
 			throw new XmlLoadingException("Can't open the file "+
-					f.toString() + "\nThis file has more than 2 dictionary lists.\n");
+					targetFile.toString() + "\nThis file has more than 2 dictionary lists.\n");
 		}
 		Node p1data = defs.item(0);
 		Node p2data = defs.item(1);
@@ -184,12 +219,18 @@ public abstract class XmlHelper {
 		populateLanguagePanelFromXml(p2,p2data);
 	}
 	
+	/**
+	 * Processes the XML and populates a LanguagePanel.
+	 * 
+	 * @param panel The panel to populate.
+	 * @param xml XML <definitions> list.
+	 */
 	private static void populateLanguagePanelFromXml(LanguagePanel panel, Node xml) {
 		// Set the title
 		String lang = xml.getAttributes().getNamedItem("language").getTextContent();
 		if(lang == null)
 			lang = "Lang1";
-		panel.setTitle(lang);
+		panel.setLanguage(lang);
 		panel.getEntryList().removeAllElements();
 		
 		Vector<Node> ndl = XmlHelper.vectorifyNodeList(xml.getChildNodes());
@@ -224,7 +265,11 @@ public abstract class XmlHelper {
 	
 	
 	/**
-	 * FIXME: STUPID WORKAROUND for Java bogosity: Convert NodeList into Vector<Node>. 
+	 * Convert NodeList into Vector<Node>.
+	 * 
+	 * FIXME: STUPID WORKAROUND for Java ugliness. Should be ditched
+	 * once Java actually has a beautiful XML API, or when I finally
+	 * figure out how the hell to use the existing API in a non-ugly way. 
 	 * 
 	 * @param list a NodeList.
 	 * @return a vector of Nodes

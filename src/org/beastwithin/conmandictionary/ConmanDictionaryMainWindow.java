@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionaryMainWindow.java 7 2006-09-28 11:09:53Z wwwwolf $ 
+ *  $Id: ConmanDictionaryMainWindow.java 14 2006-12-03 16:45:00Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
@@ -27,7 +27,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * This class represents the dictionary window.
+ * The main dictionary window of the application.
  * 
  * @author wwwwolf
  */

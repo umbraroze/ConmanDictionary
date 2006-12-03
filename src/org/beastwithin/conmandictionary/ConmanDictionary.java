@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 11 2006-12-02 15:27:57Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 13 2006-12-03 13:35:28Z wwwwolf $  
  */
 
 
@@ -36,7 +36,7 @@ public class ConmanDictionary {
 	public final static String APP_NAME = "Conman's Dictionary";
 	///Application version.
 	public final static String APP_VERSION = "version 0.9";
-	
+		
 	/**
 	 * The main program thread. Fired up by the Swing runner utility.
 	 */
@@ -54,6 +54,20 @@ public class ConmanDictionary {
 				doOpen();
 			}
 		}
+	}
+	
+	/**
+	 * Utility method to set the application title.
+	 * Uses "/file/name - Appname" format. Use null or file
+	 * name with just "" to set to "Appname".
+	 * 
+	 * @param currentlyOpenFile The file currently opened.
+	 */
+	public static void setAppTitle(File currentlyOpenFile) {
+		if(currentlyOpenFile == null || currentlyOpenFile.toString() == "")
+			mainWin.setTitle(APP_NAME);
+		else
+			mainWin.setTitle(currentlyOpenFile.toString() + " - " + APP_NAME);
 	}
 	
 	/**
@@ -126,6 +140,7 @@ public class ConmanDictionary {
 		mainWin.getLeftLanguagePanel().clearList();
 		mainWin.getRightLanguagePanel().clearList();
 		currentFile = null;
+		setAppTitle(null);
 	}
 	
 	/**
@@ -162,7 +177,8 @@ public class ConmanDictionary {
 					JOptionPane.ERROR_MESSAGE
 				);
 			e.printStackTrace();			
-		}		
+		}
+		setAppTitle(currentFile);
 	}
 
 	private static void doSave() {		
@@ -180,6 +196,7 @@ public class ConmanDictionary {
 				);
 			e.printStackTrace();
 		}
+		setAppTitle(currentFile);
 	}
 	
 	/**

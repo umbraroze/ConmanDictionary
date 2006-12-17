@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionary.java 14 2006-12-03 16:45:00Z wwwwolf $  
+ *  $Id: ConmanDictionary.java 15 2006-12-17 12:19:54Z wwwwolf $  
  */
 
 
@@ -47,7 +47,7 @@ public class ConmanDictionary {
 			this.args = args;
 		}
 		public void run() {
-			mainWin = new ConmanDictionaryMainWindow();    		
+			mainWin = new MainWindow();    		
 			mainWin.setVisible(true);
 			if(args.length == 1) {
 				currentFile = new File(args[0]);
@@ -73,7 +73,7 @@ public class ConmanDictionary {
 	/**
 	 * Main window.
 	 */
-	private static ConmanDictionaryMainWindow mainWin = null;
+	private static MainWindow mainWin = null;
 	
 	/**
 	 * Currently open file.
@@ -94,7 +94,7 @@ public class ConmanDictionary {
 	 * 
 	 * @return the application main window object.
 	 */
-	public static ConmanDictionaryMainWindow getMainWindow() {
+	public static MainWindow getMainWindow() {
 		return mainWin;
 	}
 	

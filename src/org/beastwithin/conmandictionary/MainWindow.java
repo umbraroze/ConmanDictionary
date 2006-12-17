@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: ConmanDictionaryMainWindow.java 14 2006-12-03 16:45:00Z wwwwolf $ 
+ *  $Id: MainWindow.java 15 2006-12-17 12:19:54Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
@@ -31,7 +31,7 @@ import java.awt.event.*;
  * 
  * @author wwwwolf
  */
-public class ConmanDictionaryMainWindow extends JFrame {
+public class MainWindow extends JFrame {
 	/**
 	 * Menu listener for the main window.
 	 */
@@ -141,7 +141,7 @@ public class ConmanDictionaryMainWindow extends JFrame {
 	/**
 	 * Creates the main window.
 	 */
-	public ConmanDictionaryMainWindow() {
+	public MainWindow() {
 		super();
 
 		this.setTitle(ConmanDictionary.APP_NAME);

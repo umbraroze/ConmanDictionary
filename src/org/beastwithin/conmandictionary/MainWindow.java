@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: MainWindow.java 15 2006-12-17 12:19:54Z wwwwolf $ 
+ *  $Id: MainWindow.java 16 2006-12-18 15:40:34Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
@@ -31,31 +31,7 @@ import java.awt.event.*;
  * 
  * @author wwwwolf
  */
-public class MainWindow extends JFrame {
-	/**
-	 * Menu listener for the main window.
-	 */
-	private class MainWindowMenuListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String c = e.getActionCommand();
-			if(c == "file-quit") {
-				ConmanDictionary.quit();
-			} else if(c == "file-new") {
-				ConmanDictionary.newDictionary();
-			} else if(c == "file-open") {
-				ConmanDictionary.openDictionary();
-			} else if(c == "file-save") {
-				ConmanDictionary.saveDictionary();
-			} else if(c == "file-save-as") {
-				ConmanDictionary.saveDictionaryAs();
-			} else if(c == "settings-languagenames") {
-				ConmanDictionary.setLanguageNames();
-			} else if(c == "help-about") {
-				ConmanDictionary.showAboutDialog();
-			}
-		}
-	}
-		
+public class MainWindow extends JFrame {		
 	static final long serialVersionUID = 1; 
 	
 	/// The left-side panel showing dictionary entries.
@@ -68,7 +44,26 @@ public class MainWindow extends JFrame {
 	 */
 	private void constructMenuBar() {
 		JMenuItem mi;
-		MainWindowMenuListener ml = new MainWindowMenuListener();
+		ActionListener ml = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String c = e.getActionCommand();
+				if(c == "file-quit") {
+					ConmanDictionary.quit();
+				} else if(c == "file-new") {
+					ConmanDictionary.newDictionary();
+				} else if(c == "file-open") {
+					ConmanDictionary.openDictionary();
+				} else if(c == "file-save") {
+					ConmanDictionary.saveDictionary();
+				} else if(c == "file-save-as") {
+					ConmanDictionary.saveDictionaryAs();
+				} else if(c == "settings-languagenames") {
+					ConmanDictionary.setLanguageNames();
+				} else if(c == "help-about") {
+					ConmanDictionary.showAboutDialog();
+				}
+			}			
+		};
 		
 		JMenuBar mb = new JMenuBar();
 		

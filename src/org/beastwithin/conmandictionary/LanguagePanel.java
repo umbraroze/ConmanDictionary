@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: LanguagePanel.java 14 2006-12-03 16:45:00Z wwwwolf $
+ *  $Id: LanguagePanel.java 16 2006-12-18 15:40:34Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -35,58 +35,6 @@ import javax.swing.event.*;
  * @author wwwwolf
  */
 public class LanguagePanel extends JPanel {
-	/**
-	 * Listens to the events from buttons.
-	 *
-	 * This will keep a reference to its parent.
-	 * FIXME: Will this create a non-GCable circular reference? 
-	 * FIXME: Ridiculous name.
-	 *  
-	 * Usage:
-	 * this.actionListener = new LanguagePanelActionListener(this);
-	 */
-	private class LanguagePanelActionListener implements ActionListener {
-		private LanguagePanel parent;
-		public LanguagePanelActionListener(LanguagePanel parent) {
-			this.parent = parent;
-		}
-		public void actionPerformed(ActionEvent e) {
-			//System.out.println("Event: " + e.getActionCommand());
-			if(e.getActionCommand() == "add") {
-				parent.addDefinition();
-			} else if(e.getActionCommand() == "delete") {
-				parent.deleteSelected();
-			} else if(e.getActionCommand() == "modify") {
-				parent.modifySelected();
-			} else {
-				System.err.println("WARNING: Unknown event " + e.getActionCommand());
-			}
-		}
-	}
-
-	/**
-	 * Listens to the list selections.
-	 * 
-	 * This will keep a reference to its parent.
-	 * FIXME: Will this create a non-GCable circular reference?
-	 * FIXME: Ridiculous name. 
-	 * 
-	 * Usage:
-	 * this.listSelectionListener = new LanguagePanelListSelectionListener(this);
-	 */
-	private class LanguagePanelListSelectionListener implements ListSelectionListener {
-		private LanguagePanel parent;
-		public LanguagePanelListSelectionListener(LanguagePanel parent) {
-			this.parent = parent;
-		}
-		public void valueChanged(ListSelectionEvent e) {
-			System.err.printf(e.toString());
-			if(!e.getValueIsAdjusting()) {	
-				this.parent.pickedListItemForEditing();
-			}
-		}
-	}
-	
 	static final long serialVersionUID = 1; 
 	
 	private boolean modified;
@@ -97,8 +45,15 @@ public class LanguagePanel extends JPanel {
 	private JTextField definitionTerm;
 	private JEditorPane definitionEditor;
 	
-	private LanguagePanelActionListener actionListener;
-	private LanguagePanelListSelectionListener listSelectionListener;
+	private ActionListener actionListener;
+	private ListSelectionListener listSelectionListener;
+	
+	/**
+	 * Constructs the UI, without specifying the laguage.
+	 */
+	public LanguagePanel() {
+		this(null);
+	}
 	
 	/**
 	 * Constructs the UI.
@@ -107,10 +62,30 @@ public class LanguagePanel extends JPanel {
 	 */
 	public LanguagePanel(String language) {
 		super();
+		final LanguagePanel selfRef = this;
 		
 		// Listens to the events
-		this.actionListener = new LanguagePanelActionListener(this);
-		this.listSelectionListener = new LanguagePanelListSelectionListener(this);
+		this.actionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("Event: " + e.getActionCommand());
+				if(e.getActionCommand() == "add") {
+					selfRef.addDefinition();
+				} else if(e.getActionCommand() == "delete") {
+					selfRef.deleteSelected();
+				} else if(e.getActionCommand() == "modify") {
+					selfRef.modifySelected();
+				} else {
+					System.err.println("WARNING: Unknown event " + e.getActionCommand());
+				}
+			}
+		};
+		
+		this.listSelectionListener = new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if(!e.getValueIsAdjusting())	
+					selfRef.pickedListItemForEditing();
+			}
+		};
 		
 		BoxLayout l = new BoxLayout(this,BoxLayout.PAGE_AXIS);
 		this.setLayout(l);

@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: LanguagePanel.java 17 2006-12-30 14:32:16Z wwwwolf $
+ *  $Id: LanguagePanel.java 18 2006-12-30 15:16:16Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -99,10 +99,10 @@ public class LanguagePanel extends JPanel {
 		searchBox = new SearchBox();
 		searchBox.addSearchBoxListener(new SearchBoxListener() {
 			public void searchBoxCleared() {
-				//System.out.println(this.hashCode() + " search cleared");
+				selfRef.clearListSelection();
 			}
 			public void searchBoxContentsChanged(String newContents) {
-				//System.out.println(this.hashCode() + " search typed: " + newContents);
+				searchForTerm(newContents);
 			}
 		});
 		this.add(searchBox);
@@ -122,10 +122,12 @@ public class LanguagePanel extends JPanel {
 		
 		// The name of the term we're editing.
 		this.definitionTerm = new JTextField();
+		this.definitionTerm.setToolTipText("Enter the term or word to be defined");
 		this.add(definitionTerm);
 		
 		// Editor for the definition.
 		this.definitionEditor = new JEditorPane();
+		this.definitionEditor.setToolTipText("Define the term or word here.");
 		JScrollPane defEditorScroll = new JScrollPane(definitionEditor);
 		defEditorScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		defEditorScroll.setPreferredSize(new Dimension(300,250));
@@ -137,16 +139,19 @@ public class LanguagePanel extends JPanel {
 		JButton addButton = new JButton("Add");
 		addButton.setActionCommand("add");
 		addButton.addActionListener(this.actionListener);
+		addButton.setToolTipText("Add the word or term being edited as a new entry.");
 		buts.add(addButton);
 		// Delete
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setActionCommand("delete");
 		deleteButton.addActionListener(this.actionListener);
+		deleteButton.setToolTipText("Delete the selected term.");
 		buts.add(deleteButton);
 		// Modify
 		JButton modifyButton = new JButton("Modify");
 		modifyButton.setActionCommand("modify");
 		modifyButton.addActionListener(this.actionListener);
+		modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
 		buts.add(modifyButton);
 		// ...and all buttons are done.
 		this.add(buts);
@@ -269,5 +274,16 @@ public class LanguagePanel extends JPanel {
 		this.entryList.removeAllElements();
 		this.modified = false;
 		this.clearEntries();
+	}
+	
+	public void searchForTerm(String term) {
+		Entry x = entryList.search(term);
+		if(x != null)
+			System.out.println("Found: " + x.getTerm());
+		this.definitionList.setSelectedValue(x, true);
+	}
+	public void clearListSelection() {
+		//FIXME: Should none be selected? How do I do that anyway?
+		//this.definitionList.setSelectedValue(null,false);
 	}
 }

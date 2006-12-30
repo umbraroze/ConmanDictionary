@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: SearchBox.java 17 2006-12-30 14:32:16Z wwwwolf $ 
+ *  $Id: SearchBox.java 18 2006-12-30 15:16:16Z wwwwolf $ 
  */
 
 
@@ -55,7 +55,9 @@ public class SearchBox extends JPanel {
 		clearButton = new JButton("Clear");
 		this.setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
 		search.setVisible(true);
+		search.setToolTipText("Enter search terms.");
 		clearButton.setVisible(true);
+		clearButton.setToolTipText("Forget the search.");
 		this.add(search); 
 		this.add(clearButton);
 		this.setVisible(true);

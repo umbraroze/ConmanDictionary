@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: EntryList.java 11 2006-12-02 15:27:57Z wwwwolf $
+ *  $Id: EntryList.java 18 2006-12-30 15:16:16Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -46,5 +46,19 @@ public class EntryList extends DefaultListModel {
 		for(int i = 0; i < a.length; i++) {
 			this.addElement(a[i]);
 		}
+	}
+	
+	public Entry search(String term) {
+		// FIXME: Linear search should be funny enough in this case,
+		// since the list is kept sorted and reasonably small...
+		
+		// FIXME: For some effin' reason, DefaultListModel isn't Iterable.
+		// for(Entry e : this) {	}		
+		for(int i = 0; i < this.size(); i++) {
+			Entry e = (Entry)this.elementAt(i); 
+			if(e.getTerm().contains(term)) 
+				return e;
+		}
+		return null;
 	}
 }

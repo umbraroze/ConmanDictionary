@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: MainWindow.java 17 2006-12-30 14:32:16Z wwwwolf $ 
+ *  $Id: MainWindow.java 18 2006-12-30 15:16:16Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
@@ -89,6 +89,12 @@ public class MainWindow extends JFrame {
 		mi.setAccelerator(KeyStroke.getKeyStroke("shift ctrl S"));
 		mi.addActionListener(ml);
 		fileMenu.add(mi);
+		mi = new JMenuItem("Export...",KeyEvent.VK_E);
+		mi.setActionCommand("file-export");
+		mi.setAccelerator(KeyStroke.getKeyStroke("ctrl E"));
+		mi.addActionListener(ml);
+		mi.setEnabled(false);
+		fileMenu.add(mi);
 		fileMenu.addSeparator();
 		mi = new JMenuItem("Quit",KeyEvent.VK_Q);
 		mi.setActionCommand("file-quit");
@@ -101,6 +107,7 @@ public class MainWindow extends JFrame {
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
 		mi = new JMenuItem("Language names...",KeyEvent.VK_N);
 		mi.setActionCommand("settings-languagenames");
+		mi.setEnabled(false);
 		mi.addActionListener(ml);
 		settingsMenu.add(mi);
 		mb.add(settingsMenu);
@@ -140,8 +147,21 @@ public class MainWindow extends JFrame {
 		super();
 
 		this.setTitle(ConmanDictionary.APP_NAME);
-		// We want to quit when this one's closed.
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// We want to use quit() to handle our quitting.
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowListener() {
+			public void windowClosing(WindowEvent e) {
+				ConmanDictionary.quit();
+			}
+
+			public void windowActivated(WindowEvent e) { }
+			public void windowClosed(WindowEvent e) { }
+			public void windowDeactivated(WindowEvent e) { }
+			public void windowDeiconified(WindowEvent e) { }
+			public void windowIconified(WindowEvent e) { }
+			public void windowOpened(WindowEvent e) { }
+		});
 
 		constructMenuBar();
 		constructContents();

@@ -1,4 +1,4 @@
-/*  ConmanDictionaryMainWindow.java: main window class.
+/*  MainWindow.java: main window class.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
  *  Copyright (C) 2006  Urpo Lankinen
@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: MainWindow.java 16 2006-12-18 15:40:34Z wwwwolf $ 
+ *  $Id: MainWindow.java 17 2006-12-30 14:32:16Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;

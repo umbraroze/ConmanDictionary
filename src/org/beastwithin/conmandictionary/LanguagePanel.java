@@ -17,7 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: LanguagePanel.java 16 2006-12-18 15:40:34Z wwwwolf $
+ *  $Id: LanguagePanel.java 17 2006-12-30 14:32:16Z wwwwolf $
  */
 
 package org.beastwithin.conmandictionary;
@@ -40,6 +40,7 @@ public class LanguagePanel extends JPanel {
 	private boolean modified;
 	
 	private JLabel languageLabel;
+	private SearchBox searchBox;
 	private EntryList entryList;
 	private JList definitionList;
 	private JTextField definitionTerm;
@@ -94,6 +95,18 @@ public class LanguagePanel extends JPanel {
 		this.languageLabel = new JLabel(language);
 		this.add(this.languageLabel);
 
+		// Search box
+		searchBox = new SearchBox();
+		searchBox.addSearchBoxListener(new SearchBoxListener() {
+			public void searchBoxCleared() {
+				//System.out.println(this.hashCode() + " search cleared");
+			}
+			public void searchBoxContentsChanged(String newContents) {
+				//System.out.println(this.hashCode() + " search typed: " + newContents);
+			}
+		});
+		this.add(searchBox);
+		
 		// Empty list.
 		entryList = new EntryList();
 		entryList.setLanguage(language);

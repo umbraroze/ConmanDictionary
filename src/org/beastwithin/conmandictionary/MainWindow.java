@@ -17,13 +17,14 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  *  
- *  $Id: MainWindow.java 18 2006-12-30 15:16:16Z wwwwolf $ 
+ *  $Id: MainWindow.java 19 2006-12-30 15:33:12Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.dnd.*;
 import java.awt.event.*;
 
 /**
@@ -145,6 +146,7 @@ public class MainWindow extends JFrame {
 	 */
 	public MainWindow() {
 		super();
+		final MainWindow selfRef = this; 
 
 		this.setTitle(ConmanDictionary.APP_NAME);
 
@@ -163,8 +165,24 @@ public class MainWindow extends JFrame {
 			public void windowOpened(WindowEvent e) { }
 		});
 
+		// Construct the window contents.
 		constructMenuBar();
 		constructContents();
+		
+		// Drag and drop. This isn't very useful yet, but you can apparently
+		// drop stuff on the window and it kind of registers it. Or would,
+		// if we'd not comment it out. 
+		
+		this.setDropTarget(new DropTarget(selfRef, new DropTargetListener() {
+			public void drop(DropTargetDropEvent dtde) {
+				//System.out.println(dtde.toString());
+			}
+
+			public void dragEnter(DropTargetDragEvent dtde) { }
+			public void dragExit(DropTargetEvent dte) { }
+			public void dragOver(DropTargetDragEvent dtde) { }
+			public void dropActionChanged(DropTargetDragEvent dtde) { }
+		}));
 	}
 
 	/**

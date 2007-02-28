@@ -16,8 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
- *  
- *  $Id: SearchBoxListener.java 17 2006-12-30 14:32:16Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;

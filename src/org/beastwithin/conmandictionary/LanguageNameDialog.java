@@ -16,8 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
- *  
- *  $Id: LanguageNameDialog.java 7 2006-09-28 11:09:53Z wwwwolf $ 
  */
 
 package org.beastwithin.conmandictionary;

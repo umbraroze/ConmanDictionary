@@ -21,7 +21,7 @@
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.event.*;
 
@@ -120,13 +120,16 @@ public class MainWindow extends JFrame {
 		mb.add(helpMenu);
 		
 		this.setJMenuBar(mb);
+		
 	}
 
 	/**
 	 * Constructs the contents of the application window.
 	 */
 	private void constructContents() {
-		JPanel mainWinContents = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+		JPanel mainWinContents = new JPanel();
+		BoxLayout l = new BoxLayout(mainWinContents,BoxLayout.X_AXIS);
+		mainWinContents.setLayout(l);
 		
 		leftLanguagePanel = new LanguagePanel("Lang1");
 		rightLanguagePanel = new LanguagePanel("Lang2");
@@ -173,7 +176,7 @@ public class MainWindow extends JFrame {
 		
 		this.setDropTarget(new DropTarget(selfRef, new DropTargetListener() {
 			public void drop(DropTargetDropEvent dtde) {
-				//System.out.println(dtde.toString());
+				System.out.println(dtde.toString());
 			}
 
 			public void dragEnter(DropTargetDragEvent dtde) { }

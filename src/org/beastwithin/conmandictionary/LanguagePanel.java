@@ -33,6 +33,9 @@ import javax.swing.event.*;
  * @author wwwwolf
  */
 public class LanguagePanel extends JPanel {
+	private final int NORMAL_WIDTH = 300;
+	private final int MAX_WIDTH = 300;
+	
 	static final long serialVersionUID = 1; 
 	
 	private boolean modified;
@@ -115,12 +118,17 @@ public class LanguagePanel extends JPanel {
 		this.definitionList.addListSelectionListener(listSelectionListener);
 		JScrollPane defListScroll = new JScrollPane(this.definitionList);
 		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		defListScroll.setPreferredSize(new Dimension(300,150));
+		defListScroll.setMinimumSize(new Dimension(NORMAL_WIDTH,100));
+		defListScroll.setPreferredSize(new Dimension(NORMAL_WIDTH,150));
+		defListScroll.setMaximumSize(new Dimension(MAX_WIDTH,600));
 		this.add(defListScroll);
 		
 		// The name of the term we're editing.
 		this.definitionTerm = new JTextField();
 		this.definitionTerm.setToolTipText("Enter the term or word to be defined");
+		definitionTerm.setMinimumSize(new Dimension(NORMAL_WIDTH,30));
+		definitionTerm.setPreferredSize(new Dimension(NORMAL_WIDTH,30));
+		definitionTerm.setMaximumSize(new Dimension(MAX_WIDTH,30));
 		this.add(definitionTerm);
 		
 		// Editor for the definition.
@@ -128,7 +136,9 @@ public class LanguagePanel extends JPanel {
 		this.definitionEditor.setToolTipText("Define the term or word here.");
 		JScrollPane defEditorScroll = new JScrollPane(definitionEditor);
 		defEditorScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		defEditorScroll.setPreferredSize(new Dimension(300,250));
+		defEditorScroll.setMinimumSize(new Dimension(NORMAL_WIDTH,250));
+		defEditorScroll.setPreferredSize(new Dimension(NORMAL_WIDTH,250));
+		defEditorScroll.setMaximumSize(new Dimension(MAX_WIDTH,600));
 		this.add(defEditorScroll);
 		
 		// Buttons to modify the selection

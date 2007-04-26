@@ -23,7 +23,7 @@ package org.beastwithin.conmandictionary;
 
 import java.util.*;
 import javax.swing.*;
-//import java.awt.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class SearchBox extends JPanel {
@@ -79,6 +79,9 @@ public class SearchBox extends JPanel {
 					notifySearchBoxChanged();				
 			}
 		});
+		this.setMinimumSize(new Dimension(200,30));
+		this.setPreferredSize(new Dimension(300,30));
+		this.setMaximumSize(new Dimension(300,30));
 	}
 	public void addSearchBoxListener(SearchBoxListener newListener) {
 		searchBoxListeners.add(newListener);

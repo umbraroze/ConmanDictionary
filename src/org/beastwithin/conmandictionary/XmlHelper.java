@@ -231,7 +231,7 @@ public abstract class XmlHelper {
 		panel.setLanguage(lang);
 		panel.getEntryList().removeAllElements();
 		
-		Vector<Node> ndl = XmlHelper.vectorifyNodeList(xml.getChildNodes());
+		ArrayList<Node> ndl = XmlHelper.convertNodeList(xml.getChildNodes());
 		
 		// Process each entry.
 		for(Node x : ndl) {
@@ -239,7 +239,7 @@ public abstract class XmlHelper {
 			String definition = null;
 			if(x.getNodeName()=="entry") {
 				// Okay, we found <entry>, so we find <term> and <definition> children.
-				Vector<Node> c = XmlHelper.vectorifyNodeList(x.getChildNodes());
+				ArrayList<Node> c = XmlHelper.convertNodeList(x.getChildNodes());
 				for(Node y : c) {
 					if(y.getNodeName() == "term") {
 						term = y.getTextContent();
@@ -260,10 +260,9 @@ public abstract class XmlHelper {
 		panel.getEntryList().sort();
 		panel.setModified(false);		
 	}
-	
-	
+
 	/**
-	 * Convert NodeList into Vector<Node>.
+	 * Convert NodeList into ArrayList<Node>.
 	 * 
 	 * FIXME: STUPID WORKAROUND for Java ugliness. Should be ditched
 	 * once Java actually has a beautiful XML API, or when I finally
@@ -272,8 +271,8 @@ public abstract class XmlHelper {
 	 * @param list a NodeList.
 	 * @return a vector of Nodes
 	 */
-	public static Vector<Node> vectorifyNodeList(NodeList list) {
-		Vector<Node> x = new Vector<Node>();
+	public static ArrayList<Node> convertNodeList(NodeList list) {
+		ArrayList<Node> x = new ArrayList<Node>();
 		for(int i = 0; i < list.getLength(); i++) {
 			x.add(list.item(i));
 		}

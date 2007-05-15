@@ -231,6 +231,16 @@ public class ConmanDictionary {
 		
 		doSave();
 	}
+	/**
+	 * Saves dictionary file with a picked name.
+	 */
+	public static void exportDictionaryAsDictd() {
+		final JFileChooser fc = new JFileChooser();
+		int ret = fc.showSaveDialog(mainWin);
+		if(ret != JFileChooser.APPROVE_OPTION)
+			return;		
+		ExportHelper.exportAsDictd(fc.getSelectedFile().getPath());
+	}
 	
 	/**
 	 * Shows dialog to set the names of the languages being edited.

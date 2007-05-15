@@ -56,6 +56,8 @@ public class MainWindow extends JFrame {
 					ConmanDictionary.saveDictionary();
 				} else if(c == "file-save-as") {
 					ConmanDictionary.saveDictionaryAs();
+				} else if(c == "file-export-dictd") {
+					ConmanDictionary.exportDictionaryAsDictd();
 				} else if(c == "settings-languagenames") {
 					ConmanDictionary.setLanguageNames();
 				} else if(c == "help-about") {
@@ -88,11 +90,11 @@ public class MainWindow extends JFrame {
 		mi.setAccelerator(KeyStroke.getKeyStroke("shift ctrl S"));
 		mi.addActionListener(ml);
 		fileMenu.add(mi);
-		mi = new JMenuItem("Export...",KeyEvent.VK_E);
-		mi.setActionCommand("file-export");
+		mi = new JMenuItem("Export to plain text...",KeyEvent.VK_E);
+		mi.setActionCommand("file-export-dictd");
 		mi.setAccelerator(KeyStroke.getKeyStroke("ctrl E"));
 		mi.addActionListener(ml);
-		mi.setEnabled(false);
+		//mi.setEnabled(false);
 		fileMenu.add(mi);
 		fileMenu.addSeparator();
 		mi = new JMenuItem("Quit",KeyEvent.VK_Q);

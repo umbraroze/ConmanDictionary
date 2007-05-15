@@ -21,6 +21,7 @@
 package org.beastwithin.conmandictionary;
 
 import java.io.*;
+import java.util.regex.*;
 
 /**
  * An entry in the dictionary.
@@ -67,6 +68,23 @@ public class Entry implements Comparable<Entry>, Serializable {
 		if(def.length() > 30)
 			def = this.definition.substring(0,29) +  "...";
 		return this.term + ": " + def;
+	}
+	/**
+	 * Deturns the dictionary entry as plain text (suitable for dictd
+	 * string builder tool). Headwords are in a line of their own,
+	 * the rest is indented with one TAB character. Entries separated
+	 * with a single empty line (which is included after the entry.
+	 * 
+	 * @return the string reporesentation
+	 */
+	public String toDictString() {		
+		StringBuffer s = new StringBuffer();
+		s.append(term);
+		s.append('\n');
+		s.append("");
+		s.append(Pattern.compile("^").matcher(definition).replaceAll("\t"));	
+		s.append('\n');
+		return s.toString();
 	}
 		
 	public int compareTo(Entry x) {

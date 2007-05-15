@@ -5,6 +5,14 @@ import javax.swing.*;
 
 
 public abstract class ExportHelper {
+	/**
+	 * Exports the dictionaries in dictd (plain text) format.
+	 * 
+	 * Needs fileNameBase; will use [filenamebase].[language].txt
+	 * for the two files.
+	 * 
+	 * @param fileNameBase the base file name.
+	 */
 	public static void exportAsDictd(String fileNameBase) {
 		LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();
 		LanguagePanel rp = ConmanDictionary.getMainWindow().getRightLanguagePanel();

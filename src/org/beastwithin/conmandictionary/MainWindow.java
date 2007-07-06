@@ -1,7 +1,7 @@
 /*  MainWindow.java: main window class.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006  Urpo Lankinen
+ *  Copyright (C) 2006,2007  Urpo Lankinen
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,7 +37,9 @@ public class MainWindow extends JFrame {
 	private LanguagePanel leftLanguagePanel;
 	/// The right-side panel showing dictionary entries.
 	private LanguagePanel rightLanguagePanel;
-
+	/// Notepad.
+	private NotePad notePad;
+	
 	/**
 	 * Constructs the menu bar for the application window.
 	 */
@@ -58,10 +60,14 @@ public class MainWindow extends JFrame {
 					ConmanDictionary.saveDictionaryAs();
 				} else if(c == "file-export-dictd") {
 					ConmanDictionary.exportDictionaryAsDictd();
+				} else if(c == "research-notepad") {
+					ConmanDictionary.showNotePad();
 				} else if(c == "settings-languagenames") {
 					ConmanDictionary.setLanguageNames();
 				} else if(c == "help-about") {
 					ConmanDictionary.showAboutDialog();
+				} else {
+					System.err.println("WARNING: Unhandled menu item " + c +".");
 				}
 			}			
 		};
@@ -103,6 +109,14 @@ public class MainWindow extends JFrame {
 		mi.addActionListener(ml);
 		fileMenu.add(mi);
 		mb.add(fileMenu);
+
+		JMenu researchMenu = new JMenu("Research");
+		researchMenu.setMnemonic(KeyEvent.VK_R);
+		mi = new JMenuItem("Notepad...",KeyEvent.VK_N);
+		mi.setActionCommand("research-notepad");
+		mi.addActionListener(ml);
+		researchMenu.add(mi);
+		mb.add(researchMenu);
 		
 		JMenu settingsMenu = new JMenu("Settings");
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
@@ -186,6 +200,9 @@ public class MainWindow extends JFrame {
 			public void dragOver(DropTargetDragEvent dtde) { }
 			public void dropActionChanged(DropTargetDragEvent dtde) { }
 		}));
+		
+		// We want a notepad too.
+		notePad = new NotePad(); 
 	}
 
 	/**
@@ -208,4 +225,9 @@ public class MainWindow extends JFrame {
 		this.leftLanguagePanel.setModified(false);
 		this.rightLanguagePanel.setModified(false);
 	}
+	
+	public void showNotePad() {
+		notePad.setVisible(true);
+	}
+	
 }

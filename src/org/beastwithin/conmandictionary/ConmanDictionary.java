@@ -252,7 +252,10 @@ public class ConmanDictionary {
 		System.err.println("Ln1: " + ld.getLanguage1() + "\n" +
 				"Ln2: " + ld.getLanguage2());
 	}
-	
+	public static void showNotePad() {
+		mainWin.showNotePad();
+	}
+
 	/**
 	 * Shows "About this application" dialog.
 	 */
@@ -260,7 +263,7 @@ public class ConmanDictionary {
 		String appAboutString =
 			APP_NAME + "\n" +
 			APP_VERSION +
-			"\nCopyright © Urpo Lankinen 2006\n\n" +
+			"\nCopyright \u00a9 Urpo Lankinen 2006,2007\n\n" +
 			APP_NAME + " comes with ABSOLUTELY NO WARRANTY.\n\n" +
 			"This is free software, and you are welcome to redistribute it\n"+
 			"under the terms of GNU General Public Licence as published by\n"+
@@ -275,4 +278,5 @@ public class ConmanDictionary {
 				JOptionPane.INFORMATION_MESSAGE
 			);
 	}
+
 }

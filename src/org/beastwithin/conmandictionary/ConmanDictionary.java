@@ -246,12 +246,9 @@ public class ConmanDictionary {
 	/**
 	 * Shows dialog to set the names of the languages being edited.
 	 */
-	public static void setLanguageNames() {
-		LanguageNameDialog ld = new LanguageNameDialog(getMainWindow(),"foo","bar");
-		ld.setVisible(true);
-		
-		System.err.println("Ln1: " + ld.getLanguage1() + "\n" +
-				"Ln2: " + ld.getLanguage2());
+	public static void showLanguageNamesDialog() {
+		LanguageNameDialog ld = new LanguageNameDialog(getMainWindow());
+		ld.setVisible(true);		
 	}
 	/**
 	 * Shows the notepad dialog.

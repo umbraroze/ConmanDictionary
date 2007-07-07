@@ -19,40 +19,88 @@
 
 package org.beastwithin.conmandictionary;
 
-//import java.awt.event.*;
+import java.awt.event.*;
 import java.awt.*;
+
 import javax.swing.*;
 
 public class LanguageNameDialog extends JDialog {
 	static final long serialVersionUID = 1; 
-	private String language1;
-	private String language2;
+	private ActionListener actionListener;
+
+	private MainWindow mainWindow;
+	private JTextField langNameField1;
+	private JTextField langNameField2;
+
+	public void setLanguages() {
+		mainWindow.getLeftLanguagePanel().setLanguage(langNameField1.getText());
+		mainWindow.getRightLanguagePanel().setLanguage(langNameField2.getText());
+	}
+	public void close() {
+		this.dispose();
+		this.setVisible(false);
+	}
 	
-	public LanguageNameDialog(JFrame mainWindow, String language1, String language2) {
+	public LanguageNameDialog(MainWindow mainWindow) {
 		super(mainWindow);
-		this.language1 = language1;
-		this.language2 = language2;
+		System.err.println("Languages INIT");
+		final LanguageNameDialog selfRef = this;
 		this.setModal(true);
 		this.setTitle("Language names");
 		this.setPreferredSize(new Dimension(300,200));
 		this.setMinimumSize(new Dimension(300,200));
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-		BoxLayout l = new BoxLayout(this,BoxLayout.PAGE_AXIS);
-		this.getContentPane().setLayout(l);
+		this.actionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand() == "set") {
+					System.err.println("Languages SET");
+					selfRef.setLanguages();
+					selfRef.close();
+				} else if(e.getActionCommand() == "cancel") {
+					System.err.println("Languages CANCEL");
+					selfRef.close();
+				}
+			}
+		};
+		// Contents.
+		JPanel languageDialogContents = new JPanel();
+		BoxLayout l = new BoxLayout(languageDialogContents,BoxLayout.Y_AXIS);
+		languageDialogContents.setLayout(l);
+
+		langNameField1 = new JTextField();
+		langNameField2 = new JTextField();
+		langNameField1.setText(mainWindow.getLeftLanguagePanel().getLanguage());
+		langNameField2.setText(mainWindow.getRightLanguagePanel().getLanguage());
+
+		JPanel languageDialogFields = new JPanel();
+		GridLayout fl = new GridLayout(2,2);
+		languageDialogFields.setLayout(fl);
+		languageDialogFields.add(new JLabel("Language 1:"));
+		languageDialogFields.add(langNameField1);
+		languageDialogFields.add(new JLabel("Language 2:"));
+		languageDialogFields.add(langNameField2);		
+		languageDialogContents.add(languageDialogFields);
 		
-		this.getContentPane().add(new JLabel("Foo"));
-		this.getContentPane().add(new JLabel("Foo"));
-		this.getContentPane().add(new JLabel("Foo"));
+		languageDialogContents.add(new JSeparator(JSeparator.HORIZONTAL));
 		
+		JPanel buts = new JPanel(new FlowLayout());
+		JButton setButton = new JButton("Set");
+		setButton.setActionCommand("set");
+		setButton.addActionListener(this.actionListener);
+		setButton.setToolTipText("Set the languages.");
+		buts.add(setButton);
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setActionCommand("cancel");
+		cancelButton.addActionListener(this.actionListener);
+		cancelButton.setToolTipText("Close and don't set the languages.");
+		buts.add(cancelButton);
+
+		// ...and all buttons are done.	
+		languageDialogContents.add(buts);
+
+		this.getContentPane().add(languageDialogContents);		
 		this.pack();
 		this.setVisible(true);
-	}
-
-	public String getLanguage1() {
-		return language1;
-	}
-
-	public String getLanguage2() {
-		return language2;
 	}
 }

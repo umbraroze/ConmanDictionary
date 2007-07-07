@@ -171,6 +171,8 @@ public class LanguagePanel extends JPanel {
 	 * @param language Language.
 	 */
 	public void setLanguage(String language) {
+		if(entryList.getLanguage().compareTo(language) != 0)
+			this.modified = true;
 		this.languageLabel.setText(language);
 		entryList.setLanguage(language);
 	}

@@ -62,7 +62,7 @@ public class MainWindow extends JFrame {
 				} else if(c == "research-notepad") {
 					ConmanDictionary.showNotePad();
 				} else if(c == "settings-languagenames") {
-					ConmanDictionary.setLanguageNames();
+					ConmanDictionary.showLanguageNamesDialog();
 				} else if(c == "help-about") {
 					ConmanDictionary.showAboutDialog();
 				} else {
@@ -99,7 +99,6 @@ public class MainWindow extends JFrame {
 		mi.setActionCommand("file-export-dictd");
 		mi.setAccelerator(KeyStroke.getKeyStroke("ctrl E"));
 		mi.addActionListener(ml);
-		//mi.setEnabled(false);
 		fileMenu.add(mi);
 		fileMenu.addSeparator();
 		mi = new JMenuItem("Quit",KeyEvent.VK_Q);
@@ -121,7 +120,6 @@ public class MainWindow extends JFrame {
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
 		mi = new JMenuItem("Language names...",KeyEvent.VK_N);
 		mi.setActionCommand("settings-languagenames");
-		mi.setEnabled(false);
 		mi.addActionListener(ml);
 		settingsMenu.add(mi);
 		mb.add(settingsMenu);

@@ -23,15 +23,32 @@ import javax.swing.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = {
     "entry"
 })
 @XmlRootElement(name="definitions")
+/*
+ * TODO: THIS CLASS IS PROBABLY GIANTLY MASSIVELY NOT COOL.
+ * IT PROBABLY HAS TO BE REWRITTEN AND RETHOUGHT AND STUFF.
+ * IT'S PROBABLY UNSAFE AS HELL. (Why the HELL did I need
+ * to use "DefaultListModel" anyway??????? Swing is sometimes
+ * really damn scary. And stupid. Even if I like it.)
+ */
 public class EntryList extends DefaultListModel {
 	static final long serialVersionUID = 1;
 	@XmlAttribute
 	protected String language = "";
+	
+	@XmlElement(name="entry")
+	public List<Entry> getEntry() {
+		ArrayList<Entry> a = new ArrayList<Entry>();
+		Object b[] = this.toArray();
+		for(Object c : b) {
+			a.add((Entry)c);
+		}
+		return a;
+	}
 	
 	public void setLanguage(String title) {
 		this.language = title;

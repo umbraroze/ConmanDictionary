@@ -19,32 +19,56 @@
 
 package org.beastwithin.conmandictionary;
 
-import java.util.*;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "notepad",
+    "notePad",
     "definitions"
 })
-
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
-	@XmlElement(name="notepad", required=false)
-    protected NotePad notePad;
-    @XmlElement(name="definitions", required=true)
-    protected List<EntryList> definitions;
+	private class NotePadDocument {
+		protected String text;
+		public NotePadDocument() {
+			this.text = "";
+		}
+		public NotePadDocument(String s) {
+			this.text = s;
+		}
+		public void setText(String s) {
+			this.text = s;
+		}
+		public String getText() {
+			return text;
+		}
+	}
+	
+	@XmlTransient
+    private NotePadDocument notePad;
     
-    public void setNotePad(NotePad n) {
-    	this.notePad = n;
+    @XmlElement(name="definitions", required=true)
+    protected EntryList[] definitions;
+      
+    public Dictionary() {
+    	this.notePad = new NotePadDocument();
+    	this.definitions = new EntryList[2];
+    	this.definitions[0] = new EntryList();
+    	this.definitions[1] = new EntryList();
     }
+
+    @XmlElement(name="notepad", required=false, type=String.class)
     public void setNotePad(String n) {
-    	this.notePad = new NotePad();
-    	this.notePad.setText(n);
+    	this.notePad = new NotePadDocument(n);
     }
-    public List<EntryList> getDefinitions() {
+    public String getNotePad() {
+    	return this.notePad.getText();
+    }
+    public EntryList[] getDefinitions() {
         if (definitions == null) {
-            definitions = new ArrayList<EntryList>();
+            definitions = new EntryList[2];
+        	definitions[0] = new EntryList();
+        	definitions[1] = new EntryList();
         }
         return this.definitions;
     }

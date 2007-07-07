@@ -21,17 +21,26 @@ package org.beastwithin.conmandictionary;
 
 import java.io.*;
 import java.util.regex.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * An entry in the dictionary.
  * 
  * @author wwwwolf
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "term",
+    "definition"
+})
+@XmlRootElement(name="entry")
 public class Entry implements Comparable<Entry>, Serializable {
 	public static final long serialVersionUID = 1; 
 	
-	private String term = "";
-	private String definition = "";
+	@XmlElement(required=true)
+	protected String term = "";
+	@XmlElement(required=true)
+	protected String definition = "";
 	
 	public Entry() {
 		this.term = "";

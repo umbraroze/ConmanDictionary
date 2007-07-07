@@ -21,11 +21,17 @@ package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
 import java.util.*;
+import javax.xml.bind.annotation.*;
 
-
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "entry"
+})
+@XmlRootElement(name="definitions")
 public class EntryList extends DefaultListModel {
 	static final long serialVersionUID = 1;
-	private String language = "";
+	@XmlAttribute
+	protected String language = "";
 	
 	public void setLanguage(String title) {
 		this.language = title;

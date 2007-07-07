@@ -79,10 +79,16 @@ public class NotePad extends JDialog {
 		this.add(notePadContents);
 		this.pack();
 	}
+	public NotePad() {
+		this(null);
+	}
 	public String getText() {
 		return editor.getText();
 	}
 	public void setText(String text) {
 		editor.setText(text);
+	}
+	public String toString() {
+		return editor.getText();
 	}
 }

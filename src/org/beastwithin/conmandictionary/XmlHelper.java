@@ -114,7 +114,7 @@ public abstract class XmlHelper {
 			
 			for(int elementCount = 0; elementCount < el.size(); elementCount++) {
 				// And add elements to them.
-				Entry entry = (Entry)el.elementAt(elementCount);
+				Entry entry = el.get(elementCount);
 				Element entryElt = toSave.createElement("entry");
 				
 				Element term = toSave.createElement("term");
@@ -246,7 +246,7 @@ public abstract class XmlHelper {
 		if(lang == null)
 			lang = "Lang1";
 		panel.setLanguage(lang);
-		panel.getEntryList().removeAllElements();
+		panel.getEntryList().clear();
 		
 		ArrayList<Node> ndl = XmlHelper.convertNodeList(xml.getChildNodes());
 		
@@ -268,7 +268,7 @@ public abstract class XmlHelper {
 				// If we found both, it's time to stick them into our list. 
 				if(term != null && definition != null) {
 					Entry e = new Entry(term, definition);
-					panel.getEntryList().addElement(e);
+					panel.getEntryList().add(e);
 				}
 			}
 		}

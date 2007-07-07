@@ -20,6 +20,8 @@
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
+import javax.swing.event.*;
+
 import java.util.*;
 import javax.xml.bind.annotation.*;
 
@@ -28,26 +30,78 @@ import javax.xml.bind.annotation.*;
     "entry"
 })
 @XmlRootElement(name="definitions")
-/*
- * TODO: THIS CLASS IS PROBABLY GIANTLY MASSIVELY NOT COOL.
- * IT PROBABLY HAS TO BE REWRITTEN AND RETHOUGHT AND STUFF.
- * IT'S PROBABLY UNSAFE AS HELL. (Why the HELL did I need
- * to use "DefaultListModel" anyway??????? Swing is sometimes
- * really damn scary. And stupid. Even if I like it.)
- */
-public class EntryList extends DefaultListModel {
-	static final long serialVersionUID = 1;
+public class EntryList implements ListModel {
+	
+	private List<Entry> entries;
+	private ArrayList<ListDataListener> listDataListeners = new ArrayList<ListDataListener>();
+	private void notifyAddition(int start, int end) {
+		ListDataEvent e = new ListDataEvent(this,ListDataEvent.INTERVAL_ADDED,start,end);
+		for(ListDataListener l : listDataListeners) {
+			l.intervalAdded(e);
+		}
+	}
+	private void notifyRemoval(int start, int end) {
+		ListDataEvent e = new ListDataEvent(this,ListDataEvent.INTERVAL_REMOVED,start,end);
+		for(ListDataListener l : listDataListeners) {
+			l.intervalRemoved(e);
+		}
+	}
+	
+	public EntryList() {
+		entries = Collections.synchronizedList(new ArrayList<Entry>());
+	}
+	public void add(Entry e) {
+		entries.add(e);
+		int idx = entries.size()-1;
+		notifyAddition(idx,idx);
+	}
+	public void remove(int index) {
+		entries.remove(index);
+		notifyRemoval(index,index);
+	}
+	public void clear() {
+		int idx = entries.size()-1;
+		if(idx < 0)
+			idx = 0;
+		entries.clear();
+		notifyRemoval(0,idx);
+	}
+	public Entry get(int index) {
+		return entries.get(index);
+	}
+	public int size() {
+		return entries.size();
+	}
+	public Object[] toArray() {
+		return entries.toArray();
+	}
+	
+	@Override
+	public void addListDataListener(ListDataListener l) {
+		listDataListeners.add(l);
+	}
+
+	@Override
+	public Object getElementAt(int index) {
+		// TODO Auto-generated method stub
+		return entries.get(index);
+	}
+
+	@Override
+	public int getSize() { return entries.size(); }
+
+	@Override
+	public void removeListDataListener(ListDataListener l) {
+		// TODO Auto-generated method stub
+		listDataListeners.remove(l);
+	}
+
 	@XmlAttribute
 	protected String language = "";
 	
 	@XmlElement(name="entry")
 	public List<Entry> getEntry() {
-		ArrayList<Entry> a = new ArrayList<Entry>();
-		Object b[] = this.toArray();
-		for(Object c : b) {
-			a.add((Entry)c);
-		}
-		return a;
+		return entries;
 	}
 	
 	public void setLanguage(String title) {
@@ -59,12 +113,17 @@ public class EntryList extends DefaultListModel {
 	
 	// TODO: This is a somewhat ugly way to sort. Is there a more
 	// elegant way to do this that didn't involve copying the array?
-	public void sort() {
-		Object a[] = this.toArray();
+	public void sort() {		
+		Object a[] = entries.toArray();
 		Arrays.sort(a);
-		this.removeAllElements();
+		entries.clear();
 		for(int i = 0; i < a.length; i++) {
-			this.addElement(a[i]);
+			entries.add((Entry)a[i]);
+		}
+		// Notify everyone that the list has been messed with it. Royally.
+		ListDataEvent e = new ListDataEvent(this,ListDataEvent.CONTENTS_CHANGED,0,entries.size()-1);
+		for(ListDataListener l : listDataListeners) {
+			l.contentsChanged(e);
 		}
 	}
 	
@@ -72,10 +131,7 @@ public class EntryList extends DefaultListModel {
 		// FIXME: Linear search should be funny enough in this case,
 		// since the list is kept sorted and reasonably small...
 		
-		// FIXME: For some effin' reason, DefaultListModel isn't Iterable.
-		// for(Entry e : this) {	}		
-		for(int i = 0; i < this.size(); i++) {
-			Entry e = (Entry)this.elementAt(i); 
+		for(Entry e : entries) {
 			if(e.getTerm().contains(term)) 
 				return e;
 		}

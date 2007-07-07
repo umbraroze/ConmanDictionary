@@ -222,7 +222,7 @@ public class LanguagePanel extends JPanel {
 
 		Entry newTerm = new Entry(term, definition);
 		
-		this.entryList.addElement(newTerm);
+		this.entryList.add(newTerm);
 		this.entryList.sort();
 		this.modified = true;
 	}
@@ -234,7 +234,7 @@ public class LanguagePanel extends JPanel {
 		int idx = this.definitionList.getSelectedIndex(); 
 		if(idx == -1)
 			return;
-		this.entryList.removeElementAt(idx);
+		this.entryList.remove(idx);
 		this.entryList.sort();
 		clearEntries();
 		this.modified = true;
@@ -280,7 +280,7 @@ public class LanguagePanel extends JPanel {
 	 * Clear all entries in this list.
 	 */
 	public void clearList() {
-		this.entryList.removeAllElements();
+		this.entryList.clear();
 		this.modified = false;
 		this.clearEntries();
 	}

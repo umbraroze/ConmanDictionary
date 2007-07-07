@@ -21,7 +21,7 @@ package org.beastwithin.conmandictionary;
 
 import javax.xml.bind.annotation.*;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = {
     "notePad",
     "definitions"

@@ -201,7 +201,7 @@ public class MainWindow extends JFrame {
 		}));
 		
 		// We want a notepad too.
-		notePad = new NotePad(); 
+		notePad = new NotePad(this); 
 	}
 
 	/**
@@ -225,8 +225,8 @@ public class MainWindow extends JFrame {
 		this.rightLanguagePanel.setModified(false);
 	}
 	
-	public void showNotePad() {
-		notePad.setVisible(true);
+	public NotePad getNotePad() {
+		return notePad;
 	}
 	
 }

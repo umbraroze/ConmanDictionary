@@ -28,15 +28,21 @@ public class NotePad extends JDialog {
 	private ActionListener actionListener;
 	private JEditorPane editor;
 	
-	public NotePad() {
-		super();
+	/**
+	 * Construct a new notepad object and associate it
+	 * with a specified main window.
+	 * 
+	 * @param owner Owner window for the notepad dialog.
+	 */
+	public NotePad(JFrame owner) {
+		super(owner);
 		final NotePad selfRef = this;
 		
 		// Ordinary Stuff.
 		this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
 		//this.setRootPane(ConmanDictionary.getMainWindow().getRootPane());		
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setPreferredSize(new Dimension(400,300));
+		this.setPreferredSize(new Dimension(400,450));
 		
 		this.actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -52,9 +58,12 @@ public class NotePad extends JDialog {
 		notePadContents.setLayout(l);
 		
 		editor = new JEditorPane();
-		editor.setMinimumSize(new Dimension(400,300));
+		JScrollPane editorScroll = new JScrollPane(editor);
+		editorScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		editorScroll.setMinimumSize(new Dimension(400,300));
+		editorScroll.setPreferredSize(new Dimension(400,400));
 		editor.setEditable(true);
-		notePadContents.add(editor);
+		notePadContents.add(editorScroll);
 		notePadContents.add(new JSeparator(JSeparator.HORIZONTAL));
 
 		JPanel buts = new JPanel(new FlowLayout());

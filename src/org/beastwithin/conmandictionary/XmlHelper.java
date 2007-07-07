@@ -64,13 +64,14 @@ public abstract class XmlHelper {
 	}
 
 	/**
-	 * Store the language panels to an XML document.
+	 * Store the language panels and the notepad to an XML document.
 	 * 
 	 * @param targetFile Where the file is saved.
 	 * @param dictionaries Dictionaries to save to the file.
+	 * @param notePad Notepad to save to the file
 	 * @throws XmlSavingException
 	 */
-	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel dictionaries[])
+	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel dictionaries[], NotePad notePad)
 		throws XmlSavingException {
 		
 		DocumentBuilder xmlDocumentBuilder = null;
@@ -98,6 +99,11 @@ public abstract class XmlHelper {
 		
 		// OK, here's a document root.
 		Element rootElt = toSave.createElement("dictionarydatabase");
+		// Notepad first!
+		Element notePadElt = toSave.createElement("notepad");
+		notePadElt.setTextContent(notePad.getText());
+		rootElt.appendChild(notePadElt);
+
 		// Next we create...
 		for(int dictCount = 0; dictCount < dictionaries.length; dictCount++) {
 			EntryList el = dictionaries[dictCount].getEntryList();
@@ -156,28 +162,30 @@ public abstract class XmlHelper {
 	}
 
 	/**
-	 * Store the language panels to an XML document.
+	 * Store the language panels and notepad to an XML document.
 	 * 
 	 * @param targetFile Where the file is saved.
 	 * @param p1 First panel to save
 	 * @param p2 Second panel to save
+	 * @param np Notepad to save
 	 * @throws XmlSavingException
 	 */
-	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2)
+	public static void saveCurrentXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2, NotePad np)
 	throws XmlSavingException {
 		LanguagePanel p[] = {p1, p2}; 
-		saveCurrentXmlDocument(targetFile, p);
+		saveCurrentXmlDocument(targetFile, p, np);
 	}
 	
 	/**
-	 * Loads the content of language panels from an XML file.
+	 * Loads the content of language panels and notepad from an XML file.
 	 *  
 	 * @param targetFile File to load the panels from
 	 * @param p1 Left panel.
 	 * @param p2 Right panel.
+	 * @param np Notepad.
 	 * @throws XmlLoadingException
 	 */
-	public static void loadXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2)
+	public static void loadXmlDocument(File targetFile, LanguagePanel p1, LanguagePanel p2, NotePad np)
 		throws XmlLoadingException {
 		Document d = null;
 		DocumentBuilder b = null;
@@ -211,6 +219,16 @@ public abstract class XmlHelper {
 		}
 		Node p1data = defs.item(0);
 		Node p2data = defs.item(1);
+		
+		NodeList npdata = d.getElementsByTagName("notepad");
+		if(npdata.getLength() > 1) {
+			throw new XmlLoadingException("Can't open the file "+
+					targetFile.toString() + "\nThis file has more than one notepad.\n");
+		}
+		if(npdata.getLength() == 1) {
+			Node npnode = npdata.item(0);
+			np.setText(npnode.getTextContent());
+		}
 
 		populateLanguagePanelFromXml(p1,p1data);
 		populateLanguagePanelFromXml(p2,p2data);

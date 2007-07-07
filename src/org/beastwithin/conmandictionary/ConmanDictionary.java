@@ -171,7 +171,8 @@ public class ConmanDictionary {
 		try {
 			XmlHelper.loadXmlDocument(currentFile,
 					mainWin.getLeftLanguagePanel(),
-					mainWin.getRightLanguagePanel());
+					mainWin.getRightLanguagePanel(),
+					mainWin.getNotePad());
 		} catch (XmlHelper.XmlLoadingException e) {
 			JOptionPane.showMessageDialog(
 					mainWin,
@@ -192,7 +193,8 @@ public class ConmanDictionary {
 		try {
 			XmlHelper.saveCurrentXmlDocument(currentFile,
 					mainWin.getLeftLanguagePanel(),
-					mainWin.getRightLanguagePanel());
+					mainWin.getRightLanguagePanel(),
+					mainWin.getNotePad());
 			mainWin.changesHaveBeenSaved();
 		} catch (XmlHelper.XmlSavingException e) {
 			JOptionPane.showMessageDialog(
@@ -251,8 +253,11 @@ public class ConmanDictionary {
 		System.err.println("Ln1: " + ld.getLanguage1() + "\n" +
 				"Ln2: " + ld.getLanguage2());
 	}
+	/**
+	 * Shows the notepad dialog.
+	 */
 	public static void showNotePad() {
-		mainWin.showNotePad();
+		mainWin.getNotePad().setVisible(true);
 	}
 
 	/**

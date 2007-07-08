@@ -1,6 +1,7 @@
 package org.beastwithin.conmandictionary;
 
 import javax.xml.bind.*;
+import java.io.*;
 
 public class BindTest {
 	public static void main(String varg[]) {
@@ -19,6 +20,15 @@ public class BindTest {
 			Marshaller m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
 			m.marshal(d, System.out);
+			System.out.println("<!-- The preceding was marshalled from programmatic definition -->");
+			
+			JAXBContext jc2 = JAXBContext.newInstance(Dictionary.class);
+			Unmarshaller um = jc2.createUnmarshaller();
+			Marshaller m2 = jc2.createMarshaller();
+			Dictionary d2 = (Dictionary) um.unmarshal(new File("bindtest.xml"));
+			m2.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+			m2.marshal(d2, System.err);
+			System.err.println("<!-- The preceding was unmarshalled from bindtest.xml -->");
 		} catch (JAXBException jaxbe) {
 			jaxbe.printStackTrace();
 		}

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = {
-    "entry"
+    "entries"
 })
 @XmlRootElement(name="definitions")
 public class EntryList implements ListModel {
@@ -45,6 +45,15 @@ public class EntryList implements ListModel {
 		for(ListDataListener l : listDataListeners) {
 			l.intervalRemoved(e);
 		}
+	}
+	/**
+	 * Manual call for notifying all ListDataListeners that the contents have to be reloaded.
+	 */
+	public void refresh() {
+		ListDataEvent e = new ListDataEvent(this,ListDataEvent.CONTENTS_CHANGED,0,entries.size()-1);
+		for(ListDataListener l : listDataListeners) {
+			l.contentsChanged(e);
+		}		
 	}
 	
 	public EntryList() {
@@ -75,6 +84,17 @@ public class EntryList implements ListModel {
 	public Object[] toArray() {
 		return entries.toArray();
 	}
+	/**
+	 * Empties this list, then shallow-copies contents from
+	 * the pointed list to this list.
+	 *  
+	 * @param source List the contents are copied from.
+	 */
+	public void replicateContentsFrom(final EntryList source) {
+		entries.clear();
+		entries.addAll(source.getEntries());
+		refresh();
+	}
 	
 	@Override
 	public void addListDataListener(ListDataListener l) {
@@ -100,7 +120,9 @@ public class EntryList implements ListModel {
 	protected String language = "";
 	
 	@XmlElement(name="entry")
-	public List<Entry> getEntry() {
+	public List<Entry> getEntries() {
+		if(entries == null)
+			entries = Collections.synchronizedList(new ArrayList<Entry>());
 		return entries;
 	}
 	
@@ -120,11 +142,7 @@ public class EntryList implements ListModel {
 		for(int i = 0; i < a.length; i++) {
 			entries.add((Entry)a[i]);
 		}
-		// Notify everyone that the list has been messed with it. Royally.
-		ListDataEvent e = new ListDataEvent(this,ListDataEvent.CONTENTS_CHANGED,0,entries.size()-1);
-		for(ListDataListener l : listDataListeners) {
-			l.contentsChanged(e);
-		}
+		refresh();
 	}
 	
 	public Entry search(String term) {
@@ -136,5 +154,16 @@ public class EntryList implements ListModel {
 				return e;
 		}
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append("\n\nLanguage: "+this.language+'\n');
+		s.append("List:\n");
+		for(Entry e : entries) {
+			s.append(e.toDictString());
+		}
+		return s.toString();
 	}
 }

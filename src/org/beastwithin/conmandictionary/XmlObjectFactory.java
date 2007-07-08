@@ -9,9 +9,6 @@ import javax.xml.namespace.*;
 
 @XmlRegistry
 public class XmlObjectFactory {
-
-    private final static QName _Notepad_QNAME = new QName("", "notePad");
-
     public XmlObjectFactory() {
     }
 
@@ -27,9 +24,9 @@ public class XmlObjectFactory {
         return new Dictionary();
     }
 
-    @XmlElementDecl(namespace = "", name = "notePad")
+    @XmlElementDecl(namespace = "", name = "notepad")
     public JAXBElement<String> createNotePad(String value) {
-        return new JAXBElement<String>(_Notepad_QNAME, String.class, null, value);
+        return new JAXBElement<String>(new QName("", "notepad"), String.class, null, value);
     }
 
 }

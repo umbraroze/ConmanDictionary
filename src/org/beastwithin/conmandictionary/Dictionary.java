@@ -19,6 +19,12 @@
 
 package org.beastwithin.conmandictionary;
 
+import java.util.*;
+import java.io.*;
+import javax.xml.*;
+import javax.xml.validation.*;
+import javax.xml.transform.stream.*;
+import org.xml.sax.*;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
@@ -28,6 +34,8 @@ import javax.xml.bind.annotation.*;
 })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
+	private static final String schemaResourceFile = "dictionary.xsd";
+	
 	private class NotePadDocument {
 		protected String text;
 		public NotePadDocument() {
@@ -48,28 +56,56 @@ public class Dictionary {
     private NotePadDocument notePad;
     
     @XmlElement(name="definitions", required=true)
-    protected EntryList[] definitions;
+    protected List<EntryList> definitions;
       
     public Dictionary() {
     	this.notePad = new NotePadDocument();
-    	this.definitions = new EntryList[2];
-    	this.definitions[0] = new EntryList();
-    	this.definitions[1] = new EntryList();
+    	this.definitions = Collections.synchronizedList(new ArrayList<EntryList>());
     }
 
-    @XmlElement(name="notepad", required=false, type=String.class)
+    @XmlElement(name="notepad",
+    		required=false,
+    		type=String.class)
     public void setNotePad(String n) {
     	this.notePad = new NotePadDocument(n);
     }
     public String getNotePad() {
     	return this.notePad.getText();
     }
-    public EntryList[] getDefinitions() {
+    public List<EntryList> getDefinitions() {
         if (definitions == null) {
-            definitions = new EntryList[2];
-        	definitions[0] = new EntryList();
-        	definitions[1] = new EntryList();
+            definitions = Collections.synchronizedList(new ArrayList<EntryList>());
         }
         return this.definitions;
+    }
+    public String toString() {
+    	StringBuffer s = new StringBuffer();
+    	s.append("Notepad:\n"+notePad.getText()+"\n");
+    	s.append("\n\nList 1 ("+this.definitions.get(0).size()+"):"+this.definitions.get(0).toString());
+    	s.append("\n\nList 2 ("+this.definitions.get(1).size()+"):"+this.definitions.get(1).toString());
+    	
+    	return s.toString();
+    }
+    
+    public static void validateFile(File f) throws SAXException, IOException {
+    	SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    	// Try to get a resource.
+    	InputStream schema = ClassLoader.getSystemClassLoader().getResourceAsStream(schemaResourceFile);
+    	// So, resource wasn't found - maybe it's in a file?
+    	File schemaFile = new File(schemaResourceFile);
+    	if(!schemaFile.exists())
+    		throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
+    				"validate the file contents, can't be found.");
+    	if(!schemaFile.canRead())
+    		throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
+    				"validate the file contents, exists but can't be read.");
+    	if(schema == null)
+    		schema = new FileInputStream(schemaResourceFile);
+    	// No? Cannot validate without a schema...
+    	if(schema == null)
+    		throw new IOException("Can't find the schema file " + schemaResourceFile);    	
+    	Schema s = sf.newSchema(new StreamSource(schema));
+    	Validator v = s.newValidator();
+    	v.validate(new StreamSource(new FileInputStream(f)));
     }
 }

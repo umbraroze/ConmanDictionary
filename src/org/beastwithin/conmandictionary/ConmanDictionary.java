@@ -20,8 +20,10 @@
 
 package org.beastwithin.conmandictionary;
 
-import javax.swing.*;
+
 import java.io.File;
+import javax.swing.*;
+import javax.xml.bind.*;
 
 /**
  * Main class of the program.
@@ -162,12 +164,33 @@ public class ConmanDictionary {
 		currentFile = fc.getSelectedFile();
 		doOpen();
 	}
-	
+
 	/**
 	 * The actual method that opens the file. Set currentFile
 	 * before calling this.
 	 */
 	private static void doOpen() {
+		try {
+			Dictionary.validateFile(currentFile);
+		} catch (java.io.IOException ioe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"Unable to open the file "+currentFile+".\n" + ioe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ioe.printStackTrace();
+			return;
+		} catch (org.xml.sax.SAXException saxe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"The file format for file "+currentFile+" is invalid.\n" + saxe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			saxe.printStackTrace();
+			return;
+		}
 		try {
 			XmlHelper.loadXmlDocument(currentFile,
 					mainWin.getLeftLanguagePanel(),
@@ -181,6 +204,54 @@ public class ConmanDictionary {
 					JOptionPane.ERROR_MESSAGE
 				);
 			e.printStackTrace();			
+		}
+		setAppTitle(currentFile);
+	}
+	private static void doOpenWithJAXB() {
+		try {
+			Dictionary.validateFile(currentFile);
+		} catch (java.io.IOException ioe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"Unable to open the file "+currentFile+".\n" + ioe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ioe.printStackTrace();
+			return;
+		} catch (org.xml.sax.SAXException saxe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"The file format for file "+currentFile+" is invalid.\n" + saxe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			saxe.printStackTrace();
+			return;
+		}
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
+			Unmarshaller um = jc.createUnmarshaller();
+			
+			Dictionary d = (Dictionary) um.unmarshal(currentFile);
+			
+			System.err.println(d.toString());
+
+			EntryList e1 = mainWin.getLeftLanguagePanel().getEntryList();
+			EntryList e2 = mainWin.getLeftLanguagePanel().getEntryList();
+			e1.replicateContentsFrom(d.getDefinitions().get(0));
+			e2.replicateContentsFrom(d.getDefinitions().get(1));
+			mainWin.getNotePad().setText(d.getNotePad());			
+		} catch (JAXBException jaxbe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"XML error while loading file:\n"+
+					jaxbe.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			jaxbe.printStackTrace();			
 		}
 		setAppTitle(currentFile);
 	}

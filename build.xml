@@ -50,6 +50,13 @@
 			manifest="MANIFEST.stub"
 			includes="**/*.class"
 		/>
+		<!-- Wonder if these could be bound together somehow... -->
+		<jar
+			destfile="${jar}" 
+			update="true"
+			basedir="."
+			includes="dictionary.xsd"
+		/>
 	</target>
 </project>
 

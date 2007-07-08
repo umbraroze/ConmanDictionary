@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.*;
 })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
-	private static final String schemaResourceFile = "dictionary.xsd";
+	private static final String schemaResourceFile = "resources/schema/dictionary.xsd";
 	
 	private class NotePadDocument {
 		protected String text;

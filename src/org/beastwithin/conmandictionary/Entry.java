@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="entry")
 public class Entry implements Comparable<Entry>, Serializable {
 	public static final long serialVersionUID = 1; 
+	private static final int maxTruncatedStringLength = 30;  
 	
 	@XmlElement(required=true)
 	protected String term = "";
@@ -73,12 +74,12 @@ public class Entry implements Comparable<Entry>, Serializable {
 	 */
 	public String toString() {
 		String def = this.definition;
-		if(def.length() > 30)
-			def = this.definition.substring(0,29) +  "...";
+		if(def.length() > maxTruncatedStringLength)
+			def = this.definition.substring(0,maxTruncatedStringLength-1) +  "...";
 		return this.term + ": " + def;
 	}
 	/**
-	 * Deturns the dictionary entry as plain text (suitable for dictd
+	 * Returns the dictionary entry as plain text (suitable for dictd
 	 * string builder tool). Headwords are in a line of their own,
 	 * the rest is indented with one TAB character. Entries separated
 	 * with a single empty line (which is included after the entry.

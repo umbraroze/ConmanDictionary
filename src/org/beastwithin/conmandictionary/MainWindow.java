@@ -36,6 +36,8 @@ public class MainWindow extends JFrame {
 	private LanguagePanel leftLanguagePanel;
 	/// The right-side panel showing dictionary entries.
 	private LanguagePanel rightLanguagePanel;
+	/// The language selection window.
+	private LanguageNameDialog languageNameDialog;
 	/// Notepad.
 	private NotePad notePad;
 	
@@ -62,7 +64,7 @@ public class MainWindow extends JFrame {
 				} else if(c == "research-notepad") {
 					ConmanDictionary.showNotePad();
 				} else if(c == "settings-languagenames") {
-					ConmanDictionary.showLanguageNamesDialog();
+					languageNameDialog.open();
 				} else if(c == "help-about") {
 					ConmanDictionary.showAboutDialog();
 				} else {
@@ -203,9 +205,10 @@ public class MainWindow extends JFrame {
 			public void dragOver(DropTargetDragEvent dtde) { }
 			public void dropActionChanged(DropTargetDragEvent dtde) { }
 		}));
-		
-		// We want a notepad too.
-		notePad = new NotePad(this); 
+
+		// And some additional dialogs...
+		languageNameDialog = new LanguageNameDialog(this);
+		notePad = new NotePad(this);
 	}
 
 	/**

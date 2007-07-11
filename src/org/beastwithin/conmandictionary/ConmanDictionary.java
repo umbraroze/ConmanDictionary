@@ -21,9 +21,18 @@
 package org.beastwithin.conmandictionary;
 
 
-import java.io.*;
-import javax.swing.*;
-import javax.xml.bind.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 import org.xml.sax.SAXException;
 
 /**
@@ -234,21 +243,46 @@ public class ConmanDictionary {
 	 */
 	private static void doSave() {		
 		try {
-			XmlHelper.saveCurrentXmlDocument(currentFile,
-					mainWin.getLeftLanguagePanel(),
-					mainWin.getRightLanguagePanel(),
-					mainWin.getNotePad());
-			mainWin.changesHaveBeenSaved();
-		} catch (XmlHelper.XmlSavingException e) {
+			Dictionary dictionaryFile = new Dictionary();
+			
+			List<EntryList> l = dictionaryFile.getDefinitions();
+			EntryList deflist1 = new EntryList(); 
+			EntryList deflist2 = new EntryList();
+			deflist1.replicateContentsFrom(mainWin.getLeftLanguagePanel().getEntryList());
+			deflist2.replicateContentsFrom(mainWin.getRightLanguagePanel().getEntryList());			
+			deflist1.setLanguage(mainWin.getLeftLanguagePanel().getLanguage());
+			deflist2.setLanguage(mainWin.getRightLanguagePanel().getLanguage());
+			l.add(deflist1);
+			l.add(deflist2);
+			dictionaryFile.setNotePad(mainWin.getNotePad().getText());
+			
+			JAXBContext jc = JAXBContext.newInstance(dictionaryFile.getClass());
+			Marshaller m = jc.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+			FileWriter f = new FileWriter(currentFile);
+			m.marshal(dictionaryFile, f);
+		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(
 					mainWin,
-					e.getMessage(),
+					"File error while saving file:\n"+
+					ioe.getMessage(),
 					"Error",
 					JOptionPane.ERROR_MESSAGE
 				);
-			e.printStackTrace();
+			ioe.printStackTrace();			
+		} catch (JAXBException jaxbe) {
+			JOptionPane.showMessageDialog(
+					mainWin,
+					"XML error while saving file:\n"+
+					jaxbe.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			jaxbe.printStackTrace();			
 		}
-		setAppTitle(currentFile);
+		mainWin.changesHaveBeenSaved();
+		setAppTitle(currentFile);		
 	}
 	
 	/**

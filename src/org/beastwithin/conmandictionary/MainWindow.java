@@ -195,7 +195,7 @@ public class MainWindow extends JFrame {
 		
 		this.setDropTarget(new DropTarget(selfRef, new DropTargetListener() {
 			public void drop(DropTargetDropEvent dtde) {
-				System.out.println(dtde.toString());
+				System.err.println(dtde.toString());
 			}
 
 			public void dragEnter(DropTargetDragEvent dtde) { }

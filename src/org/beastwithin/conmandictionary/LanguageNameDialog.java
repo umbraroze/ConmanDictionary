@@ -43,7 +43,6 @@ public class LanguageNameDialog extends JDialog {
 	
 	public LanguageNameDialog(MainWindow mainWindow) {
 		super(mainWindow);
-		System.err.println("Languages INIT");
 		final LanguageNameDialog selfRef = this;
 		this.setModal(true);
 		this.setTitle("Language names");
@@ -54,11 +53,9 @@ public class LanguageNameDialog extends JDialog {
 		this.actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "set") {
-					System.err.println("Languages SET");
 					selfRef.setLanguages();
 					selfRef.close();
 				} else if(e.getActionCommand() == "cancel") {
-					System.err.println("Languages CANCEL");
 					selfRef.close();
 				}
 			}

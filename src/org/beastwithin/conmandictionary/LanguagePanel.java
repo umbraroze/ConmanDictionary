@@ -68,7 +68,6 @@ public class LanguagePanel extends JPanel {
 		// Listens to the events
 		this.actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Event: " + e.getActionCommand());
 				if(e.getActionCommand() == "add") {
 					selfRef.addDefinition();
 				} else if(e.getActionCommand() == "delete") {
@@ -287,8 +286,6 @@ public class LanguagePanel extends JPanel {
 	
 	public void searchForTerm(String term) {
 		Entry x = entryList.search(term);
-		if(x != null)
-			System.out.println("Found: " + x.getTerm());
 		this.definitionList.setSelectedValue(x, true);
 	}
 	public void clearListSelection() {

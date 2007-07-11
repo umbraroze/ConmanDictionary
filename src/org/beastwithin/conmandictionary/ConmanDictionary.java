@@ -21,9 +21,10 @@
 package org.beastwithin.conmandictionary;
 
 
-import java.io.File;
+import java.io.*;
 import javax.swing.*;
 import javax.xml.bind.*;
+import org.xml.sax.SAXException;
 
 /**
  * Main class of the program.
@@ -172,7 +173,7 @@ public class ConmanDictionary {
 	private static void doOpen() {
 		try {
 			Dictionary.validateFile(currentFile);
-		} catch (java.io.IOException ioe) {
+		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(
 					mainWin,
 					"Unable to open the file "+currentFile+".\n" + ioe.getMessage(),
@@ -181,45 +182,7 @@ public class ConmanDictionary {
 				);
 			ioe.printStackTrace();
 			return;
-		} catch (org.xml.sax.SAXException saxe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"The file format for file "+currentFile+" is invalid.\n" + saxe.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			saxe.printStackTrace();
-			return;
-		}
-		try {
-			XmlHelper.loadXmlDocument(currentFile,
-					mainWin.getLeftLanguagePanel(),
-					mainWin.getRightLanguagePanel(),
-					mainWin.getNotePad());
-		} catch (XmlHelper.XmlLoadingException e) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					e.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			e.printStackTrace();			
-		}
-		setAppTitle(currentFile);
-	}
-	private static void doOpenWithJAXB() {
-		try {
-			Dictionary.validateFile(currentFile);
-		} catch (java.io.IOException ioe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"Unable to open the file "+currentFile+".\n" + ioe.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			ioe.printStackTrace();
-			return;
-		} catch (org.xml.sax.SAXException saxe) {
+		} catch (SAXException saxe) {
 			JOptionPane.showMessageDialog(
 					mainWin,
 					"The file format for file "+currentFile+" is invalid.\n" + saxe.getMessage(),
@@ -233,15 +196,24 @@ public class ConmanDictionary {
 			JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
 			Unmarshaller um = jc.createUnmarshaller();
 			
-			Dictionary d = (Dictionary) um.unmarshal(currentFile);
+			Dictionary dictionaryFile = (Dictionary) um.unmarshal(currentFile);
 			
-			System.err.println(d.toString());
-
-			EntryList e1 = mainWin.getLeftLanguagePanel().getEntryList();
-			EntryList e2 = mainWin.getLeftLanguagePanel().getEntryList();
-			e1.replicateContentsFrom(d.getDefinitions().get(0));
-			e2.replicateContentsFrom(d.getDefinitions().get(1));
-			mainWin.getNotePad().setText(d.getNotePad());			
+			LanguagePanel leftPanel = mainWin.getLeftLanguagePanel();
+			LanguagePanel rightPanel = mainWin.getRightLanguagePanel();
+			NotePad notePad = mainWin.getNotePad();
+						
+			// Get list contents
+			EntryList leftEntryList = leftPanel.getEntryList();
+			EntryList leftEntryListInFile = dictionaryFile.getDefinitions().get(0);
+			EntryList rightEntryList = rightPanel.getEntryList();
+			EntryList rightEntryListInFile = dictionaryFile.getDefinitions().get(1);
+			leftEntryList.replicateContentsFrom(leftEntryListInFile);
+			rightEntryList.replicateContentsFrom(rightEntryListInFile);
+			// Set titles
+			leftPanel.setLanguage(leftEntryListInFile.getLanguage());
+			rightPanel.setLanguage(rightEntryListInFile.getLanguage());
+			// Set the notepad
+			notePad.setText(dictionaryFile.getNotePad());			
 		} catch (JAXBException jaxbe) {
 			JOptionPane.showMessageDialog(
 					mainWin,

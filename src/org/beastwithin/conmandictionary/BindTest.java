@@ -1,8 +1,12 @@
 package org.beastwithin.conmandictionary;
 
-import javax.xml.bind.*;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class BindTest {
 	private static final String testFile = "bindtest.xml";

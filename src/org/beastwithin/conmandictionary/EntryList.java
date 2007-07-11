@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="definitions")
 public class EntryList implements ListModel {
 	
+	@XmlElement(name="entry")
 	private List<Entry> entries;
 	private ArrayList<ListDataListener> listDataListeners = new ArrayList<ListDataListener>();
 	private void notifyAddition(int start, int end) {
@@ -93,6 +94,7 @@ public class EntryList implements ListModel {
 	public void replicateContentsFrom(final EntryList source) {
 		entries.clear();
 		entries.addAll(source.getEntries());
+		language = source.getLanguage(); 
 		refresh();
 	}
 	
@@ -119,7 +121,6 @@ public class EntryList implements ListModel {
 	@XmlAttribute
 	protected String language = "";
 	
-	@XmlElement(name="entry")
 	public List<Entry> getEntries() {
 		if(entries == null)
 			entries = Collections.synchronizedList(new ArrayList<Entry>());

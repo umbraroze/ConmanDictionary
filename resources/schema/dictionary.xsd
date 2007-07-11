@@ -30,11 +30,13 @@
     <xs:element name="notepad" type="xs:string"/>
 	<xs:element name="entry">
     	<xs:complexType>
+    		<!--
 			<xs:annotation>
 				<xs:appinfo>
 					<jaxb:class name="Entry"/>
 				</xs:appinfo>
 			</xs:annotation>
+			-->
     		<xs:sequence>
 	   			<xs:element name="term" type="xs:string"/>
    				<xs:element name="definition" type="xs:string"/>
@@ -43,11 +45,13 @@
 	</xs:element>
     <xs:element name="definitions">
 	    <xs:complexType>
+	    	<!-- 
 			<xs:annotation>
 				<xs:appinfo>
 					<jaxb:class name="EntryList"/>
 				</xs:appinfo>
 			</xs:annotation>
+			-->
 	    	<xs:sequence>
 	    		<xs:element
 	    			ref="entry"
@@ -59,11 +63,13 @@
     </xs:element>    
     <xs:element name="dictionarydatabase">
     	<xs:complexType>
+    		<!--
 			<xs:annotation>
 				<xs:appinfo>
 					<jaxb:class name="Document"/>
 				</xs:appinfo>
 			</xs:annotation>
+			-->
    			<xs:sequence>
 	   			<xs:element ref="notepad" minOccurs="0" maxOccurs="1"></xs:element>
    				<xs:element ref="definitions" minOccurs="2" maxOccurs="2"></xs:element>

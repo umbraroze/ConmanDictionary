@@ -20,14 +20,22 @@
 
 package org.beastwithin.conmandictionary;
 
-import java.util.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 public class SearchBox extends JPanel {
 	static final long serialVersionUID = 1;
-	private Vector<SearchBoxListener> searchBoxListeners;
+	private List<SearchBoxListener> searchBoxListeners;
 	
 	private JTextField search = null;
 	private JButton clearButton = null;
@@ -46,7 +54,7 @@ public class SearchBox extends JPanel {
 	
 	public SearchBox() {
 		super();
-		searchBoxListeners = new Vector<SearchBoxListener>();
+		searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
 		
 		search = new JTextField();
 		clearButton = new JButton("Clear");

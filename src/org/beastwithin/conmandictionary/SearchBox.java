@@ -20,6 +20,7 @@
 
 package org.beastwithin.conmandictionary;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -58,13 +59,32 @@ public class SearchBox extends JPanel {
 		
 		search = new JTextField();
 		clearButton = new JButton("Clear");
-		this.setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
-		search.setVisible(true);
+		SpringLayout l = new SpringLayout();
+		this.setLayout(l);
 		search.setToolTipText("Enter search terms.");
-		clearButton.setVisible(true);
 		clearButton.setToolTipText("Forget the search.");
-		this.add(search); 
+				
+		// Aligned with top corner
+		l.putConstraint(SpringLayout.WEST, search,
+                5, SpringLayout.WEST, this);
+		l.putConstraint(SpringLayout.NORTH, search,
+                5, SpringLayout.NORTH, this);
+		// Button next to the box
+		l.putConstraint(SpringLayout.EAST, search,
+                10, SpringLayout.WEST, clearButton);
+		// Button on the right top corner
+		l.putConstraint(SpringLayout.NORTH, clearButton,
+                5, SpringLayout.NORTH, this);
+		l.putConstraint(SpringLayout.EAST, clearButton,
+                0, SpringLayout.EAST, this);
+		// Searchbox bottom = button bottom
+		l.putConstraint(SpringLayout.SOUTH, search,
+                0, SpringLayout.SOUTH, clearButton);
+		
+		this.add(search);
 		this.add(clearButton);
+		search.setVisible(true);
+		clearButton.setVisible(true);
 		this.setVisible(true);
 		clearButton.setActionCommand("clear");
 		clearButton.addActionListener(new ActionListener() {
@@ -86,9 +106,9 @@ public class SearchBox extends JPanel {
 					notifySearchBoxChanged();				
 			}
 		});
-		this.setMinimumSize(new Dimension(200,30));
-		this.setPreferredSize(new Dimension(300,30));
-		this.setMaximumSize(new Dimension(300,30));
+		this.setMinimumSize(new Dimension(200,40));
+		this.setPreferredSize(new Dimension(300,40));
+		this.setMaximumSize(new Dimension(300,40));
 	}
 	public void addSearchBoxListener(SearchBoxListener newListener) {
 		searchBoxListeners.add(newListener);

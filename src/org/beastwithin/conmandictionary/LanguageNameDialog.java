@@ -56,33 +56,50 @@ public class LanguageNameDialog extends JDialog {
 		SpringLayout l = new SpringLayout(); 
 		JPanel languageDialogFields = new JPanel(l);
 
+		// Here's the widgets.
 		JLabel langName1 = new JLabel("Language 1:");
-		langName1.setMinimumSize(new Dimension(80,20));
 		langNameField1 = new JTextField();
-		langNameField1.setMinimumSize(new Dimension(200,20));
 		JLabel langName2 = new JLabel("Language 2:"); 
-		langName2.setMinimumSize(new Dimension(80,20));
 		langNameField2 = new JTextField();
-		langNameField2.setMinimumSize(new Dimension(200,20));
 		
+		// First label is aligned with up/left edge of box
 		l.putConstraint(SpringLayout.WEST, langName1,
                 5, SpringLayout.WEST, languageDialogFields);
 		l.putConstraint(SpringLayout.NORTH, langName1,
                 5, SpringLayout.NORTH, languageDialogFields);
+		// Entry field is just right to it...
 		l.putConstraint(SpringLayout.WEST, langNameField1,
                 5, SpringLayout.EAST, langName1);
+		// ...and is aligned with the top.
 		l.putConstraint(SpringLayout.NORTH, langNameField1,
                 5, SpringLayout.NORTH, languageDialogFields);
+		// It also stretches to the other edge of the box.
+		l.putConstraint(SpringLayout.EAST, langNameField1,
+                0, SpringLayout.EAST, languageDialogFields);
+		// The label's bottom edge is aligned with the field's.
+		l.putConstraint(SpringLayout.SOUTH, langName1,
+                0, SpringLayout.SOUTH, langNameField1);
+		// And that's how you place the first two.
 		languageDialogFields.add(langName1);
 		languageDialogFields.add(langNameField1);
+		// The second field is also in left edge of the box...
 		l.putConstraint(SpringLayout.WEST, langName2,
                 5, SpringLayout.WEST, languageDialogFields);
+		// ...and just south of the previous text field.
 		l.putConstraint(SpringLayout.NORTH, langName2,
                 5, SpringLayout.SOUTH, langName1);
+		// Field is just right of the box...
 		l.putConstraint(SpringLayout.WEST, langNameField2,
                 5, SpringLayout.EAST, langName2);
+		// ...and under the previous field.
 		l.putConstraint(SpringLayout.NORTH, langNameField2,
                 5, SpringLayout.SOUTH, langNameField1);
+		// The field stretches wayyy to the other edge too.
+		l.putConstraint(SpringLayout.EAST, langNameField2,
+                0, SpringLayout.EAST, languageDialogFields);
+		// The label's bottom edge is aligned with the field's.
+		l.putConstraint(SpringLayout.SOUTH, langName2,
+                0, SpringLayout.SOUTH, langNameField2);
 		languageDialogFields.add(langName2);
 		languageDialogFields.add(langNameField2);
 		
@@ -118,8 +135,8 @@ public class LanguageNameDialog extends JDialog {
 		final LanguageNameDialog selfRef = this;
 		this.setModal(true);
 		this.setTitle("Language names");
-		this.setPreferredSize(new Dimension(300,200));
-		this.setMinimumSize(new Dimension(300,200));
+		this.setPreferredSize(new Dimension(300,150));
+		this.setMinimumSize(new Dimension(300,150));
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		this.actionListener = new ActionListener() {

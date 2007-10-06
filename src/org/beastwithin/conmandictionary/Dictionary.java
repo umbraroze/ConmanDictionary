@@ -89,19 +89,21 @@ public class Dictionary {
     
     public static void validateFile(File f) throws SAXException, IOException {
     	SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    	// Try to get a resource.
+    	// Try to get a resource from the jar file.
     	InputStream schema = ClassLoader.getSystemClassLoader().getResourceAsStream(schemaResourceFile);
-    	// So, resource wasn't found - maybe it's in a file?
-    	File schemaFile = new File(schemaResourceFile);
-    	if(!schemaFile.exists())
-    		throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
+    	if(schema == null) {
+    		// If resource wasn't found in the jar, maybe it's in a file?
+    		File schemaFile = new File(schemaResourceFile);
+    		if(!schemaFile.exists())
+    			throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
     				"validate the file contents, can't be found.");
-    	if(!schemaFile.canRead())
-    		throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
+    		if(!schemaFile.canRead())
+    			throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
     				"validate the file contents, exists but can't be read.");
-    	if(schema == null)
     		schema = new FileInputStream(schemaResourceFile);
-    	// No? Cannot validate without a schema...
+    	}
+    	// If we still can't find it, we just give up.
+    	// Cannot validate without a schema...
     	if(schema == null)
     		throw new IOException("Can't find the schema file " + schemaResourceFile);    	
     	Schema s = sf.newSchema(new StreamSource(schema));

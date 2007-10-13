@@ -64,22 +64,25 @@ public class SearchBox extends JPanel {
 		search.setToolTipText("Enter search terms.");
 		clearButton.setToolTipText("Forget the search.");
 				
-		// Aligned with top corner
+		// Search box is aligned with top corner...
 		l.putConstraint(SpringLayout.WEST, search,
                 5, SpringLayout.WEST, this);
 		l.putConstraint(SpringLayout.NORTH, search,
                 5, SpringLayout.NORTH, this);
-		// Button next to the box
-		l.putConstraint(SpringLayout.EAST, search,
-                10, SpringLayout.WEST, clearButton);
-		// Button on the right top corner
-		l.putConstraint(SpringLayout.NORTH, clearButton,
-                5, SpringLayout.NORTH, this);
-		l.putConstraint(SpringLayout.EAST, clearButton,
-                0, SpringLayout.EAST, this);
-		// Searchbox bottom = button bottom
+		// ...and bottom edge.
+		l.putConstraint(SpringLayout.SOUTH, search,
+                5, SpringLayout.SOUTH, this);
+		// The Clear button is anchored on the right edge of the box.
+		l.putConstraint(SpringLayout.EAST, this,
+                5, SpringLayout.EAST, clearButton);
+		// Same heights for the search box and the button 
+		l.putConstraint(SpringLayout.NORTH, search,
+                0, SpringLayout.NORTH, clearButton);
 		l.putConstraint(SpringLayout.SOUTH, search,
                 0, SpringLayout.SOUTH, clearButton);
+		// Button goes next to the box
+		l.putConstraint(SpringLayout.WEST, clearButton,
+                5, SpringLayout.EAST, search);
 		
 		this.add(search);
 		this.add(clearButton);

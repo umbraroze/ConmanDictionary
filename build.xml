@@ -30,11 +30,11 @@
 	<property name="apidoc" location="apidoc" />
 	<property name="jar"	location="conmandictionary.jar" />
 
-    <target name="default" depends="jar" />
+	<target name="default" depends="jar" />
 
-    <target name="build">
-    	<javac srcdir="${src}" destdir="${build}"/>
-    </target>
+	<target name="build">
+		<javac srcdir="${src}" destdir="${build}"/>
+	</target>
 	<target name="clean">
 		<delete dir="${build}/org"/>
 		<delete dir="${apidoc}" />
@@ -44,12 +44,15 @@
 		<exec executable="doxygen" />
 	</target>
 	<target name="jar" depends="build">
+		<!-- Create the actual JAR file. -->
 		<jar
 			destfile="${jar}" 
 			basedir="${build}"
-			manifest="MANIFEST.stub"
-			includes="**/*.class"
-		/>
+			includes="**/*.class">
+			<manifest>
+				<attribute name="Main-Class" value="org.beastwithin.conmandictionary.ConmanDictionary"/>
+			</manifest>
+		</jar>
 		<jar
 			destfile="${jar}" 
 			update="true"

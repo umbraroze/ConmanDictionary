@@ -20,10 +20,8 @@
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.event.*;
-import java.net.URL;
 
 /**
  * The main dictionary window of the application.
@@ -164,17 +162,12 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		super();
 		final MainWindow selfRef = this; 
-		final String iconFileName = "resources/graphics/conmandictionary.png";
 
 		// Set window title.
 		this.setTitle(ConmanDictionary.APP_NAME);
 		
 		// Set icon.
-		URL iconURL = ClassLoader.getSystemClassLoader().getResource(iconFileName);
-		if(iconURL != null) {
-			Image icon = Toolkit.getDefaultToolkit().getImage(iconURL);
-			this.setIconImage(icon);
-		}
+		this.setIconImage(ConmanDictionary.getAppIcon());
 
 		// We want to use quit() to handle our quitting.
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -212,7 +205,7 @@ public class MainWindow extends JFrame {
 
 		// And some additional dialogs...
 		languageNameDialog = new LanguageNameDialog(this);
-		notePad = new NotePad(this);
+		notePad = new NotePad();
 	}
 
 	/**

@@ -23,7 +23,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class NotePad extends JDialog {
+public class NotePad extends JFrame {
 	public static final long serialVersionUID = 1;
 	private ActionListener actionListener;
 	private JEditorPane editor;
@@ -32,11 +32,11 @@ public class NotePad extends JDialog {
 	 * Construct a new notepad object and associate it
 	 * with a specified main window.
 	 * 
-	 * @param owner Owner window for the notepad dialog.
 	 */
-	public NotePad(JFrame owner) {
-		super(owner);
+	public NotePad() {
 		final NotePad selfRef = this;
+	
+		this.setIconImage(ConmanDictionary.getAppIcon());
 		
 		// Ordinary Stuff.
 		this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
@@ -78,9 +78,6 @@ public class NotePad extends JDialog {
 
 		this.add(notePadContents);
 		this.pack();
-	}
-	public NotePad() {
-		this(null);
 	}
 	public String getText() {
 		return editor.getText();

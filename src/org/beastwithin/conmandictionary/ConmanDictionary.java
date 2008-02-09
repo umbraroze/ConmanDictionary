@@ -24,7 +24,11 @@ package org.beastwithin.conmandictionary;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -45,7 +49,10 @@ public class ConmanDictionary {
 	public final static String APP_NAME = "Conman's Dictionary";
 	///Application version.
 	public final static String APP_VERSION = "version 0.9";
-		
+
+	/// Application icon image
+	private static Image appIcon = null; 
+	
 	/**
 	 * The main program thread. Fired up by the Swing runner utility.
 	 */
@@ -56,6 +63,7 @@ public class ConmanDictionary {
 			this.args = args;
 		}
 		public void run() {
+			ConmanDictionary.loadResources();
 			mainWin = new MainWindow();    		
 			mainWin.setVisible(true);
 			if(args.length == 1) {
@@ -64,6 +72,7 @@ public class ConmanDictionary {
 			}
 		}
 	}
+	
 	
 	/**
 	 * Utility method to set the application title.
@@ -77,6 +86,24 @@ public class ConmanDictionary {
 			mainWin.setTitle(APP_NAME);
 		else
 			mainWin.setTitle(currentlyOpenFile.toString() + " - " + APP_NAME);
+	}
+	
+	/**
+	 * Utility method to load all resources the application needs.
+	 */
+	private static void loadResources() {
+		final String iconFileName = "resources/graphics/conmandictionary.png";
+		// Set icon.
+		URL iconURL = ClassLoader.getSystemClassLoader().getResource(iconFileName);
+		if(iconURL != null) {
+			appIcon = Toolkit.getDefaultToolkit().getImage(iconURL);
+		}
+	}
+	/**
+	 * Get the application icon resource.
+	 */
+	public static Image getAppIcon() {
+		return appIcon;
 	}
 	
 	/**

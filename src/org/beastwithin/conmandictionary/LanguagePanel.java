@@ -37,8 +37,6 @@ public class LanguagePanel extends JPanel {
 	
 	static final long serialVersionUID = 1; 
 	
-	private boolean modified;
-	
 	private JLabel languageLabel;
 	private SearchBox searchBox;
 	private EntryList entryList;
@@ -161,8 +159,6 @@ public class LanguagePanel extends JPanel {
 		buts.add(modifyButton);
 		// ...and all buttons are done.
 		this.add(buts);
-		
-		this.modified = false;
 	}
 
 	/**
@@ -170,8 +166,6 @@ public class LanguagePanel extends JPanel {
 	 * @param language Language.
 	 */
 	public void setLanguage(String language) {
-		if(entryList.getLanguage().compareTo(language) != 0)
-			this.modified = true;
 		this.languageLabel.setText(language);
 		entryList.setLanguage(language);
 	}
@@ -223,7 +217,6 @@ public class LanguagePanel extends JPanel {
 		
 		this.entryList.add(newTerm);
 		this.entryList.sort();
-		this.modified = true;
 	}
 	/**
 	 * Deletes the selected entry.
@@ -236,7 +229,6 @@ public class LanguagePanel extends JPanel {
 		this.entryList.remove(idx);
 		this.entryList.sort();
 		clearEntries();
-		this.modified = true;
 	}
 	/**
 	 * Update the selected item with the new details from the editor.
@@ -250,7 +242,6 @@ public class LanguagePanel extends JPanel {
 		e.setDefinition(this.definitionEditor.getText());
 		this.entryList.sort();
 		this.definitionList.repaint();
-		this.modified = true;
 	}	
 	
 	/**
@@ -260,27 +251,16 @@ public class LanguagePanel extends JPanel {
 	public EntryList getEntryList() {
 		return entryList;
 	}
+	public void setEntryList(EntryList l) {
+		entryList = l;
+		definitionList.setModel(entryList);
+	}
 	
-	/**
-	 * Is this list modified?
-	 * @return Modified?
-	 */
-	public boolean getModified() {
-		return this.modified;
-	}
-	/**
-	 * Sets whether this list is modified.
-	 * @param modified Modified?
-	 */
-	public void setModified(boolean modified) {
-		this.modified = modified;
-	}
 	/**
 	 * Clear all entries in this list.
 	 */
 	public void clearList() {
 		this.entryList.clear();
-		this.modified = false;
 		this.clearEntries();
 	}
 	

@@ -21,6 +21,7 @@ package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.text.*;
 
 import java.util.*;
 import javax.xml.bind.annotation.*;
@@ -31,6 +32,12 @@ import javax.xml.bind.annotation.*;
 })
 @XmlRootElement(name="definitions")
 public class EntryList implements ListModel {
+	
+	@XmlTransient
+	private boolean modified;
+		
+	@XmlTransient
+	private PlainDocument languageDocument;
 	
 	@XmlElement(name="entry")
 	private List<Entry> entries;
@@ -59,15 +66,19 @@ public class EntryList implements ListModel {
 	
 	public EntryList() {
 		entries = Collections.synchronizedList(new ArrayList<Entry>());
+		languageDocument = new PlainDocument();
+		modified = false;
 	}
 	public void add(Entry e) {
 		entries.add(e);
 		int idx = entries.size()-1;
 		notifyAddition(idx,idx);
+		modified = true;
 	}
 	public void remove(int index) {
 		entries.remove(index);
 		notifyRemoval(index,index);
+		modified = true;
 	}
 	public void clear() {
 		int idx = entries.size()-1;
@@ -75,6 +86,7 @@ public class EntryList implements ListModel {
 			idx = 0;
 		entries.clear();
 		notifyRemoval(0,idx);
+		modified = true;
 	}
 	public Entry get(int index) {
 		return entries.get(index);
@@ -94,7 +106,7 @@ public class EntryList implements ListModel {
 	public void replicateContentsFrom(final EntryList source) {
 		entries.clear();
 		entries.addAll(source.getEntries());
-		language = source.getLanguage(); 
+		setLanguage(source.getLanguage()); 
 		refresh();
 	}
 	
@@ -118,20 +130,36 @@ public class EntryList implements ListModel {
 		listDataListeners.remove(l);
 	}
 
-	@XmlAttribute
-	protected String language = "";
-	
 	public List<Entry> getEntries() {
 		if(entries == null)
 			entries = Collections.synchronizedList(new ArrayList<Entry>());
 		return entries;
 	}
 	
+	@XmlAttribute
 	public void setLanguage(String title) {
-		this.language = title;
+		if(getLanguage().compareTo(title) == 0)
+			return; // Don't modify if there's nothing to modify
+		try {
+			int oldLength = languageDocument.getLength();
+			languageDocument.replace(0, oldLength, title, null);
+		} catch(BadLocationException ble) {
+			ble.printStackTrace();
+			System.exit(1);
+		}
+		modified = true;
 	}
 	public String getLanguage() {
-		return this.language;
+		try {
+			return languageDocument.getText(0,languageDocument.getLength());
+		} catch(BadLocationException ble) {
+			ble.printStackTrace();
+			System.exit(1);
+			return null;
+		}
+	}
+	public Document getLanguageDocument() {
+		return languageDocument;
 	}
 	
 	// TODO: This is a somewhat ugly way to sort. Is there a more
@@ -144,6 +172,7 @@ public class EntryList implements ListModel {
 			entries.add((Entry)a[i]);
 		}
 		refresh();
+		modified = true;
 	}
 	
 	public Entry search(String term) {
@@ -160,11 +189,17 @@ public class EntryList implements ListModel {
 	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
-		s.append("\n\nLanguage: "+this.language+'\n');
+		s.append("\n\nLanguage: "+getLanguage()+'\n');
 		s.append("List:\n");
 		for(Entry e : entries) {
 			s.append(e.toDictString());
 		}
 		return s.toString();
+	}
+	public boolean isModified() {
+		return modified;
+	}
+	public void setModified(boolean modified) {
+		this.modified = modified;
 	}
 }

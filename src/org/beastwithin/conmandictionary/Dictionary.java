@@ -21,11 +21,15 @@ package org.beastwithin.conmandictionary;
 
 import java.util.*;
 import java.io.*;
+
 import javax.xml.*;
 import javax.xml.validation.*;
 import javax.xml.transform.stream.*;
 import org.xml.sax.*;
+import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
+import javax.swing.*;
+import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = {
@@ -35,43 +39,66 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
 	private static final String schemaResourceFile = "resources/schema/dictionary.xsd";
-	
-	private class NotePadDocument {
-		protected String text;
-		public NotePadDocument() {
-			this.text = "";
-		}
-		public NotePadDocument(String s) {
-			this.text = s;
-		}
-		public void setText(String s) {
-			this.text = s;
-		}
-		public String getText() {
-			return text;
-		}
-	}
-	
+
 	@XmlTransient
-    private NotePadDocument notePad;
+	private File currentFile = null;
+
+	@XmlTransient
+    private PlainDocument notePad;
     
     @XmlElement(name="definitions", required=true)
     protected List<EntryList> definitions;
       
     public Dictionary() {
-    	this.notePad = new NotePadDocument();
-    	this.definitions = Collections.synchronizedList(new ArrayList<EntryList>());
+    	notePad = new PlainDocument();
+    	definitions = Collections.synchronizedList(new ArrayList<EntryList>());
+    	definitions.add(new EntryList());
+    	definitions.add(new EntryList());
     }
 
     @XmlElement(name="notepad",
     		required=false,
     		type=String.class)
     public void setNotePad(String n) {
-    	this.notePad = new NotePadDocument(n);
+    	if(notePad == null) {
+    		notePad = new PlainDocument();
+    	}
+    	try {
+        	int oldLength = notePad.getLength();
+        	notePad.replace(0, oldLength, n, null);
+    	} catch(BadLocationException ble) {
+			JOptionPane.showMessageDialog(
+					ConmanDictionary.getMainWindow(),
+					"Error changing the text on the notepad:\n"+
+					ble.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ble.printStackTrace();
+    	}
     }
     public String getNotePad() {
-    	return this.notePad.getText();
+    	try {
+    		return notePad.getText(0, notePad.getLength());
+    	} catch(BadLocationException ble) {
+			JOptionPane.showMessageDialog(
+					ConmanDictionary.getMainWindow(),
+					"Error getting text from the notepad:\n"+
+					ble.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ble.printStackTrace();
+			return "";
+    	}
     }
+    @XmlTransient
+    public PlainDocument getNotePadDocument() {
+    	return notePad;
+    }
+    
     public List<EntryList> getDefinitions() {
         if (definitions == null) {
             definitions = Collections.synchronizedList(new ArrayList<EntryList>());
@@ -80,7 +107,7 @@ public class Dictionary {
     }
     public String toString() {
     	StringBuffer s = new StringBuffer();
-    	s.append("Notepad:\n"+notePad.getText()+"\n");
+    	s.append("Notepad:\n"+getNotePad()+"\n");
     	s.append("\n\nList 1 ("+this.definitions.get(0).size()+"):"+this.definitions.get(0).toString());
     	s.append("\n\nList 2 ("+this.definitions.get(1).size()+"):"+this.definitions.get(1).toString());
     	
@@ -107,7 +134,70 @@ public class Dictionary {
     	if(schema == null)
     		throw new IOException("Can't find the schema file " + schemaResourceFile);    	
     	Schema s = sf.newSchema(new StreamSource(schema));
-    	Validator v = s.newValidator();
+    	javax.xml.validation.Validator v = s.newValidator();
     	v.validate(new StreamSource(new FileInputStream(f)));
     }
+    
+    public void setCurrentFile(File f) {
+    	currentFile = f;
+    }
+    public File getCurrentFile() {
+    	return currentFile;
+    }
+    
+    public void saveDocument() throws JAXBException, IOException {
+		JAXBContext jc = JAXBContext.newInstance(this.getClass());
+		Marshaller m = jc.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+		FileWriter f = new FileWriter(currentFile);
+		m.marshal(this, f);
+    }
+    public static Dictionary loadDocument(File file) throws JAXBException, IOException {
+		JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
+		Unmarshaller um = jc.createUnmarshaller();
+		Dictionary r = (Dictionary) um.unmarshal(file);
+		r.setCurrentFile(file);
+		return r;
+    }
+	public boolean isUnsavedChanges() {
+		if(definitions.get(0).isModified() || definitions.get(1).isModified())
+			return true;
+		return false;
+	}
+	public void exportAsDictd(String fileNameBase) {
+		LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();
+		LanguagePanel rp = ConmanDictionary.getMainWindow().getRightLanguagePanel();
+		String lFileName, rFileName;
+		if(lp.getLanguage().compareTo(rp.getLanguage())==0) {
+			// The names are same, so let's come up with something...
+			lFileName = "left";
+			rFileName = "right";
+		} else {
+			lFileName = lp.getLanguage();
+			rFileName = rp.getLanguage();
+		}
+		File leftFile = new File(fileNameBase + "."+lFileName+".txt");
+		File rightFile = new File(fileNameBase + "."+rFileName+".txt");
+		try {
+			PrintWriter lf = new PrintWriter(new BufferedWriter(new FileWriter(leftFile)));
+			PrintWriter rf = new PrintWriter(new BufferedWriter(new FileWriter(rightFile)));
+			
+			for (Object o : lp.getEntryList().toArray()) {
+				Entry e = (Entry) o;
+				lf.println(e.toDictString());
+			}
+			lf.close();
+			for (Object o : rp.getEntryList().toArray()) {
+				Entry e = (Entry) o;
+				rf.println(e.toDictString());
+			}
+			rf.close();
+		} catch(IOException ioe) {
+			JOptionPane.showMessageDialog(ConmanDictionary.getMainWindow(),
+					"File error occurred when exporting the file:\n"+
+					ioe.getMessage(),
+					"Error exporting the file.", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 }

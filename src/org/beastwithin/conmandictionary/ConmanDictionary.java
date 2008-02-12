@@ -22,22 +22,12 @@ package org.beastwithin.conmandictionary;
 
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.xml.sax.SAXException;
 
 /**
  * Main class of the program.
@@ -64,29 +54,15 @@ public class ConmanDictionary {
 		}
 		public void run() {
 			ConmanDictionary.loadResources();
-			mainWin = new MainWindow();    		
+			dictionary = new Dictionary(); 
+			mainWin = new MainWindow();
+			mainWin.setModel(dictionary);
 			mainWin.setVisible(true);
 			if(args.length == 1) {
-				currentFile = new File(args[0]);
-				doOpen();
+				mainWin.openDocument(new File(args[0]));
 			}
 		}
-	}
-	
-	
-	/**
-	 * Utility method to set the application title.
-	 * Uses "/file/name - Appname" format. Use null or file
-	 * name with just "" to set to "Appname".
-	 * 
-	 * @param currentlyOpenFile The file currently opened.
-	 */
-	public static void setAppTitle(File currentlyOpenFile) {
-		if(currentlyOpenFile == null || currentlyOpenFile.toString() == "")
-			mainWin.setTitle(APP_NAME);
-		else
-			mainWin.setTitle(currentlyOpenFile.toString() + " - " + APP_NAME);
-	}
+	}	
 	
 	/**
 	 * Utility method to load all resources the application needs.
@@ -112,10 +88,13 @@ public class ConmanDictionary {
 	private static MainWindow mainWin = null;
 	
 	/**
-	 * Currently open file.
+	 * Dictionary document currently edited.
 	 */
-	private static File currentFile = null;
-	
+	private static Dictionary dictionary = null;
+	public static Dictionary getDictionary() {
+		return dictionary;
+	}
+
 	/**
 	 * The main program for the application.
 	 * 
@@ -134,233 +113,7 @@ public class ConmanDictionary {
 		return mainWin;
 	}
 	
-	/**
-	 * Quits the application. Warns about unsaved changes via dialog
-	 * if there are unsaved changes. 
-	 */
-	public static void quit() {
-		if(checkUnsavedChanges()) {
-			int resp = JOptionPane.showConfirmDialog(mainWin,
-					"There are unsaved changes.\nReally quit?",
-					"Really quit?",
-					JOptionPane.YES_NO_OPTION,
-					JOptionPane.WARNING_MESSAGE);
-			if(resp != 0)
-				return;
-		}
-		System.exit(0);
-	}
-	/**
-	 * Checks if there are unsaved changes in the dictionaries.
-	 * 
-	 * @return true if there are unsaved changes.
-	 */
-	private static boolean checkUnsavedChanges() {
-		return mainWin.getLeftLanguagePanel().getModified() ||
-			mainWin.getRightLanguagePanel().getModified();
-	}
 	
-	/**
-	 * Clears up the dictionaries. Will prompt if there are unsaved
-	 * changes. 
-	 */
-	public static void newDictionary() {
-		if(checkUnsavedChanges()) {
-			int resp = JOptionPane.showConfirmDialog(
-					mainWin,
-					"There are unsaved changes.\nReally clear everything?",
-					"Really clear everything?",
-					JOptionPane.YES_NO_OPTION);
-			if(resp != 0)
-				return;
-		}
-		mainWin.getLeftLanguagePanel().clearList();
-		mainWin.getRightLanguagePanel().clearList();
-		currentFile = null;
-		setAppTitle(null);
-	}
-	
-	/**
-	 * Opens a dictionary file. Will prompt if there are unsaved
-	 * changes. 
-	 */
-	public static void openDictionary() {
-		if(checkUnsavedChanges()) {
-			int resp = JOptionPane.showConfirmDialog(
-					mainWin,
-					"There are unsaved changes.\nReally open another file?",
-					"Really open another file?",
-					JOptionPane.YES_NO_OPTION);
-			if(resp != 0)
-				return;
-		}
-		final JFileChooser fc = new JFileChooser();
-		int ret = fc.showOpenDialog(mainWin);
-		if(ret != JFileChooser.APPROVE_OPTION)
-			return;
-		currentFile = fc.getSelectedFile();
-		doOpen();
-	}
-
-	/**
-	 * The actual method that opens the file. Set currentFile
-	 * before calling this.
-	 */
-	private static void doOpen() {
-		try {
-			Dictionary.validateFile(currentFile);
-		} catch (IOException ioe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"Unable to open the file "+currentFile+".\n" + ioe.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			ioe.printStackTrace();
-			return;
-		} catch (SAXException saxe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"The file format for file "+currentFile+" is invalid.\n" + saxe.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			saxe.printStackTrace();
-			return;
-		}
-		try {
-			JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
-			Unmarshaller um = jc.createUnmarshaller();
-			
-			Dictionary dictionaryFile = (Dictionary) um.unmarshal(currentFile);
-			
-			LanguagePanel leftPanel = mainWin.getLeftLanguagePanel();
-			LanguagePanel rightPanel = mainWin.getRightLanguagePanel();
-			NotePad notePad = mainWin.getNotePad();
-						
-			// Get list contents
-			EntryList leftEntryList = leftPanel.getEntryList();
-			EntryList leftEntryListInFile = dictionaryFile.getDefinitions().get(0);
-			EntryList rightEntryList = rightPanel.getEntryList();
-			EntryList rightEntryListInFile = dictionaryFile.getDefinitions().get(1);
-			leftEntryList.replicateContentsFrom(leftEntryListInFile);
-			rightEntryList.replicateContentsFrom(rightEntryListInFile);
-			// Set titles
-			leftPanel.setLanguage(leftEntryListInFile.getLanguage());
-			rightPanel.setLanguage(rightEntryListInFile.getLanguage());
-			// Set the notepad
-			notePad.setText(dictionaryFile.getNotePad());			
-		} catch (JAXBException jaxbe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"XML error while loading file:\n"+
-					jaxbe.getMessage() +
-					"\nFurther details printed at console.",
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			jaxbe.printStackTrace();			
-		}
-		setAppTitle(currentFile);
-	}
-
-	/**
-	 * The actual method that saves the file. Set currentFile
-	 * before calling this.
-	 */
-	private static void doSave() {		
-		try {
-			Dictionary dictionaryFile = new Dictionary();
-			
-			List<EntryList> l = dictionaryFile.getDefinitions();
-			EntryList deflist1 = new EntryList(); 
-			EntryList deflist2 = new EntryList();
-			deflist1.replicateContentsFrom(mainWin.getLeftLanguagePanel().getEntryList());
-			deflist2.replicateContentsFrom(mainWin.getRightLanguagePanel().getEntryList());			
-			deflist1.setLanguage(mainWin.getLeftLanguagePanel().getLanguage());
-			deflist2.setLanguage(mainWin.getRightLanguagePanel().getLanguage());
-			l.add(deflist1);
-			l.add(deflist2);
-			dictionaryFile.setNotePad(mainWin.getNotePad().getText());
-			
-			JAXBContext jc = JAXBContext.newInstance(dictionaryFile.getClass());
-			Marshaller m = jc.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
-			FileWriter f = new FileWriter(currentFile);
-			m.marshal(dictionaryFile, f);
-		} catch (IOException ioe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"File error while saving file:\n"+
-					ioe.getMessage(),
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			ioe.printStackTrace();			
-		} catch (JAXBException jaxbe) {
-			JOptionPane.showMessageDialog(
-					mainWin,
-					"XML error while saving file:\n"+
-					jaxbe.getMessage() +
-					"\nFurther details printed at console.",
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			jaxbe.printStackTrace();			
-		}
-		mainWin.changesHaveBeenSaved();
-		setAppTitle(currentFile);		
-	}
-	
-	/**
-	 * Saves dictionary file. Will call saveDictionaryAs() if the
-	 * currently edited file hasn't been saved before.
-	 */
-	public static void saveDictionary() {
-		// What's the file?
-		if(currentFile == null) {
-			saveDictionaryAs();
-		} else {
-			doSave();
-		}
-	}
-	/**
-	 * Saves dictionary file with a picked name.
-	 */
-	public static void saveDictionaryAs() {
-		final JFileChooser fc = new JFileChooser();
-		int ret = fc.showSaveDialog(mainWin);
-		if(ret != JFileChooser.APPROVE_OPTION)
-			return;
-		currentFile = fc.getSelectedFile();
-		
-		doSave();
-	}
-	/**
-	 * Saves dictionary file with a picked name.
-	 */
-	public static void exportDictionaryAsDictd() {
-		final JFileChooser fc = new JFileChooser();
-		int ret = fc.showSaveDialog(mainWin);
-		if(ret != JFileChooser.APPROVE_OPTION)
-			return;		
-		ExportHelper.exportAsDictd(fc.getSelectedFile().getPath());
-	}
-	
-	/**
-	 * Shows dialog to set the names of the languages being edited.
-	 */
-	public static void showLanguageNamesDialog() {
-		LanguageNameDialog ld = new LanguageNameDialog(getMainWindow());
-		ld.setVisible(true);		
-	}
-	/**
-	 * Shows the notepad dialog.
-	 */
-	public static void showNotePad() {
-		mainWin.getNotePad().setVisible(true);
-	}
-
 	/**
 	 * Shows "About this application" dialog.
 	 */
@@ -383,5 +136,4 @@ public class ConmanDictionary {
 				JOptionPane.INFORMATION_MESSAGE
 			);
 	}
-
 }

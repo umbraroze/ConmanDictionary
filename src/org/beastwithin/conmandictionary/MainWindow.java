@@ -20,8 +20,14 @@
 package org.beastwithin.conmandictionary;
 
 import javax.swing.*;
+import javax.xml.bind.JAXBException;
+
+import org.xml.sax.SAXException;
+
 import java.awt.dnd.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * The main dictionary window of the application.
@@ -39,38 +45,196 @@ public class MainWindow extends JFrame {
 	private LanguageNameDialog languageNameDialog;
 	/// Notepad.
 	private NotePad notePad;
+
+	private Dictionary model; 	
+
+	private boolean isUnsaved() {
+		return getModel().isUnsavedChanges();
+	}
+
+	public LanguageNameDialog getLanguageNameDialog() {
+		return languageNameDialog;
+	}
+	
+	public void quit() {
+		if(isUnsaved()) {
+			int resp = JOptionPane.showConfirmDialog(this,
+					"There are unsaved changes.\nReally quit?",
+					"Really quit?",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+			if(resp != 0)
+				return;
+		}
+		System.exit(0);
+	}
+
+	public void openDocument(File f) {
+		try {
+			Dictionary.validateFile(f);
+		} catch (IOException ioe) {
+			JOptionPane.showMessageDialog(
+					this,
+					"Unable to open the file "+f+".\n" + ioe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ioe.printStackTrace();
+			return;
+		} catch (SAXException saxe) {
+			JOptionPane.showMessageDialog(
+					this,
+					"The file format for file "+f+" is invalid.\n" + saxe.getMessage(),
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			saxe.printStackTrace();
+			return;
+		}
+		try {
+			Dictionary loadedDictionary = Dictionary.loadDocument(f); 
+			this.setModel(loadedDictionary);				
+		} catch (JAXBException jaxbe) {
+			JOptionPane.showMessageDialog(
+					this,
+					"XML error while loading file:\n"+
+					jaxbe.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			jaxbe.printStackTrace();			
+		} catch (IOException ioe) {
+			JOptionPane.showMessageDialog(
+					this,
+					"Error reading file:\n"+
+					ioe.getMessage() +
+					"\nFurther details printed at console.",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+				);
+			ioe.printStackTrace();			
+		}
+		this.setAppTitle(f);		
+	}
+	
+	private class MainMenuListener implements ActionListener {
+		private MainWindow mainWindow = null;
+		public MainMenuListener(MainWindow mainWindow) {
+			this.mainWindow = mainWindow;
+		}
+		private void doSave() {
+			try {
+				mainWindow.getModel().saveDocument();
+			} catch (IOException ioe) {
+				JOptionPane.showMessageDialog(
+						mainWindow,
+						"File error while saving file:\n"+
+						ioe.getMessage(),
+						"Error",
+						JOptionPane.ERROR_MESSAGE
+					);
+				ioe.printStackTrace();			
+			} catch (JAXBException jaxbe) {
+				JOptionPane.showMessageDialog(
+						mainWindow,
+						"XML error while saving file:\n"+
+						jaxbe.getMessage() +
+						"\nFurther details printed at console.",
+						"Error",
+						JOptionPane.ERROR_MESSAGE
+					);
+				jaxbe.printStackTrace();			
+			}
+			mainWindow.changesHaveBeenSaved();
+			setAppTitle(mainWindow.getModel().getCurrentFile());		
+		}
+		private void saveAs() {
+			final JFileChooser fc = new JFileChooser();
+			int ret = fc.showSaveDialog(mainWindow);
+			if(ret != JFileChooser.APPROVE_OPTION)
+				return;
+			mainWindow.getModel().setCurrentFile(fc.getSelectedFile());			
+			doSave();
+		}
+		private void newDocument() {
+			if(isUnsaved()) {
+				int resp = JOptionPane.showConfirmDialog(
+						mainWindow,
+						"There are unsaved changes.\nReally clear everything?",
+						"Really clear everything?",
+						JOptionPane.YES_NO_OPTION);
+				if(resp != 0)
+					return;
+			}
+			Dictionary newDocument = new Dictionary();
+			mainWindow.setModel(newDocument);
+			mainWindow.setAppTitle(null);
+		}
+		public void actionPerformed(ActionEvent e) {
+			String c = e.getActionCommand();
+			if(c == "file-quit") {
+				mainWindow.quit();
+			} else if(c == "file-new") {
+				newDocument();
+			} else if(c == "file-open") {
+				if(isUnsaved()) {
+					int resp = JOptionPane.showConfirmDialog(
+							mainWindow,
+							"There are unsaved changes.\nReally open another file?",
+							"Really open another file?",
+							JOptionPane.YES_NO_OPTION);
+					if(resp != 0)
+						return;
+				}
+				final JFileChooser fc = new JFileChooser();
+				int ret = fc.showOpenDialog(mainWindow);
+				if(ret != JFileChooser.APPROVE_OPTION)
+					return;
+				mainWindow.openDocument(fc.getSelectedFile());
+			} else if(c == "file-save") {
+				// What's the file?
+				if(mainWindow.getModel().getCurrentFile() == null) {
+					saveAs();
+				} else {
+					doSave();
+				}
+			} else if(c == "file-save-as") {
+				saveAs();
+			} else if(c == "file-export-dictd") {
+				final JFileChooser fc = new JFileChooser();
+				int ret = fc.showSaveDialog(mainWindow);
+				if(ret != JFileChooser.APPROVE_OPTION)
+					return;		
+				mainWindow.getModel().exportAsDictd(fc.getSelectedFile().getPath());
+			} else if(c == "research-notepad") {
+				mainWindow.getNotePad().setVisible(true);
+			} else if(c == "settings-languagenames") {
+				mainWindow.getLanguageNameDialog().open();
+			} else if(c == "help-about") {
+				ConmanDictionary.showAboutDialog();
+			} else {
+				System.err.println("WARNING: Unhandled menu item " + c +".");
+			}
+		}					
+	}
+	public class MainWindowDropTargetListener implements DropTargetListener {
+		public void drop(DropTargetDropEvent dtde) {
+			System.err.println(dtde.toString());
+		}
+
+		public void dragEnter(DropTargetDragEvent dtde) { }
+		public void dragExit(DropTargetEvent dte) { }
+		public void dragOver(DropTargetDragEvent dtde) { }
+		public void dropActionChanged(DropTargetDragEvent dtde) { }
+	}
 	
 	/**
 	 * Constructs the menu bar for the application window.
 	 */
 	private void constructMenuBar() {
 		JMenuItem mi;
-		ActionListener ml = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String c = e.getActionCommand();
-				if(c == "file-quit") {
-					ConmanDictionary.quit();
-				} else if(c == "file-new") {
-					ConmanDictionary.newDictionary();
-				} else if(c == "file-open") {
-					ConmanDictionary.openDictionary();
-				} else if(c == "file-save") {
-					ConmanDictionary.saveDictionary();
-				} else if(c == "file-save-as") {
-					ConmanDictionary.saveDictionaryAs();
-				} else if(c == "file-export-dictd") {
-					ConmanDictionary.exportDictionaryAsDictd();
-				} else if(c == "research-notepad") {
-					ConmanDictionary.showNotePad();
-				} else if(c == "settings-languagenames") {
-					languageNameDialog.open();
-				} else if(c == "help-about") {
-					ConmanDictionary.showAboutDialog();
-				} else {
-					System.err.println("WARNING: Unhandled menu item " + c +".");
-				}
-			}			
-		};
+		ActionListener ml = new MainMenuListener(this);
 		
 		JMenuBar mb = new JMenuBar();
 		
@@ -173,7 +337,7 @@ public class MainWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowListener() {
 			public void windowClosing(WindowEvent e) {
-				ConmanDictionary.quit();
+				ConmanDictionary.getMainWindow().quit();
 			}
 
 			public void windowActivated(WindowEvent e) { }
@@ -192,16 +356,7 @@ public class MainWindow extends JFrame {
 		// drop stuff on the window and it kind of registers it. Or would,
 		// if we'd not comment it out. 
 		
-		this.setDropTarget(new DropTarget(selfRef, new DropTargetListener() {
-			public void drop(DropTargetDropEvent dtde) {
-				System.err.println(dtde.toString());
-			}
-
-			public void dragEnter(DropTargetDragEvent dtde) { }
-			public void dragExit(DropTargetEvent dte) { }
-			public void dragOver(DropTargetDragEvent dtde) { }
-			public void dropActionChanged(DropTargetDragEvent dtde) { }
-		}));
+		this.setDropTarget(new DropTarget(selfRef, new MainWindowDropTargetListener()));
 
 		// And some additional dialogs...
 		languageNameDialog = new LanguageNameDialog(this);
@@ -225,12 +380,40 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void changesHaveBeenSaved() {
-		this.leftLanguagePanel.setModified(false);
-		this.rightLanguagePanel.setModified(false);
+		this.leftLanguagePanel.getEntryList().setModified(false);
+		this.rightLanguagePanel.getEntryList().setModified(false);
 	}
 	
 	public NotePad getNotePad() {
 		return notePad;
 	}
-	
+	/**
+	 * Will associate this window (and all subwindows etc) with a Dictionary document.
+	 * @param newModel
+	 */
+	public void setModel(Dictionary newModel) {
+		model = newModel;
+		leftLanguagePanel.setEntryList(newModel.getDefinitions().get(0));
+		rightLanguagePanel.setEntryList(newModel.getDefinitions().get(1));
+		notePad.setModel(newModel.getNotePadDocument());
+		languageNameDialog.setModel(newModel.getDefinitions());
+		// FIXME: Other associations go here!
+	}
+	public Dictionary getModel() {
+		return model;
+	}
+	/**
+	 * Utility method to set the application title.
+	 * Uses "/file/name - Appname" format. Use null or file
+	 * name with just "" to set to "Appname".
+	 * 
+	 * @param currentlyOpenFile The file currently opened.
+	 */
+	public void setAppTitle(File currentlyOpenFile) {
+		if(currentlyOpenFile == null || currentlyOpenFile.toString() == "")
+			this.setTitle(ConmanDictionary.APP_NAME);
+		else
+			this.setTitle(currentlyOpenFile.toString() + " - " + ConmanDictionary.APP_NAME);
+	}
+
 }

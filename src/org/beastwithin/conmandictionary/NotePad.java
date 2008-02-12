@@ -22,6 +22,7 @@ package org.beastwithin.conmandictionary;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.*;
 
 public class NotePad extends JFrame {
 	public static final long serialVersionUID = 1;
@@ -87,5 +88,8 @@ public class NotePad extends JFrame {
 	}
 	public String toString() {
 		return editor.getText();
+	}
+	public void setModel(Document d) {
+		editor.setDocument(d);
 	}
 }

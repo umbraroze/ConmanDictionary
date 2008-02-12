@@ -21,7 +21,6 @@ package org.beastwithin.conmandictionary;
 
 import java.awt.event.*;
 import java.awt.*;
-
 import javax.swing.*;
 
 public class LanguageNameDialog extends JDialog {
@@ -166,5 +165,9 @@ public class LanguageNameDialog extends JDialog {
 		this.getContentPane().add(languageDialogContents);		
 		this.pack();
 		this.setVisible(false);
+	}
+	public void setModel(java.util.List<EntryList> entryLists) {
+		langNameField1.setDocument(entryLists.get(0).getLanguageDocument());
+		langNameField2.setDocument(entryLists.get(1).getLanguageDocument());
 	}
 }

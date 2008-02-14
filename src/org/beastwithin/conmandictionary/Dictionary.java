@@ -52,8 +52,8 @@ public class Dictionary {
     public Dictionary() {
     	notePad = new PlainDocument();
     	definitions = Collections.synchronizedList(new ArrayList<EntryList>());
-    	definitions.add(new EntryList());
-    	definitions.add(new EntryList());
+    	definitions.add(new EntryList("Language 1"));
+    	definitions.add(new EntryList("Language 2"));
     }
 
     @XmlElement(name="notepad",

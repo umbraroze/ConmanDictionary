@@ -396,7 +396,6 @@ public class MainWindow extends JFrame {
 		leftLanguagePanel.setEntryList(newModel.getDefinitions().get(0));
 		rightLanguagePanel.setEntryList(newModel.getDefinitions().get(1));
 		notePad.setModel(newModel.getNotePadDocument());
-		languageNameDialog.setModel(newModel.getDefinitions());
 		// FIXME: Other associations go here!
 	}
 	public Dictionary getModel() {

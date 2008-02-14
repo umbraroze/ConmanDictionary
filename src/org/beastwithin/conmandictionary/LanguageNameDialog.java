@@ -166,8 +166,4 @@ public class LanguageNameDialog extends JDialog {
 		this.pack();
 		this.setVisible(false);
 	}
-	public void setModel(java.util.List<EntryList> entryLists) {
-		langNameField1.setDocument(entryLists.get(0).getLanguageDocument());
-		langNameField2.setDocument(entryLists.get(1).getLanguageDocument());
-	}
 }

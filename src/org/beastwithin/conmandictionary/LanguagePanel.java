@@ -160,14 +160,18 @@ public class LanguagePanel extends JPanel {
 		// ...and all buttons are done.
 		this.add(buts);
 	}
+	
+	private void resetLanguageLabel() {
+		this.languageLabel.setText(entryList.getLanguage());	
+	}
 
 	/**
 	 * Sets the list language.
 	 * @param language Language.
 	 */
 	public void setLanguage(String language) {
-		this.languageLabel.setText(language);
 		entryList.setLanguage(language);
+		resetLanguageLabel();
 	}
 	/**
 	 * Gets the list language.
@@ -254,6 +258,7 @@ public class LanguagePanel extends JPanel {
 	public void setEntryList(EntryList l) {
 		entryList = l;
 		definitionList.setModel(entryList);
+		resetLanguageLabel();
 	}
 	
 	/**

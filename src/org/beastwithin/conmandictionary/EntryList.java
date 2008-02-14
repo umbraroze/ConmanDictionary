@@ -69,6 +69,10 @@ public class EntryList implements ListModel {
 		languageDocument = new PlainDocument();
 		modified = false;
 	}
+	public EntryList(String language) {
+		this();
+		setLanguage(language);
+	}
 	public void add(Entry e) {
 		entries.add(e);
 		int idx = entries.size()-1;

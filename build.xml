@@ -60,5 +60,8 @@
 			includes="resources/schema/* resources/graphics/*.png"
 		/>
 	</target>
+        <target name="run" depends="jar">
+            <exec executable="./conmandictionary.sh" />
+        </target>
 </project>
 

@@ -19,11 +19,6 @@
 
 package org.beastwithin.conmandictionary;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-
 /**
  * Dictionary list and entry editor panel in main window. Consists of
  * the list of entries, a keyword entry panel, rich text editor for the
@@ -31,250 +26,327 @@ import javax.swing.event.*;
  * 
  * @author wwwwolf
  */
-public class LanguagePanel extends JPanel {
-	private final int NORMAL_WIDTH = 300;
-	private final int MAX_WIDTH = 300;
-	
-	static final long serialVersionUID = 1; 
-	
-	private JLabel languageLabel;
-	private SearchBox searchBox;
-	private EntryList entryList;
-	private JList definitionList;
-	private JTextField definitionTerm;
-	private JEditorPane definitionEditor;
-	
-	private ActionListener actionListener;
-	private ListSelectionListener listSelectionListener;
-	
-	/**
-	 * Constructs the UI, without specifying the laguage.
-	 */
-	public LanguagePanel() {
-		this(null);
-	}
-	
-	/**
-	 * Constructs the UI.
-	 * 
-	 * @param language Desired language.
-	 */
-	public LanguagePanel(String language) {
-		super();
-		final LanguagePanel selfRef = this;
-		
-		// Listens to the events
-		this.actionListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand() == "add") {
-					selfRef.addDefinition();
-				} else if(e.getActionCommand() == "delete") {
-					selfRef.deleteSelected();
-				} else if(e.getActionCommand() == "modify") {
-					selfRef.modifySelected();
-				} else {
-					System.err.println("WARNING: Unknown event " + e.getActionCommand());
-				}
-			}
-		};
-		
-		this.listSelectionListener = new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				if(!e.getValueIsAdjusting())	
-					selfRef.pickedListItemForEditing();
-			}
-		};
-		
-		BoxLayout l = new BoxLayout(this,BoxLayout.PAGE_AXIS);
-		this.setLayout(l);
-		
-		// Text that says what we're doing
-		this.languageLabel = new JLabel(language);
-		this.add(this.languageLabel);
+public class LanguagePanel extends javax.swing.JPanel {
+    
+    private EntryList entryList;
+    private LanguagePanelSearchBoxListener searchListener;
+    
+    public LanguagePanel() {
+        entryList = new EntryList();
+        searchListener = new LanguagePanelSearchBoxListener(this);
+        initComponents();
+        entryList.setLanguage("");
+    }
+    public LanguagePanel(String language) {
+        this();
+        entryList.setLanguage(language);
+        languageLabel.setText(language);
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-		// Search box
-		searchBox = new SearchBox();
-		searchBox.addSearchBoxListener(new SearchBoxListener() {
-			public void searchBoxCleared() {
-				selfRef.clearListSelection();
-			}
-			public void searchBoxContentsChanged(String newContents) {
-				searchForTerm(newContents);
-			}
-		});
-		this.add(searchBox);
-		
-		// Empty list.
-		entryList = new EntryList();
-		entryList.setLanguage(language);
-		
-		// Our list of definitions
-		this.definitionList = new JList(entryList);
-		this.definitionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		this.definitionList.addListSelectionListener(listSelectionListener);
-		JScrollPane defListScroll = new JScrollPane(this.definitionList);
-		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		defListScroll.setMinimumSize(new Dimension(NORMAL_WIDTH,100));
-		defListScroll.setPreferredSize(new Dimension(NORMAL_WIDTH,150));
-		defListScroll.setMaximumSize(new Dimension(MAX_WIDTH,600));
-		this.add(defListScroll);
-		
-		// The name of the term we're editing.
-		this.definitionTerm = new JTextField();
-		this.definitionTerm.setToolTipText("Enter the term or word to be defined");
-		definitionTerm.setMinimumSize(new Dimension(NORMAL_WIDTH,30));
-		definitionTerm.setPreferredSize(new Dimension(NORMAL_WIDTH,30));
-		definitionTerm.setMaximumSize(new Dimension(MAX_WIDTH,30));
-		this.add(definitionTerm);
-		
-		// Editor for the definition.
-		this.definitionEditor = new JEditorPane();
-		this.definitionEditor.setToolTipText("Define the term or word here.");
-		JScrollPane defEditorScroll = new JScrollPane(definitionEditor);
-		defEditorScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		defEditorScroll.setMinimumSize(new Dimension(NORMAL_WIDTH,250));
-		defEditorScroll.setPreferredSize(new Dimension(NORMAL_WIDTH,250));
-		defEditorScroll.setMaximumSize(new Dimension(MAX_WIDTH,600));
-		this.add(defEditorScroll);
-		
-		// Buttons to modify the selection
-		JPanel buts = new JPanel(new FlowLayout());
-		// Add
-		JButton addButton = new JButton("Add");
-		addButton.setActionCommand("add");
-		addButton.addActionListener(this.actionListener);
-		addButton.setToolTipText("Add the word or term being edited as a new entry.");
-		buts.add(addButton);
-		// Delete
-		JButton deleteButton = new JButton("Delete");
-		deleteButton.setActionCommand("delete");
-		deleteButton.addActionListener(this.actionListener);
-		deleteButton.setToolTipText("Delete the selected term.");
-		buts.add(deleteButton);
-		// Modify
-		JButton modifyButton = new JButton("Modify");
-		modifyButton.setActionCommand("modify");
-		modifyButton.addActionListener(this.actionListener);
-		modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
-		buts.add(modifyButton);
-		// ...and all buttons are done.
-		this.add(buts);
-	}
-	
-	private void resetLanguageLabel() {
-		this.languageLabel.setText(entryList.getLanguage());	
-	}
+        languageLabel = new javax.swing.JLabel();
+        searchBox = new org.beastwithin.conmandictionary.SearchBox();
+        definitionEditorSplitPane = new javax.swing.JSplitPane();
+        definitionListScrollPanel = new javax.swing.JScrollPane();
+        definitionList = new javax.swing.JList();
+        definitionPanel = new javax.swing.JPanel();
+        definitionTerm = new javax.swing.JTextField();
+        definitionEditorPane = new javax.swing.JScrollPane();
+        definitionEditor = new javax.swing.JEditorPane();
+        buttonPanel = new javax.swing.JPanel();
+        modifyButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
 
-	/**
-	 * Sets the list language.
-	 * @param language Language.
-	 */
-	public void setLanguage(String language) {
-		entryList.setLanguage(language);
-		resetLanguageLabel();
-	}
-	/**
-	 * Gets the list language.
-	 * @return Language.
-	 */
-	public String getLanguage() {
-		return this.languageLabel.getText();
-	}
-	
-	/**
-	 * Called when a list item is picked for editing by
-	 * LanguagePanelListSelectionListener. 
-	 *
-	 */
-	private void pickedListItemForEditing() {
-		int idx = this.definitionList.getSelectedIndex(); 
-		if(idx == -1)
-			return;
-		Entry e = (Entry) entryList.getElementAt(idx);
-		this.editEntry(e);
-	}
-	/**
-	 * Fills the editor with the details from the specified editor.
-	 * 
-	 * @param e Entry to be edited.
-	 */
-	private void editEntry(Entry e) {
-		this.definitionTerm.setText(e.getTerm());
-		this.definitionEditor.setText(e.getDefinition());
-	}
-	/**
-	 * Clears the editor.
-	 */
-	private void clearEntries() {
-		this.definitionTerm.setText("");
-		this.definitionEditor.setText("");
-	}
+        languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        languageLabel.setText("Language");
 
-	/**
-	 * Adds the values in the editor as a new entry in the list.
-	 */
-	public void addDefinition() {
-		String term = this.definitionTerm.getText();
-		String definition = this.definitionEditor.getText();
+        searchBox.addSearchBoxListener(searchListener);
 
-		Entry newTerm = new Entry(term, definition);
-		
-		this.entryList.add(newTerm);
-		this.entryList.sort();
-	}
-	/**
-	 * Deletes the selected entry.
-	 */
-	public void deleteSelected() {
-		// TODO: Confirmation dialog!
-		int idx = this.definitionList.getSelectedIndex(); 
-		if(idx == -1)
-			return;
-		this.entryList.remove(idx);
-		this.entryList.sort();
-		clearEntries();
-	}
-	/**
-	 * Update the selected item with the new details from the editor.
-	 */
-	public void modifySelected() {
-		int idx = this.definitionList.getSelectedIndex(); 
-		if(idx == -1)
-			return;
-		Entry e = (Entry) entryList.getElementAt(idx);
-		e.setTerm(this.definitionTerm.getText());
-		e.setDefinition(this.definitionEditor.getText());
-		this.entryList.sort();
-		this.definitionList.repaint();
-	}	
-	
-	/**
-	 * Returns the list of entries.
-	 * @return The entry list.
-	 */
-	public EntryList getEntryList() {
-		return entryList;
-	}
-	public void setEntryList(EntryList l) {
-		entryList = l;
-		definitionList.setModel(entryList);
-		resetLanguageLabel();
-	}
-	
-	/**
-	 * Clear all entries in this list.
-	 */
-	public void clearList() {
-		this.entryList.clear();
-		this.clearEntries();
-	}
-	
-	public void searchForTerm(String term) {
-		Entry x = entryList.search(term);
-		this.definitionList.setSelectedValue(x, true);
-	}
-	public void clearListSelection() {
-		//FIXME: Should none be selected? How do I do that anyway?
-		//this.definitionList.setSelectedValue(null,false);
-	}
+        definitionEditorSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        definitionList.setModel(entryList);
+        definitionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                definitionListValueChanged(evt);
+            }
+        });
+        definitionListScrollPanel.setViewportView(definitionList);
+
+        definitionEditorSplitPane.setTopComponent(definitionListScrollPanel);
+
+        definitionTerm.setToolTipText("Enter the term or word to be defined");
+
+        definitionEditor.setToolTipText("Define the term or word here.");
+        definitionEditorPane.setViewportView(definitionEditor);
+
+        javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
+        definitionPanel.setLayout(definitionPanelLayout);
+        definitionPanelLayout.setHorizontalGroup(
+            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+            .addComponent(definitionEditorPane, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        definitionPanelLayout.setVerticalGroup(
+            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(definitionPanelLayout.createSequentialGroup()
+                .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+        );
+
+        definitionEditorSplitPane.setRightComponent(definitionPanel);
+
+        modifyButton.setText("Modify");
+        modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
+        modifyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifyButtonClicked(evt);
+            }
+        });
+
+        deleteButton.setText("Delete");
+        deleteButton.setToolTipText("Delete the selected term.");
+        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonClicked(evt);
+            }
+        });
+
+        addButton.setText("Add");
+        addButton.setToolTipText("Add the word or term being edited as a new entry.");
+        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+        buttonPanel.setLayout(buttonPanelLayout);
+        buttonPanelLayout.setHorizontalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(275, Short.MAX_VALUE)
+                .addComponent(addButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        buttonPanelLayout.setVerticalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(modifyButton)
+                .addComponent(deleteButton)
+                .addComponent(addButton))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(definitionEditorSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(languageLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(definitionEditorSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void definitionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_definitionListValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            pickedListItemForEditing();
+        }
+    }//GEN-LAST:event_definitionListValueChanged
+
+    private void modifyButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyButtonClicked
+        modifySelected();
+    }//GEN-LAST:event_modifyButtonClicked
+
+    private void deleteButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonClicked
+        deleteSelected();
+    }//GEN-LAST:event_deleteButtonClicked
+
+    private void addButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonClicked
+        addDefinition();
+    }//GEN-LAST:event_addButtonClicked
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JEditorPane definitionEditor;
+    private javax.swing.JScrollPane definitionEditorPane;
+    private javax.swing.JSplitPane definitionEditorSplitPane;
+    private javax.swing.JList definitionList;
+    private javax.swing.JScrollPane definitionListScrollPanel;
+    private javax.swing.JPanel definitionPanel;
+    private javax.swing.JTextField definitionTerm;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel languageLabel;
+    private javax.swing.JButton modifyButton;
+    private org.beastwithin.conmandictionary.SearchBox searchBox;
+    // End of variables declaration//GEN-END:variables
+    
+    
+    private class LanguagePanelSearchBoxListener implements SearchBoxListener {
+        private LanguagePanel languagePanel;
+        LanguagePanelSearchBoxListener(LanguagePanel lp) {
+            languagePanel = lp;
+        }
+        public void searchBoxCleared() {
+            languagePanel.clearListSelection();
+        }
+
+        public void searchBoxContentsChanged(String newContents) {
+            languagePanel.searchForTerm(newContents);
+        }
+    }
+
+    
+    
+    private void resetLanguageLabel() {
+        this.languageLabel.setText(entryList.getLanguage());
+    }
+
+    /**
+     * Sets the list language.
+     * @param language Language.
+     */
+    public void setLanguage(String language) {
+        entryList.setLanguage(language);
+        resetLanguageLabel();
+    }
+
+    /**
+     * Gets the list language.
+     * @return Language.
+     */
+    public String getLanguage() {
+        return this.languageLabel.getText();
+    }
+
+    /**
+     * Called when a list item is picked for editing by
+     * LanguagePanelListSelectionListener. 
+     *
+     */
+    private void pickedListItemForEditing() {
+        int idx = this.definitionList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        Entry e = (Entry) entryList.getElementAt(idx);
+        this.editEntry(e);
+    }
+
+    /**
+     * Fills the editor with the details from the specified editor.
+     * 
+     * @param e Entry to be edited.
+     */
+    private void editEntry(Entry e) {
+        this.definitionTerm.setText(e.getTerm());
+        this.definitionEditor.setText(e.getDefinition());
+    }
+
+    /**
+     * Clears the editor.
+     */
+    private void clearEntries() {
+        this.definitionTerm.setText("");
+        this.definitionEditor.setText("");
+    }
+
+    /**
+     * Adds the values in the editor as a new entry in the list.
+     */
+    public void addDefinition() {
+        String term = this.definitionTerm.getText();
+        String definition = this.definitionEditor.getText();
+
+        Entry newTerm = new Entry(term, definition);
+
+        this.entryList.add(newTerm);
+        this.entryList.sort();
+    }
+
+    /**
+     * Deletes the selected entry.
+     */
+    public void deleteSelected() {
+        // TODO: Confirmation dialog!
+        int idx = this.definitionList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        this.entryList.remove(idx);
+        this.entryList.sort();
+        clearEntries();
+    }
+
+    /**
+     * Update the selected item with the new details from the editor.
+     */
+    public void modifySelected() {
+        int idx = this.definitionList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        Entry e = (Entry) entryList.getElementAt(idx);
+        e.setTerm(this.definitionTerm.getText());
+        e.setDefinition(this.definitionEditor.getText());
+        this.entryList.sort();
+        this.definitionList.repaint();
+    }
+
+    /**
+     * Returns the list of entries.
+     * @return The entry list.
+     */
+    public EntryList getEntryList() {
+        return entryList;
+    }
+
+    public void setEntryList(EntryList l) {
+        entryList = l;
+        definitionList.setModel(entryList);
+        resetLanguageLabel();
+    }
+
+    /**
+     * Clear all entries in this list.
+     */
+    public void clearList() {
+        this.entryList.clear();
+        this.clearEntries();
+    }
+
+    public void searchForTerm(String term) {
+        Entry x = entryList.search(term);
+        this.definitionList.setSelectedValue(x, true);
+    }
+
+    public void clearListSelection() {
+    //FIXME: Should none be selected? How do I do that anyway?
+    //this.definitionList.setSelectedValue(null,false);
+    }
 }

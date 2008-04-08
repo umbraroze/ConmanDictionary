@@ -46,61 +46,20 @@ public class LanguagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        languageLabel = new javax.swing.JLabel();
-        searchBox = new org.beastwithin.conmandictionary.SearchBox();
-        definitionEditorSplitPane = new javax.swing.JSplitPane();
-        definitionListScrollPanel = new javax.swing.JScrollPane();
-        definitionList = new javax.swing.JList();
-        definitionPanel = new javax.swing.JPanel();
-        definitionTerm = new javax.swing.JTextField();
-        definitionEditorPane = new javax.swing.JScrollPane();
-        definitionEditor = new javax.swing.JEditorPane();
         buttonPanel = new javax.swing.JPanel();
         modifyButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
-
-        languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        languageLabel.setText("Language");
-
-        searchBox.addSearchBoxListener(searchListener);
-
-        definitionEditorSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        definitionList.setModel(entryList);
-        definitionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                definitionListValueChanged(evt);
-            }
-        });
-        definitionListScrollPanel.setViewportView(definitionList);
-
-        definitionEditorSplitPane.setTopComponent(definitionListScrollPanel);
-
-        definitionTerm.setToolTipText("Enter the term or word to be defined");
-
-        definitionEditorPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        definitionEditorPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        definitionEditor.setToolTipText("Define the term or word here.");
-        definitionEditorPane.setViewportView(definitionEditor);
-
-        javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
-        definitionPanel.setLayout(definitionPanelLayout);
-        definitionPanelLayout.setHorizontalGroup(
-            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-            .addComponent(definitionEditorPane, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        definitionPanelLayout.setVerticalGroup(
-            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(definitionPanelLayout.createSequentialGroup()
-                .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
-        );
-
-        definitionEditorSplitPane.setRightComponent(definitionPanel);
+        definitionListScrollPanel = new javax.swing.JScrollPane();
+        definitionList = new javax.swing.JList();
+        searchBox = new org.beastwithin.conmandictionary.SearchBox();
+        definitionPanel = new javax.swing.JPanel();
+        definitionTerm = new javax.swing.JTextField();
+        definitionEditorPane = new javax.swing.JScrollPane();
+        definitionEditor = new javax.swing.JEditorPane();
+        languageLabel = new javax.swing.JLabel();
+        languagePanelSeparator1 = new javax.swing.JSeparator();
+        languagePanelSeparator2 = new javax.swing.JSeparator();
 
         modifyButton.setText("Modify");
         modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
@@ -131,7 +90,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(315, Short.MAX_VALUE)
+                .addContainerGap(189, Short.MAX_VALUE)
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
@@ -140,21 +99,56 @@ public class LanguagePanel extends javax.swing.JPanel {
         );
         buttonPanelLayout.setVerticalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonPanelLayout.createSequentialGroup()
-                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(modifyButton)
-                    .addComponent(deleteButton)
-                    .addComponent(addButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(modifyButton)
+                .addComponent(deleteButton)
+                .addComponent(addButton))
         );
+
+        definitionList.setModel(entryList);
+        definitionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                definitionListValueChanged(evt);
+            }
+        });
+        definitionListScrollPanel.setViewportView(definitionList);
+
+        definitionTerm.setToolTipText("Enter the term or word to be defined");
+
+        definitionEditorPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        definitionEditorPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        definitionEditor.setToolTipText("Define the term or word here.");
+        definitionEditorPane.setViewportView(definitionEditor);
+
+        javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
+        definitionPanel.setLayout(definitionPanelLayout);
+        definitionPanelLayout.setHorizontalGroup(
+            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+        );
+        definitionPanelLayout.setVerticalGroup(
+            definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(definitionPanelLayout.createSequentialGroup()
+                .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+        );
+
+        languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        languageLabel.setText("Language");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-            .addComponent(definitionEditorSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(definitionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
             .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -164,9 +158,15 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionEditorSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(definitionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,13 +194,14 @@ public class LanguagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JEditorPane definitionEditor;
     private javax.swing.JScrollPane definitionEditorPane;
-    private javax.swing.JSplitPane definitionEditorSplitPane;
     private javax.swing.JList definitionList;
     private javax.swing.JScrollPane definitionListScrollPanel;
     private javax.swing.JPanel definitionPanel;
     private javax.swing.JTextField definitionTerm;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel languageLabel;
+    private javax.swing.JSeparator languagePanelSeparator1;
+    private javax.swing.JSeparator languagePanelSeparator2;
     private javax.swing.JButton modifyButton;
     private org.beastwithin.conmandictionary.SearchBox searchBox;
     // End of variables declaration//GEN-END:variables

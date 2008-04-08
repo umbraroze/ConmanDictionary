@@ -64,7 +64,6 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainWindowPanel = new javax.swing.JSplitPane();
         leftLanguagePanel = new org.beastwithin.conmandictionary.LanguagePanel();
         rightLanguagePanel = new org.beastwithin.conmandictionary.LanguagePanel();
         menuBar = new javax.swing.JMenuBar();
@@ -90,9 +89,6 @@ public class MainWindow extends javax.swing.JFrame {
                 windowCloseEvent(evt);
             }
         });
-
-        mainWindowPanel.setLeftComponent(leftLanguagePanel);
-        mainWindowPanel.setRightComponent(rightLanguagePanel);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -182,11 +178,15 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainWindowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainWindowPanel)
+            .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -208,7 +208,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem helpAboutMenuItem;
     private javax.swing.JMenu helpMenu;
     private org.beastwithin.conmandictionary.LanguagePanel leftLanguagePanel;
-    private javax.swing.JSplitPane mainWindowPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu researchMenu;
     private javax.swing.JMenuItem researchNotepadMenuItem;

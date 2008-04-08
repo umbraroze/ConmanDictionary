@@ -19,151 +19,164 @@
 
 package org.beastwithin.conmandictionary;
 
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class LanguageNameDialog extends JDialog {
-	static final long serialVersionUID = 1; 
-	private ActionListener actionListener;
+public class LanguageNameDialog extends javax.swing.JDialog {
 
-	private MainWindow mainWindow;
-	private JTextField langNameField1;
-	private JTextField langNameField2;
+    private ActionListener actionListener;
+    private MainWindow mainWindow;
+    
+    public LanguageNameDialog(MainWindow parent) {
+        super(parent, true);
+	this.mainWindow = parent;
+	final LanguageNameDialog selfRef = this;
 
-	private void getLanguagesFromDialog() {
-		mainWindow.getLeftLanguagePanel().setLanguage(langNameField1.getText());
-		mainWindow.getRightLanguagePanel().setLanguage(langNameField2.getText());
-	}
-	private void setLanguagesInDialog() {
-		langNameField1.setText(mainWindow.getLeftLanguagePanel().getLanguage());
-		langNameField2.setText(mainWindow.getRightLanguagePanel().getLanguage());		
-	}
-	public void open() {
-		this.setLanguagesInDialog();
-		this.setVisible(true);
-	}
-	public void set() {
-		this.getLanguagesFromDialog();
-		this.setVisible(false);
-	}
-	public void cancel() {
-		this.setVisible(false);
-	}
-	
-	private JPanel constructLanguageDialogFields() {
-		SpringLayout l = new SpringLayout(); 
-		JPanel languageDialogFields = new JPanel(l);
+        this.actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().compareTo("set")==0) {
+                    selfRef.set();
+                } else if (e.getActionCommand().compareTo("cancel")==0) {
+                    selfRef.cancel();
+                }
+            }
+        };
+        this.addWindowListener(new WindowListener() {
 
-		// Here's the widgets.
-		JLabel langName1 = new JLabel("Language 1:");
-		langNameField1 = new JTextField();
-		JLabel langName2 = new JLabel("Language 2:"); 
-		langNameField2 = new JTextField();
-		
-		// First label is aligned with up/left edge of box
-		l.putConstraint(SpringLayout.WEST, langName1,
-                5, SpringLayout.WEST, languageDialogFields);
-		l.putConstraint(SpringLayout.NORTH, langName1,
-                5, SpringLayout.NORTH, languageDialogFields);
-		// Entry field is just right to it...
-		l.putConstraint(SpringLayout.WEST, langNameField1,
-                5, SpringLayout.EAST, langName1);
-		// ...and is aligned with the top.
-		l.putConstraint(SpringLayout.NORTH, langNameField1,
-                5, SpringLayout.NORTH, languageDialogFields);
-		// It also stretches to the other edge of the box.
-		l.putConstraint(SpringLayout.EAST, langNameField1,
-                0, SpringLayout.EAST, languageDialogFields);
-		// The label's bottom edge is aligned with the field's.
-		l.putConstraint(SpringLayout.SOUTH, langName1,
-                0, SpringLayout.SOUTH, langNameField1);
-		// And that's how you place the first two.
-		languageDialogFields.add(langName1);
-		languageDialogFields.add(langNameField1);
-		// The second field is also in left edge of the box...
-		l.putConstraint(SpringLayout.WEST, langName2,
-                5, SpringLayout.WEST, languageDialogFields);
-		// ...and just south of the previous text field.
-		l.putConstraint(SpringLayout.NORTH, langName2,
-                5, SpringLayout.SOUTH, langName1);
-		// Field is just right of the box...
-		l.putConstraint(SpringLayout.WEST, langNameField2,
-                5, SpringLayout.EAST, langName2);
-		// ...and under the previous field.
-		l.putConstraint(SpringLayout.NORTH, langNameField2,
-                5, SpringLayout.SOUTH, langNameField1);
-		// The field stretches wayyy to the other edge too.
-		l.putConstraint(SpringLayout.EAST, langNameField2,
-                0, SpringLayout.EAST, languageDialogFields);
-		// The label's bottom edge is aligned with the field's.
-		l.putConstraint(SpringLayout.SOUTH, langName2,
-                0, SpringLayout.SOUTH, langNameField2);
-		languageDialogFields.add(langName2);
-		languageDialogFields.add(langNameField2);
-		
-		return languageDialogFields; 
-	}
-	private JPanel constructLanguageDialogButtons() {
-		JPanel languageDialogButtons = new JPanel(new FlowLayout());
-		JButton setButton = new JButton("Set");
-		setButton.setActionCommand("set");
-		setButton.addActionListener(this.actionListener);
-		setButton.setToolTipText("Set the languages.");
-		languageDialogButtons.add(setButton);
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("cancel");
-		cancelButton.addActionListener(this.actionListener);
-		cancelButton.setToolTipText("Close and don't set the languages.");
-		languageDialogButtons.add(cancelButton);
-		return languageDialogButtons;
-	}
-	private JPanel constructLanguageDialogContents() {
-		JPanel languageDialogContents = new JPanel(new BorderLayout());
-		JPanel languageDialogFields = constructLanguageDialogFields();
-		JPanel languageDialogButtons = constructLanguageDialogButtons();
-		languageDialogContents.add(languageDialogFields, BorderLayout.CENTER);		
-		languageDialogContents.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.PAGE_END);
-		languageDialogContents.add(languageDialogButtons, BorderLayout.PAGE_END);
-		return languageDialogContents;
-	}
-	
-	public LanguageNameDialog(MainWindow mainWindow) {
-		super(mainWindow);
-		this.mainWindow = mainWindow;
-		final LanguageNameDialog selfRef = this;
-		this.setModal(true);
-		this.setTitle("Language names");
-		this.setPreferredSize(new Dimension(300,150));
-		this.setMinimumSize(new Dimension(300,150));
-		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+            public void windowClosing(WindowEvent e) {
+                selfRef.cancel();
+            }
 
-		this.actionListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand() == "set") {
-					selfRef.set();
-				} else if(e.getActionCommand() == "cancel") {
-					selfRef.cancel();
-				}
-			}
-		};
-		this.addWindowListener(new WindowListener() {
-			public void windowClosing(WindowEvent e) {
-				selfRef.cancel();
-			}
+            public void windowActivated(WindowEvent e) {
+            }
 
-			public void windowActivated(WindowEvent e) { }
-			public void windowClosed(WindowEvent e) { }
-			public void windowDeactivated(WindowEvent e) { }
-			public void windowDeiconified(WindowEvent e) { }
-			public void windowIconified(WindowEvent e) { }
-			public void windowOpened(WindowEvent e) { }
-		});
-		// Contents.
-		
-		JPanel languageDialogContents = constructLanguageDialogContents(); 
-		this.getContentPane().add(languageDialogContents);		
-		this.pack();
-		this.setVisible(false);
-	}
+            public void windowClosed(WindowEvent e) {
+            }
+
+            public void windowDeactivated(WindowEvent e) {
+            }
+
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            public void windowIconified(WindowEvent e) {
+            }
+
+            public void windowOpened(WindowEvent e) {
+            }
+        });
+        initComponents();
+    }
+   
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        langNameField1 = new javax.swing.JTextField();
+        langNameLabel1 = new javax.swing.JLabel();
+        langNameLabel2 = new javax.swing.JLabel();
+        langNameField2 = new javax.swing.JTextField();
+        langNameButtonSeparator = new javax.swing.JSeparator();
+        setButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Language names");
+
+        langNameLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        langNameLabel1.setText("Language 1:");
+
+        langNameLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        langNameLabel2.setText("Language 2:");
+
+        setButton.setText("Set");
+        setButton.setToolTipText("Set the languages.");
+        setButton.setActionCommand("set");
+        setButton.addActionListener(actionListener);
+
+        cancelButton.setText("Cancel");
+        cancelButton.setToolTipText("Close and don't set the languages.");
+        cancelButton.setActionCommand("cancel");
+        cancelButton.addActionListener(actionListener);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(langNameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(langNameLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(langNameField2, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                    .addComponent(langNameField1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(langNameButtonSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(295, Short.MAX_VALUE)
+                .addComponent(cancelButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setButton)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(langNameLabel1)
+                    .addComponent(langNameField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(langNameLabel2)
+                    .addComponent(langNameField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(langNameButtonSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(setButton)
+                    .addComponent(cancelButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JSeparator langNameButtonSeparator;
+    private javax.swing.JTextField langNameField1;
+    private javax.swing.JTextField langNameField2;
+    private javax.swing.JLabel langNameLabel1;
+    private javax.swing.JLabel langNameLabel2;
+    private javax.swing.JButton setButton;
+    // End of variables declaration//GEN-END:variables
+
+    
+    private void getLanguagesFromDialog() {
+        mainWindow.getLeftLanguagePanel().setLanguage(langNameField1.getText());
+        mainWindow.getRightLanguagePanel().setLanguage(langNameField2.getText());
+    }
+
+    private void setLanguagesInDialog() {
+        langNameField1.setText(mainWindow.getLeftLanguagePanel().getLanguage());
+        langNameField2.setText(mainWindow.getRightLanguagePanel().getLanguage());
+    }
+
+    public void open() {
+        this.setLanguagesInDialog();
+        this.setVisible(true);
+    }
+
+    public void set() {
+        this.getLanguagesFromDialog();
+        this.setVisible(false);
+    }
+
+    public void cancel() {
+        this.setVisible(false);
+    }
 }

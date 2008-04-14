@@ -24,72 +24,105 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
-public class NotePad extends JFrame {
-	public static final long serialVersionUID = 1;
-	private ActionListener actionListener;
-	private JEditorPane editor;
-	
-	/**
-	 * Construct a new notepad object and associate it
-	 * with a specified main window.
-	 * 
-	 */
-	public NotePad() {
-		final NotePad selfRef = this;
-	
-		this.setIconImage(ConmanDictionary.getAppIcon());
-		
-		// Ordinary Stuff.
-		this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
-		//this.setRootPane(ConmanDictionary.getMainWindow().getRootPane());		
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setPreferredSize(new Dimension(400,450));
-		
-		this.actionListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand() == "close") {
-					selfRef.setVisible(false);
-				}
-			}
-		};
-		
-		// Contents.
-		JPanel notePadContents = new JPanel();
-		BoxLayout l = new BoxLayout(notePadContents,BoxLayout.Y_AXIS);
-		notePadContents.setLayout(l);
-		
-		editor = new JEditorPane();
-		JScrollPane editorScroll = new JScrollPane(editor);
-		editorScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		editorScroll.setMinimumSize(new Dimension(400,300));
-		editorScroll.setPreferredSize(new Dimension(400,400));
-		editor.setEditable(true);
-		notePadContents.add(editorScroll);
-		notePadContents.add(new JSeparator(JSeparator.HORIZONTAL));
+public class NotePad extends javax.swing.JFrame {
+    
+    /**
+     * Construct a new notepad.
+     */
+    public NotePad() {
+        final NotePad selfRef = this;
+        initComponents();
+        this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
+        this.setIconImage(ConmanDictionary.getAppIcon());
 
-		JPanel buts = new JPanel(new FlowLayout());
-		// Close
-		JButton closeButton = new JButton("Close");
-		closeButton.setActionCommand("close");
-		closeButton.addActionListener(this.actionListener);
-		closeButton.setToolTipText("Close the notepad.");
-		buts.add(closeButton);
-		// ...and all buttons are done.
-		notePadContents.add(buts);
+        this.actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().compareTo("close")==0) {
+                    selfRef.setVisible(false);
+                }
+            }
+        };
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-		this.add(notePadContents);
-		this.pack();
-	}
-	public String getText() {
-		return editor.getText();
-	}
-	public void setText(String text) {
-		editor.setText(text);
-	}
-	public String toString() {
-		return editor.getText();
-	}
-	public void setModel(Document d) {
-		editor.setDocument(d);
-	}
+        notePadToolBar = new javax.swing.JToolBar();
+        closeButton = new javax.swing.JButton();
+        editorScroll = new javax.swing.JScrollPane();
+        editor = new javax.swing.JEditorPane();
+
+        notePadToolBar.setRollover(true);
+
+        closeButton.setText("Close");
+        closeButton.setFocusable(false);
+        closeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        closeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeButtonMouseClicked(evt);
+            }
+        });
+        notePadToolBar.add(closeButton);
+
+        editorScroll.setViewportView(editor);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(notePadToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+            .addComponent(editorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(notePadToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editorScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        setVisible(false);
+    }//GEN-LAST:event_closeButtonMouseClicked
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NotePad().setVisible(true);
+            }
+        });
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton closeButton;
+    private javax.swing.JEditorPane editor;
+    private javax.swing.JScrollPane editorScroll;
+    private javax.swing.JToolBar notePadToolBar;
+    // End of variables declaration//GEN-END:variables
+
+    private ActionListener actionListener;
+
+    public String getText() {
+        return editor.getText();
+    }
+
+    public void setText(String text) {
+        editor.setText(text);
+    }
+
+    public String toString() {
+        return editor.getText();
+    }
+
+    public void setModel(Document d) {
+        editor.setDocument(d);
+    }
+
 }

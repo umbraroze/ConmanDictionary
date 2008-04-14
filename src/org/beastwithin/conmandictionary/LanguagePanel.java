@@ -113,6 +113,8 @@ public class LanguagePanel extends javax.swing.JPanel {
         });
         definitionListScrollPanel.setViewportView(definitionList);
 
+        searchBox.addSearchBoxListener(searchListener);
+
         definitionTerm.setToolTipText("Enter the term or word to be defined");
 
         definitionEditorPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

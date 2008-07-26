@@ -16,7 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.beastwithin.conmandictionary;
 
 import java.util.*;
@@ -32,172 +31,180 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(name = "", propOrder = {
-    "notePad",
-    "definitions"
-})
+@XmlType(name = "", propOrder = { "notePad", "definitions" })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
-	private static final String schemaResourceFile = "resources/schema/dictionary.xsd";
 
-	@XmlTransient
-	private File currentFile = null;
-
-	@XmlTransient
+    private static final String schemaResourceFile = "resources/schema/dictionary.xsd";
+    @XmlTransient
+    private File currentFile = null;
+    @XmlTransient
     private PlainDocument notePad;
-    
-    @XmlElement(name="definitions", required=true)
+    @XmlElement(name = "definitions", required = true)
     protected List<EntryList> definitions;
-      
+
     public Dictionary() {
-    	notePad = new PlainDocument();
-    	definitions = Collections.synchronizedList(new ArrayList<EntryList>());
-    	definitions.add(new EntryList("Language 1"));
-    	definitions.add(new EntryList("Language 2"));
+        notePad = new PlainDocument();
+        definitions = Collections.synchronizedList(new ArrayList<EntryList>());
+        definitions.add(new EntryList("Language 1"));
+        definitions.add(new EntryList("Language 2"));
     }
 
-    @XmlElement(name="notepad",
-    		required=false,
-    		type=String.class)
+    @XmlElement(name = "notepad", required = false, type = String.class)
     public void setNotePad(String n) {
-    	if(notePad == null) {
-    		notePad = new PlainDocument();
-    	}
-    	try {
-        	int oldLength = notePad.getLength();
-        	notePad.replace(0, oldLength, n, null);
-    	} catch(BadLocationException ble) {
-			JOptionPane.showMessageDialog(
-					ConmanDictionary.getMainWindow(),
-					"Error changing the text on the notepad:\n"+
-					ble.getMessage() +
-					"\nFurther details printed at console.",
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			ble.printStackTrace();
-    	}
+        if (notePad == null) {
+            notePad = new PlainDocument();
+        }
+        try {
+            int oldLength = notePad.getLength();
+            notePad.replace(0, oldLength, n, null);
+        } catch (BadLocationException ble) {
+            JOptionPane.showMessageDialog(
+                    ConmanDictionary.getMainWindow(),
+                    "Error changing the text on the notepad:\n" +
+                    ble.getMessage() +
+                    "\nFurther details printed at console.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ble.printStackTrace();
+        }
     }
+
     public String getNotePad() {
-    	try {
-    		return notePad.getText(0, notePad.getLength());
-    	} catch(BadLocationException ble) {
-			JOptionPane.showMessageDialog(
-					ConmanDictionary.getMainWindow(),
-					"Error getting text from the notepad:\n"+
-					ble.getMessage() +
-					"\nFurther details printed at console.",
-					"Error",
-					JOptionPane.ERROR_MESSAGE
-				);
-			ble.printStackTrace();
-			return "";
-    	}
+        try {
+            return notePad.getText(0, notePad.getLength());
+        } catch (BadLocationException ble) {
+            JOptionPane.showMessageDialog(
+                    ConmanDictionary.getMainWindow(),
+                    "Error getting text from the notepad:\n" +
+                    ble.getMessage() +
+                    "\nFurther details printed at console.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ble.printStackTrace();
+            return "";
+        }
     }
+
     @XmlTransient
     public PlainDocument getNotePadDocument() {
-    	return notePad;
+        return notePad;
     }
-    
+
     public List<EntryList> getDefinitions() {
         if (definitions == null) {
             definitions = Collections.synchronizedList(new ArrayList<EntryList>());
         }
         return this.definitions;
     }
-    public String toString() {
-    	StringBuffer s = new StringBuffer();
-    	s.append("Notepad:\n"+getNotePad()+"\n");
-    	s.append("\n\nList 1 ("+this.definitions.get(0).size()+"):"+this.definitions.get(0).toString());
-    	s.append("\n\nList 2 ("+this.definitions.get(1).size()+"):"+this.definitions.get(1).toString());
-    	
-    	return s.toString();
-    }
-    
-    public static void validateFile(File f) throws SAXException, IOException {
-    	SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    	// Try to get a resource from the jar file.
-    	InputStream schema = ClassLoader.getSystemClassLoader().getResourceAsStream(schemaResourceFile);
-    	if(schema == null) {
-    		// If resource wasn't found in the jar, maybe it's in a file?
-    		File schemaFile = new File(schemaResourceFile);
-    		if(!schemaFile.exists())
-    			throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
-    				"validate the file contents, can't be found.");
-    		if(!schemaFile.canRead())
-    			throw new IOException("The schema file " + schemaResourceFile + ", used to\n"+
-    				"validate the file contents, exists but can't be read.");
-    		schema = new FileInputStream(schemaResourceFile);
-    	}
-    	// If we still can't find it, we just give up.
-    	// Cannot validate without a schema...
-    	if(schema == null)
-    		throw new IOException("Can't find the schema file " + schemaResourceFile);    	
-    	Schema s = sf.newSchema(new StreamSource(schema));
-    	javax.xml.validation.Validator v = s.newValidator();
-    	v.validate(new StreamSource(new FileInputStream(f)));
-    }
-    
-    public void setCurrentFile(File f) {
-    	currentFile = f;
-    }
-    public File getCurrentFile() {
-    	return currentFile;
-    }
-    
-    public void saveDocument() throws JAXBException, IOException {
-		JAXBContext jc = JAXBContext.newInstance(this.getClass());
-		Marshaller m = jc.createMarshaller();
-		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
-		FileWriter f = new FileWriter(currentFile);
-		m.marshal(this, f);
-    }
-    public static Dictionary loadDocument(File file) throws JAXBException, IOException {
-		JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
-		Unmarshaller um = jc.createUnmarshaller();
-		Dictionary r = (Dictionary) um.unmarshal(file);
-		r.setCurrentFile(file);
-		return r;
-    }
-	public boolean isUnsavedChanges() {
-		if(definitions.get(0).isModified() || definitions.get(1).isModified())
-			return true;
-		return false;
-	}
-	public void exportAsDictd(String fileNameBase) {
-		LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();
-		LanguagePanel rp = ConmanDictionary.getMainWindow().getRightLanguagePanel();
-		String lFileName, rFileName;
-		if(lp.getLanguage().compareTo(rp.getLanguage())==0) {
-			// The names are same, so let's come up with something...
-			lFileName = "left";
-			rFileName = "right";
-		} else {
-			lFileName = lp.getLanguage();
-			rFileName = rp.getLanguage();
-		}
-		File leftFile = new File(fileNameBase + "."+lFileName+".txt");
-		File rightFile = new File(fileNameBase + "."+rFileName+".txt");
-		try {
-			PrintWriter lf = new PrintWriter(new BufferedWriter(new FileWriter(leftFile)));
-			PrintWriter rf = new PrintWriter(new BufferedWriter(new FileWriter(rightFile)));
-			
-			for (Object o : lp.getEntryList().toArray()) {
-				Entry e = (Entry) o;
-				lf.println(e.toDictString());
-			}
-			lf.close();
-			for (Object o : rp.getEntryList().toArray()) {
-				Entry e = (Entry) o;
-				rf.println(e.toDictString());
-			}
-			rf.close();
-		} catch(IOException ioe) {
-			JOptionPane.showMessageDialog(ConmanDictionary.getMainWindow(),
-					"File error occurred when exporting the file:\n"+
-					ioe.getMessage(),
-					"Error exporting the file.", JOptionPane.ERROR_MESSAGE);
-		}
-	}
 
+    @Override
+    public String toString() {
+        StringBuffer s = new StringBuffer();
+        s.append("Notepad:\n" + getNotePad() + "\n");
+        s.append("\n\nList 1 (" + this.definitions.get(0).size() + "):" + this.definitions.get(0).toString());
+        s.append("\n\nList 2 (" + this.definitions.get(1).size() + "):" + this.definitions.get(1).toString());
+
+        return s.toString();
+    }
+
+    public static void validateFile(File f) throws SAXException, IOException {
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        // Try to get a resource from the jar file.
+        InputStream schema = ClassLoader.getSystemClassLoader().getResourceAsStream(schemaResourceFile);
+        if (schema == null) {
+            // If resource wasn't found in the jar, maybe it's in a file?
+            File schemaFile = new File(schemaResourceFile);
+            if (!schemaFile.exists()) {
+                throw new IOException("The schema file " + schemaResourceFile + ", used to\n" +
+                        "validate the file contents, can't be found.");
+            }
+            if (!schemaFile.canRead()) {
+                throw new IOException("The schema file " + schemaResourceFile + ", used to\n" +
+                        "validate the file contents, exists but can't be read.");
+            }
+            schema = new FileInputStream(schemaResourceFile);
+        }
+        // If we still can't find it, we just give up.
+        // Cannot validate without a schema...
+        if (schema == null) {
+            throw new IOException("Can't find the schema file " + schemaResourceFile);
+        }
+        Schema s = sf.newSchema(new StreamSource(schema));
+        javax.xml.validation.Validator v = s.newValidator();
+        v.validate(new StreamSource(new FileInputStream(f)));
+    }
+
+    public void setCurrentFile(File f) {
+        currentFile = f;
+    }
+
+    public File getCurrentFile() {
+        return currentFile;
+    }
+
+    public void saveDocument() throws JAXBException, IOException {
+        JAXBContext jc = JAXBContext.newInstance(this.getClass());
+        Marshaller m = jc.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+        FileWriter f = new FileWriter(currentFile);
+        m.marshal(this, f);
+    }
+
+    public static Dictionary loadDocument(File file) throws JAXBException, IOException {
+        JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
+        Unmarshaller um = jc.createUnmarshaller();
+        Dictionary r = (Dictionary) um.unmarshal(file);
+        r.setCurrentFile(file);
+        return r;
+    }
+
+    public boolean isUnsavedChanges() {
+        boolean leftModified = definitions.get(0).isModified();
+        //String leftReason = definitions.get(0).getLastModificationReason();
+        boolean rightModified = definitions.get(1).isModified();
+        //String rightReason = definitions.get(1).getLastModificationReason();
+        //System.err.printf("Left modified: %s, %s\n",leftModified,leftReason);
+        //System.err.printf("Right modified: %s, %s\n",rightModified,rightReason);
+        if (leftModified || rightModified) {
+            return true;
+        }
+        return false;
+    }
+
+    public void exportAsDictd(String fileNameBase) {
+        LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();
+        LanguagePanel rp = ConmanDictionary.getMainWindow().getRightLanguagePanel();
+        String lFileName, rFileName;
+        if (lp.getLanguage().compareTo(rp.getLanguage()) == 0) {
+            // The names are same, so let's come up with something...
+            lFileName = "left";
+            rFileName = "right";
+        } else {
+            lFileName = lp.getLanguage();
+            rFileName = rp.getLanguage();
+        }
+        File leftFile = new File(fileNameBase + "." + lFileName + ".txt");
+        File rightFile = new File(fileNameBase + "." + rFileName + ".txt");
+        try {
+            PrintWriter lf = new PrintWriter(new BufferedWriter(new FileWriter(leftFile)));
+            PrintWriter rf = new PrintWriter(new BufferedWriter(new FileWriter(rightFile)));
+
+            for (Object o : lp.getEntryList().toArray()) {
+                Entry e = (Entry) o;
+                lf.println(e.toDictString());
+            }
+            lf.close();
+            for (Object o : rp.getEntryList().toArray()) {
+                Entry e = (Entry) o;
+                rf.println(e.toDictString());
+            }
+            rf.close();
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(ConmanDictionary.getMainWindow(),
+                    "File error occurred when exporting the file:\n" +
+                    ioe.getMessage(),
+                    "Error exporting the file.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

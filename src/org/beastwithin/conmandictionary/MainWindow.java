@@ -418,7 +418,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void changesHaveBeenSaved() {
         this.leftLanguagePanel.getEntryList().setModified(false);
+        this.leftLanguagePanel.getEntryList().setLastModificationReason("Saved");
         this.rightLanguagePanel.getEntryList().setModified(false);
+        this.rightLanguagePanel.getEntryList().setLastModificationReason("Saved");
     }
 
     public NotePad getNotePad() {

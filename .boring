@@ -55,8 +55,8 @@
 (^|/)\.lock-wscript$
 ^\.darcs-temp-mail$
 
-bin
+bin($|/)
 conmandictionary\.jar
-nbproject/private
-build
-dist
+nbproject/private($|/)
+build($|/)
+dist($|/)

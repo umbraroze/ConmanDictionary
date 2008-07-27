@@ -55,5 +55,6 @@
 (^|/)\.lock-wscript$
 ^\.darcs-temp-mail$
 
-bin/
+bin
 conmandictionary\.jar
+nbproject/private

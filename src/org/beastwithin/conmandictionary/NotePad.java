@@ -1,7 +1,7 @@
 /*  NotePad.java: a note pad for... um, notes.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,8 +32,8 @@ public class NotePad extends javax.swing.JFrame {
     public NotePad() {
         final NotePad selfRef = this;
         initComponents();
-        this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
-        this.setIconImage(ConmanDictionary.getAppIcon());
+        //this.setTitle("Notepad - " + ConmanDictionary.APP_NAME);
+        //this.setIconImage(ConmanDictionary.getAppIcon());
 
         this.actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -89,17 +89,6 @@ public class NotePad extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_closeButtonMouseClicked
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NotePad().setVisible(true);
-            }
-        });
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JEditorPane editor;
@@ -117,7 +106,7 @@ public class NotePad extends javax.swing.JFrame {
         editor.setText(text);
     }
 
-    public String toString() {
+    @Override public String toString() {
         return editor.getText();
     }
 

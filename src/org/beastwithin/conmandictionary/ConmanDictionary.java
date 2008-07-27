@@ -17,123 +17,65 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package org.beastwithin.conmandictionary;
 
-
 import java.io.File;
-import java.net.URL;
-
-import java.awt.Image;
-import java.awt.Toolkit;
-
-import javax.swing.JOptionPane;
+import org.jdesktop.application.Application;
+import org.jdesktop.application.SingleFrameApplication;
 
 /**
- * Main class of the program.
- * 
- * @author wwwwolf
+ * The main class of the application.
  */
-public class ConmanDictionary {
-	///Application name. This will appear in window titles etc.
-	public final static String APP_NAME = "Conman's Dictionary";
-	///Application version.
-	public final static String APP_VERSION = "version 0.9";
+public class ConmanDictionary extends SingleFrameApplication {
+    /**
+     * Main window.
+     */
+    private static MainWindow mainWindow = null;
+    public static MainWindow getMainWindow() {
+        return mainWindow;
+    }
+    /**
+     * Dictionary document currently edited.
+     */
+    private static Dictionary dictionary = null;
 
-	/// Application icon image
-	private static Image appIcon = null; 
-	
-	/**
-	 * The main program thread. Fired up by the Swing runner utility.
-	 */
-	private static class MainThread implements Runnable {
-		String[] args;
-		public MainThread(String args[]) {
-			super();
-			this.args = args;
-		}
-		public void run() {
-			ConmanDictionary.loadResources();
-			dictionary = new Dictionary(); 
-			mainWin = new MainWindow();
-			mainWin.setModel(dictionary);
-			mainWin.setVisible(true);
-			if(args.length == 1) {
-				mainWin.openDocument(new File(args[0]));
-			}
-		}
-	}	
-	
-	/**
-	 * Utility method to load all resources the application needs.
-	 */
-	private static void loadResources() {
-		final String iconFileName = "resources/graphics/conmandictionary.png";
-		// Set icon.
-		URL iconURL = ClassLoader.getSystemClassLoader().getResource(iconFileName);
-		if(iconURL != null) {
-			appIcon = Toolkit.getDefaultToolkit().getImage(iconURL);
-		}
-	}
-	/**
-	 * Get the application icon resource.
-	 */
-	public static Image getAppIcon() {
-		return appIcon;
-	}
-	
-	/**
-	 * Main window.
-	 */
-	private static MainWindow mainWin = null;
-	
-	/**
-	 * Dictionary document currently edited.
-	 */
-	private static Dictionary dictionary = null;
-	public static Dictionary getDictionary() {
-		return dictionary;
-	}
+    public static Dictionary getDictionary() {
+        return dictionary;
+    }
 
-	/**
-	 * The main program for the application.
-	 * 
-	 * @param args Program arguments.
-	 */
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new MainThread(args));
-	}
-	
-	/**
-	 * Used to get the main window that the application uses.
-	 * 
-	 * @return the application main window object.
-	 */
-	public static MainWindow getMainWindow() {
-		return mainWin;
-	}
-	
-	
-	/**
-	 * Shows "About this application" dialog.
-	 */
-	public static void showAboutDialog() {
-		String appAboutString =
-			APP_NAME + "\n" +
-			APP_VERSION +
-			"\nCopyright \u00a9 Urpo Lankinen 2006,2007\n\n" +
-			APP_NAME + " comes with ABSOLUTELY NO WARRANTY.\n\n" +
-			"This is free software, and you are welcome to redistribute it\n"+
-			"under the terms of GNU General Public Licence as published by\n"+
-			"the Free Software Foundation; either version 3 of the License, or\n"+
-			"(at your option) any later version.\n" +
-			"Please see COPYING file for more details.\n\n";
+    /**
+     * At startup create and show the main frame of the application.
+     */
+    @Override protected void startup() {
+        dictionary = new Dictionary();
+        mainWindow = new MainWindow(this);
+        mainWindow.setModel(dictionary);
+        show(mainWindow);
+    }
 
-		JOptionPane.showMessageDialog(
-				mainWin,
-				appAboutString,
-				"About " + APP_NAME,
-				JOptionPane.INFORMATION_MESSAGE
-			);
-	}
+    /**
+     * This method is to initialize the specified window by injecting resources.
+     * Windows shown in our application come fully initialized from the GUI
+     * builder, so this additional configuration is not needed.
+     */
+    @Override protected void configureWindow(java.awt.Window root) {
+    }
+
+    /**
+     * A convenient static getter for the application instance.
+     * @return the instance of ConmanDictionaryApp
+     */
+    public static ConmanDictionary getApplication() {
+        return Application.getInstance(ConmanDictionary.class);
+    }
+
+    /**
+     * Main method launching the application.
+     */
+    public static void main(String[] args) {
+        launch(ConmanDictionary.class, args);
+        if (args.length == 1) {
+            mainWindow.openDocument(new File(args[0]));
+        }
+    }
 }

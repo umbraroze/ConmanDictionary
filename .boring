@@ -58,3 +58,5 @@
 bin
 conmandictionary\.jar
 nbproject/private
+build
+dist

@@ -1,13 +1,121 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.5">
   <NonVisualComponents>
-    <Menu class="javax.swing.JMenuBar" name="menuBar">
+    <Container class="javax.swing.JPanel" name="mainPanel">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="mainPanel" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="611" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="leftLanguagePanel" pref="303" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="rightLanguagePanel" pref="302" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="476" max="32767" attributes="0"/>
+              <Component id="leftLanguagePanel" alignment="0" pref="476" max="32767" attributes="0"/>
+              <Component id="rightLanguagePanel" alignment="0" pref="476" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="leftLanguagePanel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="leftLanguagePanel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="rightLanguagePanel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="rightLanguagePanel" noResource="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="statusPanel">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="statusPanel" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="statusPanelSeparator" alignment="0" pref="611" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="425" max="32767" attributes="0"/>
+                  <Component id="progressBar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="statusPanelSeparator" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="statusMessageLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusAnimationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JSeparator" name="statusPanelSeparator">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="statusPanelSeparator" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusMessageLabel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="statusMessageLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusAnimationLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="name" type="java.lang.String" value="statusAnimationLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JProgressBar" name="progressBar">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JMenuBar" name="menuBar">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="menuBar" noResource="true"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
-            <Property name="text" type="java.lang.String" value="File"/>
+            <Property name="text" type="java.lang.String" resourceKey="fileMenu.text"/>
+            <Property name="name" type="java.lang.String" value="fileMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="fileNewMenuItem">
@@ -16,8 +124,9 @@
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="110"/>
-                <Property name="text" type="java.lang.String" value="New"/>
-                <Property name="actionCommand" type="java.lang.String" value="file-new"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileNewMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileNewMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileNewMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileNewMenuItem.addActionListener(mainMenuListener);"/>
@@ -29,8 +138,9 @@
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="111"/>
-                <Property name="text" type="java.lang.String" value="Open..."/>
-                <Property name="actionCommand" type="java.lang.String" value="file-open"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileOpenMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileOpenMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileOpenMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileOpenMenuItem.addActionListener(mainMenuListener);"/>
@@ -42,8 +152,9 @@
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="115"/>
-                <Property name="text" type="java.lang.String" value="Save"/>
-                <Property name="actionCommand" type="java.lang.String" value="file-save"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileSaveMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileSaveMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileSaveMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileSaveMenuItem.addActionListener(mainMenuListener);"/>
@@ -55,8 +166,9 @@
                   <KeyStroke key="Shift+Ctrl+S"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="97"/>
-                <Property name="text" type="java.lang.String" value="Save as..."/>
-                <Property name="actionCommand" type="java.lang.String" value="file-save-as"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileSaveAsMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileSaveAsMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileSaveAsMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileSaveAsMenuItem.addActionListener(mainMenuListener);"/>
@@ -68,14 +180,18 @@
                   <KeyStroke key="Ctrl+E"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="101"/>
-                <Property name="text" type="java.lang.String" value="Export to plain text..."/>
-                <Property name="actionCommand" type="java.lang.String" value="file-export-dictd"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileExportDictdMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileExportDictdMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileExportDictdMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileExportDictdMenuItem.addActionListener(mainMenuListener);"/>
               </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JSeparator" name="fileQuitSeparator">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="fileQuitSeparator" noResource="true"/>
+              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileQuitMenuItem">
               <Properties>
@@ -83,8 +199,9 @@
                   <KeyStroke key="Ctrl+Q"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="113"/>
-                <Property name="text" type="java.lang.String" value="Quit"/>
-                <Property name="actionCommand" type="java.lang.String" value="file-quit"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileQuitMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileQuitMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="fileQuitMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileQuitMenuItem.addActionListener(mainMenuListener);"/>
@@ -95,7 +212,8 @@
         <Menu class="javax.swing.JMenu" name="researchMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="114"/>
-            <Property name="text" type="java.lang.String" value="Research"/>
+            <Property name="text" type="java.lang.String" resourceKey="researchMenu.text"/>
+            <Property name="name" type="java.lang.String" value="researchMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="researchNotepadMenuItem">
@@ -104,8 +222,9 @@
                   <KeyStroke key="Shift+Ctrl+N"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="110"/>
-                <Property name="text" type="java.lang.String" value="Notepad..."/>
-                <Property name="actionCommand" type="java.lang.String" value="research-notepad"/>
+                <Property name="text" type="java.lang.String" resourceKey="researchNotepadMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="researchNotepadMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="researchNotepadMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="researchNotepadMenuItem.addActionListener(mainMenuListener);"/>
@@ -116,14 +235,16 @@
         <Menu class="javax.swing.JMenu" name="settingsMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="115"/>
-            <Property name="text" type="java.lang.String" value="Settings"/>
+            <Property name="text" type="java.lang.String" resourceKey="settingsMenu.text"/>
+            <Property name="name" type="java.lang.String" value="settingsMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="settingsNamesMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="108"/>
-                <Property name="text" type="java.lang.String" value="Language names..."/>
-                <Property name="actionCommand" type="java.lang.String" value="settings-languagenames"/>
+                <Property name="text" type="java.lang.String" resourceKey="settingsNamesMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="settingsNamesMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="settingsNamesMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsNamesMenuItem.addActionListener(mainMenuListener);"/>
@@ -134,14 +255,16 @@
         <Menu class="javax.swing.JMenu" name="helpMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="104"/>
-            <Property name="text" type="java.lang.String" value="Help"/>
+            <Property name="text" type="java.lang.String" resourceKey="helpMenu.text"/>
+            <Property name="name" type="java.lang.String" value="helpMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="helpAboutMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
-                <Property name="text" type="java.lang.String" value="About..."/>
-                <Property name="actionCommand" type="java.lang.String" value="help-about"/>
+                <Property name="text" type="java.lang.String" resourceKey="helpAboutMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="helpAboutMenuItem.actionCommand"/>
+                <Property name="name" type="java.lang.String" value="helpAboutMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="helpAboutMenuItem.addActionListener(mainMenuListener);"/>
@@ -150,51 +273,28 @@
           </SubComponents>
         </Menu>
       </SubComponents>
-    </Menu>
+    </Container>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Conman&apos;s Dictionary"/>
+    <Property name="component" type="javax.swing.JComponent" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="mainPanel"/>
+    </Property>
+    <Property name="menuBar" type="javax.swing.JMenuBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="menuBar"/>
+    </Property>
+    <Property name="statusBar" type="javax.swing.JComponent" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="statusPanel"/>
+    </Property>
   </Properties>
-  <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
-    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-  </SyntheticProperties>
-  <Events>
-    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="windowCloseEvent"/>
-  </Events>
   <AuxValues>
-    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,20,0,0,2,99"/>
   </AuxValues>
-
-  <Layout>
-    <DimensionLayout dim="0">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="leftLanguagePanel" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="rightLanguagePanel" pref="341" max="32767" attributes="0"/>
-          </Group>
-      </Group>
-    </DimensionLayout>
-    <DimensionLayout dim="1">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="leftLanguagePanel" max="32767" attributes="0"/>
-          <Component id="rightLanguagePanel" alignment="0" max="32767" attributes="0"/>
-      </Group>
-    </DimensionLayout>
-  </Layout>
-  <SubComponents>
-    <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="leftLanguagePanel">
-    </Component>
-    <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="rightLanguagePanel">
-    </Component>
-  </SubComponents>
 </Form>

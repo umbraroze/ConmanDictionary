@@ -29,7 +29,7 @@ public class LanguageNameDialog extends javax.swing.JDialog {
     private MainWindow mainWindow;
     
     public LanguageNameDialog(MainWindow parent) {
-        super(parent, true);
+        super(parent.getFrame(), true);
 	this.mainWindow = parent;
 	final LanguageNameDialog selfRef = this;
 

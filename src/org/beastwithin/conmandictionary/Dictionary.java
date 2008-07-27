@@ -1,7 +1,7 @@
 /*  Dictionary.java: Class that represents the dictionary data.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ public class Dictionary {
             notePad.replace(0, oldLength, n, null);
         } catch (BadLocationException ble) {
             JOptionPane.showMessageDialog(
-                    ConmanDictionary.getMainWindow(),
+                    ConmanDictionary.getApplication().getMainFrame(),
                     "Error changing the text on the notepad:\n" +
                     ble.getMessage() +
                     "\nFurther details printed at console.",
@@ -75,7 +75,7 @@ public class Dictionary {
             return notePad.getText(0, notePad.getLength());
         } catch (BadLocationException ble) {
             JOptionPane.showMessageDialog(
-                    ConmanDictionary.getMainWindow(),
+                    ConmanDictionary.getApplication().getMainFrame(),
                     "Error getting text from the notepad:\n" +
                     ble.getMessage() +
                     "\nFurther details printed at console.",
@@ -201,7 +201,7 @@ public class Dictionary {
             }
             rf.close();
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(ConmanDictionary.getMainWindow(),
+            JOptionPane.showMessageDialog(ConmanDictionary.getApplication().getMainFrame(),
                     "File error occurred when exporting the file:\n" +
                     ioe.getMessage(),
                     "Error exporting the file.", JOptionPane.ERROR_MESSAGE);

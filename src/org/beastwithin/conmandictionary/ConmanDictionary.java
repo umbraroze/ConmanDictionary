@@ -1,7 +1,7 @@
 /*  ConmanDictionary.java: Main program.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ public class ConmanDictionary extends SingleFrameApplication {
 
     /**
      * A convenient static getter for the application instance.
-     * @return the instance of ConmanDictionaryApp
+     * @return the instance of ConmanDictionary
      */
     public static ConmanDictionary getApplication() {
         return Application.getInstance(ConmanDictionary.class);

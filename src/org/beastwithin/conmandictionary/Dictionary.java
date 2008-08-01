@@ -34,8 +34,8 @@ import javax.swing.text.*;
 @XmlType(name = "", propOrder = { "notePad", "definitions" })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
-
-    private static final String schemaResourceFile = "resources/schema/dictionary.xsd";
+    @XmlTransient
+    private static final String schemaResourceFile = "org/beastwithin/conmandictionary/resources/dictionary.xsd";
     @XmlTransient
     private File currentFile = null;
     @XmlTransient
@@ -156,6 +156,10 @@ public class Dictionary {
         Unmarshaller um = jc.createUnmarshaller();
         Dictionary r = (Dictionary) um.unmarshal(file);
         r.setCurrentFile(file);
+        // Clear modified flags after unmarshalling
+        for(EntryList l : r.getDefinitions()) {
+            l.setModified(false);
+        }
         return r;
     }
 

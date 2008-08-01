@@ -81,7 +81,7 @@ public class MainWindow extends FrameView {
                 jaxbe.printStackTrace();
             }
             mainWindow.changesHaveBeenSaved();
-            setAppTitle(mainWindow.getModel().getCurrentFile());
+            //setAppTitle(mainWindow.getModel().getCurrentFile());
         }
 
         private void saveAs() {
@@ -107,7 +107,7 @@ public class MainWindow extends FrameView {
             }
             Dictionary newDocument = new Dictionary();
             mainWindow.setModel(newDocument);
-            mainWindow.setAppTitle(null);
+            //mainWindow.setAppTitle(null);
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ public class MainWindow extends FrameView {
             } else if (c.compareTo("settings-languagenames")==0) {
                 mainWindow.getLanguageNameDialog().open();
             } else if (c.compareTo("help-about")==0) {
-                ConmanDictionary.showAboutDialog();
+                mainWindow.showAboutBox();
             } else {
                 System.err.println("WARNING: Unhandled menu item " + c + ".");
             }
@@ -226,7 +226,7 @@ public class MainWindow extends FrameView {
                     JOptionPane.ERROR_MESSAGE);
             ioe.printStackTrace();
         }
-        this.setAppTitle(f);
+        //this.setAppTitle(f);
     }
 
     /**

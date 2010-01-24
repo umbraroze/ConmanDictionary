@@ -142,7 +142,7 @@ public class Dictionary {
     public File getCurrentFile() {
         return currentFile;
     }
-
+    
     public void saveDocument() throws JAXBException, IOException {
         JAXBContext jc = JAXBContext.newInstance(this.getClass());
         Marshaller m = jc.createMarshaller();
@@ -150,6 +150,13 @@ public class Dictionary {
         FileWriter f = new FileWriter(currentFile);
         m.marshal(this, f);
     }
+    
+    public void saveDocumentUnflagged() throws JAXBException, IOException {
+        // General battle plan: Create a clone of the document in memory.
+        // Prune flagged entries.
+        // Stow that in a file.
+    }
+
 
     public static Dictionary loadDocument(File file) throws JAXBException, IOException {
         JAXBContext jc = JAXBContext.newInstance(Dictionary.class);

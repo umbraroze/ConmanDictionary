@@ -165,6 +165,23 @@ public class EntryList implements ListModel {
         return entries;
     }
 
+    public List<Entry> getUnflaggedEntries() {
+        List<Entry> prunedEntries = Collections.synchronizedList(new ArrayList<Entry>());
+        for (Entry e : entries) {
+            if (e.getFlagged() == false) {
+                prunedEntries.add(e);
+            }
+        }
+        return prunedEntries;
+    }
+
+    public void deleteFlaggedEntries() {
+        entries = getUnflaggedEntries();
+        setModified(true);
+        setLastModificationReason("Deleted flagged entries");
+    }
+
+
     @XmlAttribute
     public void setLanguage(String title) {
         if (getLanguage().compareTo(title) == 0) {
@@ -248,5 +265,5 @@ public class EntryList implements ListModel {
         this.lastModificationReason = lastModificationReason;
         /* System.err.printf("Modified: %s, Last modification reason: %s\n",
                 this.modified, this.lastModificationReason); */
-    }
+    }    
 }

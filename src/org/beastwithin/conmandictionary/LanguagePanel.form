@@ -15,12 +15,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="languageLabel" alignment="0" pref="341" max="32767" attributes="0"/>
-          <Component id="searchBox" alignment="0" pref="341" max="32767" attributes="0"/>
-          <Component id="definitionListScrollPanel" alignment="0" pref="341" max="32767" attributes="0"/>
-          <Component id="languagePanelSeparator1" alignment="0" pref="341" max="32767" attributes="0"/>
+          <Component id="languageLabel" alignment="0" pref="323" max="32767" attributes="0"/>
+          <Component id="searchBox" alignment="0" pref="323" max="32767" attributes="0"/>
+          <Component id="definitionListScrollPanel" alignment="0" pref="323" max="32767" attributes="0"/>
+          <Component id="languagePanelSeparator1" alignment="0" pref="323" max="32767" attributes="0"/>
           <Component id="definitionPanel" alignment="0" max="32767" attributes="0"/>
-          <Component id="languagePanelSeparator2" alignment="0" pref="341" max="32767" attributes="0"/>
+          <Component id="languagePanelSeparator2" alignment="0" pref="323" max="32767" attributes="0"/>
           <Component id="buttonPanel" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -31,7 +31,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="searchBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="definitionListScrollPanel" pref="174" max="32767" attributes="0"/>
+              <Component id="definitionListScrollPanel" pref="171" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="languagePanelSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="189" max="32767" attributes="0"/>
+                  <EmptySpace pref="171" max="32767" attributes="0"/>
                   <Component id="addButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
@@ -127,14 +127,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="definitionTerm" alignment="0" pref="341" max="32767" attributes="0"/>
-              <Component id="definitionEditorPane" alignment="0" pref="341" max="32767" attributes="0"/>
+              <Component id="definitionEditorPane" alignment="0" pref="323" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="definitionTerm" pref="289" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="flagButton" min="-2" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="definitionTerm" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="flagButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="definitionTerm" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="definitionEditorPane" pref="217" max="32767" attributes="0"/>
               </Group>
@@ -165,6 +172,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JToggleButton" name="flagButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/beastwithin/conmandictionary/resources/flag.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Flag this entry as potentially problematic."/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="flagButtonClicked"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="languageLabel">

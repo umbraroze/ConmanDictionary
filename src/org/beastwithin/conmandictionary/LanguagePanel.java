@@ -57,6 +57,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionTerm = new javax.swing.JTextField();
         definitionEditorPane = new javax.swing.JScrollPane();
         definitionEditor = new javax.swing.JEditorPane();
+        flagButton = new javax.swing.JToggleButton();
         languageLabel = new javax.swing.JLabel();
         languagePanelSeparator1 = new javax.swing.JSeparator();
         languagePanelSeparator2 = new javax.swing.JSeparator();
@@ -90,7 +91,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
@@ -123,17 +124,30 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionEditor.setToolTipText("Define the term or word here.");
         definitionEditorPane.setViewportView(definitionEditor);
 
+        flagButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/beastwithin/conmandictionary/resources/flag.png"))); // NOI18N
+        flagButton.setToolTipText("Flag this entry as potentially problematic.");
+        flagButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flagButtonClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
         definitionPanel.setLayout(definitionPanelLayout);
         definitionPanelLayout.setHorizontalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-            .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, definitionPanelLayout.createSequentialGroup()
+                .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(flagButton))
         );
         definitionPanelLayout.setVerticalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(definitionPanelLayout.createSequentialGroup()
-                .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(flagButton)
+                    .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
         );
@@ -145,12 +159,12 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-            .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-            .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
             .addComponent(definitionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
             .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -160,7 +174,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +203,10 @@ public class LanguagePanel extends javax.swing.JPanel {
     private void addButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonClicked
         addDefinition();
     }//GEN-LAST:event_addButtonClicked
+
+    private void flagButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flagButtonClicked
+        // Do nothing in particular, for now
+    }//GEN-LAST:event_flagButtonClicked
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -201,6 +219,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel definitionPanel;
     private javax.swing.JTextField definitionTerm;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JToggleButton flagButton;
     private javax.swing.JLabel languageLabel;
     private javax.swing.JSeparator languagePanelSeparator1;
     private javax.swing.JSeparator languagePanelSeparator2;
@@ -268,14 +287,16 @@ public class LanguagePanel extends javax.swing.JPanel {
     private void editEntry(Entry e) {
         this.definitionTerm.setText(e.getTerm());
         this.definitionEditor.setText(e.getDefinition());
+        this.flagButton.setSelected(e.getFlagged());
     }
 
     /**
      * Clears the editor.
      */
-    private void clearEntries() {
+    public void clearEntries() {
         this.definitionTerm.setText("");
         this.definitionEditor.setText("");
+        this.flagButton.setSelected(false);
     }
 
     /**
@@ -284,8 +305,9 @@ public class LanguagePanel extends javax.swing.JPanel {
     public void addDefinition() {
         String term = this.definitionTerm.getText();
         String definition = this.definitionEditor.getText();
+        boolean flagged = this.flagButton.isSelected();
 
-        Entry newTerm = new Entry(term, definition);
+        Entry newTerm = new Entry(term, definition, flagged);
 
         this.entryList.add(newTerm);
         this.entryList.sort();
@@ -316,9 +338,11 @@ public class LanguagePanel extends javax.swing.JPanel {
         Entry e = (Entry) entryList.getElementAt(idx);
         e.setTerm(this.definitionTerm.getText());
         e.setDefinition(this.definitionEditor.getText());
+        e.setFlagged(this.flagButton.isSelected());
         this.entryList.sort();
         this.definitionList.repaint();
     }
+    
 
     /**
      * Returns the list of entries.
@@ -333,7 +357,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionList.setModel(entryList);
         resetLanguageLabel();
     }
-
+    
     /**
      * Clear all entries in this list.
      */

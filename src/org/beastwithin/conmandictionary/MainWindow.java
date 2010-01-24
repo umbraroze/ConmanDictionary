@@ -106,6 +106,8 @@ public class MainWindow extends FrameView {
                 }
             }
             Dictionary newDocument = new Dictionary();
+            leftLanguagePanel.clearEntries();
+            rightLanguagePanel.clearEntries();
             mainWindow.setModel(newDocument);
             //mainWindow.setAppTitle(null);
         }
@@ -142,6 +144,8 @@ public class MainWindow extends FrameView {
                 }
             } else if (c.compareTo("file-save-as")==0) {
                 saveAs();
+            } else if (c.compareTo("file-merge")==0) {
+                // FIXME: UNIMPLEMENTED!
             } else if (c.compareTo("file-export-dictd")==0) {
                 final JFileChooser fc = new JFileChooser();
                 int ret = fc.showSaveDialog(mainWindow.getFrame());
@@ -151,6 +155,8 @@ public class MainWindow extends FrameView {
                 mainWindow.getModel().exportAsDictd(fc.getSelectedFile().getPath());
             } else if (c.compareTo("research-notepad")==0) {
                 mainWindow.getNotePad().setVisible(true);
+            } else if (c.compareTo("settings-save-flagged")==0) {
+                // FIXME: UNIMPLEMENTED!
             } else if (c.compareTo("settings-languagenames")==0) {
                 mainWindow.getLanguageNameDialog().open();
             } else if (c.compareTo("help-about")==0) {
@@ -371,12 +377,14 @@ public class MainWindow extends FrameView {
         fileOpenMenuItem = new javax.swing.JMenuItem();
         fileSaveMenuItem = new javax.swing.JMenuItem();
         fileSaveAsMenuItem = new javax.swing.JMenuItem();
+        fileMergeMenuItem = new javax.swing.JMenuItem();
         fileExportDictdMenuItem = new javax.swing.JMenuItem();
         fileQuitSeparator = new javax.swing.JSeparator();
         fileQuitMenuItem = new javax.swing.JMenuItem();
         researchMenu = new javax.swing.JMenu();
         researchNotepadMenuItem = new javax.swing.JMenuItem();
         settingsMenu = new javax.swing.JMenu();
+        settingsSaveFlaggedMenuItem = new javax.swing.JCheckBoxMenuItem();
         settingsNamesMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         helpAboutMenuItem = new javax.swing.JMenuItem();
@@ -391,7 +399,6 @@ public class MainWindow extends FrameView {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -399,9 +406,8 @@ public class MainWindow extends FrameView {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
-            .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-            .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         statusPanel.setName("statusPanel"); // NOI18N
@@ -423,7 +429,7 @@ public class MainWindow extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 425, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -480,7 +486,13 @@ public class MainWindow extends FrameView {
         fileSaveAsMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileSaveAsMenuItem);
 
-        fileExportDictdMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        fileMergeMenuItem.setMnemonic('r');
+        fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
+        fileMergeMenuItem.setActionCommand(resourceMap.getString("fileMergeMenuItem.actionCommand")); // NOI18N
+        fileMergeMenuItem.setEnabled(false);
+        fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
+        fileMenu.add(fileMergeMenuItem);
+
         fileExportDictdMenuItem.setMnemonic('e');
         fileExportDictdMenuItem.setText(resourceMap.getString("fileExportDictdMenuItem.text")); // NOI18N
         fileExportDictdMenuItem.setActionCommand(resourceMap.getString("fileExportDictdMenuItem.actionCommand")); // NOI18N
@@ -519,6 +531,14 @@ public class MainWindow extends FrameView {
         settingsMenu.setText(resourceMap.getString("settingsMenu.text")); // NOI18N
         settingsMenu.setName("settingsMenu"); // NOI18N
 
+        settingsSaveFlaggedMenuItem.setMnemonic('f');
+        settingsSaveFlaggedMenuItem.setSelected(true);
+        settingsSaveFlaggedMenuItem.setText(resourceMap.getString("settingsSaveFlaggedMenuItem.text")); // NOI18N
+        settingsSaveFlaggedMenuItem.setActionCommand(resourceMap.getString("settingsSaveFlaggedMenuItem.actionCommand")); // NOI18N
+        settingsSaveFlaggedMenuItem.setEnabled(false);
+        settingsSaveFlaggedMenuItem.setName("settingsSaveFlaggedMenuItem"); // NOI18N
+        settingsMenu.add(settingsSaveFlaggedMenuItem);
+
         settingsNamesMenuItem.setMnemonic('l');
         settingsNamesMenuItem.setText(resourceMap.getString("settingsNamesMenuItem.text")); // NOI18N
         settingsNamesMenuItem.setActionCommand(resourceMap.getString("settingsNamesMenuItem.actionCommand")); // NOI18N
@@ -549,6 +569,7 @@ public class MainWindow extends FrameView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem fileExportDictdMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem fileMergeMenuItem;
     private javax.swing.JMenuItem fileNewMenuItem;
     private javax.swing.JMenuItem fileOpenMenuItem;
     private javax.swing.JMenuItem fileQuitMenuItem;
@@ -566,6 +587,7 @@ public class MainWindow extends FrameView {
     private org.beastwithin.conmandictionary.LanguagePanel rightLanguagePanel;
     private javax.swing.JMenu settingsMenu;
     private javax.swing.JMenuItem settingsNamesMenuItem;
+    private javax.swing.JCheckBoxMenuItem settingsSaveFlaggedMenuItem;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;

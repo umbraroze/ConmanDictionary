@@ -42,14 +42,23 @@ public class Entry implements Comparable<Entry>, Serializable {
 	protected String term = "";
 	@XmlElement(required=true)
 	protected String definition = "";
+        @XmlAttribute(required=false)
+        protected boolean flagged = false;
 	
 	public Entry() {
 		this.term = "";
 		this.definition = "";
+                this.flagged = false;
 	}
 	public Entry(String term, String definition) {
 		this.term = term;
 		this.definition = definition;
+                this.flagged = false;
+	}
+	public Entry(String term, String definition, boolean flagged) {
+		this.term = term;
+		this.definition = definition;
+                this.flagged = flagged;
 	}
 
 	public String getDefinition() {
@@ -68,15 +77,23 @@ public class Entry implements Comparable<Entry>, Serializable {
 		this.term = term;
 	}
 	
+        public boolean getFlagged() {
+		return flagged;
+	}
+
+	public void setFlagged(boolean flagged) {
+		this.flagged = flagged;
+	}
 	/**
 	 * The string representation of the term, used in listbox etc,
 	 * is "foo: bar baz quux..." with some truncation.
 	 */
+        @Override
 	public String toString() {
 		String def = this.definition;
 		if(def.length() > maxTruncatedStringLength)
 			def = this.definition.substring(0,maxTruncatedStringLength-1) +  "...";
-		return this.term + ": " + def;
+		return this.term + ": " + def + (flagged ? " (F)" : "");
 	}
 	/**
 	 * Returns the dictionary entry as plain text (suitable for dictd

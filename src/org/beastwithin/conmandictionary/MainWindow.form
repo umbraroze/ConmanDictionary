@@ -10,7 +10,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="611" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="leftLanguagePanel" pref="303" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -20,9 +19,8 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="476" max="32767" attributes="0"/>
-              <Component id="leftLanguagePanel" alignment="0" pref="476" max="32767" attributes="0"/>
-              <Component id="rightLanguagePanel" alignment="0" pref="476" max="32767" attributes="0"/>
+              <Component id="leftLanguagePanel" alignment="0" pref="480" max="32767" attributes="0"/>
+              <Component id="rightLanguagePanel" alignment="0" pref="480" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -51,7 +49,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="425" max="32767" attributes="0"/>
+                  <EmptySpace pref="427" max="32767" attributes="0"/>
                   <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
@@ -174,11 +172,17 @@
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileSaveAsMenuItem.addActionListener(mainMenuListener);"/>
               </AuxValues>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="fileMergeMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="114"/>
+                <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="fileMergeMenuItem.actionCommand"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileExportDictdMenuItem">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+E"/>
-                </Property>
                 <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileExportDictdMenuItem.text"/>
                 <Property name="actionCommand" type="java.lang.String" resourceKey="fileExportDictdMenuItem.actionCommand"/>
@@ -239,6 +243,16 @@
             <Property name="name" type="java.lang.String" value="settingsMenu" noResource="true"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="settingsSaveFlaggedMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="102"/>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="settingsSaveFlaggedMenuItem.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="settingsSaveFlaggedMenuItem.actionCommand"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="settingsSaveFlaggedMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsNamesMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="108"/>

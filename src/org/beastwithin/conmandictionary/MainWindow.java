@@ -63,14 +63,15 @@ public class MainWindow extends FrameView {
             try {
                 mainWindow.getModel().saveDocument();
             } catch (IOException ioe) {
+                ioe.printStackTrace();
                 JOptionPane.showMessageDialog(
                         mainWindow.getFrame(),
                         "File error while saving file:\n" +
                         ioe.getMessage(),
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
-                ioe.printStackTrace();
             } catch (JAXBException jaxbe) {
+                jaxbe.printStackTrace();
                 JOptionPane.showMessageDialog(
                         mainWindow.getFrame(),
                         "XML error while saving file:\n" +
@@ -78,7 +79,6 @@ public class MainWindow extends FrameView {
                         "\nFurther details printed at console.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
-                jaxbe.printStackTrace();
             }
             mainWindow.changesHaveBeenSaved();
             //setAppTitle(mainWindow.getModel().getCurrentFile());
@@ -92,6 +92,35 @@ public class MainWindow extends FrameView {
             }
             mainWindow.getModel().setCurrentFile(fc.getSelectedFile());
             doSave();
+        }
+        
+        private void mergeInto() {
+            final JFileChooser fc = new JFileChooser();
+            int ret = fc.showDialog(mainWindow.getFrame(),
+                    "Choose file to merge entries from");
+            if (ret != JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+            try {
+                mainWindow.getModel().mergeEntriesFrom(fc.getSelectedFile());
+            } catch (IOException ioe) {
+                ioe.printStackTrace();   
+                JOptionPane.showMessageDialog(
+                        mainWindow.getFrame(),
+                        "File error while saving file:\n" +
+                        ioe.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (JAXBException jaxbe) {
+                jaxbe.printStackTrace();                
+                JOptionPane.showMessageDialog(
+                        mainWindow.getFrame(),
+                        "XML error while saving file:\n" +
+                        jaxbe.getMessage() +
+                        "\nFurther details printed at console.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         private void newDocument() {
@@ -145,7 +174,7 @@ public class MainWindow extends FrameView {
             } else if (c.compareTo("file-save-as")==0) {
                 saveAs();
             } else if (c.compareTo("file-merge")==0) {
-                // FIXME: UNIMPLEMENTED!
+                mergeInto();
             } else if (c.compareTo("file-export-dictd")==0) {
                 final JFileChooser fc = new JFileChooser();
                 int ret = fc.showSaveDialog(mainWindow.getFrame());
@@ -166,8 +195,7 @@ public class MainWindow extends FrameView {
             }
         }
     }
-    
-    
+        
     private boolean isUnsaved() {
         return getModel().isUnsavedChanges();
     }
@@ -194,26 +222,27 @@ public class MainWindow extends FrameView {
         try {
             Dictionary.validateFile(f);
         } catch (IOException ioe) {
+            ioe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
                     "Unable to open the file " + f + ".\n" + ioe.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            ioe.printStackTrace();
             return;
         } catch (SAXException saxe) {
+            saxe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
                     "The file format for file " + f + " is invalid.\n" + saxe.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            saxe.printStackTrace();
             return;
         }
         try {
             Dictionary loadedDictionary = Dictionary.loadDocument(f);
             this.setModel(loadedDictionary);
         } catch (JAXBException jaxbe) {
+            jaxbe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
                     "XML error while loading file:\n" +
@@ -221,8 +250,8 @@ public class MainWindow extends FrameView {
                     "\nFurther details printed at console.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            jaxbe.printStackTrace();
         } catch (IOException ioe) {
+            ioe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
                     "Error reading file:\n" +
@@ -230,7 +259,6 @@ public class MainWindow extends FrameView {
                     "\nFurther details printed at console.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            ioe.printStackTrace();
         }
         //this.setAppTitle(f);
     }
@@ -489,8 +517,8 @@ public class MainWindow extends FrameView {
         fileMergeMenuItem.setMnemonic('r');
         fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
         fileMergeMenuItem.setActionCommand(resourceMap.getString("fileMergeMenuItem.actionCommand")); // NOI18N
-        fileMergeMenuItem.setEnabled(false);
         fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
+        fileMergeMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileMergeMenuItem);
 
         fileExportDictdMenuItem.setMnemonic('e');
@@ -537,6 +565,7 @@ public class MainWindow extends FrameView {
         settingsSaveFlaggedMenuItem.setActionCommand(resourceMap.getString("settingsSaveFlaggedMenuItem.actionCommand")); // NOI18N
         settingsSaveFlaggedMenuItem.setEnabled(false);
         settingsSaveFlaggedMenuItem.setName("settingsSaveFlaggedMenuItem"); // NOI18N
+        settingsSaveFlaggedMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsSaveFlaggedMenuItem);
 
         settingsNamesMenuItem.setMnemonic('l');

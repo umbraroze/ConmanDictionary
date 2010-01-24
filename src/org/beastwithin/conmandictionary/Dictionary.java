@@ -162,6 +162,14 @@ public class Dictionary {
         }
         return r;
     }
+    
+    public void mergeEntriesFrom(File file) throws JAXBException, IOException {
+        Dictionary source = Dictionary.loadDocument(file);
+        definitions.get(0).add(source.definitions.get(0));
+        definitions.get(0).sort();
+        definitions.get(1).add(source.definitions.get(1));
+        definitions.get(1).sort();
+    }
 
     public boolean isUnsavedChanges() {
         boolean leftModified = definitions.get(0).isModified();

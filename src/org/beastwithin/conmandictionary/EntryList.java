@@ -78,12 +78,19 @@ public class EntryList implements ListModel {
         setLastModificationReason("Post-creation language name setting");
     }
 
-    public void add(Entry e) {
-        entries.add(e);
+    private void postAdditionCleanup(String description) {
         int idx = entries.size() - 1;
         notifyAddition(idx, idx);
         setModified(true);
-        setLastModificationReason("Item added");
+        setLastModificationReason(description);
+    }
+    public void add(Entry e) {
+        entries.add(e);
+        postAdditionCleanup("Item added");
+    }
+    public void add(EntryList el) {
+        entries.addAll(el.entries);
+        postAdditionCleanup("Items added");
     }
 
     public void remove(int index) {

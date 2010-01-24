@@ -177,9 +177,11 @@
                 <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
                 <Property name="actionCommand" type="java.lang.String" resourceKey="fileMergeMenuItem.actionCommand"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileMergeMenuItem.addActionListener(mainMenuListener);"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileExportDictdMenuItem">
               <Properties>
@@ -252,6 +254,9 @@
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="settingsSaveFlaggedMenuItem" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsSaveFlaggedMenuItem.addActionListener(mainMenuListener);"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsNamesMenuItem">
               <Properties>

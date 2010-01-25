@@ -411,9 +411,12 @@ public class MainWindow extends FrameView {
         fileQuitMenuItem = new javax.swing.JMenuItem();
         researchMenu = new javax.swing.JMenu();
         researchNotepadMenuItem = new javax.swing.JMenuItem();
+        researchStatisticsMenuItem = new javax.swing.JMenuItem();
         settingsMenu = new javax.swing.JMenu();
         settingsSaveFlaggedMenuItem = new javax.swing.JCheckBoxMenuItem();
         settingsNamesMenuItem = new javax.swing.JMenuItem();
+        settingsWordClassMenuItem = new javax.swing.JMenuItem();
+        settingsCategoriesMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         helpAboutMenuItem = new javax.swing.JMenuItem();
 
@@ -514,7 +517,7 @@ public class MainWindow extends FrameView {
         fileSaveAsMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileSaveAsMenuItem);
 
-        fileMergeMenuItem.setMnemonic('r');
+        fileMergeMenuItem.setMnemonic('m');
         fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
         fileMergeMenuItem.setActionCommand(resourceMap.getString("fileMergeMenuItem.actionCommand")); // NOI18N
         fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
@@ -553,6 +556,13 @@ public class MainWindow extends FrameView {
         researchNotepadMenuItem.addActionListener(mainMenuListener);
         researchMenu.add(researchNotepadMenuItem);
 
+        researchStatisticsMenuItem.setMnemonic('s');
+        researchStatisticsMenuItem.setText(resourceMap.getString("researchStatisticsMenuItem.text")); // NOI18N
+        researchStatisticsMenuItem.setEnabled(false);
+        researchStatisticsMenuItem.setName("researchStatisticsMenuItem"); // NOI18N
+        researchStatisticsMenuItem.addActionListener(mainMenuListener);
+        researchMenu.add(researchStatisticsMenuItem);
+
         menuBar.add(researchMenu);
 
         settingsMenu.setMnemonic('s');
@@ -574,6 +584,20 @@ public class MainWindow extends FrameView {
         settingsNamesMenuItem.setName("settingsNamesMenuItem"); // NOI18N
         settingsNamesMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsNamesMenuItem);
+
+        settingsWordClassMenuItem.setMnemonic('w');
+        settingsWordClassMenuItem.setText(resourceMap.getString("settingsWordClassMenuItem.text")); // NOI18N
+        settingsWordClassMenuItem.setEnabled(false);
+        settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
+        settingsWordClassMenuItem.addActionListener(mainMenuListener);
+        settingsMenu.add(settingsWordClassMenuItem);
+
+        settingsCategoriesMenuItem.setMnemonic('c');
+        settingsCategoriesMenuItem.setText(resourceMap.getString("settingsCategoriesMenuItem.text")); // NOI18N
+        settingsCategoriesMenuItem.setEnabled(false);
+        settingsCategoriesMenuItem.setName("settingsCategoriesMenuItem"); // NOI18N
+        settingsCategoriesMenuItem.addActionListener(mainMenuListener);
+        settingsMenu.add(settingsCategoriesMenuItem);
 
         menuBar.add(settingsMenu);
 
@@ -613,10 +637,13 @@ public class MainWindow extends FrameView {
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JMenu researchMenu;
     private javax.swing.JMenuItem researchNotepadMenuItem;
+    private javax.swing.JMenuItem researchStatisticsMenuItem;
     private org.beastwithin.conmandictionary.LanguagePanel rightLanguagePanel;
+    private javax.swing.JMenuItem settingsCategoriesMenuItem;
     private javax.swing.JMenu settingsMenu;
     private javax.swing.JMenuItem settingsNamesMenuItem;
     private javax.swing.JCheckBoxMenuItem settingsSaveFlaggedMenuItem;
+    private javax.swing.JMenuItem settingsWordClassMenuItem;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;

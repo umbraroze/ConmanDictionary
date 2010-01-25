@@ -58,6 +58,8 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionEditorPane = new javax.swing.JScrollPane();
         definitionEditor = new javax.swing.JEditorPane();
         flagButton = new javax.swing.JToggleButton();
+        wordClassDropDown = new javax.swing.JComboBox();
+        wordCategoryDropDown = new javax.swing.JComboBox();
         languageLabel = new javax.swing.JLabel();
         languagePanelSeparator1 = new javax.swing.JSeparator();
         languagePanelSeparator2 = new javax.swing.JSeparator();
@@ -91,7 +93,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap(196, Short.MAX_VALUE)
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
@@ -132,24 +134,36 @@ public class LanguagePanel extends javax.swing.JPanel {
             }
         });
 
+        wordClassDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
+        wordClassDropDown.setEnabled(false);
+
+        wordCategoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
+        wordCategoryDropDown.setEnabled(false);
+
         javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
         definitionPanel.setLayout(definitionPanelLayout);
         definitionPanelLayout.setHorizontalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, definitionPanelLayout.createSequentialGroup()
-                .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wordClassDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(flagButton))
+            .addComponent(wordCategoryDropDown, 0, 348, Short.MAX_VALUE)
+            .addComponent(definitionEditorPane)
         );
         definitionPanelLayout.setVerticalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(definitionPanelLayout.createSequentialGroup()
                 .addGroup(definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(flagButton)
+                    .addComponent(wordClassDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wordCategoryDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -159,12 +173,12 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-            .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-            .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+            .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+            .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
             .addComponent(definitionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+            .addComponent(languagePanelSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
             .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -174,7 +188,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,6 +239,8 @@ public class LanguagePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator languagePanelSeparator2;
     private javax.swing.JButton modifyButton;
     private org.beastwithin.conmandictionary.SearchBox searchBox;
+    private javax.swing.JComboBox wordCategoryDropDown;
+    private javax.swing.JComboBox wordClassDropDown;
     // End of variables declaration//GEN-END:variables
     
     

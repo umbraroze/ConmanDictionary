@@ -174,7 +174,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileMergeMenuItem">
               <Properties>
-                <Property name="mnemonic" type="int" value="114"/>
+                <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
                 <Property name="actionCommand" type="java.lang.String" resourceKey="fileMergeMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
@@ -236,6 +236,17 @@
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="researchNotepadMenuItem.addActionListener(mainMenuListener);"/>
               </AuxValues>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="researchStatisticsMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="115"/>
+                <Property name="text" type="java.lang.String" resourceKey="researchStatisticsMenuItem.text"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="researchStatisticsMenuItem" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="researchStatisticsMenuItem.addActionListener(mainMenuListener);"/>
+              </AuxValues>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="settingsMenu">
@@ -267,6 +278,28 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsNamesMenuItem.addActionListener(mainMenuListener);"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="settingsWordClassMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="119"/>
+                <Property name="text" type="java.lang.String" resourceKey="settingsWordClassMenuItem.text"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="settingsWordClassMenuItem" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsWordClassMenuItem.addActionListener(mainMenuListener);"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="settingsCategoriesMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="99"/>
+                <Property name="text" type="java.lang.String" resourceKey="settingsCategoriesMenuItem.text"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="settingsCategoriesMenuItem" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsCategoriesMenuItem.addActionListener(mainMenuListener);"/>
               </AuxValues>
             </MenuItem>
           </SubComponents>

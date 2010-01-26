@@ -31,7 +31,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(name = "", propOrder = { "notePad", "definitions" })
+@XmlType(name = "", propOrder = { "notePad", "wordClasses", "definitions" })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
     @XmlTransient
@@ -43,7 +43,11 @@ public class Dictionary {
     @XmlElement(name = "definitions", required = true)
     protected List<EntryList> definitions;
 
+    @XmlElement(name = "wordclasses", required = false)
+    protected WordClassList wordClasses;
+    
     public Dictionary() {
+        wordClasses = new WordClassList();
         notePad = new PlainDocument();
         definitions = Collections.synchronizedList(new ArrayList<EntryList>());
         definitions.add(new EntryList("Language 1"));
@@ -150,13 +154,6 @@ public class Dictionary {
         FileWriter f = new FileWriter(currentFile);
         m.marshal(this, f);
     }
-    
-    public void saveDocumentUnflagged() throws JAXBException, IOException {
-        // General battle plan: Create a clone of the document in memory.
-        // Prune flagged entries.
-        // Stow that in a file.
-    }
-
 
     public static Dictionary loadDocument(File file) throws JAXBException, IOException {
         JAXBContext jc = JAXBContext.newInstance(Dictionary.class);
@@ -225,5 +222,13 @@ public class Dictionary {
                     ioe.getMessage(),
                     "Error exporting the file.", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public WordClassList getWordClasses() {
+        return wordClasses;
+    }
+
+    public void setWordClasses(WordClassList wordClasses) {
+        this.wordClasses = wordClasses;
     }
 }

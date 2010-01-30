@@ -22,6 +22,7 @@ package org.beastwithin.conmandictionary;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.ListModel;
 import javax.swing.event.*;
 import javax.xml.bind.annotation.*;
@@ -29,16 +30,20 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = { "classes" })
 @XmlRootElement(name = "wordclasses")
-public class WordClassList implements ListModel {
+public class WordClassList implements ListModel, ComboBoxModel {
 
     @XmlElement(name="class")
     private List<WordClass> classes;
     
     @XmlTransient
     private ArrayList<ListDataListener> listDataListeners = new ArrayList<ListDataListener>();
+
+    @XmlTransient
+    private WordClass currentlySelected;
     
     public WordClassList() {
         classes = Collections.synchronizedList(new ArrayList<WordClass>());
+        currentlySelected = null;
     }
     
     public List<WordClass> getClasses() {
@@ -65,4 +70,18 @@ public class WordClassList implements ListModel {
     public int getSize() {
         return classes.size();
     }
+    
+    public Object getSelectedItem() {
+        return currentlySelected;
+    }
+    
+    public void setSelectedItem(Object item) {
+        if(!(item instanceof WordClass) || item == null)
+            throw new ClassCastException("We only want WordClasses in word class list");
+        if(classes.contains(item))
+            currentlySelected = (WordClass) item;
+        else
+            throw new ArrayIndexOutOfBoundsException(item+" not in word class list");
+    }
+
 }

@@ -196,8 +196,10 @@
                 <StringItem index="0" value="(None)"/>
               </StringArray>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="wordClassDropDown.setModel(wordClasses);"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="wordCategoryDropDown">
           <Properties>

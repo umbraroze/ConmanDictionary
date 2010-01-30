@@ -5,11 +5,10 @@ public class RandomDictTest {
         Dictionary d = new Dictionary();
         WordClass n = new WordClass("Noun","n.");
         WordClass v = new WordClass("Verb","v.");
-        d.getWordClasses().getClasses().add(n);
-        d.getWordClasses().getClasses().add(v);
-        d.setCurrentFile(new java.io.File("/tmp/wordclasstest.xml"));
+        d.getWordClasses().add(n);
+        d.getWordClasses().add(v);
         try {
-            d.saveDocument();
+            d.save("/tmp/wordclasstest.xml");
         } catch(Exception e) {
             e.printStackTrace();
         }

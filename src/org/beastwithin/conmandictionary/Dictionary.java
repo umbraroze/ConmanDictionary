@@ -38,16 +38,21 @@ public class Dictionary {
     private static final String schemaResourceFile = "org/beastwithin/conmandictionary/resources/dictionary.xsd";
     @XmlTransient
     private File currentFile = null;
+    // This is XmlTransient because of a name clash.
+    // We don't want to serialize the PlainDocument, just the String that
+    // is accessed through the accessors.
     @XmlTransient
     private PlainDocument notePad;
+    
     @XmlElement(name = "definitions", required = true)
     protected List<EntryList> definitions;
 
-    @XmlElement(name = "wordclasses", required = false)
-    protected WordClassList wordClasses;
+    @XmlElementWrapper(name = "wordclasses", required = false)
+    @XmlElement(name = "class", required = false)
+    protected List<WordClass> wordClasses;
     
     public Dictionary() {
-        wordClasses = new WordClassList();
+        wordClasses = Collections.synchronizedList(new ArrayList<WordClass>());
         notePad = new PlainDocument();
         definitions = Collections.synchronizedList(new ArrayList<EntryList>());
         definitions.add(new EntryList("Language 1"));
@@ -142,11 +147,22 @@ public class Dictionary {
     public void setCurrentFile(File f) {
         currentFile = f;
     }
+    public void setCurrentFile(String fn) {
+        currentFile = new File(fn);
+    }
 
     public File getCurrentFile() {
         return currentFile;
     }
     
+    public void save(File f) throws JAXBException, IOException {
+        setCurrentFile(f);
+        saveDocument();
+    }
+    public void save(String fn) throws JAXBException, IOException {
+        setCurrentFile(fn);
+        saveDocument();
+    }
     public void saveDocument() throws JAXBException, IOException {
         JAXBContext jc = JAXBContext.newInstance(this.getClass());
         Marshaller m = jc.createMarshaller();
@@ -224,11 +240,11 @@ public class Dictionary {
         }
     }
     
-    public WordClassList getWordClasses() {
+    public List<WordClass> getWordClasses() {
         return wordClasses;
     }
 
-    public void setWordClasses(WordClassList wordClasses) {
+    public void setWordClasses(List<WordClass> wordClasses) {
         this.wordClasses = wordClasses;
     }
 }

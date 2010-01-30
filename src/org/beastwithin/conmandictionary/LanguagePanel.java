@@ -1,7 +1,7 @@
 /*  LanguagePanel.java: Dictionary list and entry editor panel in main window.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2009,2010  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,6 +19,10 @@
 
 package org.beastwithin.conmandictionary;
 
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 /**
  * Dictionary list and entry editor panel in main window. Consists of
  * the list of entries, a keyword entry panel, rich text editor for the
@@ -27,16 +31,36 @@ package org.beastwithin.conmandictionary;
  * @author wwwwolf
  */
 public class LanguagePanel extends javax.swing.JPanel {
+    private class EntryListModel extends DefaultListModel {
+        // FIXME: Unused as of yet
+        // This should implement the Swing stuff currently in EntryList.java
+    }
+    private class WordClassDropDownModel extends DefaultComboBoxModel {
+        // FIXME: Unused as of yet
+        // This class should return "(None)", list[0].toString(), list[1].toString(), etc...
+        // and for values: null, list[0], list[1], ...
+        private List<WordClass> wordClasses;
+
+        public List<WordClass> getWordClasses() {
+            return wordClasses;
+        }
+        public void setWordClasses(List<WordClass> wordClasses) {
+            this.wordClasses = wordClasses;
+        }
+    }
     
     private EntryList entryList;
+    private WordClassDropDownModel wordClasses;
     private LanguagePanelSearchBoxListener searchListener;
     
     public LanguagePanel() {
         entryList = new EntryList();
+        wordClasses = new WordClassDropDownModel();
         searchListener = new LanguagePanelSearchBoxListener(this);
         initComponents();
         entryList.setLanguage("");
     }
+
     public LanguagePanel(String language) {
         this();
         entryList.setLanguage(language);
@@ -135,7 +159,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         });
 
         wordClassDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
-        wordClassDropDown.setEnabled(false);
+        wordClassDropDown.setModel(wordClasses);
 
         wordCategoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
         wordCategoryDropDown.setEnabled(false);
@@ -373,7 +397,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionList.setModel(entryList);
         resetLanguageLabel();
     }
-    
+
     /**
      * Clear all entries in this list.
      */

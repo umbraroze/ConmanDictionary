@@ -123,31 +123,10 @@ public class MainWindow extends FrameView {
             }
         }
 
-        private void newDocument() {
-            if (isUnsaved()) {
-                int resp = JOptionPane.showConfirmDialog(
-                        mainWindow.getFrame(),
-                        "There are unsaved changes.\nReally clear everything?",
-                        "Really clear everything?",
-                        JOptionPane.YES_NO_OPTION);
-                if (resp != 0) {
-                    return;
-                }
-            }
-            Dictionary newDocument = new Dictionary();
-            leftLanguagePanel.clearEntries();
-            rightLanguagePanel.clearEntries();
-            mainWindow.setModel(newDocument);
-            //mainWindow.setAppTitle(null);
-        }
 
         public void actionPerformed(ActionEvent e) {
             String c = e.getActionCommand();
-            if (c.compareTo("file-quit")==0) {
-                mainWindow.quit();
-            } else if (c.compareTo("file-new")==0) {
-                newDocument();
-            } else if (c.compareTo("file-open")==0) {
+            if (c.compareTo("file-open")==0) {
                 if (isUnsaved()) {
                     int resp = JOptionPane.showConfirmDialog(
                             mainWindow.getFrame(),
@@ -204,6 +183,26 @@ public class MainWindow extends FrameView {
         return languageNameDialog;
     }
 
+    @Action
+    public void newDocument() {
+        if (isUnsaved()) {
+            int resp = JOptionPane.showConfirmDialog(
+                    getFrame(),
+                    "There are unsaved changes.\nReally clear everything?",
+                    "Really clear everything?",
+                    JOptionPane.YES_NO_OPTION);
+            if (resp != 0) {
+                return;
+            }
+        }
+        Dictionary newDocument = new Dictionary();
+        leftLanguagePanel.clearEntries();
+        rightLanguagePanel.clearEntries();
+        setModel(newDocument);
+        //mainWindow.setAppTitle(null);
+    }
+
+    @Action
     public void quit() {
         if (isUnsaved()) {
             int resp = JOptionPane.showConfirmDialog(this.getFrame(),
@@ -297,7 +296,9 @@ public class MainWindow extends FrameView {
     public void setModel(Dictionary newModel) {
         model = newModel;
         leftLanguagePanel.setEntryList(newModel.getDefinitions().get(0));
+        leftLanguagePanel.setWordClasses(newModel.getWordClasses());
         rightLanguagePanel.setEntryList(newModel.getDefinitions().get(1));
+        rightLanguagePanel.setWordClasses(newModel.getWordClasses());
         notePad.setModel(newModel.getNotePadDocument());
     // FIXME: Other associations go here!
     }
@@ -312,7 +313,6 @@ public class MainWindow extends FrameView {
         initComponents();
         
         mainMenuListener = new MainMenuListener(this);
-        initComponents();
         languageNameDialog = new LanguageNameDialog(this);
         notePad = new NotePad();
         
@@ -485,10 +485,11 @@ public class MainWindow extends FrameView {
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(MainWindow.class, this);
+        fileNewMenuItem.setAction(actionMap.get("newDocument")); // NOI18N
         fileNewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         fileNewMenuItem.setMnemonic('n');
         fileNewMenuItem.setText(resourceMap.getString("fileNewMenuItem.text")); // NOI18N
-        fileNewMenuItem.setActionCommand(resourceMap.getString("fileNewMenuItem.actionCommand")); // NOI18N
         fileNewMenuItem.setName("fileNewMenuItem"); // NOI18N
         fileNewMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileNewMenuItem);
@@ -534,10 +535,9 @@ public class MainWindow extends FrameView {
         fileQuitSeparator.setName("fileQuitSeparator"); // NOI18N
         fileMenu.add(fileQuitSeparator);
 
-        fileQuitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        fileQuitMenuItem.setMnemonic('q');
+        fileQuitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         fileQuitMenuItem.setText(resourceMap.getString("fileQuitMenuItem.text")); // NOI18N
-        fileQuitMenuItem.setActionCommand(resourceMap.getString("fileQuitMenuItem.actionCommand")); // NOI18N
+        fileQuitMenuItem.setToolTipText(resourceMap.getString("fileQuitMenuItem.toolTipText")); // NOI18N
         fileQuitMenuItem.setName("fileQuitMenuItem"); // NOI18N
         fileQuitMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileQuitMenuItem);
@@ -605,9 +605,8 @@ public class MainWindow extends FrameView {
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
 
-        helpAboutMenuItem.setMnemonic('a');
+        helpAboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
         helpAboutMenuItem.setText(resourceMap.getString("helpAboutMenuItem.text")); // NOI18N
-        helpAboutMenuItem.setActionCommand(resourceMap.getString("helpAboutMenuItem.actionCommand")); // NOI18N
         helpAboutMenuItem.setName("helpAboutMenuItem"); // NOI18N
         helpAboutMenuItem.addActionListener(mainMenuListener);
         helpMenu.add(helpAboutMenuItem);

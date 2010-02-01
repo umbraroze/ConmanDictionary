@@ -118,12 +118,14 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="fileNewMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="newDocument" methodName="newDocument"/>
+                </Property>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileNewMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileNewMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileNewMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
@@ -201,12 +203,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileQuitMenuItem">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+Q"/>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.jdesktop.application.Application" id="quit" methodName="quit"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="113"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileQuitMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileQuitMenuItem.actionCommand"/>
+                <Property name="toolTipText" type="java.lang.String" resourceKey="fileQuitMenuItem.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="fileQuitMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>
@@ -313,9 +314,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="helpAboutMenuItem">
               <Properties>
-                <Property name="mnemonic" type="int" value="97"/>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showAboutBox" methodName="showAboutBox"/>
+                </Property>
                 <Property name="text" type="java.lang.String" resourceKey="helpAboutMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="helpAboutMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="helpAboutMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>

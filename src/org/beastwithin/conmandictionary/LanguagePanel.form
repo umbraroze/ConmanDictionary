@@ -198,7 +198,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="wordClassDropDown.setModel(wordClasses);"/>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="wordClassDropDown.setModel(wordClassModel);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="wordCategoryDropDown">

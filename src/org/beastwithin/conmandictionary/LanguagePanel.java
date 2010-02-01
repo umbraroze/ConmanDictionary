@@ -20,7 +20,7 @@
 package org.beastwithin.conmandictionary;
 
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
 
 /**
@@ -35,27 +35,15 @@ public class LanguagePanel extends javax.swing.JPanel {
         // FIXME: Unused as of yet
         // This should implement the Swing stuff currently in EntryList.java
     }
-    private class WordClassDropDownModel extends DefaultComboBoxModel {
-        // FIXME: Unused as of yet
-        // This class should return "(None)", list[0].toString(), list[1].toString(), etc...
-        // and for values: null, list[0], list[1], ...
-        private List<WordClass> wordClasses;
-
-        public List<WordClass> getWordClasses() {
-            return wordClasses;
-        }
-        public void setWordClasses(List<WordClass> wordClasses) {
-            this.wordClasses = wordClasses;
-        }
-    }
     
     private EntryList entryList;
-    private WordClassDropDownModel wordClasses;
+    private List<WordClass> wordClasses;
+    private ComboBoxModelWithNullChoice wordClassModel;
     private LanguagePanelSearchBoxListener searchListener;
-    
+        
     public LanguagePanel() {
         entryList = new EntryList();
-        wordClasses = new WordClassDropDownModel();
+        clearWordClasses();
         searchListener = new LanguagePanelSearchBoxListener(this);
         initComponents();
         entryList.setLanguage("");
@@ -159,7 +147,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         });
 
         wordClassDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
-        wordClassDropDown.setModel(wordClasses);
+        wordClassDropDown.setModel(wordClassModel);
 
         wordCategoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
         wordCategoryDropDown.setEnabled(false);
@@ -382,7 +370,6 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.entryList.sort();
         this.definitionList.repaint();
     }
-    
 
     /**
      * Returns the list of entries.
@@ -396,6 +383,22 @@ public class LanguagePanel extends javax.swing.JPanel {
         entryList = l;
         definitionList.setModel(entryList);
         resetLanguageLabel();
+    }
+    
+    public void clearWordClasses() {
+        wordClasses = null;
+        Vector<String> v = new Vector<String>();
+        wordClassModel = new ComboBoxModelWithNullChoice(v);
+    }
+
+    public void setWordClasses(List<WordClass> wordClasses) {
+        this.wordClasses = wordClasses;
+        Vector<WordClass> v = new Vector<WordClass>(this.wordClasses);
+        wordClassModel = new ComboBoxModelWithNullChoice(v);
+    }
+
+    public List<WordClass> getWordClasses() {
+        return this.wordClasses;
     }
 
     /**

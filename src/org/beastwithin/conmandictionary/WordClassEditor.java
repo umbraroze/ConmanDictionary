@@ -19,16 +19,93 @@
 
 package org.beastwithin.conmandictionary;
 
-/**
- *
- * @author  wwwwolf
- */
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import org.jdesktop.application.Action;
+
 public class WordClassEditor extends javax.swing.JDialog {
+    private List<WordClass> wordClasses;
+    private WordClassListModel wordClassListModel;
     
-    /** Creates new form WordClassEditor */
-    public WordClassEditor(java.awt.Frame parent, boolean modal) {
+    private class WordClassListModel implements ListModel {
+
+        private List<ListDataListener> listDataListeners;
+        private List<WordClass> wordClasses;
+
+        public void WordClassListModel() {
+            listDataListeners = Collections.synchronizedList(new ArrayList<ListDataListener>());
+            wordClasses = null;
+        }
+
+        public void addListDataListener(ListDataListener l) {
+            listDataListeners.add(l);
+        }
+
+        public void removeListDataListener(ListDataListener l) {
+            listDataListeners.remove(l);
+        }
+
+        public void refresh() {
+            ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, wordClasses.size() - 1);
+            for (ListDataListener l : listDataListeners) {
+                l.contentsChanged(e);
+            }
+        }
+
+        public Object getElementAt(int n) {
+            return wordClasses.get(n);
+        }
+
+        public int getSize() {
+            return wordClasses.size();
+        }
+
+        public List<WordClass> getWordClasses() {
+            return wordClasses;
+        }
+
+        public void setWordClasses(List<WordClass> wordClasses) {
+            this.wordClasses = wordClasses;
+        }
+    }
+    
+    public WordClassEditor(java.awt.Frame parent, boolean modal, List<WordClass> list) {
         super(parent, modal);
+        wordClassListModel = new WordClassListModel();
+        wordClasses = list;
+        wordClassListModel.setWordClasses(wordClasses);
         initComponents();
+    }
+
+    @Action
+    public void add() {
+        // Check if this word class already exists
+        // Add the entry
+        WordClass w = new WordClass();
+        w.setName(nameEntry.getText());
+        if(abbreviationEntry.getText().length() > 0)
+            w.setAbbreviation(abbreviationEntry.getText());
+        if(descriptionEntry.getText().length() > 0)
+            w.setDescription(descriptionEntry.getText());
+        wordClasses.add(w);
+        wordClassListModel.refresh();
+    }
+    
+    @Action
+    public void modify() {
+    }
+
+    @Action
+    public void delete() {
+    }
+
+    @Action
+    public void close() {
+        dispose();
     }
     
     /** This method is called from within the constructor to
@@ -50,6 +127,8 @@ public class WordClassEditor extends javax.swing.JDialog {
         descriptionEntry = new javax.swing.JTextArea();
         deleteButton = new javax.swing.JButton();
         doneButton = new javax.swing.JButton();
+        modifyButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getResourceMap(WordClassEditor.class);
@@ -59,6 +138,7 @@ public class WordClassEditor extends javax.swing.JDialog {
         wordClassScrollPane.setName("wordClassScrollPane"); // NOI18N
 
         wordClassList.setName("wordClassList"); // NOI18N
+        wordClassList.setModel(wordClassListModel);
         wordClassScrollPane.setViewportView(wordClassList);
 
         nameLabel.setLabelFor(nameEntry);
@@ -86,12 +166,26 @@ public class WordClassEditor extends javax.swing.JDialog {
         descriptionEntry.setName("descriptionEntry"); // NOI18N
         descriptionScrollPane.setViewportView(descriptionEntry);
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(WordClassEditor.class, this);
+        deleteButton.setAction(actionMap.get("delete")); // NOI18N
         deleteButton.setText(resourceMap.getString("deleteButton.text")); // NOI18N
-        deleteButton.setEnabled(false);
         deleteButton.setName("deleteButton"); // NOI18N
 
+        doneButton.setAction(actionMap.get("close")); // NOI18N
+        doneButton.setMnemonic('d');
         doneButton.setText(resourceMap.getString("doneButton.text")); // NOI18N
+        doneButton.setToolTipText(resourceMap.getString("doneButton.toolTipText")); // NOI18N
         doneButton.setName("doneButton"); // NOI18N
+
+        modifyButton.setAction(actionMap.get("modify")); // NOI18N
+        modifyButton.setText(resourceMap.getString("modifyButton.text")); // NOI18N
+        modifyButton.setToolTipText(resourceMap.getString("modifyButton.toolTipText")); // NOI18N
+        modifyButton.setName("modifyButton"); // NOI18N
+
+        addButton.setAction(actionMap.get("add")); // NOI18N
+        addButton.setText(resourceMap.getString("addButton.text")); // NOI18N
+        addButton.setToolTipText(resourceMap.getString("addButton.toolTipText")); // NOI18N
+        addButton.setName("addButton"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +205,11 @@ public class WordClassEditor extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(descriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(326, 326, 326)
+                .addGap(196, 196, 196)
+                .addComponent(addButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modifyButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(doneButton))
@@ -135,37 +233,24 @@ public class WordClassEditor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doneButton)
-                    .addComponent(deleteButton)))
+                    .addComponent(deleteButton)
+                    .addComponent(modifyButton)
+                    .addComponent(addButton)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                WordClassEditor dialog = new WordClassEditor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField abbreviationEntry;
     private javax.swing.JLabel abbreviationLabel;
+    private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextArea descriptionEntry;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JScrollPane descriptionScrollPane;
     private javax.swing.JButton doneButton;
+    private javax.swing.JButton modifyButton;
     private javax.swing.JTextField nameEntry;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JList wordClassList;

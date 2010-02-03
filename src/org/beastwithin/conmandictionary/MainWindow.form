@@ -283,9 +283,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsWordClassMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showWordClassEditor" methodName="showWordClassEditor"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="119"/>
                 <Property name="text" type="java.lang.String" resourceKey="settingsWordClassMenuItem.text"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" resourceKey="settingsWordClassMenuItem.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="settingsWordClassMenuItem" noResource="true"/>
               </Properties>
               <AuxValues>

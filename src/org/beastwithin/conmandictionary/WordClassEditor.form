@@ -41,7 +41,11 @@
               <Component id="descriptionScrollPane" pref="349" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+              <Component id="addButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="modifyButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="doneButton" min="-2" max="-2" attributes="0"/>
@@ -71,6 +75,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="doneButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="deleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="modifyButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -94,6 +100,9 @@
             </Property>
             <Property name="name" type="java.lang.String" value="wordClassList" noResource="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="wordClassList.setModel(wordClassListModel);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -157,15 +166,42 @@
     </Container>
     <Component class="javax.swing.JButton" name="deleteButton">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="delete" methodName="delete"/>
+        </Property>
         <Property name="text" type="java.lang.String" resourceKey="deleteButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="deleteButton" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="doneButton">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="close" methodName="close"/>
+        </Property>
+        <Property name="mnemonic" type="int" value="100"/>
         <Property name="text" type="java.lang.String" resourceKey="doneButton.text"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="doneButton.toolTipText"/>
         <Property name="name" type="java.lang.String" value="doneButton" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="modifyButton">
+      <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="modify" methodName="modify"/>
+        </Property>
+        <Property name="text" type="java.lang.String" resourceKey="modifyButton.text"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="modifyButton.toolTipText"/>
+        <Property name="name" type="java.lang.String" value="modifyButton" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="addButton">
+      <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="add" methodName="add"/>
+        </Property>
+        <Property name="text" type="java.lang.String" resourceKey="addButton.text"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="addButton.toolTipText"/>
+        <Property name="name" type="java.lang.String" value="addButton" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

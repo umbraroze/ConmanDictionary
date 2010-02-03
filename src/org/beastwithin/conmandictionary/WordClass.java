@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "description"
 })
-@XmlRootElement(name="entry")
+@XmlRootElement(name="class")
 public class WordClass {
     @XmlAttribute(required=true) @XmlID
     protected String name;
     @XmlAttribute(required=true)
     protected String abbreviation;
-    @XmlElement(required=false)
+    @XmlValue
     protected String description;
 
     public WordClass() {
@@ -77,5 +77,17 @@ public class WordClass {
     public void setDescription(String description) {
         // Description is automagically null'd, because that reduces
         this.description = (description.equals("") ? null : description);
+    }
+    
+    /**
+     * Word classes look like "Class (abbr.)" or "Class (abbr.): Description"
+     * in string format.
+     * 
+     * @return String representation of the word class.
+     */
+    @Override
+    public String toString() {
+        return name + " (" + abbreviation + ")" +
+                (description == null ? "" : ": " + description);
     }
 }

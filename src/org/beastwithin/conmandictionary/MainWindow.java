@@ -382,6 +382,16 @@ public class MainWindow extends FrameView {
         }
         ConmanDictionary.getApplication().show(aboutBox);
     }
+    @Action
+    public void showWordClassEditor() {
+        if (wordClassEditor == null) {
+            JFrame mainFrame = ConmanDictionary.getApplication().getMainFrame();
+            wordClassEditor = new WordClassEditor(mainFrame,true,
+                    ConmanDictionary.getDictionary().getWordClasses());
+            wordClassEditor.setLocationRelativeTo(mainFrame);
+        }
+        ConmanDictionary.getApplication().show(wordClassEditor);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -585,9 +595,10 @@ public class MainWindow extends FrameView {
         settingsNamesMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsNamesMenuItem);
 
+        settingsWordClassMenuItem.setAction(actionMap.get("showWordClassEditor")); // NOI18N
         settingsWordClassMenuItem.setMnemonic('w');
         settingsWordClassMenuItem.setText(resourceMap.getString("settingsWordClassMenuItem.text")); // NOI18N
-        settingsWordClassMenuItem.setEnabled(false);
+        settingsWordClassMenuItem.setToolTipText(resourceMap.getString("settingsWordClassMenuItem.toolTipText")); // NOI18N
         settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
         settingsWordClassMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsWordClassMenuItem);
@@ -655,4 +666,5 @@ public class MainWindow extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+    private WordClassEditor wordClassEditor;
 }

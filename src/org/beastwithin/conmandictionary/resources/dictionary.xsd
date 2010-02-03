@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema jaxb:version="1.0"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:annotation>
         <xs:documentation>
             dictionary.xsd: Conman's Dictionary database file XML Schema.
@@ -27,54 +26,55 @@
         </xs:documentation>
     </xs:annotation>
     
-    <xs:element name="notepad" type="xs:string"/>
-    <xs:element name="entry">
+    <xs:element name="dictionarydatabase">
+        <xs:annotation>
+            <xs:documentation>The dictionary database.</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
-            <!--
-			<xs:annotation>
-				<xs:appinfo>
-					<jaxb:class name="Entry"/>
-				</xs:appinfo>
-			</xs:annotation>
-			-->
+            <xs:sequence>
+                <xs:element name="notepad" minOccurs="0" maxOccurs="1" type="xs:string" />
+                <xs:element name="wordclasses" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="class" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="definitions" minOccurs="2" maxOccurs="2">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="language" type="xs:string" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>	
+    </xs:element>
+    <xs:element name="entry">
+        <xs:annotation>
+            <xs:documentation>The actual individual dictionary entries.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
             <xs:sequence>
                 <xs:element name="term" type="xs:string"/>
                 <xs:element name="definition" type="xs:string"/>
             </xs:sequence>
             <xs:attribute name="flagged" type="xs:boolean" default="false"/>
+            <xs:attribute name="class" type="xs:IDREF" use="optional"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="definitions">
+    <xs:element name="class">
+        <xs:annotation>
+            <xs:documentation>Word classes. Word classes are identified by their primary human-readable name (saved in "name" attribute).</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
-            <!-- 
-			<xs:annotation>
-				<xs:appinfo>
-					<jaxb:class name="EntryList"/>
-				</xs:appinfo>
-			</xs:annotation>
-			-->
-            <xs:sequence>
-                <xs:element
-                    ref="entry"
-                    minOccurs="0"
-                    maxOccurs="unbounded" />
-            </xs:sequence>
-            <xs:attribute name="language" type="xs:string" />
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="abbreviation" type="xs:string" use="required"/>
+                    <xs:attribute name="name" type="xs:ID" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
-    </xs:element>    
-    <xs:element name="dictionarydatabase">
-        <xs:complexType>
-            <!--
-			<xs:annotation>
-				<xs:appinfo>
-					<jaxb:class name="Document"/>
-				</xs:appinfo>
-			</xs:annotation>
-			-->
-                                <xs:sequence>
-                                    <xs:element ref="notepad" minOccurs="0" maxOccurs="1"></xs:element>
-                                    <xs:element ref="definitions" minOccurs="2" maxOccurs="2"></xs:element>
-                                </xs:sequence>
-                            </xs:complexType>	
-                        </xs:element>
-                    </xs:schema>
+    </xs:element>
+</xs:schema>

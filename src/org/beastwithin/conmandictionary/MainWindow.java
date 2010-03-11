@@ -202,7 +202,18 @@ public class MainWindow extends FrameView {
         if (ret != JFileChooser.APPROVE_OPTION) {
             return;
         }
-        this.getModel().setCurrentFile(fc.getSelectedFile());
+        File targetFile = fc.getSelectedFile();
+        if(targetFile.exists()) {
+            int confirm =
+                    JOptionPane.showConfirmDialog(this.getFrame(),
+                    targetFile.getAbsolutePath() + " exists. Overwrite?",
+                    "Overwrite?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+            if(confirm == JOptionPane.NO_OPTION)
+                return;
+        }
+        this.getModel().setCurrentFile(targetFile);
         doSave();
     }
     private void doSave() {

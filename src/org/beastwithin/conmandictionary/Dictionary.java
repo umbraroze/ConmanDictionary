@@ -186,11 +186,34 @@ public class Dictionary {
     }
     
     public void mergeEntriesFrom(File file) throws JAXBException, IOException {
+        // Load up the document.
         Dictionary source = Dictionary.loadDocument(file);
-        definitions.get(0).add(source.definitions.get(0));
-        definitions.get(0).sort();
-        definitions.get(1).add(source.definitions.get(1));
-        definitions.get(1).sort();
+        
+        // If the word classes in the source lists match any
+        // word classes we have, we use our word classes instead.
+        // We append the new-found word classes to our list of word
+        // classes.
+        for (short listNo = 0; listNo < 1; listNo++) {
+            EntryList sourceDefs = source.definitions.get(listNo);
+            for (Entry e : sourceDefs.getEntries()) {
+                if(e.getWordClass() != null) { // No wordclass? Don't bother.
+                    for (WordClass ourWordClass : wordClasses) {
+                        WordClass theirWordClass = e.getWordClass();
+                        if (theirWordClass.sharesIdentifierWith(ourWordClass)) {
+                            // We have this one, so let's use ours!
+                            e.setWordClass(ourWordClass);
+                        } else {
+                            // No, haven't heard of this one!
+                            wordClasses.add(theirWordClass);
+                        }
+                    }
+                }
+                // Append this entry to our word list.
+                definitions.get(listNo).add(e);
+            }
+            // Once everything is added, sort this list.
+            definitions.get(listNo).sort();
+        }
     }
 
     public boolean isUnsavedChanges() {

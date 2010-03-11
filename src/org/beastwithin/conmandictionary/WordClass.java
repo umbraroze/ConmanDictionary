@@ -54,6 +54,17 @@ public class WordClass {
         this.description = (description.equals("") ? null : description);
     }
     
+    /**
+     * Are the two word classes identical? Identical means they have the
+     * same name. (Not named equal() because this is dumb.)
+     * 
+     * @param x Word class to compare against.
+     * @return Whether the two word classes have the same name.
+     */
+    public boolean sharesIdentifierWith(WordClass x) {
+        return name.equals(x.name);
+    }
+    
     public String getName() {
         return name;
     }
@@ -76,7 +87,8 @@ public class WordClass {
 
     public void setDescription(String description) {
         // Description is automagically null'd, because that reduces
-        // the amount of XML.
+        // the amount of XML. Note, however, that it doesn't. This is
+        // because JAXB fails a bit.
         this.description = (description.equals("") ? null : description);
     }
     

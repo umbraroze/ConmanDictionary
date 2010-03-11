@@ -50,6 +50,8 @@ public class Dictionary {
     @XmlElementWrapper(name = "wordclasses", required = false)
     @XmlElement(name = "class", required = false)
     protected List<WordClass> wordClasses;
+    @XmlTransient
+    private boolean wordClassesModified = false;
     
     public Dictionary() {
         wordClasses = Collections.synchronizedList(new ArrayList<WordClass>());
@@ -198,11 +200,18 @@ public class Dictionary {
         //String rightReason = definitions.get(1).getLastModificationReason();
         //System.err.printf("Left modified: %s, %s\n",leftModified,leftReason);
         //System.err.printf("Right modified: %s, %s\n",rightModified,rightReason);
-        if (leftModified || rightModified) {
+        if (leftModified || rightModified || wordClassesModified) {
             return true;
         }
         return false;
     }
+    public boolean isWordClassesModified() {
+        return wordClassesModified;
+    }
+    public void setWordClassesModified(boolean wordClassesModified) {
+        this.wordClassesModified = wordClassesModified;
+    }
+    
 
     public void exportAsDictd(String fileNameBase) {
         LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();

@@ -47,133 +47,7 @@ public class MainWindow extends FrameView {
     /// Notepad.
     private NotePad notePad;
     /// The language selection window.
-    private LanguageNameDialog languageNameDialog;
-    /// Main menu listener.
-    private MainMenuListener mainMenuListener;
-    
-    private class MainMenuListener implements ActionListener {
-
-        private MainWindow mainWindow = null;
-
-        public MainMenuListener(MainWindow mainWindow) {
-            this.mainWindow = mainWindow;
-        }
-
-        private void doSave() {
-            try {
-                mainWindow.getModel().saveDocument();
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                JOptionPane.showMessageDialog(
-                        mainWindow.getFrame(),
-                        "File error while saving file:\n" +
-                        ioe.getMessage(),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (JAXBException jaxbe) {
-                jaxbe.printStackTrace();
-                JOptionPane.showMessageDialog(
-                        mainWindow.getFrame(),
-                        "XML error while saving file:\n" +
-                        jaxbe.getMessage() +
-                        "\nFurther details printed at console.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            mainWindow.changesHaveBeenSaved();
-            //setAppTitle(mainWindow.getModel().getCurrentFile());
-        }
-
-        private void saveAs() {
-            final JFileChooser fc = new JFileChooser();
-            int ret = fc.showSaveDialog(mainWindow.getFrame());
-            if (ret != JFileChooser.APPROVE_OPTION) {
-                return;
-            }
-            mainWindow.getModel().setCurrentFile(fc.getSelectedFile());
-            doSave();
-        }
-        
-        private void mergeInto() {
-            final JFileChooser fc = new JFileChooser();
-            int ret = fc.showDialog(mainWindow.getFrame(),
-                    "Choose file to merge entries from");
-            if (ret != JFileChooser.APPROVE_OPTION) {
-                return;
-            }
-            try {
-                mainWindow.getModel().mergeEntriesFrom(fc.getSelectedFile());
-            } catch (IOException ioe) {
-                ioe.printStackTrace();   
-                JOptionPane.showMessageDialog(
-                        mainWindow.getFrame(),
-                        "File error while saving file:\n" +
-                        ioe.getMessage(),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (JAXBException jaxbe) {
-                jaxbe.printStackTrace();                
-                JOptionPane.showMessageDialog(
-                        mainWindow.getFrame(),
-                        "XML error while saving file:\n" +
-                        jaxbe.getMessage() +
-                        "\nFurther details printed at console.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-
-        public void actionPerformed(ActionEvent e) {
-            String c = e.getActionCommand();
-            if (c.compareTo("file-open")==0) {
-                if (isUnsaved()) {
-                    int resp = JOptionPane.showConfirmDialog(
-                            mainWindow.getFrame(),
-                            "There are unsaved changes.\nReally open another file?",
-                            "Really open another file?",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resp != 0) {
-                        return;
-                    }
-                }
-                final JFileChooser fc = new JFileChooser();
-                int ret = fc.showOpenDialog(mainWindow.getFrame());
-                if (ret != JFileChooser.APPROVE_OPTION) {
-                    return;
-                }
-                mainWindow.openDocument(fc.getSelectedFile());
-            } else if (c.compareTo("file-save")==0) {
-                // What's the file?
-                if (mainWindow.getModel().getCurrentFile() == null) {
-                    saveAs();
-                } else {
-                    doSave();
-                }
-            } else if (c.compareTo("file-save-as")==0) {
-                saveAs();
-            } else if (c.compareTo("file-merge")==0) {
-                mergeInto();
-            } else if (c.compareTo("file-export-dictd")==0) {
-                final JFileChooser fc = new JFileChooser();
-                int ret = fc.showSaveDialog(mainWindow.getFrame());
-                if (ret != JFileChooser.APPROVE_OPTION) {
-                    return;
-                }
-                mainWindow.getModel().exportAsDictd(fc.getSelectedFile().getPath());
-            } else if (c.compareTo("research-notepad")==0) {
-                mainWindow.getNotePad().setVisible(true);
-            } else if (c.compareTo("settings-save-flagged")==0) {
-                // FIXME: UNIMPLEMENTED!
-            } else if (c.compareTo("settings-languagenames")==0) {
-                mainWindow.getLanguageNameDialog().open();
-            } else if (c.compareTo("help-about")==0) {
-                mainWindow.showAboutBox();
-            } else {
-                System.err.println("WARNING: Unhandled menu item " + c + ".");
-            }
-        }
-    }
+    private LanguageNameDialog languageNameDialog;    
         
     private boolean isUnsaved() {
         return getModel().isUnsavedChanges();
@@ -215,6 +89,56 @@ public class MainWindow extends FrameView {
             }
         }
         System.exit(0);
+    }
+
+    @Action
+    public void mergeInto() {
+        final JFileChooser fc = new JFileChooser();
+        int ret = fc.showDialog(this.getFrame(),
+                "Choose file to merge entries from");
+        if (ret != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        try {
+            this.getModel().mergeEntriesFrom(fc.getSelectedFile());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this.getFrame(),
+                    "File error while saving file:\n" +
+                    ioe.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (JAXBException jaxbe) {
+            jaxbe.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this.getFrame(),
+                    "XML error while saving file:\n" +
+                    jaxbe.getMessage() +
+                    "\nFurther details printed at console.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    @Action
+    public void open() {
+        if (isUnsaved()) {
+            int resp = JOptionPane.showConfirmDialog(
+                    this.getFrame(),
+                    "There are unsaved changes.\nReally open another file?",
+                    "Really open another file?",
+                    JOptionPane.YES_NO_OPTION);
+            if (resp != 0) {
+                return;
+            }
+        }
+        final JFileChooser fc = new JFileChooser();
+        int ret = fc.showOpenDialog(this.getFrame());
+        if (ret != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        openDocument(fc.getSelectedFile());
     }
 
     public void openDocument(File f) {
@@ -262,6 +186,59 @@ public class MainWindow extends FrameView {
         //this.setAppTitle(f);
     }
 
+    @Action
+    public void save() {
+        // What's the file?
+        if (this.getModel().getCurrentFile() == null) {
+            saveAs();
+        } else {
+            doSave();
+        }
+    }
+    @Action
+    public void saveAs() {
+        final JFileChooser fc = new JFileChooser();
+        int ret = fc.showSaveDialog(this.getFrame());
+        if (ret != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        this.getModel().setCurrentFile(fc.getSelectedFile());
+        doSave();
+    }
+    private void doSave() {
+        try {
+            this.getModel().saveDocument();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this.getFrame(),
+                    "File error while saving file:\n" +
+                    ioe.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (JAXBException jaxbe) {
+            jaxbe.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this.getFrame(),
+                    "XML error while saving file:\n" +
+                    jaxbe.getMessage() +
+                    "\nFurther details printed at console.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        changesHaveBeenSaved();
+        //setAppTitle(mainWindow.getModel().getCurrentFile());
+    }
+    @Action
+    public void exportAsDictd() {
+        final JFileChooser fc = new JFileChooser();
+        int ret = fc.showSaveDialog(this.getFrame());
+        if (ret != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        this.getModel().exportAsDictd(fc.getSelectedFile().getPath());
+    }
+    
     /**
      * Get the left-side language panel.
      * @return the left-side language panel.
@@ -279,10 +256,11 @@ public class MainWindow extends FrameView {
     }
 
     public void changesHaveBeenSaved() {
-        this.leftLanguagePanel.getEntryList().setModified(false);
-        this.leftLanguagePanel.getEntryList().setLastModificationReason("Saved");
-        this.rightLanguagePanel.getEntryList().setModified(false);
-        this.rightLanguagePanel.getEntryList().setLastModificationReason("Saved");
+        leftLanguagePanel.getEntryList().setModified(false);
+        leftLanguagePanel.getEntryList().setLastModificationReason("Saved");
+        rightLanguagePanel.getEntryList().setModified(false);
+        rightLanguagePanel.getEntryList().setLastModificationReason("Saved");
+        model.setWordClassesModified(false);
     }
 
     public NotePad getNotePad() {
@@ -312,8 +290,8 @@ public class MainWindow extends FrameView {
 
         initComponents();
         
-        mainMenuListener = new MainMenuListener(this);
         languageNameDialog = new LanguageNameDialog(this);
+        wordClassEditor = null; // Will be instantiated upon opening
         notePad = new NotePad();
         
         // The rest is from the app template.
@@ -384,13 +362,23 @@ public class MainWindow extends FrameView {
     }
     @Action
     public void showWordClassEditor() {
-        if (wordClassEditor == null) {
-            JFrame mainFrame = ConmanDictionary.getApplication().getMainFrame();
-            wordClassEditor = new WordClassEditor(mainFrame,true,
-                    ConmanDictionary.getDictionary().getWordClasses());
-            wordClassEditor.setLocationRelativeTo(mainFrame);
+        if (wordClassEditor == null) {            
+            wordClassEditor = new WordClassEditor(this,true,model);
+            wordClassEditor.setLocationRelativeTo(this.getFrame());
         }
         ConmanDictionary.getApplication().show(wordClassEditor);
+    }
+    public void notifyWordClassChanges() {
+        leftLanguagePanel.wordClassesChanged();
+        rightLanguagePanel.wordClassesChanged();
+    }
+    @Action
+    public void showNotepad() {
+        ConmanDictionary.getApplication().show(notePad);
+    }
+    @Action
+    public void showLanguageNameDialog() {
+        ConmanDictionary.getApplication().show(languageNameDialog);
     }
 
     /** This method is called from within the constructor to
@@ -501,45 +489,39 @@ public class MainWindow extends FrameView {
         fileNewMenuItem.setMnemonic('n');
         fileNewMenuItem.setText(resourceMap.getString("fileNewMenuItem.text")); // NOI18N
         fileNewMenuItem.setName("fileNewMenuItem"); // NOI18N
-        fileNewMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileNewMenuItem);
 
+        fileOpenMenuItem.setAction(actionMap.get("open")); // NOI18N
         fileOpenMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         fileOpenMenuItem.setMnemonic('o');
         fileOpenMenuItem.setText(resourceMap.getString("fileOpenMenuItem.text")); // NOI18N
-        fileOpenMenuItem.setActionCommand(resourceMap.getString("fileOpenMenuItem.actionCommand")); // NOI18N
         fileOpenMenuItem.setName("fileOpenMenuItem"); // NOI18N
-        fileOpenMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileOpenMenuItem);
 
+        fileSaveMenuItem.setAction(actionMap.get("save")); // NOI18N
         fileSaveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         fileSaveMenuItem.setMnemonic('s');
         fileSaveMenuItem.setText(resourceMap.getString("fileSaveMenuItem.text")); // NOI18N
-        fileSaveMenuItem.setActionCommand(resourceMap.getString("fileSaveMenuItem.actionCommand")); // NOI18N
         fileSaveMenuItem.setName("fileSaveMenuItem"); // NOI18N
-        fileSaveMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileSaveMenuItem);
 
+        fileSaveAsMenuItem.setAction(actionMap.get("saveAs")); // NOI18N
         fileSaveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         fileSaveAsMenuItem.setMnemonic('a');
         fileSaveAsMenuItem.setText(resourceMap.getString("fileSaveAsMenuItem.text")); // NOI18N
-        fileSaveAsMenuItem.setActionCommand(resourceMap.getString("fileSaveAsMenuItem.actionCommand")); // NOI18N
         fileSaveAsMenuItem.setName("fileSaveAsMenuItem"); // NOI18N
-        fileSaveAsMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileSaveAsMenuItem);
 
+        fileMergeMenuItem.setAction(actionMap.get("mergeInto")); // NOI18N
         fileMergeMenuItem.setMnemonic('m');
         fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
-        fileMergeMenuItem.setActionCommand(resourceMap.getString("fileMergeMenuItem.actionCommand")); // NOI18N
         fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
-        fileMergeMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileMergeMenuItem);
 
+        fileExportDictdMenuItem.setAction(actionMap.get("exportAsDictd")); // NOI18N
         fileExportDictdMenuItem.setMnemonic('e');
         fileExportDictdMenuItem.setText(resourceMap.getString("fileExportDictdMenuItem.text")); // NOI18N
-        fileExportDictdMenuItem.setActionCommand(resourceMap.getString("fileExportDictdMenuItem.actionCommand")); // NOI18N
         fileExportDictdMenuItem.setName("fileExportDictdMenuItem"); // NOI18N
-        fileExportDictdMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileExportDictdMenuItem);
 
         fileQuitSeparator.setName("fileQuitSeparator"); // NOI18N
@@ -549,7 +531,6 @@ public class MainWindow extends FrameView {
         fileQuitMenuItem.setText(resourceMap.getString("fileQuitMenuItem.text")); // NOI18N
         fileQuitMenuItem.setToolTipText(resourceMap.getString("fileQuitMenuItem.toolTipText")); // NOI18N
         fileQuitMenuItem.setName("fileQuitMenuItem"); // NOI18N
-        fileQuitMenuItem.addActionListener(mainMenuListener);
         fileMenu.add(fileQuitMenuItem);
 
         menuBar.add(fileMenu);
@@ -558,19 +539,17 @@ public class MainWindow extends FrameView {
         researchMenu.setText(resourceMap.getString("researchMenu.text")); // NOI18N
         researchMenu.setName("researchMenu"); // NOI18N
 
+        researchNotepadMenuItem.setAction(actionMap.get("showNotepad")); // NOI18N
         researchNotepadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         researchNotepadMenuItem.setMnemonic('n');
         researchNotepadMenuItem.setText(resourceMap.getString("researchNotepadMenuItem.text")); // NOI18N
-        researchNotepadMenuItem.setActionCommand(resourceMap.getString("researchNotepadMenuItem.actionCommand")); // NOI18N
         researchNotepadMenuItem.setName("researchNotepadMenuItem"); // NOI18N
-        researchNotepadMenuItem.addActionListener(mainMenuListener);
         researchMenu.add(researchNotepadMenuItem);
 
         researchStatisticsMenuItem.setMnemonic('s');
         researchStatisticsMenuItem.setText(resourceMap.getString("researchStatisticsMenuItem.text")); // NOI18N
         researchStatisticsMenuItem.setEnabled(false);
         researchStatisticsMenuItem.setName("researchStatisticsMenuItem"); // NOI18N
-        researchStatisticsMenuItem.addActionListener(mainMenuListener);
         researchMenu.add(researchStatisticsMenuItem);
 
         menuBar.add(researchMenu);
@@ -585,14 +564,12 @@ public class MainWindow extends FrameView {
         settingsSaveFlaggedMenuItem.setActionCommand(resourceMap.getString("settingsSaveFlaggedMenuItem.actionCommand")); // NOI18N
         settingsSaveFlaggedMenuItem.setEnabled(false);
         settingsSaveFlaggedMenuItem.setName("settingsSaveFlaggedMenuItem"); // NOI18N
-        settingsSaveFlaggedMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsSaveFlaggedMenuItem);
 
+        settingsNamesMenuItem.setAction(actionMap.get("showLanguageNameDialog")); // NOI18N
         settingsNamesMenuItem.setMnemonic('l');
         settingsNamesMenuItem.setText(resourceMap.getString("settingsNamesMenuItem.text")); // NOI18N
-        settingsNamesMenuItem.setActionCommand(resourceMap.getString("settingsNamesMenuItem.actionCommand")); // NOI18N
         settingsNamesMenuItem.setName("settingsNamesMenuItem"); // NOI18N
-        settingsNamesMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsNamesMenuItem);
 
         settingsWordClassMenuItem.setAction(actionMap.get("showWordClassEditor")); // NOI18N
@@ -600,14 +577,12 @@ public class MainWindow extends FrameView {
         settingsWordClassMenuItem.setText(resourceMap.getString("settingsWordClassMenuItem.text")); // NOI18N
         settingsWordClassMenuItem.setToolTipText(resourceMap.getString("settingsWordClassMenuItem.toolTipText")); // NOI18N
         settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
-        settingsWordClassMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsWordClassMenuItem);
 
         settingsCategoriesMenuItem.setMnemonic('c');
         settingsCategoriesMenuItem.setText(resourceMap.getString("settingsCategoriesMenuItem.text")); // NOI18N
         settingsCategoriesMenuItem.setEnabled(false);
         settingsCategoriesMenuItem.setName("settingsCategoriesMenuItem"); // NOI18N
-        settingsCategoriesMenuItem.addActionListener(mainMenuListener);
         settingsMenu.add(settingsCategoriesMenuItem);
 
         menuBar.add(settingsMenu);
@@ -619,7 +594,6 @@ public class MainWindow extends FrameView {
         helpAboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
         helpAboutMenuItem.setText(resourceMap.getString("helpAboutMenuItem.text")); // NOI18N
         helpAboutMenuItem.setName("helpAboutMenuItem"); // NOI18N
-        helpAboutMenuItem.addActionListener(mainMenuListener);
         helpMenu.add(helpAboutMenuItem);
 
         menuBar.add(helpMenu);

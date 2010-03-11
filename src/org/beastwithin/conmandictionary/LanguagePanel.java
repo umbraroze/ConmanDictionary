@@ -22,6 +22,7 @@ package org.beastwithin.conmandictionary;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.event.ListDataEvent;
 
 /**
  * Dictionary list and entry editor panel in main window. Consists of
@@ -146,7 +147,6 @@ public class LanguagePanel extends javax.swing.JPanel {
             }
         });
 
-        wordClassDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
         wordClassDropDown.setModel(wordClassModel);
 
         wordCategoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
@@ -157,7 +157,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionPanelLayout.setHorizontalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, definitionPanelLayout.createSequentialGroup()
-                .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(definitionTerm, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wordClassDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -304,7 +304,7 @@ public class LanguagePanel extends javax.swing.JPanel {
             return;
         }
         Entry e = (Entry) entryList.getElementAt(idx);
-        this.editEntry(e);
+        editEntry(e);
     }
 
     /**
@@ -316,6 +316,10 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.definitionTerm.setText(e.getTerm());
         this.definitionEditor.setText(e.getDefinition());
         this.flagButton.setSelected(e.getFlagged());
+        if(e.getWordClass() == null)
+            this.wordClassDropDown.setSelectedIndex(0);
+        else
+            this.wordClassDropDown.setSelectedItem(e.getWordClass());
     }
 
     /**
@@ -325,6 +329,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.definitionTerm.setText("");
         this.definitionEditor.setText("");
         this.flagButton.setSelected(false);
+        this.wordClassDropDown.setSelectedIndex(0);
     }
 
     /**
@@ -334,8 +339,14 @@ public class LanguagePanel extends javax.swing.JPanel {
         String term = this.definitionTerm.getText();
         String definition = this.definitionEditor.getText();
         boolean flagged = this.flagButton.isSelected();
+        
+        WordClass newWordClass = null;
+        if(wordClassDropDown.getSelectedIndex() != 0)
+            newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
 
         Entry newTerm = new Entry(term, definition, flagged);
+        if(newWordClass != null)
+            newTerm.setWordClass(newWordClass);
 
         this.entryList.add(newTerm);
         this.entryList.sort();
@@ -367,6 +378,11 @@ public class LanguagePanel extends javax.swing.JPanel {
         e.setTerm(this.definitionTerm.getText());
         e.setDefinition(this.definitionEditor.getText());
         e.setFlagged(this.flagButton.isSelected());
+        WordClass newWordClass = null;
+        if(wordClassDropDown.getSelectedIndex() != 0)
+            newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
+        e.setWordClass(newWordClass);
+
         this.entryList.sort();
         this.definitionList.repaint();
     }
@@ -386,15 +402,30 @@ public class LanguagePanel extends javax.swing.JPanel {
     }
     
     public void clearWordClasses() {
+        int previousEnd = 0;
+        if(wordClasses != null)
+            previousEnd = wordClasses.size()-1;
         wordClasses = null;
         Vector<String> v = new Vector<String>();
         wordClassModel = new ComboBoxModelWithNullChoice(v);
+        if(previousEnd > 0)
+            wordClassDropDown.contentsChanged(new ListDataEvent(v, ListDataEvent.INTERVAL_REMOVED, 0, previousEnd));
     }
-
     public void setWordClasses(List<WordClass> wordClasses) {
+        /*
+        int previousEnd = 0;
+        if(wordClasses != null)
+            previousEnd = wordClasses.size()-1;
+         */
         this.wordClasses = wordClasses;
+        // Damn you wand your vectors
         Vector<WordClass> v = new Vector<WordClass>(this.wordClasses);
         wordClassModel = new ComboBoxModelWithNullChoice(v);
+        wordClassDropDown.setModel(wordClassModel);
+        //wordClassDropDown.contentsChanged(new ListDataEvent(v, ListDataEvent.CONTENTS_CHANGED, 0, v.size() - 1));
+    }
+    public void wordClassesChanged() {
+        setWordClasses(wordClasses);
     }
 
     public List<WordClass> getWordClasses() {

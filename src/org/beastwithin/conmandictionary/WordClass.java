@@ -76,6 +76,7 @@ public class WordClass {
 
     public void setDescription(String description) {
         // Description is automagically null'd, because that reduces
+        // the amount of XML.
         this.description = (description.equals("") ? null : description);
     }
     

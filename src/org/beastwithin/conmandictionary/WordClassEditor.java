@@ -22,21 +22,23 @@ package org.beastwithin.conmandictionary;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import org.jdesktop.application.Action;
 
 public class WordClassEditor extends javax.swing.JDialog {
-    private List<WordClass> wordClasses;
+    private Dictionary model;
     private WordClassListModel wordClassListModel;
+    private MainWindow parent;
     
     private class WordClassListModel implements ListModel {
 
         private List<ListDataListener> listDataListeners;
         private List<WordClass> wordClasses;
 
-        public void WordClassListModel() {
+        public WordClassListModel() {
             listDataListeners = Collections.synchronizedList(new ArrayList<ListDataListener>());
             wordClasses = null;
         }
@@ -70,29 +72,45 @@ public class WordClassEditor extends javax.swing.JDialog {
 
         public void setWordClasses(List<WordClass> wordClasses) {
             this.wordClasses = wordClasses;
+            refresh();
         }
     }
     
-    public WordClassEditor(java.awt.Frame parent, boolean modal, List<WordClass> list) {
-        super(parent, modal);
+    public WordClassEditor(MainWindow parent, boolean modal, Dictionary model) {
+        super(parent.getFrame(), modal);
+        this.parent = parent;
         wordClassListModel = new WordClassListModel();
-        wordClasses = list;
-        wordClassListModel.setWordClasses(wordClasses);
+        this.model = model;
+        wordClassListModel.setWordClasses(model.getWordClasses());
         initComponents();
     }
 
     @Action
     public void add() {
-        // Check if this word class already exists
+        String newWordClassName = nameEntry.getText();
+        for(WordClass wordClassToCheck : model.getWordClasses()) {
+            if(wordClassToCheck.getName().equals(newWordClassName)) {
+                JOptionPane.showMessageDialog(this,
+                        "Word class \""+newWordClassName+"\" already exists.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
         // Add the entry
         WordClass w = new WordClass();
-        w.setName(nameEntry.getText());
+        w.setName(newWordClassName);
         if(abbreviationEntry.getText().length() > 0)
             w.setAbbreviation(abbreviationEntry.getText());
         if(descriptionEntry.getText().length() > 0)
             w.setDescription(descriptionEntry.getText());
-        wordClasses.add(w);
+        model.getWordClasses().add(w);
+        model.setWordClassesModified(true);
         wordClassListModel.refresh();
+        // Clear the text fields
+        nameEntry.setText("");
+        abbreviationEntry.setText("");
+        descriptionEntry.setText("");
     }
     
     @Action
@@ -105,6 +123,7 @@ public class WordClassEditor extends javax.swing.JDialog {
 
     @Action
     public void close() {
+        parent.notifyWordClassChanges();
         dispose();
     }
     

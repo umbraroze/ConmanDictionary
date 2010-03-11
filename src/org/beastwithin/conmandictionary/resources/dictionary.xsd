@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<xs:schema jaxb:version="1.0"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:annotation>
         <xs:documentation>
             dictionary.xsd: Conman's Dictionary database file XML Schema.
@@ -40,7 +39,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element ref="definitions" minOccurs="2" maxOccurs="2">
+                <xs:element name="definitions" minOccurs="2" maxOccurs="2">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
@@ -69,12 +68,9 @@
             <xs:documentation>Word classes. Word classes are identified by their primary human-readable name (saved in "name" attribute).</xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:simpleContent>
-                <xs:extension base="xs:string">
-                    <xs:attribute name="abbreviation" type="xs:string" use="required"/>
-                    <xs:attribute name="name" type="xs:ID" use="required"/>
-                </xs:extension>
-            </xs:simpleContent>
+            <xs:sequence></xs:sequence>
+            <xs:attribute name="abbreviation" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:ID" use="required"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

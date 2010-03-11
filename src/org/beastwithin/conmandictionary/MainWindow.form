@@ -128,73 +128,65 @@
                 <Property name="text" type="java.lang.String" resourceKey="fileNewMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileNewMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileNewMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileOpenMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="open" methodName="open"/>
+                </Property>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileOpenMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileOpenMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileOpenMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileOpenMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileSaveMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="save" methodName="save"/>
+                </Property>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileSaveMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileSaveMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileSaveMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileSaveMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileSaveAsMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="saveAs" methodName="saveAs"/>
+                </Property>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+S"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileSaveAsMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileSaveAsMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileSaveAsMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileSaveAsMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileMergeMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="mergeInto" methodName="mergeInto"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileMergeMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileMergeMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileExportDictdMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="exportAsDictd" methodName="exportAsDictd"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileExportDictdMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="fileExportDictdMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="fileExportDictdMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileExportDictdMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JSeparator" name="fileQuitSeparator">
               <Properties>
@@ -210,9 +202,6 @@
                 <Property name="toolTipText" type="java.lang.String" resourceKey="fileQuitMenuItem.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="fileQuitMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fileQuitMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -225,17 +214,16 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="researchNotepadMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showNotepad" methodName="showNotepad"/>
+                </Property>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+N"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" resourceKey="researchNotepadMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="researchNotepadMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="researchNotepadMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="researchNotepadMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="researchStatisticsMenuItem">
               <Properties>
@@ -244,9 +232,6 @@
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="researchStatisticsMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="researchStatisticsMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -266,20 +251,16 @@
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="settingsSaveFlaggedMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsSaveFlaggedMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsNamesMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showLanguageNameDialog" methodName="showLanguageNameDialog"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" resourceKey="settingsNamesMenuItem.text"/>
-                <Property name="actionCommand" type="java.lang.String" resourceKey="settingsNamesMenuItem.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="settingsNamesMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsNamesMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsWordClassMenuItem">
               <Properties>
@@ -291,9 +272,6 @@
                 <Property name="toolTipText" type="java.lang.String" resourceKey="settingsWordClassMenuItem.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="settingsWordClassMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsWordClassMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsCategoriesMenuItem">
               <Properties>
@@ -302,9 +280,6 @@
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="settingsCategoriesMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="settingsCategoriesMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -323,9 +298,6 @@
                 <Property name="text" type="java.lang.String" resourceKey="helpAboutMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="helpAboutMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="helpAboutMenuItem.addActionListener(mainMenuListener);"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>

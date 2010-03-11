@@ -188,6 +188,7 @@ public class WordClassEditor extends javax.swing.JDialog {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(WordClassEditor.class, this);
         deleteButton.setAction(actionMap.get("delete")); // NOI18N
         deleteButton.setText(resourceMap.getString("deleteButton.text")); // NOI18N
+        deleteButton.setEnabled(false);
         deleteButton.setName("deleteButton"); // NOI18N
 
         doneButton.setAction(actionMap.get("close")); // NOI18N
@@ -199,6 +200,7 @@ public class WordClassEditor extends javax.swing.JDialog {
         modifyButton.setAction(actionMap.get("modify")); // NOI18N
         modifyButton.setText(resourceMap.getString("modifyButton.text")); // NOI18N
         modifyButton.setToolTipText(resourceMap.getString("modifyButton.toolTipText")); // NOI18N
+        modifyButton.setEnabled(false);
         modifyButton.setName("modifyButton"); // NOI18N
 
         addButton.setAction(actionMap.get("add")); // NOI18N
@@ -224,7 +226,7 @@ public class WordClassEditor extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(descriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(196, 196, 196)
+                .addGap(219, 219, 219)
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(modifyButton)
@@ -248,13 +250,14 @@ public class WordClassEditor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
-                    .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doneButton)
                     .addComponent(deleteButton)
                     .addComponent(modifyButton)
-                    .addComponent(addButton)))
+                    .addComponent(addButton))
+                .addContainerGap())
         );
 
         pack();

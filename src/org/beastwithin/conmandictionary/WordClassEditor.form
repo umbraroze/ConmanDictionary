@@ -41,7 +41,7 @@
               <Component id="descriptionScrollPane" pref="349" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
               <Component id="addButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="modifyButton" min="-2" max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="descriptionLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="descriptionScrollPane" min="-2" max="-2" attributes="0"/>
+                  <Component id="descriptionScrollPane" pref="110" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -78,6 +78,7 @@
                   <Component id="modifyButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -170,6 +171,7 @@
           <action class="org.beastwithin.conmandictionary.WordClassEditor" id="delete" methodName="delete"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="deleteButton.text"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="deleteButton" noResource="true"/>
       </Properties>
     </Component>
@@ -191,6 +193,7 @@
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="modifyButton.text"/>
         <Property name="toolTipText" type="java.lang.String" resourceKey="modifyButton.toolTipText"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="modifyButton" noResource="true"/>
       </Properties>
     </Component>

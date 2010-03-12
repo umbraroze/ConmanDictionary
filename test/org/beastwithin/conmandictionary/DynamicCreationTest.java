@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.beastwithin.conmandictionary;
 
 import java.io.*;
@@ -10,10 +5,6 @@ import javax.xml.bind.JAXBException;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author wwwwolf
- */
 public class DynamicCreationTest {
     static File tempFile = null;
 

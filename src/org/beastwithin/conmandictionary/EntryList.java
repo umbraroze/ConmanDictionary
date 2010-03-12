@@ -265,5 +265,17 @@ public class EntryList implements ListModel {
         this.lastModificationReason = lastModificationReason;
         /* System.err.printf("Modified: %s, Last modification reason: %s\n",
                 this.modified, this.lastModificationReason); */
-    }    
+    }
+
+    public boolean equals(EntryList x) {
+        // Lists whose sizes don't match are obviously not equal.
+        if(this.size() != x.size())
+            return false;
+        // Loop through items and check practical equality of each item.
+        for(int i = 0; i < this.size(); i++) {
+            if(!this.get(i).equals(x.get(i)))
+                return false;
+        }
+        return true;
+    }
 }

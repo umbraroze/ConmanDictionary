@@ -112,13 +112,15 @@ public class Entry implements Comparable<Entry>, Serializable {
 
     /**
      * The string representation of the term, used in listbox etc,
-     * is "foo: bar baz quux..." with some truncation.
+     * is "foo: (w.cl.abbr.) bar baz quux..." with some truncation.
      */
     @Override
     public String toString() {
-        String def = this.definition;
+        String def = (wordClass == null ? ""
+                : "(" + wordClass.getAbbreviation() + ".) ")
+                + this.definition;
         if (def.length() > maxTruncatedStringLength) {
-            def = this.definition.substring(0, maxTruncatedStringLength - 1) + "...";
+            def = def.substring(0, maxTruncatedStringLength - 1) + "...";
         }
         return this.term + ": " + def + (flagged ? " (F)" : "");
     }
@@ -143,5 +145,83 @@ public class Entry implements Comparable<Entry>, Serializable {
 
     public int compareTo(Entry x) {
         return (this.getTerm().compareTo(x.getTerm()));
+    }
+
+    public boolean equals(Entry x) {
+        // Use object equality test first.
+        if(this.equals((Object)x))
+            return true;
+        // Okay, then they MAY just be equal otherwise. Fuck.
+        // You know what this means, right? Fuckton of null value juggling.
+        // Yes, I know this code sucks. I emphatically do know that indeed.
+        // Please don't post this to thedailywtf.com. At least there's a
+        // jUnit test for this...
+
+        // Check term.
+        if (term == null) {
+            if (x.term != null) {
+                return false;
+            }
+        } else { // term != null
+            if (x.term == null) {
+                return false;
+            }
+            if (!term.equals(x.term)) {
+                return false;
+            }
+        }
+        // Check definition.
+        if (definition == null) {
+            if (x.definition != null) {
+                return false;
+            }
+        } else { // definition != null
+            if (x.definition == null) {
+                return false;
+            }
+            if (!definition.equals(x.definition)) {
+                return false;
+            }
+        }
+        // Check flagged.
+        if (flagged == null) {
+            if (x.flagged != null) {
+                return false;
+            }
+        } else { // flagged != null
+            if (x.flagged == null) {
+                return false;
+            }
+            if (!flagged.equals(x.flagged)) {
+                return false;
+            }
+        }
+        // Check wordClass.
+        if (wordClass == null) {
+            if (x.wordClass != null) {
+                return false;
+            }
+        } else { // wordClass != null
+            if (x.wordClass == null) {
+                return false;
+            }
+            if (!wordClass.equals(x.wordClass)) {
+                return false;
+            }
+        }
+        return true;
+
+        /*
+         * I'd use the following, but the null values ruin my day.
+         */
+        /*
+        if (term.equals(x.term)
+                && definition.equals(x.definition)
+                && flagged.equals(x.flagged)
+                && wordClass.equals(x.wordClass)) {
+            return true;
+        }
+        return false;
+         */
     }
 }

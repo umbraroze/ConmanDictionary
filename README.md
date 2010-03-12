@@ -10,8 +10,9 @@ any other purpose. The program shows two word lists at a time
 format, and can export the dictionary in the plain text format used by
 dictd.
 
-Conman's Dictionary is distributed under GNU General Public License
-v3.  The principal developer is Urpo "WWWWolf" Lankinen
+Conman's Dictionary is distributed under the
+[GNU General Public License version 3](http://www.gnu.org/copyleft/gpl.html).
+The principal developer is Urpo "WWWWolf" Lankinen
 ([wwwwolf@iki.fi](mailto:wwwwolf@iki.fi)).
 
 ## Requirements
@@ -20,9 +21,10 @@ The project is developed in Java 6 SE, and is known to work on Sun's
 JDK.  Possibly might work on OpenJDK/IcedTea, though I haven't tried
 it for a long time.
 
-The project is developed on NetBeans 6.0 (sorry, Debian doesn't have
-any newer versions yet) and you probably need the
+The project is developed on
+[NetBeans](http://netbeans.org/) 6.8. You probably need
+[Ant](http://ant.apache.org/) and
 [Swing Application Framework](https://appframework.dev.java.net/)
-if you're not compiling it on NetBeans. Note that
-appframeworksification is still very much underway.
+if you're not compiling it on NetBeans, but I don't know the
+exact procedures.
 

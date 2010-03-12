@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dictionarydatabase>
+    <notepad></notepad>
+    <wordclasses>
+        <class name="Noun" abbreviation="n"/>
+        <class name="Verb" abbreviation="v"/>
+        <class name="Interjection" abbreviation="interj"/>
+    </wordclasses>
+    <definitions language="Pavonian">
+        <entry class="Noun" flagged="true">
+            <term>bluznerg</term>
+            <definition>Hammond organ</definition>
+        </entry>
+        <entry class="Verb">
+            <term>omggponiesž</term>
+            <definition>to post to a website (lit. to surprise people with retarded humour)</definition>
+        </entry>
+        <entry class="Interjection">
+            <term>verzvorgfsžy</term>
+            <definition>interj. goodbye (lit. may the eagles carry you where the sun doesn't shine)</definition>
+        </entry>
+    </definitions>
+    <definitions language="English">
+        <entry class="Noun" flagged="true">
+            <term>Hammond organ</term>
+            <definition>bluznerg</definition>
+        </entry>
+        <entry class="Interjection">
+            <term>goodbye</term>
+            <definition>verzvorgfsžy</definition>
+        </entry>
+        <entry class="Noun" flagged="true">
+            <term>organ</term>
+            <definition>bluznerg (Hammond organ)</definition>
+        </entry>
+        <entry class="Verb">
+            <term>post</term>
+            <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
+        </entry>
+        <entry class="Verb">
+            <term>surprise</term>
+            <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
+        </entry>
+    </definitions>
+</dictionarydatabase>

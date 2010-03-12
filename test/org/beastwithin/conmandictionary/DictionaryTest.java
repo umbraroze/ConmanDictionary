@@ -1,12 +1,9 @@
 
 package org.beastwithin.conmandictionary;
 
-import java.io.File;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.io.*;
+import javax.xml.bind.JAXBException;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -35,13 +32,12 @@ public class DictionaryTest {
     }
 
     /**
-     * Test of document validation.
+     * Test of validation of simple files.
      */
     @Test
-    public void validateFile() throws Exception {
-        System.out.println("validateFile");
+    public void validateSimpleFile() throws Exception {
         try {
-            Dictionary.validateFile(new File("test/org/beastwithin/conmandictionary/test.dictx"));
+            Dictionary.validateFile(new File("test/org/beastwithin/conmandictionary/simplefile.xml"));
         } catch(org.xml.sax.SAXException sxe) {
             fail("Validation of a valid document failed: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -50,32 +46,44 @@ public class DictionaryTest {
     }
 
     /**
-     * Test of loadDocument method, of class Dictionary.
+     * Test of validation of complex files.
      */
-    /*
     @Test
-    public void loadDocument() throws Exception {
-        System.out.println("loadDocument");
-        File file = null;
-        Dictionary expResult = null;
-        Dictionary result = Dictionary.loadDocument(file);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+    public void validateComplexFile() throws Exception {
+        try {
+            Dictionary.validateFile(new File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+        } catch(org.xml.sax.SAXException sxe) {
+            fail("Validation of a valid document failed: " + sxe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Validation of a document failed due to file error: " + ioe.getMessage());
+        }
+    }
 
     /**
-     * Test of isUnsavedChanges method, of class Dictionary.
+     * Test loading of simple files.
      */
-    /*
     @Test
-    public void isUnsavedChanges() {
-        System.out.println("isUnsavedChanges");
-        Dictionary instance = new Dictionary();
-        boolean expResult = false;
-        boolean result = instance.isUnsavedChanges();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+    public void loadSimpleFile() throws Exception {
+        try {
+            Dictionary d = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/simplefile.xml"));
+        } catch(javax.xml.bind.JAXBException jaxbe) {
+            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Loading document failed due to file error: " + ioe.getMessage());
+        }
+    }
+
+    /**
+     * Test loading of complex files.
+     */
+    @Test
+    public void loadComplexFile() throws Exception {
+        try {
+            Dictionary d = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+        } catch(javax.xml.bind.JAXBException jaxbe) {
+            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Loading document failed due to file error: " + ioe.getMessage());
+        }
+    }
 }

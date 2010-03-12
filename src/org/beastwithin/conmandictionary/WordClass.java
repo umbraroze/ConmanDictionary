@@ -25,17 +25,14 @@ import javax.xml.bind.annotation.*;
  * Bean for word classes.
  * @author wwwwolf
  */
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = {
     "description"
 })
 @XmlRootElement(name="class")
 public class WordClass {
-    @XmlAttribute(required=true) @XmlID
     protected String name;
-    @XmlAttribute(required=true)
     protected String abbreviation;
-    @XmlValue
     protected String description;
 
     public WordClass() {
@@ -65,30 +62,29 @@ public class WordClass {
         return name.equals(x.name);
     }
     
+    @XmlAttribute(required=true) @XmlID
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    @XmlAttribute(required=true)
     public String getAbbreviation() {
         return abbreviation;
     }
-
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
+    @XmlValue
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         // Description is automagically null'd, because that reduces
-        // the amount of XML. Note, however, that it doesn't. This is
-        // because JAXB fails a bit.
+        // the amount of XML.
         this.description = (description.equals("") ? null : description);
     }
     
@@ -96,11 +92,16 @@ public class WordClass {
      * Word classes look like "Class (abbr.)" or "Class (abbr.): Description"
      * in string format.
      * 
+     * FIXME: But because our list presentation sucks as of late, here's a cop-out.
+     * 
      * @return String representation of the word class.
      */
     @Override
     public String toString() {
+        return name;
+        /*
         return name + " (" + abbreviation + ")" +
                 (description == null ? "" : ": " + description);
+         */
     }
 }

@@ -21,6 +21,7 @@ package org.beastwithin.conmandictionary;
 import java.io.*;
 import java.util.regex.*;
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.*;
 
 /**
  * An entry in the dictionary.
@@ -34,7 +35,9 @@ import javax.xml.bind.annotation.*;
 })
 @XmlRootElement(name = "entry")
 public class Entry implements Comparable<Entry>, Serializable {
+    @XmlTransient
     public static final long serialVersionUID = 1;
+    @XmlTransient
     private static final int maxTruncatedStringLength = 30;
     
     @XmlElement(required = true)
@@ -42,7 +45,8 @@ public class Entry implements Comparable<Entry>, Serializable {
     @XmlElement(required = true)
     protected String definition = "";
     @XmlAttribute(required = false)
-    protected boolean flagged = false;
+    @XmlJavaTypeAdapter(OptionalBooleanAdapter.class)
+    protected Boolean flagged = false;
     @XmlAttribute(required = false, name = "class")
     @XmlIDREF
     protected WordClass wordClass;
@@ -94,7 +98,6 @@ public class Entry implements Comparable<Entry>, Serializable {
     public boolean getFlagged() {
         return flagged;
     }
-
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }

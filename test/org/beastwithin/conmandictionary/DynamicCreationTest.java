@@ -31,9 +31,9 @@ public class DynamicCreationTest {
     @Test
     public void createFile() throws Exception {
         Dictionary d = new Dictionary();
-        WordClass n = new WordClass("Noun","n.");
-        WordClass v = new WordClass("Verb","v.");
-        WordClass m = new WordClass("Mystery","m.","A very mysterious word class.");
+        WordClass n = new WordClass("Noun","n");
+        WordClass v = new WordClass("Verb","v");
+        WordClass m = new WordClass("Mystery","m","A very mysterious word class.");
         d.getWordClasses().add(n);
         d.getWordClasses().add(v);
         d.getWordClasses().add(m);
@@ -68,6 +68,65 @@ public class DynamicCreationTest {
         } catch(java.io.IOException ioe) {
             fail("Loading document failed due to file error: " + ioe.getMessage());
         }
+    }
+
+    /**
+     * Test unmarshalling the file that we just created programmatically, and
+     * check that the contents match with the ones we created.
+     */
+    @Test
+    public void compareDynamicallyCreatedFile() throws Exception {
+        Dictionary d = null;
+        try {
+            d = Dictionary.loadDocument(tempFile);
+        } catch(javax.xml.bind.JAXBException jaxbe) {
+            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Loading document failed due to file error: " + ioe.getMessage());
+        }
+        assertTrue(d.getWordClasses().size() == 3);
+        WordClass n = d.getWordClasses().get(0);
+        WordClass v = d.getWordClasses().get(1);
+        WordClass m = d.getWordClasses().get(2);
+        assertTrue(n.getName().equals("Noun"));
+        assertTrue(v.getName().equals("Verb"));
+        assertTrue(m.getName().equals("Mystery"));
+        assertTrue(n.getAbbreviation().equals("n"));
+        assertTrue(v.getAbbreviation().equals("v"));
+        assertTrue(m.getAbbreviation().equals("m"));
+        assertTrue(n.getDescription() == null);
+        assertTrue(v.getDescription() == null);
+        assertTrue(m.getDescription().equals("A very mysterious word class."));
+        assertTrue(d.getDefinitions().size() == 2);
+        EntryList el1 = d.getDefinitions().get(0);
+        EntryList el2 = d.getDefinitions().get(1);
+        assertTrue(el1.size() == 3);
+        assertTrue(el2.size() == 2);
+        Entry e1 = el1.get(0);
+        Entry e2 = el1.get(1);
+        Entry e3 = el1.get(2);
+        Entry e4 = el2.get(0);
+        Entry e5 = el2.get(1);
+        assertTrue(e1.getTerm().equals("foo"));
+        assertTrue(e1.getDefinition().equals("A person who knows nothing."));
+        assertTrue(e1.getFlagged() == false);
+        assertTrue(e1.getWordClass().equals(n));
+        assertTrue(e2.getTerm().equals("pity"));
+        assertTrue(e2.getDefinition().equals("Activity which foos (q.v.) end up receiving"));
+        assertTrue(e2.getFlagged() == false);
+        assertTrue(e2.getWordClass().equals(v));
+        assertTrue(e3.getTerm().equals("bar"));
+        assertTrue(e3.getDefinition().equals("An epic weapon of ultimate smackdown"));
+        assertTrue(e3.getFlagged() == false);
+        assertTrue(e3.getWordClass().equals(n));
+        assertTrue(e4.getTerm().equals("zplepb"));
+        assertTrue(e4.getDefinition().equals("This isn't supposed to be on the list, or something!"));
+        assertTrue(e4.getFlagged() == false);
+        assertTrue(e4.getWordClass() == null);
+        assertTrue(e5.getTerm().equals("grrlubub"));
+        assertTrue(e5.getDefinition().equals("Your guess is as good or mine, even if it's documented"));
+        assertTrue(e5.getFlagged() == false);
+        assertTrue(e5.getWordClass().equals(m));
     }
 
     @After

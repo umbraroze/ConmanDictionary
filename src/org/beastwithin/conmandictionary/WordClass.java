@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.*;
     "description"
 })
 @XmlRootElement(name="class")
-public class WordClass {
+public class WordClass implements Comparable {
+
     protected String name;
     protected String abbreviation;
     protected String description;
@@ -106,5 +107,10 @@ public class WordClass {
         return name + " (" + abbreviation + ")" +
                 (description == null ? "" : ": " + description);
          */
+    }
+
+    public int compareTo(Object o) {
+        WordClass w = (WordClass) o;
+        return name.compareTo(w.name);
     }
 }

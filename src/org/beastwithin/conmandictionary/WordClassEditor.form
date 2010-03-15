@@ -12,6 +12,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -171,7 +172,6 @@
           <action class="org.beastwithin.conmandictionary.WordClassEditor" id="delete" methodName="delete"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="deleteButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="deleteButton" noResource="true"/>
       </Properties>
     </Component>
@@ -180,7 +180,6 @@
         <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
           <action class="org.beastwithin.conmandictionary.WordClassEditor" id="close" methodName="close"/>
         </Property>
-        <Property name="mnemonic" type="int" value="100"/>
         <Property name="text" type="java.lang.String" resourceKey="doneButton.text"/>
         <Property name="toolTipText" type="java.lang.String" resourceKey="doneButton.toolTipText"/>
         <Property name="name" type="java.lang.String" value="doneButton" noResource="true"/>
@@ -193,7 +192,6 @@
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="modifyButton.text"/>
         <Property name="toolTipText" type="java.lang.String" resourceKey="modifyButton.toolTipText"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="modifyButton" noResource="true"/>
       </Properties>
     </Component>

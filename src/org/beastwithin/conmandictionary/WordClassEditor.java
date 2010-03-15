@@ -20,6 +20,7 @@
 package org.beastwithin.conmandictionary;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -85,6 +86,15 @@ public class WordClassEditor extends javax.swing.JDialog {
         initComponents();
     }
 
+    private void sortWordClassList(List<WordClass> wordClassList) {
+        Object a[] = wordClassList.toArray();
+        Arrays.sort(a);
+        wordClassList.clear();
+        for (int i = 0; i < a.length; i++) {
+            wordClassList.add((WordClass) a[i]);
+        }
+    }
+
     @Action
     public void add() {
         String newWordClassName = nameEntry.getText();
@@ -105,6 +115,7 @@ public class WordClassEditor extends javax.swing.JDialog {
         if(descriptionEntry.getText().length() > 0)
             w.setDescription(descriptionEntry.getText());
         model.getWordClasses().add(w);
+        sortWordClassList(model.getWordClasses());
         model.setWordClassesModified(true);
         wordClassListModel.refresh();
         // Clear the text fields

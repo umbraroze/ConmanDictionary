@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
+import org.jdesktop.application.Action;
 
 /**
  * Dictionary list and entry editor panel in main window. Consists of
@@ -77,29 +78,18 @@ public class LanguagePanel extends javax.swing.JPanel {
         languagePanelSeparator1 = new javax.swing.JSeparator();
         languagePanelSeparator2 = new javax.swing.JSeparator();
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(LanguagePanel.class, this);
+        modifyButton.setAction(actionMap.get("modifySelected")); // NOI18N
         modifyButton.setText("Modify");
         modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
-        modifyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyButtonClicked(evt);
-            }
-        });
 
+        deleteButton.setAction(actionMap.get("deleteSelected")); // NOI18N
         deleteButton.setText("Delete");
         deleteButton.setToolTipText("Delete the selected term.");
-        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteButtonClicked(evt);
-            }
-        });
 
+        addButton.setAction(actionMap.get("addDefinition")); // NOI18N
         addButton.setText("Add");
         addButton.setToolTipText("Add the word or term being edited as a new entry.");
-        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addButtonClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
@@ -122,6 +112,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         );
 
         definitionList.setModel(entryList);
+        definitionList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         definitionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 definitionListValueChanged(evt);
@@ -217,18 +208,6 @@ public class LanguagePanel extends javax.swing.JPanel {
             pickedListItemForEditing();
         }
     }//GEN-LAST:event_definitionListValueChanged
-
-    private void modifyButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyButtonClicked
-        modifySelected();
-    }//GEN-LAST:event_modifyButtonClicked
-
-    private void deleteButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonClicked
-        deleteSelected();
-    }//GEN-LAST:event_deleteButtonClicked
-
-    private void addButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonClicked
-        addDefinition();
-    }//GEN-LAST:event_addButtonClicked
 
     private void flagButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flagButtonClicked
         // Do nothing in particular, for now
@@ -335,6 +314,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Adds the values in the editor as a new entry in the list.
      */
+    @Action
     public void addDefinition() {
         String term = this.definitionTerm.getText();
         String definition = this.definitionEditor.getText();
@@ -355,6 +335,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Deletes the selected entry.
      */
+    @Action
     public void deleteSelected() {
         // TODO: Confirmation dialog!
         int idx = this.definitionList.getSelectedIndex();
@@ -369,6 +350,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Update the selected item with the new details from the editor.
      */
+    @Action
     public void modifySelected() {
         int idx = this.definitionList.getSelectedIndex();
         if (idx == -1) {

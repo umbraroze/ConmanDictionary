@@ -98,6 +98,15 @@ public class WordClassEditor extends javax.swing.JDialog {
     @Action
     public void add() {
         String newWordClassName = nameEntry.getText();
+        // Is the name empty?
+        if(newWordClassName.length() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Word class name cannot be empty.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Does a word class with this name already exist?
         for(WordClass wordClassToCheck : model.getWordClasses()) {
             if(wordClassToCheck.getName().equals(newWordClassName)) {
                 JOptionPane.showMessageDialog(this,
@@ -126,10 +135,91 @@ public class WordClassEditor extends javax.swing.JDialog {
     
     @Action
     public void modify() {
+        int idx = this.wordClassList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        String newName = nameEntry.getText();
+        // Is the name empty?
+        if(newName.length() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Word class name cannot be empty.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Does this name already exist?
+        for(int n = 0; n < model.getWordClasses().size(); n++) {
+            // We can edit *this* entry
+            if(n == idx)
+                continue;
+            if(model.getWordClasses().get(n).getName().equals(newName)) {
+                JOptionPane.showMessageDialog(this,
+                        "Word class named \""+newName+"\" already exists.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        // Otherwise we're golden.
+        WordClass w = (WordClass) wordClassListModel.getElementAt(idx);
+        w.setName(nameEntry.getText());
+        w.setAbbreviation(abbreviationEntry.getText());
+        w.setDescription(descriptionEntry.getText());
+        sortWordClassList(model.getWordClasses());
+        this.wordClassList.repaint();
     }
+    /**
+     * Called from an event handler when a list item is picked for editing.
+     */
+    private void pickedListItemForEditing() {
+        int idx = this.wordClassList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        WordClass w = (WordClass) wordClassListModel.getElementAt(idx);
+        editEntry(w);
+    }
+    /**
+     * Sets the editor's fields to the values of the WordClass in question.
+     * @param w the WordClass to be edited.
+     */
+    private void editEntry(WordClass w) {
+        nameEntry.setText(w.name);
+        abbreviationEntry.setText(w.abbreviation);
+        descriptionEntry.setText(w.description);
+    }
+
 
     @Action
     public void delete() {
+        int idx = this.wordClassList.getSelectedIndex();
+        if (idx == -1) {
+            return;
+        }
+        WordClass removed = model.getWordClasses().get(idx);
+        int resp = JOptionPane.showConfirmDialog(this,
+                "Really delete the word class \""+removed.getName()+"\"?",
+                "Really delete?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if(resp != JOptionPane.YES_OPTION)
+            return;
+        // Set wordclass in every entry that uses this wordclass to null.
+        for(short n = 0; n <= 1; n++) {
+            for(Entry e : model.getDefinitions().get(n).getEntries()) {
+                if(e.getWordClass().equals(removed)) {
+                    e.setWordClass(null);
+                }
+            }
+        }
+        // And nuke it from the list.
+        this.wordClassList.remove(idx);
+        // Clean stuff up.
+        sortWordClassList(model.getWordClasses());
+        nameEntry.setText("");
+        abbreviationEntry.setText("");
+        descriptionEntry.setText("");
     }
 
     @Action
@@ -137,7 +227,9 @@ public class WordClassEditor extends javax.swing.JDialog {
         parent.notifyWordClassChanges();
         dispose();
     }
-    
+
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -167,8 +259,14 @@ public class WordClassEditor extends javax.swing.JDialog {
 
         wordClassScrollPane.setName("wordClassScrollPane"); // NOI18N
 
-        wordClassList.setName("wordClassList"); // NOI18N
         wordClassList.setModel(wordClassListModel);
+        wordClassList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        wordClassList.setName("wordClassList"); // NOI18N
+        wordClassList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                wordClassListValueChanged(evt);
+            }
+        });
         wordClassScrollPane.setViewportView(wordClassList);
 
         nameLabel.setLabelFor(nameEntry);
@@ -203,7 +301,6 @@ public class WordClassEditor extends javax.swing.JDialog {
         deleteButton.setName("deleteButton"); // NOI18N
 
         doneButton.setAction(actionMap.get("close")); // NOI18N
-        doneButton.setMnemonic('d');
         doneButton.setText(resourceMap.getString("doneButton.text")); // NOI18N
         doneButton.setToolTipText(resourceMap.getString("doneButton.toolTipText")); // NOI18N
         doneButton.setName("doneButton"); // NOI18N
@@ -211,7 +308,6 @@ public class WordClassEditor extends javax.swing.JDialog {
         modifyButton.setAction(actionMap.get("modify")); // NOI18N
         modifyButton.setText(resourceMap.getString("modifyButton.text")); // NOI18N
         modifyButton.setToolTipText(resourceMap.getString("modifyButton.toolTipText")); // NOI18N
-        modifyButton.setEnabled(false);
         modifyButton.setName("modifyButton"); // NOI18N
 
         addButton.setAction(actionMap.get("add")); // NOI18N
@@ -273,6 +369,12 @@ public class WordClassEditor extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void wordClassListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_wordClassListValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            pickedListItemForEditing();
+        }
+    }//GEN-LAST:event_wordClassListValueChanged
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField abbreviationEntry;

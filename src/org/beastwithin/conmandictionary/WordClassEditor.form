@@ -97,14 +97,15 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="wordClassList">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="0"/>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="wordClassListModel" type="code"/>
             </Property>
+            <Property name="selectionMode" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="wordClassList" noResource="true"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="wordClassList.setModel(wordClassListModel);"/>
-          </AuxValues>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="wordClassListValueChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -172,6 +173,7 @@
           <action class="org.beastwithin.conmandictionary.WordClassEditor" id="delete" methodName="delete"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="deleteButton.text"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="deleteButton" noResource="true"/>
       </Properties>
     </Component>

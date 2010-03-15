@@ -121,10 +121,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="newDocument" methodName="newDocument"/>
                 </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+N"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileNewMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileNewMenuItem" noResource="true"/>
               </Properties>
@@ -134,10 +130,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="open" methodName="open"/>
                 </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+O"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileOpenMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileOpenMenuItem" noResource="true"/>
               </Properties>
@@ -147,10 +139,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="save" methodName="save"/>
                 </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+S"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileSaveMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileSaveMenuItem" noResource="true"/>
               </Properties>
@@ -160,10 +148,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="saveAs" methodName="saveAs"/>
                 </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+S"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileSaveAsMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileSaveAsMenuItem" noResource="true"/>
               </Properties>
@@ -173,7 +157,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="mergeInto" methodName="mergeInto"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
               </Properties>
@@ -183,7 +166,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="exportAsDictd" methodName="exportAsDictd"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" resourceKey="fileExportDictdMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="fileExportDictdMenuItem" noResource="true"/>
               </Properties>
@@ -217,10 +199,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showNotepad" methodName="showNotepad"/>
                 </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+N"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" resourceKey="researchNotepadMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="researchNotepadMenuItem" noResource="true"/>
               </Properties>
@@ -257,7 +235,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showLanguageNameDialog" methodName="showLanguageNameDialog"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" resourceKey="settingsNamesMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="settingsNamesMenuItem" noResource="true"/>
               </Properties>
@@ -267,7 +244,6 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showWordClassEditor" methodName="showWordClassEditor"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="119"/>
                 <Property name="text" type="java.lang.String" resourceKey="settingsWordClassMenuItem.text"/>
                 <Property name="toolTipText" type="java.lang.String" resourceKey="settingsWordClassMenuItem.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="settingsWordClassMenuItem" noResource="true"/>
@@ -318,6 +294,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>

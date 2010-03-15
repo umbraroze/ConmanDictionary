@@ -65,7 +65,7 @@ public class MainWindow extends FrameView {
                     "There are unsaved changes.\nReally clear everything?",
                     "Really clear everything?",
                     JOptionPane.YES_NO_OPTION);
-            if (resp != 0) {
+            if (resp != JOptionPane.YES_OPTION) {
                 return;
             }
         }
@@ -84,7 +84,7 @@ public class MainWindow extends FrameView {
                     "Really quit?",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE);
-            if (resp != 0) {
+            if (resp != JOptionPane.YES_OPTION) {
                 return;
             }
         }

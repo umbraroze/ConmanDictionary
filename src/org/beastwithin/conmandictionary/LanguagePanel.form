@@ -4,6 +4,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -73,30 +74,30 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="modifyButton">
           <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="org.beastwithin.conmandictionary.LanguagePanel" id="modifySelected" methodName="modifySelected"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modify"/>
             <Property name="toolTipText" type="java.lang.String" value="Update the selected term&apos;s definition to match the ones being edited."/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="modifyButtonClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteButton">
           <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="org.beastwithin.conmandictionary.LanguagePanel" id="deleteSelected" methodName="deleteSelected"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Delete"/>
             <Property name="toolTipText" type="java.lang.String" value="Delete the selected term."/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteButtonClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="addButton">
           <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="org.beastwithin.conmandictionary.LanguagePanel" id="addDefinition" methodName="addDefinition"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Add"/>
             <Property name="toolTipText" type="java.lang.String" value="Add the word or term being edited as a new entry."/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addButtonClicked"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -108,12 +109,15 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JList" name="definitionList">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="entryList" type="code"/>
+            </Property>
+            <Property name="selectionMode" type="int" value="0"/>
+          </Properties>
           <Events>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="definitionListValueChanged"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="definitionList.setModel(entryList);"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

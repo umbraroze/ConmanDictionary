@@ -77,6 +77,9 @@ public class WordClass {
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
+    public String getParentheticalAbbreviation() {
+        return "(" + abbreviation + ".)";
+    }
 
     @XmlValue
     public String getDescription() {

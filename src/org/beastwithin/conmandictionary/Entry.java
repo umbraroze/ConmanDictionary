@@ -134,11 +134,15 @@ public class Entry implements Comparable<Entry>, Serializable {
      * @return the string reporesentation
      */
     public String toDictString() {
+        String d = (wordClass != null
+                ? wordClass.getParentheticalAbbreviation() + " "
+                : "")
+                + definition;
         StringBuffer s = new StringBuffer();
         s.append(term);
         s.append('\n');
         s.append("");
-        s.append(Pattern.compile("^").matcher(definition).replaceAll("\t"));
+        s.append(Pattern.compile("^").matcher(d).replaceAll("\t"));
         s.append('\n');
         return s.toString();
     }

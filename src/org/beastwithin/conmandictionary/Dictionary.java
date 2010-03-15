@@ -193,20 +193,22 @@ public class Dictionary {
         // word classes we have, we use our word classes instead.
         // We append the new-found word classes to our list of word
         // classes.
-        for (short listNo = 0; listNo < 1; listNo++) {
+        for (short listNo = 0; listNo <= 1; listNo++) {
             EntryList sourceDefs = source.definitions.get(listNo);
             for (Entry e : sourceDefs.getEntries()) {
                 if(e.getWordClass() != null) { // No wordclass? Don't bother.
+                    boolean found = false;
                     for (WordClass ourWordClass : wordClasses) {
                         WordClass theirWordClass = e.getWordClass();
                         if (theirWordClass.sharesIdentifierWith(ourWordClass)) {
                             // We have this one, so let's use ours!
                             e.setWordClass(ourWordClass);
-                        } else {
-                            // No, haven't heard of this one!
-                            wordClasses.add(theirWordClass);
+                            found = true;
+                            break;
                         }
                     }
+                    if(found == false)
+                        wordClasses.add(e.getWordClass());
                 }
                 // Append this entry to our word list.
                 definitions.get(listNo).add(e);

@@ -117,7 +117,7 @@ public class Entry implements Comparable<Entry>, Serializable {
     @Override
     public String toString() {
         String def = (wordClass == null ? ""
-                : "(" + wordClass.getAbbreviation() + ".) ")
+                : wordClass.getParentheticalAbbreviation() + " ")
                 + this.definition;
         if (def.length() > maxTruncatedStringLength) {
             def = def.substring(0, maxTruncatedStringLength - 1) + "...";

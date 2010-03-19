@@ -249,6 +249,13 @@ public class MainWindow extends FrameView {
         }
         this.getModel().exportAsDictd(fc.getSelectedFile().getPath());
     }
+
+    @Action
+    public void showStatisticsWindow() {
+        statisticsWindow = new StatisticsWindow();
+        statisticsWindow.updateStatisticsOn(model);
+        statisticsWindow.setVisible(true);
+    }
     
     /**
      * Get the left-side language panel.
@@ -496,41 +503,31 @@ public class MainWindow extends FrameView {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(MainWindow.class, this);
         fileNewMenuItem.setAction(actionMap.get("newDocument")); // NOI18N
-        fileNewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        fileNewMenuItem.setMnemonic('n');
         fileNewMenuItem.setText(resourceMap.getString("fileNewMenuItem.text")); // NOI18N
         fileNewMenuItem.setName("fileNewMenuItem"); // NOI18N
         fileMenu.add(fileNewMenuItem);
 
         fileOpenMenuItem.setAction(actionMap.get("open")); // NOI18N
-        fileOpenMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        fileOpenMenuItem.setMnemonic('o');
         fileOpenMenuItem.setText(resourceMap.getString("fileOpenMenuItem.text")); // NOI18N
         fileOpenMenuItem.setName("fileOpenMenuItem"); // NOI18N
         fileMenu.add(fileOpenMenuItem);
 
         fileSaveMenuItem.setAction(actionMap.get("save")); // NOI18N
-        fileSaveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        fileSaveMenuItem.setMnemonic('s');
         fileSaveMenuItem.setText(resourceMap.getString("fileSaveMenuItem.text")); // NOI18N
         fileSaveMenuItem.setName("fileSaveMenuItem"); // NOI18N
         fileMenu.add(fileSaveMenuItem);
 
         fileSaveAsMenuItem.setAction(actionMap.get("saveAs")); // NOI18N
-        fileSaveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        fileSaveAsMenuItem.setMnemonic('a');
         fileSaveAsMenuItem.setText(resourceMap.getString("fileSaveAsMenuItem.text")); // NOI18N
         fileSaveAsMenuItem.setName("fileSaveAsMenuItem"); // NOI18N
         fileMenu.add(fileSaveAsMenuItem);
 
         fileMergeMenuItem.setAction(actionMap.get("mergeInto")); // NOI18N
-        fileMergeMenuItem.setMnemonic('m');
         fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
         fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
         fileMenu.add(fileMergeMenuItem);
 
         fileExportDictdMenuItem.setAction(actionMap.get("exportAsDictd")); // NOI18N
-        fileExportDictdMenuItem.setMnemonic('e');
         fileExportDictdMenuItem.setText(resourceMap.getString("fileExportDictdMenuItem.text")); // NOI18N
         fileExportDictdMenuItem.setName("fileExportDictdMenuItem"); // NOI18N
         fileMenu.add(fileExportDictdMenuItem);
@@ -551,15 +548,13 @@ public class MainWindow extends FrameView {
         researchMenu.setName("researchMenu"); // NOI18N
 
         researchNotepadMenuItem.setAction(actionMap.get("showNotepad")); // NOI18N
-        researchNotepadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        researchNotepadMenuItem.setMnemonic('n');
         researchNotepadMenuItem.setText(resourceMap.getString("researchNotepadMenuItem.text")); // NOI18N
         researchNotepadMenuItem.setName("researchNotepadMenuItem"); // NOI18N
         researchMenu.add(researchNotepadMenuItem);
 
+        researchStatisticsMenuItem.setAction(actionMap.get("showStatisticsWindow")); // NOI18N
         researchStatisticsMenuItem.setMnemonic('s');
         researchStatisticsMenuItem.setText(resourceMap.getString("researchStatisticsMenuItem.text")); // NOI18N
-        researchStatisticsMenuItem.setEnabled(false);
         researchStatisticsMenuItem.setName("researchStatisticsMenuItem"); // NOI18N
         researchMenu.add(researchStatisticsMenuItem);
 
@@ -578,13 +573,11 @@ public class MainWindow extends FrameView {
         settingsMenu.add(settingsSaveFlaggedMenuItem);
 
         settingsNamesMenuItem.setAction(actionMap.get("showLanguageNameDialog")); // NOI18N
-        settingsNamesMenuItem.setMnemonic('l');
         settingsNamesMenuItem.setText(resourceMap.getString("settingsNamesMenuItem.text")); // NOI18N
         settingsNamesMenuItem.setName("settingsNamesMenuItem"); // NOI18N
         settingsMenu.add(settingsNamesMenuItem);
 
         settingsWordClassMenuItem.setAction(actionMap.get("showWordClassEditor")); // NOI18N
-        settingsWordClassMenuItem.setMnemonic('w');
         settingsWordClassMenuItem.setText(resourceMap.getString("settingsWordClassMenuItem.text")); // NOI18N
         settingsWordClassMenuItem.setToolTipText(resourceMap.getString("settingsWordClassMenuItem.toolTipText")); // NOI18N
         settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
@@ -652,4 +645,5 @@ public class MainWindow extends FrameView {
 
     private JDialog aboutBox;
     private WordClassEditor wordClassEditor;
+    private StatisticsWindow statisticsWindow;
 }

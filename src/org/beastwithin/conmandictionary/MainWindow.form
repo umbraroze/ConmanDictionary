@@ -205,9 +205,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="researchStatisticsMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showStatisticsWindow" methodName="showStatisticsWindow"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" resourceKey="researchStatisticsMenuItem.text"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="researchStatisticsMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>

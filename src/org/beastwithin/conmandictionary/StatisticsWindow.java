@@ -1,9 +1,9 @@
 
 package org.beastwithin.conmandictionary;
 
-import javax.swing.*;
-import javax.swing.text.*;
+import java.util.HashMap;
 import javax.swing.text.html.*;
+import org.beastwithin.conmandictionary.WordClass;
 import org.jdesktop.application.Action;
 
 /**
@@ -21,32 +21,53 @@ public class StatisticsWindow extends javax.swing.JDialog {
     }
 
     public void updateStatisticsOn(Dictionary dictionary) {
-        Element root = statisticsText.getRootElements()[0];
-        try {
-            statisticsText.insertAfterStart(root, "<p>Hello <em>world.</em></p>");
-        } catch (BadLocationException ble) {
-            ble.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Text generation error when generating statistics:\n" +
-                    ble.getMessage() +
-                    "\nFurther details printed at console.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            dispose();
-            return;
-        } catch (java.io.IOException ioe) {
-            ioe.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    this,
-                    "File error when generating statistics:\n" +
-                    ioe.getMessage() +
-                    "\nFurther details printed at console.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            dispose();
-            return;
+        StringBuffer stats = new StringBuffer();
+
+        // FIXME: DOES NO HTML ESCAPING RIGHT NOW. IT SHOULD.
+
+        // Count headwords.
+        stats.append("<h1>Headwords</h1>");
+        stats.append("<table>");
+        for(short i = 0; i <= 1; i++) {
+            stats.append("<tr><td>");
+            stats.append(dictionary.getDefinitions().get(i).getLanguage());
+            stats.append(":</td><td>");
+            stats.append(dictionary.getDefinitions().get(i).size());
+            stats.append("</td></tr>");
         }
+        stats.append("</table>");
+
+        // Count wordclass usage.
+        stats.append("<h1>Wordclass use</h1>");
+        for(short lang = 0; lang <= 1; lang++) {
+            // Heading for word list
+            stats.append("<h2>");
+            stats.append(dictionary.getDefinitions().get(lang).getLanguage());
+            stats.append("</h2>");
+            // Build a hash with word classes as keys and counts as values.
+            HashMap<WordClass,Integer> results = new HashMap<WordClass,Integer>();
+            EntryList dl = dictionary.getDefinitions().get(lang);
+            for(int n = 0; n < dl.size(); n++) {
+                WordClass w = dl.get(n).getWordClass();
+                Integer c = results.get(w);
+                if(c == null)
+                    c = 0;
+                c++;
+                results.put(w, c);
+            }
+            // Present results.
+            stats.append("<table>");
+            for(WordClass w : results.keySet()) {
+                stats.append("<tr><td>");
+                stats.append(w.getName());
+                stats.append(":</td><td>");
+                stats.append(results.get(w));
+                stats.append("</td></tr>");
+            }
+            stats.append("</table>");
+        }
+
+        statisticsView.setText(stats.toString());
     }
 
     @Action
@@ -75,14 +96,13 @@ public class StatisticsWindow extends javax.swing.JDialog {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(StatisticsWindow.class, this);
         closeButton.setAction(actionMap.get("close")); // NOI18N
-        closeButton.setMnemonic('c');
         closeButton.setText(resourceMap.getString("closeButton.text")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
         statisticsScroll.setName("statisticsScroll"); // NOI18N
 
         statisticsView.setContentType(resourceMap.getString("statisticsView.contentType")); // NOI18N
-        statisticsView.setEditable(false);
+        statisticsView.setDocument(statisticsText);
         statisticsView.setName("statisticsView"); // NOI18N
         statisticsScroll.setViewportView(statisticsView);
 

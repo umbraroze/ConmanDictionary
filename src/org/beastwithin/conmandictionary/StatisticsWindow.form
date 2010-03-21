@@ -53,7 +53,6 @@
         <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
           <action class="org.beastwithin.conmandictionary.StatisticsWindow" id="close" methodName="close"/>
         </Property>
-        <Property name="mnemonic" type="int" value="99"/>
         <Property name="text" type="java.lang.String" resourceKey="closeButton.text"/>
         <Property name="name" type="java.lang.String" value="closeButton" noResource="true"/>
       </Properties>
@@ -74,7 +73,6 @@
             <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="statisticsText" type="code"/>
             </Property>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="statisticsView" noResource="true"/>
           </Properties>
         </Component>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dictionarydatabase>
-    <notepad></notepad>
+    <notepad>Here is some more text</notepad>
     <wordclasses>
         <class name="Noun" abbreviation="n"/>
         <class name="Verb" abbreviation="v"/>

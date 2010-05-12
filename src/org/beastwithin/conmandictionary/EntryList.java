@@ -269,12 +269,22 @@ public class EntryList implements ListModel {
 
     public boolean equals(EntryList x) {
         // Lists whose sizes don't match are obviously not equal.
-        if(this.size() != x.size())
+        if(this.size() != x.size()) {
+            //System.err.println("Sizes differ");
             return false;
+        }
         // Loop through items and check practical equality of each item.
         for(int i = 0; i < this.size(); i++) {
-            if(!this.get(i).equals(x.get(i)))
+            if(!this.get(i).equals(x.get(i))) {
+                //System.err.printf("Clinch at %d: \"%s\" != \"%s\"\n",i,
+                //        this.get(i).term, x.get(i).term);
                 return false;
+            }
+            /*
+            else {
+                System.err.printf("\"%s\" is \"%s\"\n",this.get(i).term,x.get(i).term);
+            }
+            */
         }
         return true;
     }

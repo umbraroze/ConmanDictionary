@@ -113,4 +113,14 @@ public class WordClass implements Comparable {
         WordClass w = (WordClass) o;
         return name.compareTo(w.name);
     }
+
+    public static boolean wordClassListsFunctionallyEqual(java.util.List<WordClass> x, java.util.List<WordClass> y) {
+        if(x.size() != y.size())
+            return false;
+        for(int n = 0; n < x.size(); n++) {
+            if(!x.get(n).sharesIdentifierWith(y.get(n)))
+                return false;
+        }
+        return true;
+    }
 }

@@ -164,52 +164,65 @@ public class Entry implements Comparable<Entry>, Serializable {
         // Check term.
         if (term == null) {
             if (x.term != null) {
+                //System.err.println("Term fail 1");
                 return false;
             }
         } else { // term != null
             if (x.term == null) {
+                //System.err.println("Term fail 2");
                 return false;
             }
             if (!term.equals(x.term)) {
+                //System.err.println("Term fail 3");
                 return false;
             }
         }
         // Check definition.
         if (definition == null) {
             if (x.definition != null) {
+                //System.err.println("Definition fail 1");
                 return false;
             }
         } else { // definition != null
             if (x.definition == null) {
+                //System.err.println("Definition fail 2");
                 return false;
             }
             if (!definition.equals(x.definition)) {
+                //System.err.println("Definition fail 3");
                 return false;
             }
         }
         // Check flagged.
         if (flagged == null) {
             if (x.flagged != null) {
+                //System.err.println("Flagged fail 1");
                 return false;
             }
         } else { // flagged != null
             if (x.flagged == null) {
+                //System.err.println("Flagged fail 2");
                 return false;
             }
             if (!flagged.equals(x.flagged)) {
+                //System.err.println("Flagged fail 3");
                 return false;
             }
         }
         // Check wordClass.
         if (wordClass == null) {
             if (x.wordClass != null) {
+                //System.err.println("Wordclass fail 1");
                 return false;
             }
         } else { // wordClass != null
             if (x.wordClass == null) {
+                //System.err.println("Wordclass fail 2");
                 return false;
             }
-            if (!wordClass.equals(x.wordClass)) {
+            // COULD BE PROBLEMATIC???
+            if (!wordClass.sharesIdentifierWith(x.wordClass)) {
+                //System.err.println("Wordclass fail 3");
                 return false;
             }
         }

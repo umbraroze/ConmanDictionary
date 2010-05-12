@@ -21,35 +21,55 @@ public class MergeTest {
     }
 
     @Test
-    @Ignore
     public void mergeFile() {
-        Dictionary d = null;
+        Dictionary dict1 = null;
+        Dictionary dict2 = null;
+
+        // Load up the first file.
         try {
-            d = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+            dict1 = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfile.xml"));
         } catch(JAXBException sxe) {
             fail("Loading document failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
             fail("Loading document failed due to file error: " + ioe.getMessage());
         }
-        if(d == null)
+        if(dict1 == null)
             fail("Some odd error when loading dictionary document?");
+
+        // Merge entries from second file.
         try {
-            d.mergeEntriesFrom(new File("test/org/beastwithin/conmandictionary/complexfile2.xml"));
+            dict1.mergeEntriesFrom(new File("test/org/beastwithin/conmandictionary/complexfile2.xml"));
         } catch(JAXBException sxe) {
             fail("Merging document failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
             fail("Merging document failed due to file error: " + ioe.getMessage());
         }
-        // TODO: Compare the results.
+
+        // Load up a third file that has been merged by hand.
+        try {
+            dict2 = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfiles_mergedbyhand.xml"));
+        } catch(JAXBException sxe) {
+            fail("Loading second document failed due to JAXB error: " + sxe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Loading second document failed due to file error: " + ioe.getMessage());
+        }
+
+        // Save the files to do comparison by hand.
         /*
         try {
-            d.save("/tmp/mergeresults.xml");
-        } catch (JAXBException sxe) {
-            fail("Saving document failed due to JAXB error: " + sxe.getMessage());
-        } catch (java.io.IOException ioe) {
-            fail("Saving document failed due to file error: " + ioe.getMessage());
+            dict1.save("/tmp/merged_by_machine.xml");
+            dict2.save("/tmp/merged_by_hand.xml");
+        } catch(JAXBException sxe) {
+            fail("Saving documents failed due to JAXB error: " + sxe.getMessage());
+        } catch(java.io.IOException ioe) {
+            fail("Saving documents failed due to file error: " + ioe.getMessage());
         }
         */
+
+        // Now for the interesting part.
+        if(!dict1.equals(dict2)) {
+            fail("The merged documents differ.");
+        }
     }
 
     @After

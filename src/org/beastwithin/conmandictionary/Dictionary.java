@@ -184,7 +184,24 @@ public class Dictionary {
         }
         return r;
     }
-    
+
+    /**
+     * Merge dictionary with another dictionary.
+     *
+     * Word lists are copied to respective word lists (first to first, second
+     * to second) and sorted afterwards. Word list titles are ignored.
+     *
+     * Word classes and categories are copied from the other file IF they're
+     * functionally different from what we have in this document
+     * (i.e. they have different identifiers), otherwise the equivalent
+     * objects in current documents are used.
+     *
+     * Notepads are concatenated, separated by a newline.
+     *
+     * @param file The file to be merged into this file.
+     * @throws JAXBException
+     * @throws IOException
+     */
     public void mergeEntriesFrom(File file) throws JAXBException, IOException {
         // Load up the document.
         Dictionary source = Dictionary.loadDocument(file);
@@ -216,6 +233,65 @@ public class Dictionary {
             // Once everything is added, sort this list.
             definitions.get(listNo).sort();
         }
+
+        // Merge notepads. The notepad texts are separated by \n.
+        try {
+            if(source.notePad.getLength() > 0) { // Only merge if there actually IS a notepad
+                notePad.insertString(notePad.getLength(),
+                        "\n" + source.notePad.getText(0, source.notePad.getLength()),
+                        null);
+            }
+        } catch (javax.swing.text.BadLocationException ble) {
+            // No, it's not really a JAXB exception, but we're processinating XML data, right?
+            throw new JAXBException("Couldn't merge notepads: "+ble.getMessage());
+        }
+    }
+
+
+    public boolean equals(Dictionary x) {
+        // Use object equality test first.
+        if(this.equals((Object)x))
+            return true;
+        // That done, we're looking at some other criteria.
+        boolean wordClassesSame = false;
+        boolean notePadsSame = false;
+        boolean entryListsSame = false;
+
+        // Compare notepad texts.
+        try {
+            String npText = this.notePad.getText(0, this.notePad.getLength());
+            String np2Text = x.notePad.getText(0, x.notePad.getLength());
+            if (npText.equals(np2Text)) {
+                notePadsSame = true;
+            }
+        } catch (javax.swing.text.BadLocationException ble) {
+            notePadsSame = false;
+        }
+        // Compare word classes.
+        wordClassesSame = WordClass.wordClassListsFunctionallyEqual(wordClasses, x.wordClasses);
+
+        EntryList a1 = definitions.get(0);
+        EntryList a2 = definitions.get(1);
+        EntryList b1 = x.definitions.get(0);
+        EntryList b2 = x.definitions.get(1);
+
+        // Compare word lists.
+        if(a1.equals(b1) && a2.equals(b2))
+            entryListsSame = true;
+
+        /*
+        System.err.println("a1 = b1: "+a1.equals(b1));
+        System.err.println("a2 = b2: "+a2.equals(b2));
+        System.err.println("wordClassesSame: "+wordClassesSame);
+        System.err.println("notePadsSame: "+notePadsSame);
+        System.err.println("entryListsSame: "+entryListsSame);
+        */
+
+        // If all these conditions are met, then we have a winner.
+        if(wordClassesSame && entryListsSame && notePadsSame)
+            return true;
+        // Otherwise, we have failed to prove they're equivalent.
+        return false;
     }
 
     public boolean isUnsavedChanges() {

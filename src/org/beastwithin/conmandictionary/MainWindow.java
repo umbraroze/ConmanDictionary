@@ -47,8 +47,13 @@ public class MainWindow extends FrameView {
     /// Notepad.
     private NotePad notePad;
     /// The language selection window.
-    private LanguageNameDialog languageNameDialog;    
-        
+    private LanguageNameDialog languageNameDialog;
+    // About window.
+    private JDialog aboutBox;
+    // Word class editor.
+    private WordClassEditor wordClassEditor;
+    private StatisticsWindow statisticsWindow;
+
     private boolean isUnsaved() {
         return getModel().isUnsavedChanges();
     }
@@ -69,9 +74,12 @@ public class MainWindow extends FrameView {
                 return;
             }
         }
+        // Make a new dictionary.
         Dictionary newDocument = new Dictionary();
+        // Mop up our entry lists.
         leftLanguagePanel.clearEntries();
         rightLanguagePanel.clearEntries();
+        // Set new document model
         setModel(newDocument);
         //mainWindow.setAppTitle(null);
     }
@@ -296,7 +304,9 @@ public class MainWindow extends FrameView {
         rightLanguagePanel.setEntryList(newModel.getDefinitions().get(1));
         rightLanguagePanel.setWordClasses(newModel.getWordClasses());
         notePad.setModel(newModel.getNotePadDocument());
-    // FIXME: Other associations go here!
+        if(wordClassEditor != null)
+            wordClassEditor.setModel(newModel);
+        // FIXME: Other associations go here!
     }
 
     public Dictionary getModel() {
@@ -643,7 +653,4 @@ public class MainWindow extends FrameView {
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
 
-    private JDialog aboutBox;
-    private WordClassEditor wordClassEditor;
-    private StatisticsWindow statisticsWindow;
 }

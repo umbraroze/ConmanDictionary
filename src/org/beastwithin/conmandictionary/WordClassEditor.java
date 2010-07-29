@@ -81,9 +81,13 @@ public class WordClassEditor extends javax.swing.JDialog {
         super(parent.getFrame(), modal);
         this.parent = parent;
         wordClassListModel = new WordClassListModel();
+        setModel(model);
+        initComponents();
+    }
+
+    public void setModel(Dictionary model) {
         this.model = model;
         wordClassListModel.setWordClasses(model.getWordClasses());
-        initComponents();
     }
 
     private void sortWordClassList(List<WordClass> wordClassList) {

@@ -111,11 +111,18 @@ public class Dictionary {
 
     @Override
     public String toString() {
-        StringBuffer s = new StringBuffer();
-        s.append("Notepad:\n" + getNotePad() + "\n");
-        s.append("\n\nList 1 (" + this.definitions.get(0).size() + "):" + this.definitions.get(0).toString());
-        s.append("\n\nList 2 (" + this.definitions.get(1).size() + "):" + this.definitions.get(1).toString());
-
+        StringBuilder s = new StringBuilder();
+        s.append("Notepad:\n");
+        s.append(getNotePad());
+        s.append('\n');
+        s.append("\n\nList 1 (");
+        s.append(definitions.get(0).size());
+        s.append("):");
+        s.append(definitions.get(0).toString());
+        s.append("\n\nList 2 (");
+        s.append(definitions.get(1).size());
+        s.append("):");
+        s.append(definitions.get(1).toString());
         return s.toString();
     }
 

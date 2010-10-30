@@ -168,7 +168,7 @@ public class EntryList implements ListModel {
     public List<Entry> getUnflaggedEntries() {
         List<Entry> prunedEntries = Collections.synchronizedList(new ArrayList<Entry>());
         for (Entry e : entries) {
-            if (e.getFlagged() == false) {
+            if (e.isFlagged() == false) {
                 prunedEntries.add(e);
             }
         }

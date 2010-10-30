@@ -109,23 +109,23 @@ public class DynamicCreationTest {
         Entry e5 = el2.get(1);
         assertTrue(e1.getTerm().equals("foo"));
         assertTrue(e1.getDefinition().equals("A person who knows nothing."));
-        assertTrue(e1.getFlagged() == false);
+        assertTrue(e1.isFlagged() == false);
         assertTrue(e1.getWordClass().equals(n));
         assertTrue(e2.getTerm().equals("pity"));
         assertTrue(e2.getDefinition().equals("Activity which foos (q.v.) end up receiving"));
-        assertTrue(e2.getFlagged() == false);
+        assertTrue(e2.isFlagged() == false);
         assertTrue(e2.getWordClass().equals(v));
         assertTrue(e3.getTerm().equals("bar"));
         assertTrue(e3.getDefinition().equals("An epic weapon of ultimate smackdown"));
-        assertTrue(e3.getFlagged() == false);
+        assertTrue(e3.isFlagged() == false);
         assertTrue(e3.getWordClass().equals(n));
         assertTrue(e4.getTerm().equals("zplepb"));
         assertTrue(e4.getDefinition().equals("This isn't supposed to be on the list, or something!"));
-        assertTrue(e4.getFlagged() == false);
+        assertTrue(e4.isFlagged() == false);
         assertTrue(e4.getWordClass() == null);
         assertTrue(e5.getTerm().equals("grrlubub"));
         assertTrue(e5.getDefinition().equals("Your guess is as good or mine, even if it's documented"));
-        assertTrue(e5.getFlagged() == false);
+        assertTrue(e5.isFlagged() == false);
         assertTrue(e5.getWordClass().equals(m));
     }
 

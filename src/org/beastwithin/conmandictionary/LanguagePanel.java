@@ -40,12 +40,15 @@ public class LanguagePanel extends javax.swing.JPanel {
     
     private EntryList entryList;
     private List<WordClass> wordClasses;
+    private List<Category> categories;
     private ComboBoxModelWithNullChoice wordClassModel;
+    private ComboBoxModelWithNullChoice categoriesModel;
     private LanguagePanelSearchBoxListener searchListener;
         
     public LanguagePanel() {
         entryList = new EntryList();
         clearWordClasses();
+        clearCategories();
         searchListener = new LanguagePanelSearchBoxListener(this);
         initComponents();
         entryList.setLanguage("");
@@ -73,7 +76,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionEditor = new javax.swing.JEditorPane();
         flagButton = new javax.swing.JToggleButton();
         wordClassDropDown = new javax.swing.JComboBox();
-        wordCategoryDropDown = new javax.swing.JComboBox();
+        categoryDropDown = new javax.swing.JComboBox();
         languageLabel = new javax.swing.JLabel();
         languagePanelSeparator1 = new javax.swing.JSeparator();
         languagePanelSeparator2 = new javax.swing.JSeparator();
@@ -81,15 +84,12 @@ public class LanguagePanel extends javax.swing.JPanel {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(LanguagePanel.class, this);
         modifyButton.setAction(actionMap.get("modifySelected")); // NOI18N
         modifyButton.setText("Modify");
-        modifyButton.setToolTipText("Update the selected term's definition to match the ones being edited.");
 
         deleteButton.setAction(actionMap.get("deleteSelected")); // NOI18N
         deleteButton.setText("Delete");
-        deleteButton.setToolTipText("Delete the selected term.");
 
         addButton.setAction(actionMap.get("addDefinition")); // NOI18N
         addButton.setText("Add");
-        addButton.setToolTipText("Add the word or term being edited as a new entry.");
 
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
@@ -140,8 +140,7 @@ public class LanguagePanel extends javax.swing.JPanel {
 
         wordClassDropDown.setModel(wordClassModel);
 
-        wordCategoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
-        wordCategoryDropDown.setEnabled(false);
+        categoryDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(None)" }));
 
         javax.swing.GroupLayout definitionPanelLayout = new javax.swing.GroupLayout(definitionPanel);
         definitionPanel.setLayout(definitionPanelLayout);
@@ -153,7 +152,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addComponent(wordClassDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(flagButton))
-            .addComponent(wordCategoryDropDown, 0, 348, Short.MAX_VALUE)
+            .addComponent(categoryDropDown, 0, 348, Short.MAX_VALUE)
             .addComponent(definitionEditorPane)
         );
         definitionPanelLayout.setVerticalGroup(
@@ -166,7 +165,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(definitionEditorPane, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(wordCategoryDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(categoryDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -191,7 +190,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addComponent(definitionListScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(languagePanelSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,6 +216,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JComboBox categoryDropDown;
     private javax.swing.JEditorPane definitionEditor;
     private javax.swing.JScrollPane definitionEditorPane;
     private javax.swing.JList definitionList;
@@ -230,7 +230,6 @@ public class LanguagePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator languagePanelSeparator2;
     private javax.swing.JButton modifyButton;
     private org.beastwithin.conmandictionary.SearchBox searchBox;
-    private javax.swing.JComboBox wordCategoryDropDown;
     private javax.swing.JComboBox wordClassDropDown;
     // End of variables declaration//GEN-END:variables
     
@@ -294,11 +293,15 @@ public class LanguagePanel extends javax.swing.JPanel {
     private void editEntry(Entry e) {
         this.definitionTerm.setText(e.getTerm());
         this.definitionEditor.setText(e.getDefinition());
-        this.flagButton.setSelected(e.getFlagged());
+        this.flagButton.setSelected(e.isFlagged());
         if(e.getWordClass() == null)
             this.wordClassDropDown.setSelectedIndex(0);
         else
             this.wordClassDropDown.setSelectedItem(e.getWordClass());
+        if(e.getCategory() == null)
+            this.categoryDropDown.setSelectedIndex(0);
+        else
+            this.categoryDropDown.setSelectedItem(e.getCategory());
     }
 
     /**
@@ -309,6 +312,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         this.definitionEditor.setText("");
         this.flagButton.setSelected(false);
         this.wordClassDropDown.setSelectedIndex(0);
+        this.categoryDropDown.setSelectedIndex(0);
     }
 
     /**
@@ -323,10 +327,15 @@ public class LanguagePanel extends javax.swing.JPanel {
         WordClass newWordClass = null;
         if(wordClassDropDown.getSelectedIndex() != 0)
             newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
+        Category newCategory = null;
+        if(categoryDropDown.getSelectedIndex() != 0)
+            newCategory = (Category)this.categoryDropDown.getSelectedItem();
 
         Entry newTerm = new Entry(term, definition, flagged);
         if(newWordClass != null)
             newTerm.setWordClass(newWordClass);
+        if(newCategory != null)
+            newTerm.setCategory(newCategory);
 
         this.entryList.add(newTerm);
         this.entryList.sort();
@@ -364,6 +373,10 @@ public class LanguagePanel extends javax.swing.JPanel {
         if(wordClassDropDown.getSelectedIndex() != 0)
             newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
         e.setWordClass(newWordClass);
+        Category newCategory = null;
+        if(categoryDropDown.getSelectedIndex() != 0)
+            newCategory = (Category)this.categoryDropDown.getSelectedItem();
+        e.setCategory(newCategory);
 
         this.entryList.sort();
         this.definitionList.repaint();
@@ -400,7 +413,7 @@ public class LanguagePanel extends javax.swing.JPanel {
             previousEnd = wordClasses.size()-1;
          */
         this.wordClasses = wordClasses;
-        // Damn you wand your vectors
+        // Damn you and your vectors
         Vector<WordClass> v = new Vector<WordClass>(this.wordClasses);
         wordClassModel = new ComboBoxModelWithNullChoice(v);
         wordClassDropDown.setModel(wordClassModel);
@@ -409,10 +422,39 @@ public class LanguagePanel extends javax.swing.JPanel {
     public void wordClassesChanged() {
         setWordClasses(wordClasses);
     }
-
     public List<WordClass> getWordClasses() {
         return this.wordClasses;
     }
+
+    public void clearCategories() {
+        int previousEnd = 0;
+        if(categories != null)
+            previousEnd = categories.size()-1;
+        categories = null;
+        Vector<String> v = new Vector<String>();
+        categoriesModel = new ComboBoxModelWithNullChoice(v);
+        if(previousEnd > 0)
+            categoryDropDown.contentsChanged(new ListDataEvent(v, ListDataEvent.INTERVAL_REMOVED, 0, previousEnd));
+    }
+    public void setCategories(List<Category> categories) {
+        /*
+        int previousEnd = 0;
+        if(wordClasses != null)
+            previousEnd = wordClasses.size()-1;
+         */
+        this.categories = categories;
+        // Damn you and your vectors
+        Vector<Category> v = new Vector<Category>(this.categories);
+        categoriesModel = new ComboBoxModelWithNullChoice(v);
+        categoryDropDown.setModel(categoriesModel);
+    }
+    public void categoriesChanged() {
+        setCategories(categories);
+    }
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
 
     /**
      * Clear all entries in this list.

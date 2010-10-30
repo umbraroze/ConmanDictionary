@@ -52,6 +52,9 @@ public class MainWindow extends FrameView {
     private JDialog aboutBox;
     // Word class editor.
     private WordClassEditor wordClassEditor;
+    // Word category editor
+    private CategoryEditor categoryEditor;
+    // Statistics window
     private StatisticsWindow statisticsWindow;
 
     private boolean isUnsaved() {
@@ -287,6 +290,7 @@ public class MainWindow extends FrameView {
         rightLanguagePanel.getEntryList().setModified(false);
         rightLanguagePanel.getEntryList().setLastModificationReason("Saved");
         model.setWordClassesModified(false);
+        model.setCategoriesModified(false);
     }
 
     public NotePad getNotePad() {
@@ -301,11 +305,15 @@ public class MainWindow extends FrameView {
         model = newModel;
         leftLanguagePanel.setEntryList(newModel.getDefinitions().get(0));
         leftLanguagePanel.setWordClasses(newModel.getWordClasses());
+        leftLanguagePanel.setCategories(newModel.getCategories());
         rightLanguagePanel.setEntryList(newModel.getDefinitions().get(1));
         rightLanguagePanel.setWordClasses(newModel.getWordClasses());
+        rightLanguagePanel.setCategories(newModel.getCategories());
         notePad.setModel(newModel.getNotePadDocument());
         if(wordClassEditor != null)
             wordClassEditor.setModel(newModel);
+        if(categoryEditor != null)
+            categoryEditor.setModel(newModel);
         // FIXME: Other associations go here!
     }
 
@@ -320,6 +328,7 @@ public class MainWindow extends FrameView {
         
         languageNameDialog = new LanguageNameDialog(this);
         wordClassEditor = null; // Will be instantiated upon opening
+        categoryEditor = null; // ditto
         notePad = new NotePad();
         
         // The rest is from the app template.
@@ -396,9 +405,21 @@ public class MainWindow extends FrameView {
         }
         ConmanDictionary.getApplication().show(wordClassEditor);
     }
+    @Action
+    public void showCategoryEditor() {
+        if (categoryEditor == null) {
+            categoryEditor = new CategoryEditor(this,true,model);
+            categoryEditor.setLocationRelativeTo(this.getFrame());
+        }
+        ConmanDictionary.getApplication().show(categoryEditor);
+    }
     public void notifyWordClassChanges() {
         leftLanguagePanel.wordClassesChanged();
         rightLanguagePanel.wordClassesChanged();
+    }
+    public void notifyCategoryChanges() {
+        leftLanguagePanel.categoriesChanged();
+        rightLanguagePanel.categoriesChanged();
     }
     @Action
     public void showNotepad() {
@@ -563,7 +584,6 @@ public class MainWindow extends FrameView {
         researchMenu.add(researchNotepadMenuItem);
 
         researchStatisticsMenuItem.setAction(actionMap.get("showStatisticsWindow")); // NOI18N
-        researchStatisticsMenuItem.setMnemonic('s');
         researchStatisticsMenuItem.setText(resourceMap.getString("researchStatisticsMenuItem.text")); // NOI18N
         researchStatisticsMenuItem.setName("researchStatisticsMenuItem"); // NOI18N
         researchMenu.add(researchStatisticsMenuItem);
@@ -593,9 +613,9 @@ public class MainWindow extends FrameView {
         settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
         settingsMenu.add(settingsWordClassMenuItem);
 
+        settingsCategoriesMenuItem.setAction(actionMap.get("showCategoryEditor")); // NOI18N
         settingsCategoriesMenuItem.setMnemonic('c');
         settingsCategoriesMenuItem.setText(resourceMap.getString("settingsCategoriesMenuItem.text")); // NOI18N
-        settingsCategoriesMenuItem.setEnabled(false);
         settingsCategoriesMenuItem.setName("settingsCategoriesMenuItem"); // NOI18N
         settingsMenu.add(settingsCategoriesMenuItem);
 

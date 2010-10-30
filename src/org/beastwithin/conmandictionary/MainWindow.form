@@ -252,9 +252,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="settingsCategoriesMenuItem">
               <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.beastwithin.conmandictionary.MainWindow" id="showCategoryEditor" methodName="showCategoryEditor"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="99"/>
                 <Property name="text" type="java.lang.String" resourceKey="settingsCategoriesMenuItem.text"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="settingsCategoriesMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>

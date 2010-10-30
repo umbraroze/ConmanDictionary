@@ -110,7 +110,7 @@ public class Entry implements Comparable<Entry>, Serializable {
         this.term = term;
     }
 
-    public boolean getFlagged() {
+    public boolean isFlagged() {
         return flagged;
     }
     public void setFlagged(boolean flagged) {

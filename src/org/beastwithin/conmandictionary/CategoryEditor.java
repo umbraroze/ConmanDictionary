@@ -19,17 +19,101 @@
 
 package org.beastwithin.conmandictionary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import org.jdesktop.application.Action;
+
 /**
- *
+ * Editor for word categories.
  * @author  wwwwolf
  */
 public class CategoryEditor extends javax.swing.JDialog {
+
+    private class CategoryListModel implements ListModel {
+
+        private List<ListDataListener> listDataListeners;
+        private List<Category> categories;
+
+        public CategoryListModel() {
+            listDataListeners = Collections.synchronizedList(new ArrayList<ListDataListener>());
+            categories = null;
+        }
+
+        public void addListDataListener(ListDataListener l) {
+            listDataListeners.add(l);
+        }
+
+        public void removeListDataListener(ListDataListener l) {
+            listDataListeners.remove(l);
+        }
+
+        public void refresh() {
+            ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, categories.size() - 1);
+            for (ListDataListener l : listDataListeners) {
+                l.contentsChanged(e);
+            }
+        }
+
+        public Object getElementAt(int n) {
+            return categories.get(n);
+        }
+
+        public int getSize() {
+            return categories.size();
+        }
+
+        public List<Category> getCategories() {
+            return categories;
+        }
+
+        public void setCategories(List<Category> categories) {
+            this.categories = categories;
+            refresh();
+        }
+    }
+
+    private MainWindow parent = null;
+    private CategoryListModel categoryListModel = null;
+    private Dictionary model = null;
+
     
-    /** Creates new form WordClassEditor */
-    public CategoryEditor(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public CategoryEditor(MainWindow parent, boolean modal, Dictionary model) {
+        super(parent.getFrame(), modal);
+        this.parent = parent;
+        this.categoryListModel = new CategoryListModel();
+        this.setModel(model);
         initComponents();
     }
+
+    public final void setModel(Dictionary model) {
+        this.model = model;
+        categoryListModel.setCategories(model.getCategories());
+    }
+    public Dictionary getModel() {
+        return model;
+    }
+
+    // FIXME: See WordClass.java for a similar mess-up.
+    private void sortCategoryList(List<Category> categoryList) {
+        Object a[] = categoryList.toArray();
+        Arrays.sort(a);
+        categoryList.clear();
+        for (int i = 0; i < a.length; i++) {
+            categoryList.add((Category) a[i]);
+        }
+    }
+
+    @Action
+    public void close() {
+        parent.notifyCategoryChanges();
+        dispose();
+    }
+
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -48,6 +132,9 @@ public class CategoryEditor extends javax.swing.JDialog {
         descriptionEntry = new javax.swing.JTextArea();
         deleteButton = new javax.swing.JButton();
         doneButton = new javax.swing.JButton();
+        flagButton = new javax.swing.JToggleButton();
+        modifyButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getResourceMap(CategoryEditor.class);
@@ -80,24 +167,47 @@ public class CategoryEditor extends javax.swing.JDialog {
         deleteButton.setEnabled(false);
         deleteButton.setName("deleteButton"); // NOI18N
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(CategoryEditor.class, this);
+        doneButton.setAction(actionMap.get("close")); // NOI18N
         doneButton.setText(resourceMap.getString("doneButton.text")); // NOI18N
         doneButton.setName("doneButton"); // NOI18N
+
+        flagButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/beastwithin/conmandictionary/resources/flag.png"))); // NOI18N
+        flagButton.setToolTipText(resourceMap.getString("flagButton.toolTipText")); // NOI18N
+        flagButton.setName("flagButton"); // NOI18N
+        flagButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flagButtonClicked(evt);
+            }
+        });
+
+        modifyButton.setText(resourceMap.getString("modifyButton.text")); // NOI18N
+        modifyButton.setName("modifyButton"); // NOI18N
+
+        addButton.setText(resourceMap.getString("addButton.text")); // NOI18N
+        addButton.setName("addButton"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wordClassScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+            .addComponent(wordClassScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(nameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameEntry, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                .addComponent(nameEntry, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(flagButton))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(descriptionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(descriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                .addComponent(descriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(334, Short.MAX_VALUE)
+                .addContainerGap(247, Short.MAX_VALUE)
+                .addComponent(addButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modifyButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(doneButton)
@@ -108,29 +218,40 @@ public class CategoryEditor extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(wordClassScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(nameEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nameLabel)
+                        .addComponent(nameEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(flagButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descriptionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(doneButton)
-                            .addComponent(deleteButton)))
+                            .addComponent(deleteButton)
+                            .addComponent(modifyButton)
+                            .addComponent(addButton)))
                     .addComponent(descriptionLabel)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void flagButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flagButtonClicked
+        // Do nothing in particular, for now
+}//GEN-LAST:event_flagButtonClicked
        
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextArea descriptionEntry;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JScrollPane descriptionScrollPane;
     private javax.swing.JButton doneButton;
+    private javax.swing.JToggleButton flagButton;
+    private javax.swing.JButton modifyButton;
     private javax.swing.JTextField nameEntry;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JList wordClassList;

@@ -90,6 +90,7 @@ public class WordClassEditor extends javax.swing.JDialog {
         wordClassListModel.setWordClasses(model.getWordClasses());
     }
 
+    // FIXME: I can't remember what this is for. Should this be static?
     private void sortWordClassList(List<WordClass> wordClassList) {
         Object a[] = wordClassList.toArray();
         Arrays.sort(a);

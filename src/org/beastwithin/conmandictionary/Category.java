@@ -20,6 +20,7 @@
 package org.beastwithin.conmandictionary;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.*;
 
 /**
  * Bean for word classes.
@@ -35,13 +36,24 @@ public class Category implements Comparable {
     protected String name;
     protected String description;
 
+    @XmlAttribute(required = false)
+    @XmlJavaTypeAdapter(OptionalBooleanAdapter.class)
+    protected Boolean flagged = false;
+
     public Category() {
         name = "";
         description = null;
+        flagged = false;
     }
     public Category(String name, String description) {
         this.name = name;
         this.description = (description.equals("") ? null : description);
+        this.flagged = false;
+    }
+    public Category(String name, String description, boolean flagged) {
+        this.name = name;
+        this.description = (description.equals("") ? null : description);
+        this.flagged = flagged;
     }
     
     /**
@@ -72,22 +84,13 @@ public class Category implements Comparable {
         // the amount of XML.
         this.description = (description.equals("") ? null : description);
     }
-    
-    /**
-     * Word classes look like "Class (abbr.)" or "Class (abbr.): Description"
-     * in string format.
-     * 
-     * FIXME: But because our list presentation sucks as of late, here's a cop-out.
-     * 
-     * @return String representation of the word class.
-     */
-    @Override
-    public String toString() {
-        return name;
-        /*
-        return name + " (" + abbreviation + ")" +
-                (description == null ? "" : ": " + description);
-         */
+
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 
     /**

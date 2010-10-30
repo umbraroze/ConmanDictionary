@@ -50,12 +50,16 @@ public class Entry implements Comparable<Entry>, Serializable {
     @XmlAttribute(required = false, name = "class")
     @XmlIDREF
     protected WordClass wordClass;
+    @XmlAttribute(required = false, name = "category")
+    @XmlIDREF
+    protected Category category;
 
     public Entry() {
         this.term = "";
         this.definition = "";
         this.flagged = false;
         this.wordClass = null;
+        this.category = null;
     }
 
     public Entry(String term, String definition) {
@@ -63,6 +67,7 @@ public class Entry implements Comparable<Entry>, Serializable {
         this.definition = definition;
         this.flagged = false;
         this.wordClass = null;
+        this.category = null;
     }
 
     public Entry(String term, String definition, boolean flagged) {
@@ -70,6 +75,7 @@ public class Entry implements Comparable<Entry>, Serializable {
         this.definition = definition;
         this.flagged = flagged;
         this.wordClass = null;
+        this.category = null;
     }
 
     public Entry(String term, String definition, boolean flagged, WordClass wordClass) {
@@ -77,6 +83,15 @@ public class Entry implements Comparable<Entry>, Serializable {
         this.definition = definition;
         this.flagged = flagged;
         this.wordClass = wordClass;
+        this.category = null;
+    }
+
+    public Entry(String term, String definition, boolean flagged, WordClass wordClass, Category category) {
+        this.term = term;
+        this.definition = definition;
+        this.flagged = flagged;
+        this.wordClass = wordClass;
+        this.category = category;
     }
 
     public String getDefinition() {
@@ -110,6 +125,14 @@ public class Entry implements Comparable<Entry>, Serializable {
         this.wordClass = wordClass;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     /**
      * The string representation of the term, used in listbox etc,
      * is "foo: (w.cl.abbr.) bar baz quux..." with some truncation.
@@ -138,7 +161,7 @@ public class Entry implements Comparable<Entry>, Serializable {
                 ? wordClass.getParentheticalAbbreviation() + " "
                 : "")
                 + definition;
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder();
         s.append(term);
         s.append('\n');
         s.append("");
@@ -226,6 +249,23 @@ public class Entry implements Comparable<Entry>, Serializable {
                 return false;
             }
         }
+        // Check Category.
+        if (category == null) {
+            if (x.category != null) {
+                //System.err.println("Category fail 1");
+                return false;
+            }
+        } else { // category != null
+            if (x.category == null) {
+                //System.err.println("Category fail 2");
+                return false;
+            }
+            // COULD BE PROBLEMATIC???
+            if (!category.sharesIdentifierWith(x.category)) {
+                //System.err.println("Category fail 3");
+                return false;
+            }
+        }
         return true;
 
         /*
@@ -235,7 +275,8 @@ public class Entry implements Comparable<Entry>, Serializable {
         if (term.equals(x.term)
                 && definition.equals(x.definition)
                 && flagged.equals(x.flagged)
-                && wordClass.equals(x.wordClass)) {
+                && wordClass.equals(x.wordClass)
+                && category.equals(x.category)) {
             return true;
         }
         return false;

@@ -31,7 +31,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(name = "", propOrder = { "notePad", "wordClasses", "definitions" })
+@XmlType(name = "", propOrder = { "notePad", "wordClasses", "categories", "definitions" })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
     @XmlTransient
@@ -52,9 +52,16 @@ public class Dictionary {
     protected List<WordClass> wordClasses;
     @XmlTransient
     private boolean wordClassesModified = false;
+
+    @XmlElementWrapper(name = "categories", required = false)
+    @XmlElement(name = "category", required = false)
+    protected List<Category> categories;
+    @XmlTransient
+    private boolean categoriesModified = false;
     
     public Dictionary() {
         wordClasses = Collections.synchronizedList(new ArrayList<WordClass>());
+        categories = Collections.synchronizedList(new ArrayList<Category>());
         notePad = new PlainDocument();
         definitions = Collections.synchronizedList(new ArrayList<EntryList>());
         definitions.add(new EntryList("Language 1"));
@@ -213,13 +220,14 @@ public class Dictionary {
         // Load up the document.
         Dictionary source = Dictionary.loadDocument(file);
         
-        // If the word classes in the source lists match any
-        // word classes we have, we use our word classes instead.
-        // We append the new-found word classes to our list of word
-        // classes.
-        for (short listNo = 0; listNo <= 1; listNo++) {
+        // If the word classes or categories in the source lists match any
+        // word classes or categories we have, we use our word classes
+        // or categories instead. We append the new-found items to our
+        // respective lists.
+        for (short listNo = 0; listNo <= 1; listNo++) { // Process both lists
             EntryList sourceDefs = source.definitions.get(listNo);
             for (Entry e : sourceDefs.getEntries()) {
+                // Process word classes
                 if(e.getWordClass() != null) { // No wordclass? Don't bother.
                     boolean found = false;
                     for (WordClass ourWordClass : wordClasses) {
@@ -231,8 +239,23 @@ public class Dictionary {
                             break;
                         }
                     }
-                    if(found == false)
+                    if(found == false) // That's a new one!
                         wordClasses.add(e.getWordClass());
+                }
+                // Process categories
+                if(e.getCategory() != null) { // No category? Don't bother.
+                    boolean found = false;
+                    for (Category ourCategory : categories) {
+                        Category theirCategory = e.getCategory();
+                        if (theirCategory.sharesIdentifierWith(ourCategory)) {
+                            // We have this one, so let's use ours!
+                            e.setCategory(ourCategory);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(found == false) // That's a new one!
+                        categories.add(e.getCategory());
                 }
                 // Append this entry to our word list.
                 definitions.get(listNo).add(e);
@@ -261,6 +284,7 @@ public class Dictionary {
             return true;
         // That done, we're looking at some other criteria.
         boolean wordClassesSame = false;
+        boolean categoriesSame = false;
         boolean notePadsSame = false;
         boolean entryListsSame = false;
 
@@ -276,6 +300,8 @@ public class Dictionary {
         }
         // Compare word classes.
         wordClassesSame = WordClass.wordClassListsFunctionallyEqual(wordClasses, x.wordClasses);
+        // Compare categories.
+        categoriesSame = Category.categoryListsFunctionallyEqual(categories, x.categories);
 
         EntryList a1 = definitions.get(0);
         EntryList a2 = definitions.get(1);
@@ -290,12 +316,13 @@ public class Dictionary {
         System.err.println("a1 = b1: "+a1.equals(b1));
         System.err.println("a2 = b2: "+a2.equals(b2));
         System.err.println("wordClassesSame: "+wordClassesSame);
+        System.err.println("categoriesSame: "+wordClassesSame);
         System.err.println("notePadsSame: "+notePadsSame);
         System.err.println("entryListsSame: "+entryListsSame);
         */
 
         // If all these conditions are met, then we have a winner.
-        if(wordClassesSame && entryListsSame && notePadsSame)
+        if(wordClassesSame && categoriesSame && entryListsSame && notePadsSame)
             return true;
         // Otherwise, we have failed to prove they're equivalent.
         return false;
@@ -308,7 +335,7 @@ public class Dictionary {
         //String rightReason = definitions.get(1).getLastModificationReason();
         //System.err.printf("Left modified: %s, %s\n",leftModified,leftReason);
         //System.err.printf("Right modified: %s, %s\n",rightModified,rightReason);
-        if (leftModified || rightModified || wordClassesModified) {
+        if (leftModified || rightModified || wordClassesModified || categoriesModified) {
             return true;
         }
         return false;
@@ -318,6 +345,12 @@ public class Dictionary {
     }
     public void setWordClassesModified(boolean wordClassesModified) {
         this.wordClassesModified = wordClassesModified;
+    }
+    public boolean isCategoriesModified() {
+        return categoriesModified;
+    }
+    public void setCategoriesModified(boolean categoriesModified) {
+        this.categoriesModified = categoriesModified;
     }
     
 
@@ -358,10 +391,22 @@ public class Dictionary {
     }
     
     public List<WordClass> getWordClasses() {
+        //if(wordClasses.isEmpty())
+        //    return null; // Would be nice, but will cause a bug?
         return wordClasses;
     }
 
     public void setWordClasses(List<WordClass> wordClasses) {
         this.wordClasses = wordClasses;
+    }
+
+    public List<Category> getCategories() {
+        //if(categories.isEmpty())
+        //    return null; // Would be nice, but will cause a bug?
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -7,8 +7,12 @@
         <class name="Interjection" abbreviation="interj"/>
         <class name="Unknownlocution" abbreviation="unk"/>
     </wordclasses>
+    <categories>
+        <category name="Activity" />
+        <category name="Mystery">Very confusing terms.</category>
+    </categories>
     <definitions language="Pavonian">
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>pontžitt</term>
             <definition>to point at some location in a manner that confuses the tourist</definition>
         </entry>
@@ -20,13 +24,13 @@
             <term>gudprižžgudkažtumir</term>
             <definition>Deal! or, Sold! (lit. I guess I should just file the bankruptcy papers if I keep prices this low!)</definition>
         </entry>
-        <entry class="Unknownlocution">
+        <entry class="Unknownlocution" category="Mystery">
             <term>skščklkroyžjtmmh</term>
             <definition>An unknown word uttered by Nikolaj Čarparkmasterssonssonssonsson. (Note by Dr. Wiseman: It's possible Nikolaj was just clearing his throat.)</definition>
         </entry>
     </definitions>
     <definitions language="English">
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>point</term>
             <definition>pontžitt (to point at some location in a manner that confuses the tourist)</definition>
         </entry>

@@ -8,6 +8,11 @@ Here is some more text</notepad>
         <class name="Interjection" abbreviation="interj"/>
         <class name="Unknownlocution" abbreviation="unk"/>
     </wordclasses>
+    <categories>
+        <category name="Greeting" />
+        <category name="Activity" />
+        <category name="Mystery">Very confusing terms.</category>
+    </categories>
     <definitions language="Pavonian">
         <entry class="Noun">
             <term>Nhojnotle Cinatit</term>
@@ -21,19 +26,19 @@ Here is some more text</notepad>
             <term>gudprižžgudkažtumir</term>
             <definition>Deal! or, Sold! (lit. I guess I should just file the bankruptcy papers if I keep prices this low!)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>omggponiesž</term>
             <definition>to post to a website (lit. to surprise people with retarded humour)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>pontžitt</term>
             <definition>to point at some location in a manner that confuses the tourist</definition>
         </entry>
-        <entry class="Unknownlocution">
+        <entry class="Unknownlocution" category="Mystery">
             <term>skščklkroyžjtmmh</term>
             <definition>An unknown word uttered by Nikolaj Čarparkmasterssonssonssonsson. (Note by Dr. Wiseman: It's possible Nikolaj was just clearing his throat.)</definition>
         </entry>
-        <entry class="Interjection">
+        <entry class="Interjection" category="Greeting">
             <term>verzvorgfsžy</term>
             <definition>interj. goodbye (lit. may the eagles carry you where the sun doesn't shine)</definition>
         </entry>
@@ -43,7 +48,7 @@ Here is some more text</notepad>
             <term>Hammond organ</term>
             <definition>bluznerg</definition>
         </entry>
-        <entry class="Interjection">
+        <entry class="Interjection" category="Greeting">
             <term>goodbye</term>
             <definition>verzvorgfsžy</definition>
         </entry>
@@ -51,15 +56,15 @@ Here is some more text</notepad>
             <term>organ</term>
             <definition>bluznerg (Hammond organ)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>point</term>
             <definition>pontžitt (to point at some location in a manner that confuses the tourist)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>post</term>
             <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>surprise</term>
             <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
         </entry>

@@ -6,16 +6,20 @@
         <class name="Verb" abbreviation="v"/>
         <class name="Interjection" abbreviation="interj"/>
     </wordclasses>
+    <categories>
+        <category name="Greeting" />
+        <category name="Activity" />
+    </categories>
     <definitions language="Pavonian">
         <entry class="Noun" flagged="true">
             <term>bluznerg</term>
             <definition>Hammond organ</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>omggponiesž</term>
             <definition>to post to a website (lit. to surprise people with retarded humour)</definition>
         </entry>
-        <entry class="Interjection">
+        <entry class="Interjection" category="Greeting">
             <term>verzvorgfsžy</term>
             <definition>interj. goodbye (lit. may the eagles carry you where the sun doesn't shine)</definition>
         </entry>
@@ -25,7 +29,7 @@
             <term>Hammond organ</term>
             <definition>bluznerg</definition>
         </entry>
-        <entry class="Interjection">
+        <entry class="Interjection" category="Greeting">
             <term>goodbye</term>
             <definition>verzvorgfsžy</definition>
         </entry>
@@ -33,11 +37,11 @@
             <term>organ</term>
             <definition>bluznerg (Hammond organ)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>post</term>
             <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
         </entry>
-        <entry class="Verb">
+        <entry class="Verb" category="Activity">
             <term>surprise</term>
             <definition>omggponiesž (to post to a website, to surprise people with retarded humour)</definition>
         </entry>

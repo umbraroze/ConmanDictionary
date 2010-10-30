@@ -29,26 +29,18 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "description"
 })
-@XmlRootElement(name="class")
-public class WordClass implements Comparable {
+@XmlRootElement(name="category")
+public class Category implements Comparable {
 
     protected String name;
-    protected String abbreviation;
     protected String description;
 
-    public WordClass() {
+    public Category() {
         name = "";
-        abbreviation = "";
         description = null;
     }
-    public WordClass(String name, String abbreviation) {
+    public Category(String name, String description) {
         this.name = name;
-        this.abbreviation = abbreviation;
-        this.description = null;
-    }
-    public WordClass(String name, String abbreviation, String description) {
-        this.name = name;
-        this.abbreviation = abbreviation;
         this.description = (description.equals("") ? null : description);
     }
     
@@ -59,7 +51,7 @@ public class WordClass implements Comparable {
      * @param x Word class to compare against.
      * @return Whether the two word classes have the same name.
      */
-    public boolean sharesIdentifierWith(WordClass x) {
+    public boolean sharesIdentifierWith(Category x) {
         return name.equals(x.name);
     }
     
@@ -69,17 +61,6 @@ public class WordClass implements Comparable {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlAttribute(required=true)
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
-    public String getParentheticalAbbreviation() {
-        return "(" + abbreviation + ".)";
     }
 
     @XmlValue
@@ -110,18 +91,18 @@ public class WordClass implements Comparable {
     }
 
     /**
-     * Compare word class to another. Word classes are compared by name; all other
+     * Compare category to another. The categories are compared by name; all other
      * attributes are ignored.
      *
      * @param o Object to compare to.
      * @return Comparison result.
      */
     public int compareTo(Object o) {
-        WordClass w = (WordClass) o;
+        Category w = (Category) o;
         return name.compareTo(w.name);
     }
 
-    public static boolean wordClassListsFunctionallyEqual(java.util.List<WordClass> x, java.util.List<WordClass> y) {
+    public static boolean categoryListsFunctionallyEqual(java.util.List<Category> x, java.util.List<Category> y) {
         if(x == null && y == null)
             return true;
         if((x == null && y != null) || (x != null && y == null))

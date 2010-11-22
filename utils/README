@@ -1,0 +1,8 @@
+
+This directory contains random script files to handle conversions
+from obsolete formats, and possibly to work with dictd-style dictionary
+files. Note that these were pretty much developed for one-shot dealies
+and are not particularly ingenious or well-tested. Unless otherwise
+mentioned, the scripts in this directory are in public domain (not GPL3)
+and you accept that you're using them entirely on your risk. -wwwwolf
+

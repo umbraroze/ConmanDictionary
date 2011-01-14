@@ -400,6 +400,60 @@ public class Dictionary {
         this.wordClasses = wordClasses;
     }
 
+    /**
+     * Ensures that the dictionary has bare-bones commonly used word classes.
+     */
+    public void ensureBareBonesWordClasses() {
+        boolean hasVerb = false;
+        boolean hasNoun = false;
+        boolean hasAdjective = false;
+        boolean hasInterjection = false;
+        for(WordClass c : wordClasses) {
+            if(c.getName().equals("Noun"))
+                hasNoun = true;
+            if(c.getName().equals("Verb"))
+                hasVerb = true;
+            if(c.getName().equals("Adjective"))
+                hasAdjective = true;
+            if(c.getName().equals("Interjection"))
+                hasInterjection = true;
+        }
+        if(!hasVerb)
+            wordClasses.add(new WordClass("Verb","v"));
+        if(!hasNoun)
+            wordClasses.add(new WordClass("Noun","n"));
+        if(!hasAdjective)
+            wordClasses.add(new WordClass("Adjective","a"));
+        if(!hasInterjection)
+            wordClasses.add(new WordClass("Interjection","interj"));
+    }
+
+    /**
+     * Get the word class with the specific name.
+     *
+     * @return the specified word class, nor null if not found.
+     */
+    public WordClass getWordClassWithName(String name) {
+        for(WordClass c : wordClasses) {
+            if(c.getName().equals(name))
+                return c;
+        }
+        return null;
+    }
+
+    /**
+     * Get the first word class with the specific abbreviation.
+     *
+     * @return the specified word class, nor null if not found.
+     */
+    public WordClass getWordClassWithAbbreviation(String abbreviation) {
+        for(WordClass c : wordClasses) {
+            if(c.getAbbreviation().equals(abbreviation))
+                return c;
+        }
+        return null;
+    }
+
     public List<Category> getCategories() {
         //if(categories.isEmpty())
         //    return null; // Would be nice, but will cause a bug?

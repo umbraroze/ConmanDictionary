@@ -36,13 +36,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * The application's main frame.
  */
 public class MainWindow extends FrameView {
+    private static I18n i18n = I18nFactory.getI18n(MainWindow.class);
 
-        
     private Dictionary model;
     /// Notepad.
     private NotePad notePad;
@@ -70,8 +72,8 @@ public class MainWindow extends FrameView {
         if (isUnsaved()) {
             int resp = JOptionPane.showConfirmDialog(
                     getFrame(),
-                    "There are unsaved changes.\nReally clear everything?",
-                    "Really clear everything?",
+                    i18n.tr("There are unsaved changes.\nReally clear everything?"),
+                    i18n.tr("Really clear everything?"),
                     JOptionPane.YES_NO_OPTION);
             if (resp != JOptionPane.YES_OPTION) {
                 return;
@@ -91,8 +93,8 @@ public class MainWindow extends FrameView {
     public void quit() {
         if (isUnsaved()) {
             int resp = JOptionPane.showConfirmDialog(this.getFrame(),
-                    "There are unsaved changes.\nReally quit?",
-                    "Really quit?",
+                    i18n.tr("There are unsaved changes.\nReally quit?"),
+                    i18n.tr("Really quit?"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE);
             if (resp != JOptionPane.YES_OPTION) {
@@ -106,7 +108,7 @@ public class MainWindow extends FrameView {
     public void mergeInto() {
         final JFileChooser fc = new JFileChooser();
         int ret = fc.showDialog(this.getFrame(),
-                "Choose file to merge entries from");
+                i18n.tr("Choose file to merge entries from"));
         if (ret != JFileChooser.APPROVE_OPTION) {
             return;
         }
@@ -116,18 +118,16 @@ public class MainWindow extends FrameView {
             ioe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
-                    "File error while saving file:\n" +
-                    ioe.getMessage(),
-                    "Error",
+                    i18n.tr("File error while saving file:\n{0}",
+                    ioe.getMessage()),
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
         } catch (JAXBException jaxbe) {
             jaxbe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
-                    "XML error while saving file:\n" +
-                    jaxbe.getMessage() +
-                    "\nFurther details printed at console.",
-                    "Error",
+                    i18n.tr("XML error while saving file:\n{0}\nFurther details printed at console.",jaxbe.getMessage()),
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -137,8 +137,8 @@ public class MainWindow extends FrameView {
         if (isUnsaved()) {
             int resp = JOptionPane.showConfirmDialog(
                     this.getFrame(),
-                    "There are unsaved changes.\nReally open another file?",
-                    "Really open another file?",
+                    i18n.tr("There are unsaved changes.\nReally open another file?"),
+                    i18n.tr("Really open another file?"),
                     JOptionPane.YES_NO_OPTION);
             if (resp != 0) {
                 return;
@@ -159,8 +159,8 @@ public class MainWindow extends FrameView {
             ioe.printStackTrace();
             JOptionPane.showMessageDialog(
                     this.getFrame(),
-                    "Unable to open the file " + f + ".\n" + ioe.getMessage(),
-                    "Error",
+                    i18n.tr("Unable to open the file {0}.\n{1}", f, ioe.getMessage()),
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
             return;
         } catch (SAXException saxe) {
@@ -168,7 +168,7 @@ public class MainWindow extends FrameView {
             JOptionPane.showMessageDialog(
                     this.getFrame(),
                     "The file format for file " + f + " is invalid.\n" + saxe.getMessage(),
-                    "Error",
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -182,7 +182,7 @@ public class MainWindow extends FrameView {
                     "XML error while loading file:\n" +
                     jaxbe.getMessage() +
                     "\nFurther details printed at console.",
-                    "Error",
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -191,7 +191,7 @@ public class MainWindow extends FrameView {
                     "Error reading file:\n" +
                     ioe.getMessage() +
                     "\nFurther details printed at console.",
-                    "Error",
+                    i18n.tr("Error"),
                     JOptionPane.ERROR_MESSAGE);
         }
         //this.setAppTitle(f);
@@ -527,39 +527,37 @@ public class MainWindow extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
-        fileMenu.setMnemonic('f');
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getResourceMap(MainWindow.class);
-        fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
+        fileMenu.setText(i18n.tr("File"));
         fileMenu.setName("fileMenu"); // NOI18N
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(MainWindow.class, this);
         fileNewMenuItem.setAction(actionMap.get("newDocument")); // NOI18N
-        fileNewMenuItem.setText(resourceMap.getString("fileNewMenuItem.text")); // NOI18N
+        fileNewMenuItem.setText(i18n.tr("New..."));
         fileNewMenuItem.setName("fileNewMenuItem"); // NOI18N
         fileMenu.add(fileNewMenuItem);
 
         fileOpenMenuItem.setAction(actionMap.get("open")); // NOI18N
-        fileOpenMenuItem.setText(resourceMap.getString("fileOpenMenuItem.text")); // NOI18N
+        fileOpenMenuItem.setText(i18n.tr("Open..."));
         fileOpenMenuItem.setName("fileOpenMenuItem"); // NOI18N
         fileMenu.add(fileOpenMenuItem);
 
         fileSaveMenuItem.setAction(actionMap.get("save")); // NOI18N
-        fileSaveMenuItem.setText(resourceMap.getString("fileSaveMenuItem.text")); // NOI18N
+        fileSaveMenuItem.setText(i18n.tr("Save"));
         fileSaveMenuItem.setName("fileSaveMenuItem"); // NOI18N
         fileMenu.add(fileSaveMenuItem);
 
         fileSaveAsMenuItem.setAction(actionMap.get("saveAs")); // NOI18N
-        fileSaveAsMenuItem.setText(resourceMap.getString("fileSaveAsMenuItem.text")); // NOI18N
+        fileSaveAsMenuItem.setText(i18n.tr("Save as..."));
         fileSaveAsMenuItem.setName("fileSaveAsMenuItem"); // NOI18N
         fileMenu.add(fileSaveAsMenuItem);
 
         fileMergeMenuItem.setAction(actionMap.get("mergeInto")); // NOI18N
-        fileMergeMenuItem.setText(resourceMap.getString("fileMergeMenuItem.text")); // NOI18N
+        fileMergeMenuItem.setText(i18n.tr("Merge with..."));
         fileMergeMenuItem.setName("fileMergeMenuItem"); // NOI18N
         fileMenu.add(fileMergeMenuItem);
 
         fileExportDictdMenuItem.setAction(actionMap.get("exportAsDictd")); // NOI18N
-        fileExportDictdMenuItem.setText(resourceMap.getString("fileExportDictdMenuItem.text")); // NOI18N
+        fileExportDictdMenuItem.setText(i18n.tr("Export as plain text..."));
         fileExportDictdMenuItem.setName("fileExportDictdMenuItem"); // NOI18N
         fileMenu.add(fileExportDictdMenuItem);
 
@@ -567,65 +565,62 @@ public class MainWindow extends FrameView {
         fileMenu.add(fileQuitSeparator);
 
         fileQuitMenuItem.setAction(actionMap.get("quit")); // NOI18N
-        fileQuitMenuItem.setText(resourceMap.getString("fileQuitMenuItem.text")); // NOI18N
-        fileQuitMenuItem.setToolTipText(resourceMap.getString("fileQuitMenuItem.toolTipText")); // NOI18N
+        fileQuitMenuItem.setText(i18n.tr("Quit"));
+        fileQuitMenuItem.setToolTipText(i18n.tr("Quit the application"));
         fileQuitMenuItem.setName("fileQuitMenuItem"); // NOI18N
         fileMenu.add(fileQuitMenuItem);
 
         menuBar.add(fileMenu);
 
-        researchMenu.setMnemonic('r');
-        researchMenu.setText(resourceMap.getString("researchMenu.text")); // NOI18N
+        researchMenu.setText(i18n.tr("Research"));
         researchMenu.setName("researchMenu"); // NOI18N
 
         researchNotepadMenuItem.setAction(actionMap.get("showNotepad")); // NOI18N
-        researchNotepadMenuItem.setText(resourceMap.getString("researchNotepadMenuItem.text")); // NOI18N
+        researchNotepadMenuItem.setText(i18n.tr("Show notepad..."));
         researchNotepadMenuItem.setName("researchNotepadMenuItem"); // NOI18N
         researchMenu.add(researchNotepadMenuItem);
 
         researchStatisticsMenuItem.setAction(actionMap.get("showStatisticsWindow")); // NOI18N
-        researchStatisticsMenuItem.setText(resourceMap.getString("researchStatisticsMenuItem.text")); // NOI18N
+        researchStatisticsMenuItem.setText(i18n.tr("Statistics"));
         researchStatisticsMenuItem.setName("researchStatisticsMenuItem"); // NOI18N
         researchMenu.add(researchStatisticsMenuItem);
 
         menuBar.add(researchMenu);
 
-        settingsMenu.setMnemonic('s');
-        settingsMenu.setText(resourceMap.getString("settingsMenu.text")); // NOI18N
+        settingsMenu.setText(i18n.tr("Settings"));
         settingsMenu.setName("settingsMenu"); // NOI18N
 
-        settingsSaveFlaggedMenuItem.setMnemonic('f');
         settingsSaveFlaggedMenuItem.setSelected(true);
-        settingsSaveFlaggedMenuItem.setText(resourceMap.getString("settingsSaveFlaggedMenuItem.text")); // NOI18N
+        settingsSaveFlaggedMenuItem.setText(i18n.tr("Save flagged entries"));
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getResourceMap(MainWindow.class);
         settingsSaveFlaggedMenuItem.setActionCommand(resourceMap.getString("settingsSaveFlaggedMenuItem.actionCommand")); // NOI18N
         settingsSaveFlaggedMenuItem.setEnabled(false);
         settingsSaveFlaggedMenuItem.setName("settingsSaveFlaggedMenuItem"); // NOI18N
         settingsMenu.add(settingsSaveFlaggedMenuItem);
 
         settingsNamesMenuItem.setAction(actionMap.get("showLanguageNameDialog")); // NOI18N
-        settingsNamesMenuItem.setText(resourceMap.getString("settingsNamesMenuItem.text")); // NOI18N
+        settingsNamesMenuItem.setText(i18n.tr("Language names..."));
         settingsNamesMenuItem.setName("settingsNamesMenuItem"); // NOI18N
         settingsMenu.add(settingsNamesMenuItem);
 
         settingsWordClassMenuItem.setAction(actionMap.get("showWordClassEditor")); // NOI18N
-        settingsWordClassMenuItem.setText(resourceMap.getString("settingsWordClassMenuItem.text")); // NOI18N
-        settingsWordClassMenuItem.setToolTipText(resourceMap.getString("settingsWordClassMenuItem.toolTipText")); // NOI18N
+        settingsWordClassMenuItem.setText(i18n.tr("Word classes..."));
+        settingsWordClassMenuItem.setToolTipText(i18n.tr("Define the parts of speech."));
         settingsWordClassMenuItem.setName("settingsWordClassMenuItem"); // NOI18N
         settingsMenu.add(settingsWordClassMenuItem);
 
         settingsCategoriesMenuItem.setAction(actionMap.get("showCategoryEditor")); // NOI18N
-        settingsCategoriesMenuItem.setText(resourceMap.getString("settingsCategoriesMenuItem.text")); // NOI18N
+        settingsCategoriesMenuItem.setText(i18n.tr("Categories..."));
         settingsCategoriesMenuItem.setName("settingsCategoriesMenuItem"); // NOI18N
         settingsMenu.add(settingsCategoriesMenuItem);
 
         menuBar.add(settingsMenu);
 
-        helpMenu.setMnemonic('h');
-        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
+        helpMenu.setText(i18n.tr("Help"));
         helpMenu.setName("helpMenu"); // NOI18N
 
         helpAboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
-        helpAboutMenuItem.setText(resourceMap.getString("helpAboutMenuItem.text")); // NOI18N
+        helpAboutMenuItem.setText(i18n.tr("About..."));
         helpAboutMenuItem.setName("helpAboutMenuItem"); // NOI18N
         helpMenu.add(helpAboutMenuItem);
 

@@ -111,8 +111,9 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="102"/>
-            <Property name="text" type="java.lang.String" resourceKey="fileMenu.text"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.tr(&quot;File&quot;)" type="code"/>
+            </Property>
             <Property name="name" type="java.lang.String" value="fileMenu" noResource="true"/>
           </Properties>
           <SubComponents>
@@ -121,7 +122,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="newDocument" methodName="newDocument"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileNewMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;New...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileNewMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -130,7 +133,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="open" methodName="open"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileOpenMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Open...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileOpenMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -139,7 +144,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="save" methodName="save"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileSaveMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Save&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileSaveMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -148,7 +155,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="saveAs" methodName="saveAs"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileSaveAsMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Save as...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileSaveAsMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -157,7 +166,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="mergeInto" methodName="mergeInto"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileMergeMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Merge with...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileMergeMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -166,7 +177,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="exportAsDictd" methodName="exportAsDictd"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileExportDictdMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Export as plain text...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileExportDictdMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -180,8 +193,12 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.jdesktop.application.Application" id="quit" methodName="quit"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="fileQuitMenuItem.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="fileQuitMenuItem.toolTipText"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Quit&quot;)" type="code"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Quit the application&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="fileQuitMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -189,8 +206,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="researchMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="114"/>
-            <Property name="text" type="java.lang.String" resourceKey="researchMenu.text"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.tr(&quot;Research&quot;)" type="code"/>
+            </Property>
             <Property name="name" type="java.lang.String" value="researchMenu" noResource="true"/>
           </Properties>
           <SubComponents>
@@ -199,7 +217,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showNotepad" methodName="showNotepad"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="researchNotepadMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Show notepad...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="researchNotepadMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -208,7 +228,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showStatisticsWindow" methodName="showStatisticsWindow"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="researchStatisticsMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Statistics&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="researchStatisticsMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -216,16 +238,18 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="settingsMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="115"/>
-            <Property name="text" type="java.lang.String" resourceKey="settingsMenu.text"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.tr(&quot;Settings&quot;)" type="code"/>
+            </Property>
             <Property name="name" type="java.lang.String" value="settingsMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="settingsSaveFlaggedMenuItem">
               <Properties>
-                <Property name="mnemonic" type="int" value="102"/>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" resourceKey="settingsSaveFlaggedMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Save flagged entries&quot;)" type="code"/>
+                </Property>
                 <Property name="actionCommand" type="java.lang.String" resourceKey="settingsSaveFlaggedMenuItem.actionCommand"/>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="settingsSaveFlaggedMenuItem" noResource="true"/>
@@ -236,7 +260,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showLanguageNameDialog" methodName="showLanguageNameDialog"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="settingsNamesMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Language names...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="settingsNamesMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -245,8 +271,12 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showWordClassEditor" methodName="showWordClassEditor"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="settingsWordClassMenuItem.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="settingsWordClassMenuItem.toolTipText"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Word classes...&quot;)" type="code"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Define the parts of speech.&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="settingsWordClassMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -255,7 +285,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showCategoryEditor" methodName="showCategoryEditor"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="settingsCategoriesMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;Categories...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="settingsCategoriesMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -263,8 +295,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="helpMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="104"/>
-            <Property name="text" type="java.lang.String" resourceKey="helpMenu.text"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.tr(&quot;Help&quot;)" type="code"/>
+            </Property>
             <Property name="name" type="java.lang.String" value="helpMenu" noResource="true"/>
           </Properties>
           <SubComponents>
@@ -273,7 +306,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="org.beastwithin.conmandictionary.MainWindow" id="showAboutBox" methodName="showAboutBox"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="helpAboutMenuItem.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="i18n.tr(&quot;About...&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="helpAboutMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>

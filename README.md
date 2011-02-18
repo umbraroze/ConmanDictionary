@@ -22,9 +22,14 @@ JDK.  Possibly might work on OpenJDK/IcedTea, though I haven't tried
 it for a long time.
 
 The project is developed on
-[NetBeans](http://netbeans.org/) 6.8. You probably need
+[NetBeans](http://netbeans.org/) 6.9. You probably need
 [Ant](http://ant.apache.org/) and
 [Swing Application Framework](https://appframework.dev.java.net/)
 if you're not compiling it on NetBeans, but I don't know the
 exact procedures.
 
+For l10n, I'm using
+[gettext-commons](http://code.google.com/p/gettext-commons/), which lets
+you use standard GNU gettext tools for localising Java software.
+This library and its associated Ant tasks are bundled in the "lib"
+directory, and you don't need to download them separately.

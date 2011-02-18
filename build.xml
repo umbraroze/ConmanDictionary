@@ -1,74 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- You may freely edit this file. See commented blocks below for -->
-<!-- some examples of how to customize the build. -->
-<!-- (If you delete it and reopen the project it will be recreated.) -->
-<!-- By default, only the Clean and Build commands use this build script. -->
-<!-- Commands such as Run, Debug, and Test only use this build script if -->
-<!-- the Compile on Save feature is turned off for the project. -->
-<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
-<!-- in the project's Project Properties dialog box.-->
 <project name="ConmanDictionary" default="default" basedir=".">
     <description>Builds, tests, and runs the project ConmanDictionary.</description>
+
     <import file="nbproject/build-impl.xml"/>
-    <!--
 
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
+    <property name="gettexttasks.jar" value="lib/gettext-ant-tasks-0.9.7.jar"/>
+    <target name="init.gettext" description="Loads the Ant gettext tasks">
+        <taskdef name="gettext-extract" classname="org.xnap.commons.ant.gettext.GettextExtractKeysTask" classpath="${gettexttasks.jar}"/>
+        <taskdef name="gettext-merge" classname="org.xnap.commons.ant.gettext.GettextMergeKeysTask" classpath="${gettexttasks.jar}"/>
+        <taskdef name="gettext-generate-default" classname="org.xnap.commons.ant.gettext.GenerateDefaultBundleTask" classpath="${gettexttasks.jar}"/>
+        <taskdef name="gettext-dist" classname="org.xnap.commons.ant.gettext.GettextDistTask" classpath="${gettexttasks.jar}"/>
+    </target>
 
-      -pre-init:                 called before initialization of project properties
-      -post-init:                called after initialization of project properties
-      -pre-compile:              called before javac compilation
-      -post-compile:             called after javac compilation
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
-      -pre-compile-test-single:  called before javac compilation of single JUnit test
-      -post-compile-test-single: called after javac compilation of single JUunit test
-      -pre-jar:                  called before JAR building
-      -post-jar:                 called after JAR building
-      -post-clean:               called after cleaning build products
-
-    (Targets beginning with '-' are not intended to be called on their own.)
-
-    Example of inserting an obfuscator after compilation could look like this:
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Another way to customize the build is by overriding existing main targets.
-    The targets of interest are: 
-
-      -init-macrodef-javac:     defines macro for javac compilation
-      -init-macrodef-junit:     defines macro for junit execution
-      -init-macrodef-debug:     defines macro for class debugging
-      -init-macrodef-java:      defines macro for class execution
-      -do-jar-with-manifest:    JAR building (if you are using a manifest)
-      -do-jar-without-manifest: JAR building (if you are not using a manifest)
-      run:                      execution of project 
-      -javadoc-build:           Javadoc generation
-      test-report:              JUnit report generation
-
-    An example of overriding the target for project execution could look like this:
-
-        <target name="run" depends="ConmanDictionary-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that the overridden target depends on the jar target and not only on 
-    the compile target as the regular run target does. Again, for a list of available 
-    properties which you can use, check the target you are overriding in the
-    nbproject/build-impl.xml file. 
-
-    -->
+    <target name="extract-messages" description="Extracts message keys from the source code" depends="init.gettext">
+        <gettext-extract keysFile="messages.pot" poDirectory="po">
+            <fileset dir="src/org/beastwithin/conmandictionary" includes="**/*.java"/>
+        </gettext-extract>
+    </target>
+    <target name="merge-messages" description="Merges newly extracted messages into existing po files" depends="init.gettext">
+        <gettext-merge keysFile="messages.pot" poDirectory="po"/>
+    </target>
+    <target name="generate-default-bundle" description="Generates a default bundle" depends="init.gettext">
+        <gettext-generate-default targetBundle="org.beastwithin.conmandictionary.i18n.Messages" outputDirectory="po" potfile="po/messages.pot"/>
+    </target>
+    <target name="generate-bundles-jar" description="Generates Java ResourceBundles and jars them up" depends="init.gettext">
+        <gettext-dist targetBundle="org.beastwithin.conmandictionary.i18n.Messages" poDirectory="po" outputDirectory="po" percentage="65"/>
+        <jar destfile="dist/lib/messages.jar" basedir="po" includes="org/**"/>
+    </target>
+    <target name="-pre-jar" depends="generate-bundles-jar" />
 </project>

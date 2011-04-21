@@ -31,7 +31,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(name = "", propOrder = { "notePad", "wordClasses", "categories", "definitions" })
+@XmlType(name = "", propOrder = { "notePad", "todoItems", "wordClasses", "categories", "definitions" })
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
     @XmlTransient
@@ -43,6 +43,10 @@ public class Dictionary {
     // is accessed through the accessors.
     @XmlTransient
     private PlainDocument notePad;
+    
+    @XmlElementWrapper(name = "todoitems", required = false)
+    @XmlElement(name = "todoitem", required = false)
+    protected List<String> todoItems;
     
     @XmlElement(name = "definitions", required = true)
     protected List<EntryList> definitions;
@@ -275,6 +279,13 @@ public class Dictionary {
             // No, it's not really a JAXB exception, but we're processinating XML data, right?
             throw new JAXBException("Couldn't merge notepads: "+ble.getMessage());
         }
+        // Merge to-do items.
+        if(source.todoItems != null) {
+            if(todoItems == null) {
+                todoItems = Collections.synchronizedList(new ArrayList<String>());
+            }
+            todoItems.addAll(source.todoItems);
+        }
     }
 
 
@@ -462,5 +473,13 @@ public class Dictionary {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+    
+    public List<String> getTodoItems() {
+        return todoItems;
+    }
+    
+    public void setTodoItems(List<String> todoItems) {
+        this.todoItems = todoItems;
     }
 }

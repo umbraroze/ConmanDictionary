@@ -157,6 +157,8 @@ public class Entry implements Comparable<Entry>, Serializable {
      * @return the string reporesentation
      */
     public String toDictString() {
+        // Definition should have a parenthetical word class
+        // at the beginning, if any
         String d = (wordClass != null
                 ? wordClass.getParentheticalAbbreviation() + " "
                 : "")
@@ -165,7 +167,13 @@ public class Entry implements Comparable<Entry>, Serializable {
         s.append(term);
         s.append('\n');
         s.append("");
-        s.append(Pattern.compile("^").matcher(d).replaceAll("\t"));
+        
+        // Indent lines with tab characters.
+        String sr;
+        sr = Pattern.compile("^").matcher(d).replaceAll("\t");
+        sr = Pattern.compile("\n").matcher(sr).replaceAll("\n\t");
+        s.append(sr);
+        
         s.append('\n');
         return s.toString();
     }

@@ -25,7 +25,8 @@
     </target>
     <target name="generate-bundles-jar" description="Generates Java ResourceBundles and jars them up" depends="init.gettext">
         <gettext-dist targetBundle="org.beastwithin.conmandictionary.i18n.Messages" poDirectory="po" outputDirectory="po" percentage="65"/>
-        <jar destfile="dist/lib/messages.jar" basedir="po" includes="org/**"/>
+        <jar destfile="lib/messages.jar" basedir="po" includes="org/**"/>
+        <!-- copy src="lib/messages.jar" dest="dist/lib/messages.jar" -->
     </target>
     <target name="-pre-jar" depends="generate-bundles-jar" />
 </project>

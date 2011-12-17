@@ -28,5 +28,5 @@
         <jar destfile="lib/messages.jar" basedir="po" includes="org/**"/>
         <!-- copy src="lib/messages.jar" dest="dist/lib/messages.jar" -->
     </target>
-    <target name="-pre-jar" depends="generate-bundles-jar" />
+    <!-- <target name="-pre-jar" depends="generate-bundles-jar" /> -->
 </project>

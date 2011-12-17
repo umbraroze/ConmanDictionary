@@ -1,5 +1,2 @@
-bin
-conmandictionary.jar
-build
-dist
+target
 messages.mo

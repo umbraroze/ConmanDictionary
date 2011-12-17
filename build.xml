@@ -6,11 +6,6 @@
 
     <property name="gettexttasks.jar" value="lib/gettext-ant-tasks-0.9.7.jar"/>
     <target name="init.gettext" description="Loads the Ant gettext tasks">
-        <!--
-        <property environment="env"/>
-        <property name="env.PATH" value="c:\Program Files\GnuWin32\bin"/>
-        <echo message="* Path is ${env.PATH}"/>
-        -->
         <taskdef name="gettext-extract" classname="org.xnap.commons.ant.gettext.GettextExtractKeysTask" classpath="${gettexttasks.jar}"/>
         <taskdef name="gettext-merge" classname="org.xnap.commons.ant.gettext.GettextMergeKeysTask" classpath="${gettexttasks.jar}"/>
         <taskdef name="gettext-generate-default" classname="org.xnap.commons.ant.gettext.GenerateDefaultBundleTask" classpath="${gettexttasks.jar}"/>
@@ -33,5 +28,5 @@
         <jar destfile="lib/messages.jar" basedir="po" includes="org/**"/>
         <!-- copy src="lib/messages.jar" dest="dist/lib/messages.jar" -->
     </target>
-    <!-- <target name="-pre-jar" depends="generate-bundles-jar" /> -->
+    <target name="-pre-jar" depends="generate-bundles-jar" />
 </project>

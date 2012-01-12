@@ -26,9 +26,9 @@ public class DynamicCreationTest {
     }
 
     /**
-     * Test of validation of simple files.
+     * Create a file dynamically.
      */
-    @Test
+    @Before
     public void createFile() throws Exception {
         Dictionary d = new Dictionary();
         WordClass n = new WordClass("Noun","n");
@@ -51,8 +51,8 @@ public class DynamicCreationTest {
             d.save(tempFile);
         } catch(IOException ioe) {
             fail("Saving file failed due to file error: " + ioe.getMessage());
-        } catch(JAXBException jaxe) {
-            fail("Saving file failed due to JAXB error: " + jaxe.getMessage());
+        } catch(JAXBException jaxbe) {
+            fail("Saving file failed due to JAXB error: " + jaxbe.toString());
         }
     }
 
@@ -64,7 +64,7 @@ public class DynamicCreationTest {
         try {
             Dictionary d = Dictionary.loadDocument(tempFile);
         } catch(javax.xml.bind.JAXBException jaxbe) {
-            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
+            fail("Loading document failed due to JAXB error: " + jaxbe.toString());
         } catch(java.io.IOException ioe) {
             fail("Loading document failed due to file error: " + ioe.getMessage());
         }
@@ -80,7 +80,7 @@ public class DynamicCreationTest {
         try {
             d = Dictionary.loadDocument(tempFile);
         } catch(javax.xml.bind.JAXBException jaxbe) {
-            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
+            fail("Loading document failed due to JAXB error: " + jaxbe.toString());
         } catch(java.io.IOException ioe) {
             fail("Loading document failed due to file error: " + ioe.getMessage());
         }

@@ -5,6 +5,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class DictionaryTest {
+    
+    private final String simpleFileName = "target/test-classes/simplefile.xml";
+    private final String complexFileName = "target/test-classes/complexfile.xml";
 
     public DictionaryTest() {
     }
@@ -23,7 +26,7 @@ public class DictionaryTest {
     @Test
     public void validateSimpleFile() throws Exception {
         try {
-            Dictionary.validateFile(new java.io.File("test/org/beastwithin/conmandictionary/simplefile.xml"));
+            Dictionary.validateFile(new java.io.File(simpleFileName));
         } catch(org.xml.sax.SAXException sxe) {
             fail("Validation of a valid document failed: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -37,7 +40,7 @@ public class DictionaryTest {
     @Test
     public void validateComplexFile() throws Exception {
         try {
-            Dictionary.validateFile(new java.io.File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+            Dictionary.validateFile(new java.io.File(complexFileName));
         } catch(org.xml.sax.SAXException sxe) {
             fail("Validation of a valid document failed: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -51,7 +54,7 @@ public class DictionaryTest {
     @Test
     public void loadSimpleFile() throws Exception {
         try {
-            Dictionary d = Dictionary.loadDocument(new java.io.File("test/org/beastwithin/conmandictionary/simplefile.xml"));
+            Dictionary d = Dictionary.loadDocument(new java.io.File(simpleFileName));
         } catch(javax.xml.bind.JAXBException jaxbe) {
             fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -65,7 +68,7 @@ public class DictionaryTest {
     @Test
     public void loadComplexFile() throws Exception {
         try {
-            Dictionary d = Dictionary.loadDocument(new java.io.File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+            Dictionary d = Dictionary.loadDocument(new java.io.File(complexFileName));
         } catch(javax.xml.bind.JAXBException jaxbe) {
             fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
         } catch(java.io.IOException ioe) {

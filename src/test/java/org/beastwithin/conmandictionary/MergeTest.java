@@ -7,6 +7,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class MergeTest {
+    
+    private final String complexFileName = "target/test-classes/complexfile.xml";
+    private final String complexFile2Name = "target/test-classes/complexfile2.xml";
+    private final String mergeResultFileName = "target/test-classes/complexfiles_mergedbyhand.xml";
+    
 
     public MergeTest() {
     }
@@ -27,7 +32,7 @@ public class MergeTest {
 
         // Load up the first file.
         try {
-            dict1 = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfile.xml"));
+            dict1 = Dictionary.loadDocument(new File(complexFileName));
         } catch(JAXBException sxe) {
             fail("Loading document failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -38,7 +43,7 @@ public class MergeTest {
 
         // Merge entries from second file.
         try {
-            dict1.mergeEntriesFrom(new File("test/org/beastwithin/conmandictionary/complexfile2.xml"));
+            dict1.mergeEntriesFrom(new File(complexFile2Name));
         } catch(JAXBException sxe) {
             fail("Merging document failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -47,7 +52,7 @@ public class MergeTest {
 
         // Load up a third file that has been merged by hand.
         try {
-            dict2 = Dictionary.loadDocument(new File("test/org/beastwithin/conmandictionary/complexfiles_mergedbyhand.xml"));
+            dict2 = Dictionary.loadDocument(new File(mergeResultFileName));
         } catch(JAXBException sxe) {
             fail("Loading second document failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {
@@ -57,8 +62,8 @@ public class MergeTest {
         // Save the files to do comparison by hand.
         /*
         try {
-            dict1.save("/tmp/merged_by_machine.xml");
-            dict2.save("/tmp/merged_by_hand.xml");
+            dict1.save(File.createTempFile("merged_by_machine.",".xml"));
+            dict2.save(File.createTempFile("merged_by_hand.",".xml"));
         } catch(JAXBException sxe) {
             fail("Saving documents failed due to JAXB error: " + sxe.getMessage());
         } catch(java.io.IOException ioe) {

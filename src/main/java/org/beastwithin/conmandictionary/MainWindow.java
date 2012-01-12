@@ -29,7 +29,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.Timer;
-import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -43,7 +42,8 @@ import org.xnap.commons.i18n.I18nFactory;
  * The application's main frame.
  */
 public class MainWindow extends FrameView {
-    private static I18n i18n = I18nFactory.getI18n(MainWindow.class);
+    private static I18n i18n = I18nFactory.getI18n(MainWindow.class,
+             "org.beastwithin.conmandictionary.Messages");
 
     private Dictionary model;
     /// Notepad.
@@ -336,7 +336,7 @@ public class MainWindow extends FrameView {
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
-        int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
+        int messageTimeout = 10;//resourceMap.getInteger("StatusBar.messageTimeout");
         messageTimer = new Timer(messageTimeout, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 statusMessageLabel.setText("");

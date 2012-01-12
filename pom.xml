@@ -22,6 +22,16 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>gettext-commons-site</id>
+            <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+            <releases>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -45,4 +55,18 @@
             <version>0.9.6</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.xnap.commons</groupId>
+                <artifactId>maven-gettext-plugin</artifactId>
+                <version>1.2.3</version>
+                <configuration>
+                    <poDirectory>${basedir}/po</poDirectory>
+                    <targetBundle>org.beastwithin.conmandictionary.Messages</targetBundle>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

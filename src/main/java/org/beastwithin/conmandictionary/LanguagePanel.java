@@ -81,22 +81,19 @@ public class LanguagePanel extends javax.swing.JPanel {
         languagePanelSeparator1 = new javax.swing.JSeparator();
         languagePanelSeparator2 = new javax.swing.JSeparator();
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.beastwithin.conmandictionary.ConmanDictionary.class).getContext().getActionMap(LanguagePanel.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(LanguagePanel.class, this);
         modifyButton.setAction(actionMap.get("modifySelected")); // NOI18N
-        modifyButton.setText("Modify");
 
         deleteButton.setAction(actionMap.get("deleteSelected")); // NOI18N
-        deleteButton.setText("Delete");
 
         addButton.setAction(actionMap.get("addDefinition")); // NOI18N
-        addButton.setText("Add");
 
         org.jdesktop.layout.GroupLayout buttonPanelLayout = new org.jdesktop.layout.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
+                .addContainerGap(219, Short.MAX_VALUE)
                 .add(addButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(deleteButton)
@@ -130,7 +127,9 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionEditor.setToolTipText("Define the term or word here.");
         definitionEditorPane.setViewportView(definitionEditor);
 
-        flagButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/beastwithin/conmandictionary/resources/flag.png"))); // NOI18N
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(LanguagePanel.class);
+        flagButton.setIcon(resourceMap.getIcon("flagButton.icon")); // NOI18N
+        flagButton.setText("Flag");
         flagButton.setToolTipText("Flag this entry as potentially problematic.");
         flagButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,7 +146,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionPanelLayout.setHorizontalGroup(
             definitionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, definitionPanelLayout.createSequentialGroup()
-                .add(definitionTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .add(definitionTerm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(wordClassDropDown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -190,7 +189,7 @@ public class LanguagePanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(searchBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(definitionListScrollPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .add(definitionListScrollPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(languagePanelSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

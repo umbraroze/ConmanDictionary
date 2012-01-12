@@ -32,7 +32,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="searchBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="definitionListScrollPanel" pref="143" max="32767" attributes="0"/>
+              <Component id="definitionListScrollPanel" pref="140" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="languagePanelSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="196" max="32767" attributes="0"/>
+                  <EmptySpace pref="219" max="32767" attributes="0"/>
                   <Component id="addButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
@@ -77,7 +77,6 @@
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
               <action class="org.beastwithin.conmandictionary.LanguagePanel" id="modifySelected" methodName="modifySelected"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Modify"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="deleteButton">
@@ -85,7 +84,6 @@
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
               <action class="org.beastwithin.conmandictionary.LanguagePanel" id="deleteSelected" methodName="deleteSelected"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="addButton">
@@ -93,7 +91,6 @@
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
               <action class="org.beastwithin.conmandictionary.LanguagePanel" id="addDefinition" methodName="addDefinition"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Add"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -129,7 +126,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="definitionTerm" pref="269" max="32767" attributes="0"/>
+                  <Component id="definitionTerm" pref="255" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="wordClassDropDown" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -181,9 +178,8 @@
         </Container>
         <Component class="javax.swing.JToggleButton" name="flagButton">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/beastwithin/conmandictionary/resources/flag.png"/>
-            </Property>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="flagButton.icon"/>
+            <Property name="text" type="java.lang.String" value="Flag"/>
             <Property name="toolTipText" type="java.lang.String" value="Flag this entry as potentially problematic."/>
           </Properties>
           <Events>

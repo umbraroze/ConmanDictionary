@@ -1,7 +1,7 @@
 /*  Dictionary.java: Class that represents the dictionary data.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2012  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,8 +35,7 @@ import javax.swing.text.*;
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
     @XmlTransient
-    //private static final String schemaResourceFile = "org/beastwithin/conmandictionary/resources/dictionary.xsd";
-    private static final String schemaResourceFile = "dictionary.xsd";
+    private static final String schemaResourceFile = "org/beastwithin/conmandictionary/resources/dictionary.xsd";
     @XmlTransient
     private File currentFile = null;
     // This is XmlTransient because of a name clash.

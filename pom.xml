@@ -66,7 +66,34 @@
                     <poDirectory>${basedir}/po</poDirectory>
                     <targetBundle>org.beastwithin.conmandictionary.Messages</targetBundle>
                 </configuration>
+            </plugin>            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.beastwithin.conmandictionary.ConmanDictionary</mainClass>
+                    <!--
+                    <arguments>
+                        <argument>...</argument>
+                    </arguments>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>...</key>
+                            <value>...</value>
+                        </systemProperty>
+                    </systemProperties>
+                    -->
+                </configuration>
             </plugin>
+            
         </plugins>
     </build>
 </project>

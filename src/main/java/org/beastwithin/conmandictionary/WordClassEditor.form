@@ -15,7 +15,7 @@
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="wordClassScrollPane" alignment="0" pref="442" max="32767" attributes="0"/>
+          <Component id="wordClassScrollPane" alignment="0" pref="473" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -32,14 +32,14 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="abbreviationEntry" pref="348" max="32767" attributes="0"/>
-                  <Component id="nameEntry" alignment="0" pref="348" max="32767" attributes="0"/>
+                  <Component id="abbreviationEntry" pref="404" max="32767" attributes="0"/>
+                  <Component id="nameEntry" alignment="0" pref="404" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="descriptionLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="descriptionScrollPane" pref="349" max="32767" attributes="0"/>
+              <Component id="descriptionScrollPane" pref="398" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>

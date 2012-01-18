@@ -1,54 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-18 19:57+0200\n"
-"PO-Revision-Date: 2011-02-18 16:25+0200\n"
-"Last-Translator: Urpo Lankinen <wwwwolf@iki.fi>\n"
-"Language-Team: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: org/beastwithin/conmandictionary/LanguagePanel.java:91
 msgid "Modify"
-msgstr "Muuta"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/LanguagePanel.java:94
 msgid "Delete"
-msgstr "Poista"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/LanguagePanel.java:97
 msgid "Add"
-msgstr "Lis‰‰"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:75
 msgid ""
 "There are unsaved changes.\n"
 "Really clear everything?"
 msgstr ""
-"Tiedostossa on tallentamattomia muutoksia.\n"
-"Tyhjennet‰‰nko kaikki varmasti?"
 
 #: org/beastwithin/conmandictionary/MainWindow.java:76
 msgid "Really clear everything?"
-msgstr "Tyhjennet‰‰nkˆ kaikki varmasti?"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:96
 msgid ""
 "There are unsaved changes.\n"
 "Really quit?"
 msgstr ""
-"Tiedostossa on tallentamattomia muutoksia.\n"
-"Lopetetaanko varmasti?"
 
 #: org/beastwithin/conmandictionary/MainWindow.java:97
 msgid "Really quit?"
-msgstr "Lopetetaanko varmasti?"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:111
 msgid "Choose file to merge entries from"
-msgstr "Valitse tiedosto, josta sanaluettelot yhdistet‰‰n"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:121
 #, java-format
@@ -56,8 +58,6 @@ msgid ""
 "File error while saving file:\n"
 "{0}"
 msgstr ""
-"Virhe tallennettaessa tiedostoa:\n"
-"{0}"
 
 #: org/beastwithin/conmandictionary/MainWindow.java:123
 #: org/beastwithin/conmandictionary/MainWindow.java:130
@@ -66,7 +66,7 @@ msgstr ""
 #: org/beastwithin/conmandictionary/MainWindow.java:185
 #: org/beastwithin/conmandictionary/MainWindow.java:194
 msgid "Error"
-msgstr "Virhe"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:129
 #, java-format
@@ -75,21 +75,16 @@ msgid ""
 "{0}\n"
 "Further details printed at console."
 msgstr ""
-"XML-virhe tallennettaessa tiedostoa\n"
-"{0}\n"
-"Lis‰tietoja konsolissa."
 
 #: org/beastwithin/conmandictionary/MainWindow.java:140
 msgid ""
 "There are unsaved changes.\n"
 "Really open another file?"
 msgstr ""
-"Tiedostossa on tallentamattomia muutoksia.\n"
-"Avataanko varmasti toinen tiedosto?"
 
 #: org/beastwithin/conmandictionary/MainWindow.java:141
 msgid "Really open another file?"
-msgstr "Avataanko varmasti toinen tiedosto?"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:162
 #, java-format
@@ -97,89 +92,87 @@ msgid ""
 "Unable to open the file {0}.\n"
 "{1}"
 msgstr ""
-"Tiedostoa {0} ei voi avata.\n"
-"{1}"
 
 #: org/beastwithin/conmandictionary/MainWindow.java:524
 msgid "File"
-msgstr "Tiedosto"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:529
 msgid "New..."
-msgstr "Uusi..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:534
 msgid "Open..."
-msgstr "Avaa..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:539
 msgid "Save"
-msgstr "Tallenna"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:544
 msgid "Save as..."
-msgstr "Tallenna nimell‰..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:549
 msgid "Merge with..."
-msgstr "Yhdist‰ sanakirjat..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:554
 msgid "Export as plain text..."
-msgstr "Vie muotoilemattomana tekstin‰..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:562
 msgid "Quit"
-msgstr "Lopeta"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:563
 msgid "Quit the application"
-msgstr "Lopettaa ohjelman"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:569
 msgid "Research"
-msgstr "Tutkimus"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:573
 msgid "Show notepad..."
-msgstr "N‰yt‰ muistikirja..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:578
 msgid "Statistics"
-msgstr "Tilastot"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:584
 msgid "Settings"
-msgstr "Asetukset"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:588
 msgid "Save flagged entries"
-msgstr "Tallenna merkityt kohteet"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:596
 msgid "Language names..."
-msgstr "Kielien nimet..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:601
 msgid "Word classes..."
-msgstr "Sanaluokat..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:602
 msgid "Define the parts of speech."
-msgstr "M‰‰rittele sanaluokat."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:607
 msgid "Categories..."
-msgstr "Kategoriat..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:613
 msgid "Help"
-msgstr "Apua"
+msgstr ""
 
 #: org/beastwithin/conmandictionary/MainWindow.java:617
 msgid "About..."
-msgstr "Tietoja..."
+msgstr ""
 
 #: org/beastwithin/conmandictionary/SearchBox.java:66
 msgid "Clear"
-msgstr "Tyhjenn‰"
+msgstr ""

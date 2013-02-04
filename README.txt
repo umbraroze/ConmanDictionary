@@ -19,10 +19,8 @@ The principal developer is Urpo "WWWWolf" Lankinen (wwwwolf@iki.fi).
 Requirements
 ------------
 
-The project is developed in Java 7 SE, and is known to work on Sun's
-JDK.  Possibly might work on OpenJDK/IcedTea 6, though I haven't tried
-it. In all likelihood it will run on OpenJDK 7, but I haven't actually
-tested it yet there. 
+The project is developed in Java 7 SE, and is known to work on
+both Oracle Java 7 runtime on Windows and OpenJDK 7 on Linux.
 
 I have deprecated the Java 5 support. This isn't a gigantic problem, but
 PPC OS X fans will probably have to hope OpenJDK7's PPC port is revived...
@@ -37,3 +35,23 @@ Windows binaries are available in
 (http://gnuwin32.sourceforge.net/packages/gettext.htm) and may
 require some path-setting. (Win+Pause, Advanced, Environment Variables.
 You know the drill.)
+
+Quick build instructions
+------------------------
+
+If you just check this thing out of Git, open this thing in NetBeans and try
+to compile it, it'll fail. Gettext is funny that way.
+
+Full build instructions will be in Conman's Dictionary wiki at:
+https://gitorious.org/conmandictionary/pages/Building
+However, since there's no much magic involved, here's he relevant part:
+
+  $ mvn clean gettext:dist install
+
+Then look for all the proper .jars in your Maven directory (in Linux,
+this is ~/.m2/ ).
+
+After you've done this, it should be also possible to hack further with
+NetBeans. You'll probably need to do the gettext:dist step if you ever mess
+with the localisation stuff.
+

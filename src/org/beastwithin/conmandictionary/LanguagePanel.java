@@ -21,11 +21,14 @@ package org.beastwithin.conmandictionary;
 
 import java.util.List;
 import java.util.Vector;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
+/*
 import org.jdesktop.application.Action;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
+*/
 
 /**
  * Dictionary list and entry editor panel in main window. Consists of
@@ -35,8 +38,9 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author wwwwolf
  */
 public class LanguagePanel extends javax.swing.JPanel {
-    private static I18n i18n = I18nFactory.getI18n(MainWindow.class,
-             "org.beastwithin.conmandictionary.Messages");
+    
+    /*private static I18n i18n = I18nFactory.getI18n(MainWindow.class,
+             "org.beastwithin.conmandictionary.Messages");*/
     
     private class EntryListModel extends DefaultListModel {
         // FIXME: Unused as of yet
@@ -324,7 +328,6 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Adds the values in the editor as a new entry in the list.
      */
-    @Action
     public void addDefinition() {
         String term = this.definitionTerm.getText();
         String definition = this.definitionEditor.getText();
@@ -350,7 +353,6 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Deletes the selected entry.
      */
-    @Action
     public void deleteSelected() {
         // TODO: Confirmation dialog!
         int idx = this.definitionList.getSelectedIndex();
@@ -365,7 +367,6 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Update the selected item with the new details from the editor.
      */
-    @Action
     public void modifySelected() {
         int idx = this.definitionList.getSelectedIndex();
         if (idx == -1) {

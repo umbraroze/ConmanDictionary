@@ -1,5 +1,9 @@
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Entry;
+import org.beastwithin.conmandictionary.document.Dictionary;
+import org.beastwithin.conmandictionary.document.EntryList;
+import org.beastwithin.conmandictionary.document.WordClass;
 import java.io.*;
 import javax.xml.bind.JAXBException;
 import org.junit.*;

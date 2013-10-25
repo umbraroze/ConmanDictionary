@@ -25,12 +25,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="leftLanguagePanel">
+        <Component class="org.beastwithin.conmandictionary.ui.LanguagePanel" name="leftLanguagePanel">
           <Properties>
             <Property name="name" type="java.lang.String" value="leftLanguagePanel" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="org.beastwithin.conmandictionary.LanguagePanel" name="rightLanguagePanel">
+        <Component class="org.beastwithin.conmandictionary.ui.LanguagePanel" name="rightLanguagePanel">
           <Properties>
             <Property name="name" type="java.lang.String" value="rightLanguagePanel" noResource="true"/>
           </Properties>

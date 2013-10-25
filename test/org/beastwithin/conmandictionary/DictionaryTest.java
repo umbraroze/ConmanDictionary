@@ -1,6 +1,7 @@
 
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Dictionary;
 import org.junit.*;
 import static org.junit.Assert.*;
 

@@ -17,13 +17,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
 import java.util.List;
 import java.util.Vector;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
+import org.beastwithin.conmandictionary.document.Category;
+import org.beastwithin.conmandictionary.document.Entry;
+import org.beastwithin.conmandictionary.document.EntryList;
+import org.beastwithin.conmandictionary.document.WordClass;
 /*
 import org.jdesktop.application.Action;
 import org.xnap.commons.i18n.I18n;
@@ -78,7 +82,7 @@ public class LanguagePanel extends javax.swing.JPanel {
         addButton = new javax.swing.JButton();
         definitionListScrollPanel = new javax.swing.JScrollPane();
         definitionList = new javax.swing.JList();
-        searchBox = new org.beastwithin.conmandictionary.SearchBox();
+        searchBox = new org.beastwithin.conmandictionary.ui.SearchBox();
         definitionPanel = new javax.swing.JPanel();
         definitionTerm = new javax.swing.JTextField();
         definitionEditorPane = new javax.swing.JScrollPane();
@@ -239,7 +243,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator languagePanelSeparator1;
     private javax.swing.JSeparator languagePanelSeparator2;
     private javax.swing.JButton modifyButton;
-    private org.beastwithin.conmandictionary.SearchBox searchBox;
+    private org.beastwithin.conmandictionary.ui.SearchBox searchBox;
     private javax.swing.JComboBox wordClassDropDown;
     // End of variables declaration//GEN-END:variables
     

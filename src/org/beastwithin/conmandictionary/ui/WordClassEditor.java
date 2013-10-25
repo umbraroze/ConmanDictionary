@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +27,9 @@ import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+import org.beastwithin.conmandictionary.document.Dictionary;
+import org.beastwithin.conmandictionary.document.Entry;
+import org.beastwithin.conmandictionary.document.WordClass;
 import org.jdesktop.application.Action;
 
 public class WordClassEditor extends javax.swing.JDialog {

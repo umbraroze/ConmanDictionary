@@ -19,6 +19,8 @@
 
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Dictionary;
+import org.beastwithin.conmandictionary.ui.MainWindow;
 import java.io.File;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;

@@ -17,9 +17,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.document;
 
+import org.beastwithin.conmandictionary.ui.OptionalBooleanAdapter;
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.*;
 
 /**
  * Bean for word classes.
@@ -29,27 +31,30 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "description"
 })
-@XmlRootElement(name="class")
-public class WordClass implements Comparable {
+@XmlRootElement(name="category")
+public class Category implements Comparable {
 
     protected String name;
-    protected String abbreviation;
     protected String description;
 
-    public WordClass() {
+    @XmlAttribute(required = false)
+    @XmlJavaTypeAdapter(OptionalBooleanAdapter.class)
+    protected Boolean flagged = false;
+
+    public Category() {
         name = "";
-        abbreviation = "";
         description = null;
+        flagged = false;
     }
-    public WordClass(String name, String abbreviation) {
+    public Category(String name, String description) {
         this.name = name;
-        this.abbreviation = abbreviation;
-        this.description = null;
-    }
-    public WordClass(String name, String abbreviation, String description) {
-        this.name = name;
-        this.abbreviation = abbreviation;
         this.description = (description.equals("") ? null : description);
+        this.flagged = false;
+    }
+    public Category(String name, String description, boolean flagged) {
+        this.name = name;
+        this.description = (description.equals("") ? null : description);
+        this.flagged = flagged;
     }
     
     /**
@@ -59,7 +64,7 @@ public class WordClass implements Comparable {
      * @param x Word class to compare against.
      * @return Whether the two word classes have the same name.
      */
-    public boolean sharesIdentifierWith(WordClass x) {
+    public boolean sharesIdentifierWith(Category x) {
         return name.equals(x.name);
     }
     
@@ -71,17 +76,6 @@ public class WordClass implements Comparable {
         this.name = name;
     }
 
-    @XmlAttribute(required=true)
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
-    public String getParentheticalAbbreviation() {
-        return "(" + abbreviation + ".)";
-    }
-
     @XmlValue
     public String getDescription() {
         return description;
@@ -91,37 +85,28 @@ public class WordClass implements Comparable {
         // the amount of XML.
         this.description = (description.equals("") ? null : description);
     }
-    
-    /**
-     * Word classes look like "Class (abbr.)" or "Class (abbr.): Description"
-     * in string format.
-     * 
-     * FIXME: But because our list presentation sucks as of late, here's a cop-out.
-     * 
-     * @return String representation of the word class.
-     */
-    @Override
-    public String toString() {
-        return name;
-        /*
-        return name + " (" + abbreviation + ")" +
-                (description == null ? "" : ": " + description);
-         */
+
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 
     /**
-     * Compare word class to another. Word classes are compared by name; all other
+     * Compare category to another. The categories are compared by name; all other
      * attributes are ignored.
      *
      * @param o Object to compare to.
      * @return Comparison result.
      */
     public int compareTo(Object o) {
-        WordClass w = (WordClass) o;
+        Category w = (Category) o;
         return name.compareTo(w.name);
     }
 
-    public static boolean wordClassListsFunctionallyEqual(java.util.List<WordClass> x, java.util.List<WordClass> y) {
+    public static boolean categoryListsFunctionallyEqual(java.util.List<Category> x, java.util.List<Category> y) {
         if(x == null && y == null)
             return true;
         if((x == null && y != null) || (x != null && y == null))

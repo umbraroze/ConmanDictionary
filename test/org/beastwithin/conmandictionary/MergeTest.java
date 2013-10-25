@@ -1,6 +1,7 @@
 
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Dictionary;
 import java.io.*;
 import javax.xml.bind.*;
 import org.junit.*;

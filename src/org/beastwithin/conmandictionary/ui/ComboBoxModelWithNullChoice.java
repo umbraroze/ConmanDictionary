@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;

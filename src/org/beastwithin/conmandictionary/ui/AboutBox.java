@@ -2,7 +2,7 @@
  * ConmanDictionaryAboutBox.java
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
 import org.jdesktop.application.Action;
 

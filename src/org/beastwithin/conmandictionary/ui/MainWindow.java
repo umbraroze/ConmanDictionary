@@ -17,8 +17,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
+import org.beastwithin.conmandictionary.ui.WordClassEditor;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -34,6 +35,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
+import org.beastwithin.conmandictionary.ConmanDictionary;
+import org.beastwithin.conmandictionary.document.Dictionary;
 import org.xml.sax.SAXException;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
@@ -440,8 +443,8 @@ public class MainWindow extends FrameView {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        leftLanguagePanel = new org.beastwithin.conmandictionary.LanguagePanel();
-        rightLanguagePanel = new org.beastwithin.conmandictionary.LanguagePanel();
+        leftLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
+        rightLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
         statusPanel = new javax.swing.JPanel();
         javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         statusMessageLabel = new javax.swing.JLabel();
@@ -637,14 +640,14 @@ public class MainWindow extends FrameView {
     private javax.swing.JMenuItem fileSaveMenuItem;
     private javax.swing.JMenuItem helpAboutMenuItem;
     private javax.swing.JMenu helpMenu;
-    private org.beastwithin.conmandictionary.LanguagePanel leftLanguagePanel;
+    private org.beastwithin.conmandictionary.ui.LanguagePanel leftLanguagePanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JMenu researchMenu;
     private javax.swing.JMenuItem researchNotepadMenuItem;
     private javax.swing.JMenuItem researchStatisticsMenuItem;
-    private org.beastwithin.conmandictionary.LanguagePanel rightLanguagePanel;
+    private org.beastwithin.conmandictionary.ui.LanguagePanel rightLanguagePanel;
     private javax.swing.JMenuItem settingsCategoriesMenuItem;
     private javax.swing.JMenu settingsMenu;
     private javax.swing.JMenuItem settingsNamesMenuItem;

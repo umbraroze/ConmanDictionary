@@ -19,6 +19,9 @@
 
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Entry;
+import org.beastwithin.conmandictionary.document.Dictionary;
+import org.beastwithin.conmandictionary.document.WordClass;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

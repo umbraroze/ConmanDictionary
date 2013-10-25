@@ -1,9 +1,12 @@
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.ui;
 
 import java.util.HashMap;
 import javax.swing.text.html.*;
-import org.beastwithin.conmandictionary.WordClass;
+import org.beastwithin.conmandictionary.document.Dictionary;
+import org.beastwithin.conmandictionary.document.EntryList;
+import org.beastwithin.conmandictionary.document.WordClass;
+import org.beastwithin.conmandictionary.document.WordClass;
 import org.jdesktop.application.Action;
 
 /**

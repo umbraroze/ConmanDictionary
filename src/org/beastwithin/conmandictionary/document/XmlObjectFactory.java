@@ -1,6 +1,6 @@
 
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.document;
 
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;

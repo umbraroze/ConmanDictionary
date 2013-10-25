@@ -1,6 +1,9 @@
 
 package org.beastwithin.conmandictionary;
 
+import org.beastwithin.conmandictionary.document.Entry;
+import org.beastwithin.conmandictionary.document.EntryList;
+import org.beastwithin.conmandictionary.document.WordClass;
 import org.junit.*;
 import static org.junit.Assert.*;
 

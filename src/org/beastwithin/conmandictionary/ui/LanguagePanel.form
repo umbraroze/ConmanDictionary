@@ -124,7 +124,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="org.beastwithin.conmandictionary.SearchBox" name="searchBox">
+    <Component class="org.beastwithin.conmandictionary.ui.SearchBox" name="searchBox">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="searchBox.addSearchBoxListener(searchListener);"/>
       </AuxValues>

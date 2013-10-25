@@ -83,7 +83,7 @@ public class Dictionary {
             notePad.replace(0, oldLength, n, null);
         } catch (BadLocationException ble) {
             JOptionPane.showMessageDialog(
-                    ConmanDictionary.getApplication().getMainFrame(),
+                    ConmanDictionary.getMainWindow(),
                     "Error changing the text on the notepad:\n" +
                     ble.getMessage() +
                     "\nFurther details printed at console.",
@@ -98,7 +98,7 @@ public class Dictionary {
             return notePad.getText(0, notePad.getLength());
         } catch (BadLocationException ble) {
             JOptionPane.showMessageDialog(
-                    ConmanDictionary.getApplication().getMainFrame(),
+                    ConmanDictionary.getMainWindow(),
                     "Error getting text from the notepad:\n" +
                     ble.getMessage() +
                     "\nFurther details printed at console.",
@@ -395,7 +395,7 @@ public class Dictionary {
             }
             rf.close();
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(ConmanDictionary.getApplication().getMainFrame(),
+            JOptionPane.showMessageDialog(ConmanDictionary.getMainWindow(),
                     "File error occurred when exporting the file:\n" +
                     ioe.getMessage(),
                     "Error exporting the file.", JOptionPane.ERROR_MESSAGE);

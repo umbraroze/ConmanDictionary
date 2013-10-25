@@ -20,12 +20,8 @@
 package org.beastwithin.conmandictionary.ui;
 
 import java.util.*;
-import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 public class SearchBox extends javax.swing.JPanel {
-    private static I18n i18n = I18nFactory.getI18n(MainWindow.class,
-             "org.beastwithin.conmandictionary.Messages");
 
     private List<SearchBoxListener> searchBoxListeners;
    
@@ -63,7 +59,8 @@ public class SearchBox extends javax.swing.JPanel {
             }
         });
 
-        clearButton.setText(i18n.tr("Clear"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
+        clearButton.setText(bundle.getString("SearchBox.clearButton")); // NOI18N
         clearButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clearButtonMouseClicked(evt);
@@ -75,7 +72,7 @@ public class SearchBox extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clearButton))
         );

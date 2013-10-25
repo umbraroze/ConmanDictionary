@@ -54,7 +54,8 @@ public class NotePad extends javax.swing.JFrame {
 
         notePadToolBar.setRollover(true);
 
-        closeButton.setText("Close");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
+        closeButton.setText(bundle.getString("NotePad.closeButton")); // NOI18N
         closeButton.setFocusable(false);
         closeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         closeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

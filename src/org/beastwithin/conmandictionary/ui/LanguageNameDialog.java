@@ -84,18 +84,19 @@ public class LanguageNameDialog extends javax.swing.JDialog {
         setTitle("Language names");
 
         langNameLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        langNameLabel1.setText("Language 1:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
+        langNameLabel1.setText(bundle.getString("LanguageNameDialog.langNameLabel1")); // NOI18N
 
         langNameLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        langNameLabel2.setText("Language 2:");
+        langNameLabel2.setText(bundle.getString("LanguageNameDialog.langNameLabel2")); // NOI18N
 
-        setButton.setText("Set");
-        setButton.setToolTipText("Set the languages.");
+        setButton.setText(bundle.getString("LanguageNameDialog.setButton")); // NOI18N
+        setButton.setToolTipText(bundle.getString("LanguageNameDialog.setButton.tooltip")); // NOI18N
         setButton.setActionCommand("set");
         setButton.addActionListener(actionListener);
 
-        cancelButton.setText("Cancel");
-        cancelButton.setToolTipText("Close and don't set the languages.");
+        cancelButton.setText(bundle.getString("LanguageNameDialog.cancelButton")); // NOI18N
+        cancelButton.setToolTipText(bundle.getString("LanguageNameDialog.cancelButton.tooltip")); // NOI18N
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(actionListener);
 
@@ -103,22 +104,23 @@ public class LanguageNameDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(langNameButtonSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(langNameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(langNameLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(langNameField2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
-                    .addComponent(langNameField1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
-                .addContainerGap())
-            .addComponent(langNameButtonSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(297, Short.MAX_VALUE)
-                .addComponent(cancelButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(setButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(langNameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(langNameLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(langNameField2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                            .addComponent(langNameField1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 285, Short.MAX_VALUE)
+                        .addComponent(cancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(setButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

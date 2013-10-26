@@ -51,6 +51,8 @@ public class AboutBox extends javax.swing.JDialog {
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
+        setTitle(bundle.getString("AboutBox.title")); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setModal(true);
         setResizable(false);
@@ -62,8 +64,13 @@ public class AboutBox extends javax.swing.JDialog {
         aboutBoxText.setText("<html>\n  <head>\n     About Conman's Dictionary\n  </head>\n  <body>\n\n<h1>Conman's Dictionary</h1>\n\n\n<p><i>Dictionary for authors of constructed languages.</i></p>\n\n<p>Copyright © Urpo Lankinen 2006,2007,2008,2009,2010,2011,2012,2013.</p>\n\n<p>This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.</p>\n\n<p>This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.</p>\n\n<p>You should have received a copy of the GNU General Public License\n    along with this program.  If not, see &lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;.</p>\n\n  </body>\n</html>\n"); // NOI18N
         aboutBoxTextScrollPane.setViewportView(aboutBoxText);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         closeButton.setText(bundle.getString("AboutBox.closeButton")); // NOI18N
+        closeButton.setActionCommand("aboutbox-close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,6 +97,16 @@ public class AboutBox extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        switch(evt.getActionCommand()) {
+            case "aboutbox-close":
+                this.dispose();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_closeButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

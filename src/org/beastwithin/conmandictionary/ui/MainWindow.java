@@ -19,13 +19,12 @@
 
 package org.beastwithin.conmandictionary.ui;
 
-import org.beastwithin.conmandictionary.*;
-import org.beastwithin.conmandictionary.document.*;
-
 import java.io.*;
 import javax.swing.*;
+import java.awt.event.*;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
+import org.beastwithin.conmandictionary.document.*;
 
 /**
  * The application's main frame.
@@ -34,29 +33,57 @@ public class MainWindow extends javax.swing.JFrame {
     private static java.util.ResourceBundle uiMessages;
     private final String UIMESSAGES_RESOURCEBUNDLE = "org/beastwithin/conmandictionary/ui/UIMessages";
 
+    private class MenuActionListener implements ActionListener {
+        MainWindow mainWindow;
+        public MenuActionListener(MainWindow mainWindow) {
+            this.mainWindow = mainWindow;
+            // This should actually be added to the action listeners too.
+            // DAMMIT.
+            this.mainWindow.fileQuitMenuItem.addActionListener(this);
+            this.mainWindow.aboutMenuItem.addActionListener(this);
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch(e.getActionCommand()) {
+                case "file-quit":
+                    System.out.println("FILE | QUIT");
+                    mainWindow.quit();
+                    break;
+                case "help-about":
+                    System.out.println("HELP | ABOUT");
+                    mainWindow.showAboutBox();
+                    break;
+                default:
+                    System.err.println("Unhandled menu action: " + e.getActionCommand());
+                    break;
+            }
+        }
+    }
+    private MenuActionListener menuActionListener;
+    
     /**
      * Creates the main window.
      */
     public MainWindow() {
         super();
-
         initComponents();
+        uiMessages = java.util.ResourceBundle.getBundle(UIMESSAGES_RESOURCEBUNDLE);
+        menuActionListener = new MenuActionListener(this);
         
         languageNameDialog = new LanguageNameDialog(this);
         wordClassEditor = null; // Will be instantiated upon opening
         categoryEditor = null; // ditto
-        notePad = new NotePad();        
-        
-        uiMessages = java.util.ResourceBundle.getBundle(UIMESSAGES_RESOURCEBUNDLE);
+        notePad = new NotePad();
     }
 
+    /// The dictionary we are currently editing.
     private Dictionary model;
     /// Notepad.
     private NotePad notePad;
     /// The language selection window.
     private LanguageNameDialog languageNameDialog;
     // About window.
-    private JDialog aboutBox;
+    private AboutBox aboutBox;
     // Word class editor.
     private WordClassEditor wordClassEditor;
     // Word category editor
@@ -330,14 +357,15 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void showAboutBox() {
-        /*
         if (aboutBox == null) {
-            JFrame mainFrame = ConmanDictionary.getApplication().getMainFrame();
-            aboutBox = new AboutBox(mainFrame);
-            aboutBox.setLocationRelativeTo(mainFrame);
+            System.err.println("Instantiated about box.");
+            aboutBox = new AboutBox(this,true);
+            aboutBox.setLocationRelativeTo(this);
+        } else {
+            System.err.println("About box already exists, re-showing.");
         }
-        ConmanDictionary.getApplication().show(aboutBox);
-        */
+        aboutBox.setLocationRelativeTo(this);
+        aboutBox.setVisible(true);
     }
 
     public void showWordClassEditor() {
@@ -377,8 +405,6 @@ public class MainWindow extends javax.swing.JFrame {
     public void showLanguageNameDialog() {
         //ConmanDictionary.getApplication().show(languageNameDialog);
     }
-
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -389,6 +415,7 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainWindowContentPanel = new javax.swing.JPanel();
         leftLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
         mainWindowSeparator = new javax.swing.JSeparator();
         rightLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
@@ -414,37 +441,73 @@ public class MainWindow extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Conman's Dictionary");
 
         mainWindowSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout mainWindowContentPanelLayout = new javax.swing.GroupLayout(mainWindowContentPanel);
+        mainWindowContentPanel.setLayout(mainWindowContentPanelLayout);
+        mainWindowContentPanelLayout.setHorizontalGroup(
+            mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainWindowContentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainWindowSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
+        );
+        mainWindowContentPanelLayout.setVerticalGroup(
+            mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainWindowContentPanelLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainWindowSeparator)
+                    .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
+        );
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         fileMenu.setText(bundle.getString("Menu.file")); // NOI18N
 
         fileNewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         fileNewMenuItem.setText(bundle.getString("Menu.file.new")); // NOI18N
+        fileNewMenuItem.setActionCommand("file-new");
         fileMenu.add(fileNewMenuItem);
 
         fileOpenMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         fileOpenMenuItem.setText(bundle.getString("Menu.file.open")); // NOI18N
+        fileOpenMenuItem.setActionCommand("file-open");
         fileMenu.add(fileOpenMenuItem);
 
         fileSaveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         fileSaveMenuItem.setText(bundle.getString("Menu.file.save")); // NOI18N
+        fileSaveMenuItem.setActionCommand("file-save");
+        fileSaveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileSaveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(fileSaveMenuItem);
 
         fileSaveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         fileSaveAsMenuItem.setText(bundle.getString("Menu.file.saveas")); // NOI18N
+        fileSaveAsMenuItem.setActionCommand("file-saveas");
         fileMenu.add(fileSaveAsMenuItem);
 
         fileMergeMenuItem.setText(bundle.getString("Menu.file.merge")); // NOI18N
+        fileMergeMenuItem.setActionCommand("file-merge");
         fileMenu.add(fileMergeMenuItem);
 
         fileExportDictdMenuItem.setText(bundle.getString("Menu.file.export")); // NOI18N
+        fileExportDictdMenuItem.setActionCommand("file-export-dictd");
         fileMenu.add(fileExportDictdMenuItem);
         fileMenu.add(fileQuitSeparator);
 
-        fileQuitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         fileQuitMenuItem.setText(bundle.getString("Menu.file.quit")); // NOI18N
+        fileQuitMenuItem.setActionCommand("file-quit");
         fileMenu.add(fileQuitMenuItem);
 
         menuBar.add(fileMenu);
@@ -452,9 +515,11 @@ public class MainWindow extends javax.swing.JFrame {
         researchMenu.setText(bundle.getString("Menu.research")); // NOI18N
 
         researchNotepadMenuItem.setText(bundle.getString("Menu.research.notepad")); // NOI18N
+        researchNotepadMenuItem.setActionCommand("research-notepad");
         researchMenu.add(researchNotepadMenuItem);
 
         researchStatisticsMenuItem.setText(bundle.getString("Menu.research.statistics")); // NOI18N
+        researchStatisticsMenuItem.setActionCommand("research-statistics");
         researchMenu.add(researchStatisticsMenuItem);
 
         menuBar.add(researchMenu);
@@ -463,16 +528,20 @@ public class MainWindow extends javax.swing.JFrame {
 
         settingsSaveFlaggedMenuItem.setSelected(true);
         settingsSaveFlaggedMenuItem.setText(bundle.getString("Menu.settings.saveflagged")); // NOI18N
+        settingsSaveFlaggedMenuItem.setActionCommand("settings-save-flagged");
         settingsSaveFlaggedMenuItem.setEnabled(false);
         settingsMenu.add(settingsSaveFlaggedMenuItem);
 
         settingsLanguageNamesMenuItem.setText(bundle.getString("Menu.settings.languagenames")); // NOI18N
+        settingsLanguageNamesMenuItem.setActionCommand("settings-languagenames");
         settingsMenu.add(settingsLanguageNamesMenuItem);
 
         settingsWordClassesMenuItem.setText(bundle.getString("Menu.settings.wordclasses")); // NOI18N
+        settingsWordClassesMenuItem.setActionCommand("settings-wordclasses");
         settingsMenu.add(settingsWordClassesMenuItem);
 
         settingsCategoriesMenuItem.setText(bundle.getString("Menu.settings.categories")); // NOI18N
+        settingsCategoriesMenuItem.setActionCommand("settings-categories");
         settingsMenu.add(settingsCategoriesMenuItem);
 
         menuBar.add(settingsMenu);
@@ -480,6 +549,7 @@ public class MainWindow extends javax.swing.JFrame {
         helpMenu.setText(bundle.getString("Menu.help")); // NOI18N
 
         aboutMenuItem.setText(bundle.getString("Menu.help.about")); // NOI18N
+        aboutMenuItem.setActionCommand("help-about");
         helpMenu.add(aboutMenuItem);
 
         menuBar.add(helpMenu);
@@ -490,27 +560,24 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(leftLanguagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainWindowSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rightLanguagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(leftLanguagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(mainWindowSeparator, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(rightLanguagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void fileSaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileSaveMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
@@ -525,6 +592,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileSaveMenuItem;
     private javax.swing.JMenu helpMenu;
     private org.beastwithin.conmandictionary.ui.LanguagePanel leftLanguagePanel;
+    private javax.swing.JPanel mainWindowContentPanel;
     private javax.swing.JSeparator mainWindowSeparator;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu researchMenu;

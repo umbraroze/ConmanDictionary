@@ -28,7 +28,6 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import org.beastwithin.conmandictionary.document.Category;
 import org.beastwithin.conmandictionary.document.Dictionary;
-import org.jdesktop.application.Action;
 
 /**
  * Editor for word categories.
@@ -85,7 +84,7 @@ public class CategoryEditor extends javax.swing.JDialog {
 
     
     public CategoryEditor(MainWindow parent, boolean modal, Dictionary model) {
-        super(parent.getFrame(), modal);
+        super(parent, modal);
         this.parent = parent;
         this.categoryListModel = new CategoryListModel();
         this.setModel(model);
@@ -110,7 +109,6 @@ public class CategoryEditor extends javax.swing.JDialog {
         }
     }
 
-    @Action
     public void close() {
         parent.notifyCategoryChanges();
         dispose();

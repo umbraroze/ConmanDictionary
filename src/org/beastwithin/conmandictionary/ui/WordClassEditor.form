@@ -1,17 +1,16 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" resourceKey="Form.title"/>
-    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
-    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
@@ -24,38 +23,44 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="wordClassScrollPane" alignment="0" pref="473" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="abbreviationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="abbreviationEntry" pref="404" max="32767" attributes="0"/>
-                  <Component id="nameEntry" alignment="0" pref="404" max="32767" attributes="0"/>
+                  <Component id="wordClassScrollPane" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="nameEntry" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="abbreviationLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="abbreviationEntry" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="descriptionLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="descriptionScrollPane" pref="345" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="addButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="modifyButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="doneButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="descriptionLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="descriptionScrollPane" pref="398" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
-              <Component id="addButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="modifyButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="doneButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="wordClassScrollPane" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -70,7 +75,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="descriptionLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="descriptionScrollPane" pref="110" max="32767" attributes="0"/>
+                  <Component id="descriptionScrollPane" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -79,16 +84,13 @@
                   <Component id="modifyButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="wordClassScrollPane">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="wordClassScrollPane" noResource="true"/>
-      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -101,7 +103,6 @@
               <Connection code="wordClassListModel" type="code"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
-            <Property name="name" type="java.lang.String" value="wordClassList" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="wordClassListValueChanged"/>
@@ -111,47 +112,30 @@
     </Container>
     <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="nameEntry"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="nameLabel.text"/>
-        <Property name="name" type="java.lang.String" value="nameLabel" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nameEntry">
-      <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="nameEntry.text"/>
-        <Property name="name" type="java.lang.String" value="nameEntry" noResource="true"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="abbreviationLabel">
       <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="abbreviationEntry"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.abbreviation" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="abbreviationLabel.text"/>
-        <Property name="name" type="java.lang.String" value="abbreviationLabel" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="abbreviationEntry">
-      <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="abbreviationEntry.text"/>
-        <Property name="name" type="java.lang.String" value="abbreviationEntry" noResource="true"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="descriptionLabel">
       <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="descriptionEntry"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.description" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="descriptionLabel.text"/>
-        <Property name="name" type="java.lang.String" value="descriptionLabel" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="descriptionScrollPane">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="descriptionScrollPane" noResource="true"/>
-      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -162,48 +146,36 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="name" type="java.lang.String" value="descriptionEntry" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="deleteButton">
+    <Component class="javax.swing.JButton" name="addButton">
       <Properties>
-        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="delete" methodName="delete"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.addButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="deleteButton.text"/>
-        <Property name="name" type="java.lang.String" value="deleteButton" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="doneButton">
-      <Properties>
-        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="close" methodName="close"/>
-        </Property>
-        <Property name="text" type="java.lang.String" resourceKey="doneButton.text"/>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="doneButton.toolTipText"/>
-        <Property name="name" type="java.lang.String" value="doneButton" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="modifyButton">
       <Properties>
-        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="modify" methodName="modify"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.modifyButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="modifyButton.text"/>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="modifyButton.toolTipText"/>
-        <Property name="name" type="java.lang.String" value="modifyButton" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="addButton">
+    <Component class="javax.swing.JButton" name="deleteButton">
       <Properties>
-        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-          <action class="org.beastwithin.conmandictionary.WordClassEditor" id="add" methodName="add"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.deleteButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="text" type="java.lang.String" resourceKey="addButton.text"/>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="addButton.toolTipText"/>
-        <Property name="name" type="java.lang.String" value="addButton" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="doneButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/beastwithin/conmandictionary/ui/UIMessages.properties" key="WordClassEditor.doneButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

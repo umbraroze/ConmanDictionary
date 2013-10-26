@@ -151,7 +151,8 @@ public class CategoryEditor extends javax.swing.JDialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         nameLabel.setText(bundle.getString("CategoryEditor.name")); // NOI18N
 
-        flagButton.setText("F");
+        flagButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/beastwithin/conmandictionary/ui/flag.png"))); // NOI18N
+        flagButton.setToolTipText(bundle.getString("CategoryEditor.flagButton.tooltip")); // NOI18N
 
         descriptionLabel.setText(bundle.getString("CategoryEditor.description")); // NOI18N
 
@@ -219,6 +220,8 @@ public class CategoryEditor extends javax.swing.JDialog {
                     .addComponent(addButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        flagButton.getAccessibleContext().setAccessibleName(bundle.getString("CategoryEditor.flagButton.accessibleName")); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

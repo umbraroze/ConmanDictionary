@@ -100,6 +100,8 @@ public class LanguagePanel extends javax.swing.JPanel {
         });
         definitionListScrollPane.setViewportView(definitionList);
 
+        definitionTerm.setText("jTextField1");
+
         wordClassDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         flagButton.setText("F");
@@ -109,9 +111,9 @@ public class LanguagePanel extends javax.swing.JPanel {
         definitionPanelLayout.setHorizontalGroup(
             definitionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(definitionPanelLayout.createSequentialGroup()
-                .addComponent(definitionTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(definitionTerm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(wordClassDropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(wordClassDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(flagButton))
         );

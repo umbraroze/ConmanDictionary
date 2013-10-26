@@ -7,8 +7,9 @@ import static org.junit.Assert.*;
 
 public class DictionaryTest {
     
-    private final String simpleFileName = "target/test-classes/simplefile.xml";
-    private final String complexFileName = "target/test-classes/complexfile.xml";
+    private final String testDir = "build/test/classes/org/beastwithin/conmandictionary/";
+    private final String simpleFileName = testDir+"simplefile.xml";
+    private final String complexFileName = testDir+"complexfile.xml";
 
     public DictionaryTest() {
     }

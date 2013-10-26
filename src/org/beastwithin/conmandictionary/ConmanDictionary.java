@@ -1,7 +1,7 @@
 /*  ConmanDictionary.java: Main program.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2013  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.beastwithin.conmandictionary;
 
 import org.beastwithin.conmandictionary.document.*;
@@ -27,10 +26,12 @@ import java.io.File;
  * The main class of the application.
  */
 public class ConmanDictionary {
+
     /**
      * Main window.
      */
     private static MainWindow mainWindow = null;
+
     public static MainWindow getMainWindow() {
         return mainWindow;
     }
@@ -84,7 +85,5 @@ public class ConmanDictionary {
         if (args.length == 1) {
             mainWindow.openDocument(new File(args[0]));
         }
-    
     }
-
 }

@@ -8,10 +8,10 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class MergeTest {
-    
-    private final String complexFileName = "target/test-classes/complexfile.xml";
-    private final String complexFile2Name = "target/test-classes/complexfile2.xml";
-    private final String mergeResultFileName = "target/test-classes/complexfiles_mergedbyhand.xml";
+    private final String testDir = "build/test/classes/org/beastwithin/conmandictionary/";
+    private final String complexFileName = testDir+"complexfile.xml";
+    private final String complexFile2Name = testDir+"complexfile2.xml";
+    private final String mergeResultFileName = testDir+"complexfiles_mergedbyhand.xml";
     
 
     public MergeTest() {

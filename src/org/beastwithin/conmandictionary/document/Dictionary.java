@@ -36,7 +36,7 @@ import javax.swing.text.*;
 @XmlRootElement(name = "dictionarydatabase")
 public class Dictionary {
     @XmlTransient
-    private static final String schemaResourceFile = "org/beastwithin/conmandictionary/resources/dictionary.xsd";
+    private static final String schemaResourceFile = "org/beastwithin/conmandictionary/document/dictionary.xsd";
     @XmlTransient
     private File currentFile = null;
     // This is XmlTransient because of a name clash.

@@ -19,6 +19,8 @@
 
 package org.beastwithin.conmandictionary.ui;
 
+import java.io.*;
+
 /**
  * About box.
  * 
@@ -28,13 +30,18 @@ package org.beastwithin.conmandictionary.ui;
  * @author wwwwolf
  */
 public class AboutBox extends javax.swing.JDialog {
+    /** HTML resource file containing the about box text. */
+    private static final String ABOUT_TEXT_FILE = 
+        "org/beastwithin/conmandictionary/ui/aboutText.html";
 
     /**
-     * Creates new form AboutBox2
+     * Constructor for the About Box.
      */
     public AboutBox(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        // My initialisation stuff...
+        setAboutText();
     }
 
     /**
@@ -61,7 +68,6 @@ public class AboutBox extends javax.swing.JDialog {
 
         aboutBoxText.setEditable(false);
         aboutBoxText.setContentType("text/html"); // NOI18N
-        aboutBoxText.setText("<html>\n  <head>\n     About Conman's Dictionary\n  </head>\n  <body>\n\n<h1>Conman's Dictionary</h1>\n\n\n<p><i>Dictionary for authors of constructed languages.</i></p>\n\n<p>Copyright © Urpo Lankinen 2006,2007,2008,2009,2010,2011,2012,2013.</p>\n\n<p>This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.</p>\n\n<p>This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.</p>\n\n<p>You should have received a copy of the GNU General Public License\n    along with this program.  If not, see &lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;.</p>\n\n  </body>\n</html>\n"); // NOI18N
         aboutBoxTextScrollPane.setViewportView(aboutBoxText);
 
         closeButton.setText(bundle.getString("AboutBox.closeButton")); // NOI18N
@@ -114,4 +120,25 @@ public class AboutBox extends javax.swing.JDialog {
     private javax.swing.JScrollPane aboutBoxTextScrollPane;
     private javax.swing.JButton closeButton;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Load the About Box text from the HTML resource file specified in
+     * ABOUT_TEXT_FILE.
+     */
+    private void setAboutText() {
+        InputStream t = ClassLoader.getSystemResourceAsStream(ABOUT_TEXT_FILE);
+        BufferedReader r = new BufferedReader(new InputStreamReader(t));
+        StringBuffer text = new StringBuffer();
+        try {
+            String readLine = "";
+            while(readLine != null) {
+                readLine = r.readLine();
+                if(readLine != null) {
+                    text.append(readLine);
+                }
+            }
+        } catch(IOException ioe) {
+        }
+        this.aboutBoxText.setText(text.toString());
+    }    
 }

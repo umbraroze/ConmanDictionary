@@ -1,7 +1,7 @@
 /*  MainWindow.java: main window class.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2013,2014  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -443,31 +443,12 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Conman's Dictionary");
 
-        mainWindowSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        mainWindowContentPanel.setLayout(new java.awt.GridBagLayout());
+        mainWindowContentPanel.add(leftLanguagePanel, new java.awt.GridBagConstraints());
 
-        javax.swing.GroupLayout mainWindowContentPanelLayout = new javax.swing.GroupLayout(mainWindowContentPanel);
-        mainWindowContentPanel.setLayout(mainWindowContentPanelLayout);
-        mainWindowContentPanelLayout.setHorizontalGroup(
-            mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainWindowContentPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainWindowSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
-        );
-        mainWindowContentPanelLayout.setVerticalGroup(
-            mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainWindowContentPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(mainWindowContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(leftLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainWindowSeparator)
-                    .addComponent(rightLanguagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
-        );
+        mainWindowSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        mainWindowContentPanel.add(mainWindowSeparator, new java.awt.GridBagConstraints());
+        mainWindowContentPanel.add(rightLanguagePanel, new java.awt.GridBagConstraints());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         fileMenu.setText(bundle.getString("Menu.file")); // NOI18N
@@ -561,15 +542,15 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
+                .addGap(0, 0, 0)
+                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
+                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();

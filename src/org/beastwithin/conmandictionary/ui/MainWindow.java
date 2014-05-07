@@ -415,7 +415,6 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainWindowContentPanel = new javax.swing.JPanel();
         leftLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
         mainWindowSeparator = new javax.swing.JSeparator();
         rightLanguagePanel = new org.beastwithin.conmandictionary.ui.LanguagePanel();
@@ -442,13 +441,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Conman's Dictionary");
+        setMinimumSize(new java.awt.Dimension(970, 600));
+        setName("MainWindow"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(970, 600));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        mainWindowContentPanel.setLayout(new java.awt.GridBagLayout());
-        mainWindowContentPanel.add(leftLanguagePanel, new java.awt.GridBagConstraints());
+        leftLanguagePanel.setMinimumSize(new java.awt.Dimension(470, 520));
+        leftLanguagePanel.setPreferredSize(new java.awt.Dimension(470, 520));
+        getContentPane().add(leftLanguagePanel);
 
         mainWindowSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        mainWindowContentPanel.add(mainWindowSeparator, new java.awt.GridBagConstraints());
-        mainWindowContentPanel.add(rightLanguagePanel, new java.awt.GridBagConstraints());
+        mainWindowSeparator.setMaximumSize(new java.awt.Dimension(2, 32767));
+        getContentPane().add(mainWindowSeparator);
+
+        rightLanguagePanel.setMinimumSize(new java.awt.Dimension(470, 520));
+        rightLanguagePanel.setPreferredSize(new java.awt.Dimension(470, 520));
+        getContentPane().add(rightLanguagePanel);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         fileMenu.setText(bundle.getString("Menu.file")); // NOI18N
@@ -537,22 +545,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainWindowContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -573,7 +565,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileSaveMenuItem;
     private javax.swing.JMenu helpMenu;
     private org.beastwithin.conmandictionary.ui.LanguagePanel leftLanguagePanel;
-    private javax.swing.JPanel mainWindowContentPanel;
     private javax.swing.JSeparator mainWindowSeparator;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu researchMenu;

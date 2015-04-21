@@ -1,7 +1,7 @@
 /*  LanguagePanel.java: Dictionary list and entry editor panel in main window.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008,2009,2010,2013  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2009,2010,2013,2015  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -89,6 +89,8 @@ public class LanguagePanel extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         modifyButton = new javax.swing.JButton();
 
+        setMinimumSize(new java.awt.Dimension(400, 517));
+
         languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
         languageLabel.setText(bundle.getString("LanguagePanel.languageLabelDefault")); // NOI18N
@@ -162,9 +164,9 @@ public class LanguagePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(definitionEditorScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(definitionEditorScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(definitionPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                    .addComponent(languageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(searchBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(languagePanelSeparator1)
                     .addComponent(definitionListScrollPane)

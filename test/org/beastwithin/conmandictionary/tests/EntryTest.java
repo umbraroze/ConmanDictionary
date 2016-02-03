@@ -1,5 +1,5 @@
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.tests;
 
 import org.beastwithin.conmandictionary.document.Entry;
 import org.beastwithin.conmandictionary.document.EntryList;

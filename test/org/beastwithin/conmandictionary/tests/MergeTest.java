@@ -1,5 +1,5 @@
 
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary.tests;
 
 import org.beastwithin.conmandictionary.document.Dictionary;
 import java.io.*;
@@ -8,7 +8,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class MergeTest {
-    private final String testDir = "build/test/classes/org/beastwithin/conmandictionary/";
+    private final String testDir = "out/test/ConmanDictionary/org/beastwithin/conmandictionary/tests/";
     private final String complexFileName = testDir+"complexfile.xml";
     private final String complexFile2Name = testDir+"complexfile2.xml";
     private final String mergeResultFileName = testDir+"complexfiles_mergedbyhand.xml";

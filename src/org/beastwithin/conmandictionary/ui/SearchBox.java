@@ -19,12 +19,22 @@
 
 package org.beastwithin.conmandictionary.ui;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.List;
 
-public class SearchBox extends javax.swing.JPanel {
+public class SearchBox extends JPanel {
+    private JButton clearButton;
+    private JTextField search;
+    private JPanel createPanel;
 
     private List<SearchBoxListener> searchBoxListeners;
-   
+
     private void notifySearchBoxChanged() {
         String t = search.getText();
         for (SearchBoxListener s : searchBoxListeners) {
@@ -41,72 +51,45 @@ public class SearchBox extends javax.swing.JPanel {
     public void addSearchBoxListener(SearchBoxListener newListener) {
         searchBoxListeners.add(newListener);
     }
-    
+
     public SearchBox() {
-	searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
-        initComponents();
+        searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
+        //$$$setupUI$$$();
+        createUIComponents();
+        search.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                searchKeyTyped(e);
+            }
+        });
+        clearButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                clearButtonMouseClicked(e);
+            }
+        });
     }
-    
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        search = new javax.swing.JTextField();
-        clearButton = new javax.swing.JButton();
-
-        search.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                searchKeyTyped(evt);
-            }
-        });
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/beastwithin/conmandictionary/ui/UIMessages"); // NOI18N
-        clearButton.setText(bundle.getString("SearchBox.clearButton")); // NOI18N
-        clearButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clearButtonMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clearButton))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(clearButton)
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-    }// </editor-fold>//GEN-END:initComponents
 
     /*
      * Called when user types anything on the search box.
      */
-    private void searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyTyped
+    private void searchKeyTyped(KeyEvent evt) {
         if (search.getText().length() == 0) {
             notifySearchBoxCleared();
         } else {
             notifySearchBoxChanged();
         }
-    }//GEN-LAST:event_searchKeyTyped
+    }
 
     /*
      * Called when user clicks "Clear" button.
      */
-    private void clearButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearButtonMouseClicked
+    private void clearButtonMouseClicked(MouseEvent evt) {
         search.setText("");
         notifySearchBoxCleared();
-    }//GEN-LAST:event_clearButtonMouseClicked
-    
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton clearButton;
-    private javax.swing.JTextField search;
-    // End of variables declaration//GEN-END:variables
-    
+    }
+
+    private void createUIComponents() {
+        System.err.println("CreateUIComponents");
+    }
 }

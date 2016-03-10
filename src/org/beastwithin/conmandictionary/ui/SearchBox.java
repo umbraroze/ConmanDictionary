@@ -31,7 +31,7 @@ import java.util.List;
 public class SearchBox extends JPanel {
     private JButton clearButton;
     private JTextField search;
-    private JPanel createPanel;
+    private JPanel searchBoxPanel;
 
     private List<SearchBoxListener> searchBoxListeners;
 
@@ -90,6 +90,16 @@ public class SearchBox extends JPanel {
     }
 
     private void createUIComponents() {
-        System.err.println("CreateUIComponents");
+        search = new JTextField();
+
+        clearButton = new JButton();
+        clearButton.setText("Clear");
+
+        //searchBoxPanel = new JPanel();
+
+        setLayout(new FlowLayout());
+        add(search);
+        add(clearButton);
+        //searchBoxPanel.setVisible(true);
     }
 }

@@ -14,13 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    searchwidget.cpp \
-    languagepanel.cpp
+    languagepanel.cpp \
+    dictionary_data.cpp \
+    document_model_prototest.cpp
 
 HEADERS  += mainwindow.h \
-    searchwidget.h \
-    languagepanel.h
+    languagepanel.h \
+    dictionary_data.h
 
 FORMS    += mainwindow.ui \
-    searchwidget.ui \
     languagepanel.ui
+
+DISTFILES += \
+    CMakeLists.txt

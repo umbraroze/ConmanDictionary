@@ -20,18 +20,15 @@
 package org.beastwithin.conmandictionary.ui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
 public class SearchBox extends JPanel {
+
+    private JPanel searchBoxPanel;
     private JButton clearButton;
     private JTextField search;
-    private JPanel searchBoxPanel;
 
     private List<SearchBoxListener> searchBoxListeners;
 
@@ -41,21 +38,17 @@ public class SearchBox extends JPanel {
             s.searchBoxContentsChanged(t);
         }
     }
-
     private void notifySearchBoxCleared() {
         for (SearchBoxListener s : searchBoxListeners) {
             s.searchBoxCleared();
         }
     }
-
     public void addSearchBoxListener(SearchBoxListener newListener) {
         searchBoxListeners.add(newListener);
     }
 
     public SearchBox() {
         searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
-        //$$$setupUI$$$();
-        createUIComponents();
         search.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -87,19 +80,5 @@ public class SearchBox extends JPanel {
     private void clearButtonMouseClicked(MouseEvent evt) {
         search.setText("");
         notifySearchBoxCleared();
-    }
-
-    private void createUIComponents() {
-        search = new JTextField();
-
-        clearButton = new JButton();
-        clearButton.setText("Clear");
-
-        //searchBoxPanel = new JPanel();
-
-        setLayout(new FlowLayout());
-        add(search);
-        add(clearButton);
-        //searchBoxPanel.setVisible(true);
     }
 }

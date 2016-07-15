@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox fx:id="languagePanelBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="3.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fx:id="languageLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Language" textAlignment="CENTER" wrappingWidth="300.0" VBox.vgrow="NEVER" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(searchbox)" />
-      <ScrollPane fx:id="definitionListScrollPane" prefHeight="200.0" prefWidth="200.0">
+      <HBox fx:id="searchBox" fillHeight="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+         <children>
+            <TextField id="search" fx:id="search" maxWidth="1.7976931348623157E308" onKeyTyped="#searchKeyTyped" prefWidth="200.0" promptText="Search" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Button id="clearButton" fx:id="clearButton" mnemonicParsing="false" onAction="#clearSearch" text="Clear" textAlignment="CENTER" HBox.hgrow="NEVER" />
+         </children>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </HBox>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -20,5 +38,28 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <TextField fx:id="definitionTerm" promptText="Term" />
+      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+         <children>
+            <ComboBox fx:id="wordClassDropDown" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="flagButton" fx:id="flagButton" mnemonicParsing="false" text="Flag" />
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER">
+         <content>
+            <TextArea fx:id="definitionEditor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="300.0" promptText="Definition..." />
+         </content>
+      </ScrollPane>
+      <ComboBox fx:id="categoryDropDown" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+      <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" spacing="5.0">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
+            <Button fx:id="modifyButton" mnemonicParsing="false" text="Modify" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </VBox>

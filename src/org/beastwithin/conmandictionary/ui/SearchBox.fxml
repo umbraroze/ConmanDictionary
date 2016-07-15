@@ -5,10 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
-
-<HBox fillHeight="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="searchBox" fillHeight="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField id="search" fx:id="search" onKeyTyped="#searchKeyTyped" prefHeight="25.0" prefWidth="207.0" promptText="Search" HBox.hgrow="ALWAYS">
+      <TextField id="search" fx:id="search" maxWidth="1.7976931348623157E308" onKeyTyped="#searchKeyTyped" prefWidth="200.0" promptText="Search" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>

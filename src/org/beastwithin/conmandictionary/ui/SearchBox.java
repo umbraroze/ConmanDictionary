@@ -1,7 +1,7 @@
 /*  SearchBox.java: Search box control.
- * 
+ *
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006  Urpo Lankinen
+ *  Copyright (C) 2006,2016 Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -12,25 +12,50 @@
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.beastwithin.conmandictionary.ui;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import java.io.*;
 import java.util.*;
-import java.util.List;
 
-public class SearchBox extends JPanel {
-
-    private JPanel searchBoxPanel;
-    private JButton clearButton;
-    private JTextField search;
-
+public class SearchBox extends VBox {
+    private final String fxmlFile = "SearchBox.fxml";
     private List<SearchBoxListener> searchBoxListeners;
+    @FXML private TextField search;
+    @FXML private Button clearButton;
+
+    public SearchBox() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
+    }
+
+    @FXML
+    protected void clearSearch() {
+        search.clear();
+        notifySearchBoxCleared();
+    }
+    @FXML
+    protected void searchKeyTyped() {
+        if (search.getText().length() == 0) {
+            notifySearchBoxCleared();
+        } else {
+            notifySearchBoxChanged();
+        }
+    }
 
     private void notifySearchBoxChanged() {
         String t = search.getText();
@@ -45,40 +70,5 @@ public class SearchBox extends JPanel {
     }
     public void addSearchBoxListener(SearchBoxListener newListener) {
         searchBoxListeners.add(newListener);
-    }
-
-    public SearchBox() {
-        searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
-        search.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                searchKeyTyped(e);
-            }
-        });
-        clearButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                clearButtonMouseClicked(e);
-            }
-        });
-    }
-
-    /*
-     * Called when user types anything on the search box.
-     */
-    private void searchKeyTyped(KeyEvent evt) {
-        if (search.getText().length() == 0) {
-            notifySearchBoxCleared();
-        } else {
-            notifySearchBoxChanged();
-        }
-    }
-
-    /*
-     * Called when user clicks "Clear" button.
-     */
-    private void clearButtonMouseClicked(MouseEvent evt) {
-        search.setText("");
-        notifySearchBoxCleared();
     }
 }

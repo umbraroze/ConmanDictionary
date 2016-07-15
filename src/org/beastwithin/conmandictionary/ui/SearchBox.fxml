@@ -5,16 +5,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="searchBox" fillHeight="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField id="search" fx:id="search" maxWidth="1.7976931348623157E308" onKeyTyped="#searchKeyTyped" prefWidth="200.0" promptText="Search" HBox.hgrow="ALWAYS">
-         <HBox.margin>
-            <Insets right="10.0" />
-         </HBox.margin>
-      </TextField>
-      <Button id="clearButton" fx:id="clearButton" mnemonicParsing="false" onAction="#clearSearch" text="Clear" textAlignment="CENTER" HBox.hgrow="NEVER" />
-   </children>
-   <padding>
-      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-   </padding>
-</HBox>
+<!-- maxWidth = 1.7976931348623157E308 -->
+<!-- fillHeight="false" -->
+
+<fx:root type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/8.0.65"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:id="searchBox"
+         maxWidth="Infinity"
+         minWidth="-Infinity"
+         fx:controller="org.beastwithin.conmandictionary.ui.SearchBox">
+    <children>
+        <TextField id="search" fx:id="search"
+                   prefWidth="200.0" maxWidth="Infinity"
+                   promptText="Search" HBox.hgrow="ALWAYS"
+                   onKeyTyped="#searchKeyTyped">
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </TextField>
+        <Button id="clearButton" fx:id="clearButton" mnemonicParsing="false" onAction="#clearSearch" text="Clear"
+                textAlignment="CENTER" HBox.hgrow="NEVER"/>
+    </children>
+    <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+    </padding>
+</fx:root>

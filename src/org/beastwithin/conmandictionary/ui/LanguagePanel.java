@@ -1,7 +1,7 @@
 /*  LanguagePanel.java: Dictionary list and entry editor panel in main window.
  * 
  *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008,2009,2010,2013,2015  Urpo Lankinen
+ *  Copyright (C) 2006,2007,2008,2009,2010,2013,2015,2016  Urpo Lankinen
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,10 +20,13 @@
 package org.beastwithin.conmandictionary.ui;
 
 import org.beastwithin.conmandictionary.document.*;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.*;
-import javax.swing.event.*;
+
+import java.io.*;
+import java.util.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 
 /**
  * Dictionary list and entry editor panel in main window. Consists of
@@ -32,13 +35,24 @@ import javax.swing.event.*;
  * 
  * @author wwwwolf
  */
-public class LanguagePanel extends javax.swing.JPanel {
+public class LanguagePanel extends VBox {
+    // UI components
+    @FXML private Text languageLabel;
+    @FXML private SearchBox searchBox;
+    @FXML private ListView definitionList;
+    @FXML private TextField definitionTerm;
+    @FXML private ComboBox wordClassDropDown;
+    @FXML private ToggleButton flagButton;
+    @FXML private TextArea definitionEditor;
+    @FXML private ComboBox categoryDropDown;
+    @FXML private Button addButton;
+    @FXML private Button modifyButton;
+    @FXML private Button deleteButton;
 
-    private class EntryListModel extends DefaultListModel {
-        // FIXME: Unused as of yet
-        // This should implement the Swing stuff currently in EntryList.java
-    }
-    
+    // Constants
+    private final String fxmlFile = "LanguagePanel.fxml";
+
+    // Internal data model
     private EntryList entryList;
     private List<WordClass> wordClasses;
     private List<Category> categories;
@@ -47,13 +61,20 @@ public class LanguagePanel extends javax.swing.JPanel {
     private LanguagePanelSearchBoxListener searchListener;
         
     public LanguagePanel() {
-        super();
-        System.out.println("LanguagePanel created");
+        // Load FXML
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
         entryList = new EntryList();
         clearWordClasses();
         clearCategories();
         searchListener = new LanguagePanelSearchBoxListener(this);
-        //initComponents();
         entryList.setLanguage("");
     }
 
@@ -62,28 +83,6 @@ public class LanguagePanel extends javax.swing.JPanel {
         entryList.setLanguage(language);
         languageLabel.setText(language);
     }
-
-    // Components
-
-    private JPanel languagePanel;
-
-    private JLabel languageLabel;
-
-    private SearchBox searchBox;
-
-    private JList definitionList;
-
-    private JTextField definitionTerm;
-    private JComboBox wordClassDropDown;
-    private JToggleButton flagButton;
-
-    private JEditorPane definitionEditor;
-
-    private JComboBox categoryDropDown;
-
-    private JButton addButton;
-    private JButton modifyButton;
-    private JButton deleteButton;
 
     private class LanguagePanelSearchBoxListener implements SearchBoxListener {
         private LanguagePanel languagePanel;
@@ -126,7 +125,7 @@ public class LanguagePanel extends javax.swing.JPanel {
      *
      */
     private void pickedListItemForEditing() {
-        int idx = this.definitionList.getSelectedIndex();
+        int idx = this.definitionList.getSelectionModel().getSelectedIndex();
         if (idx == -1) {
             return;
         }
@@ -140,44 +139,46 @@ public class LanguagePanel extends javax.swing.JPanel {
      * @param e Entry to be edited.
      */
     private void editEntry(Entry e) {
-        this.definitionTerm.setText(e.getTerm());
-        this.definitionEditor.setText(e.getDefinition());
-        this.flagButton.setSelected(e.isFlagged());
+        SelectionModel dd = wordClassDropDown.getSelectionModel();
+        definitionTerm.setText(e.getTerm());
+        definitionEditor.setText(e.getDefinition());
+        flagButton.setSelected(e.isFlagged());
         if(e.getWordClass() == null)
-            this.wordClassDropDown.setSelectedIndex(0);
+            dd.selectFirst();
         else
-            this.wordClassDropDown.setSelectedItem(e.getWordClass());
+            dd.select(e.getWordClass());
         if(e.getCategory() == null)
-            this.categoryDropDown.setSelectedIndex(0);
+            dd.selectFirst();
         else
-            this.categoryDropDown.setSelectedItem(e.getCategory());
+            dd.select(e.getCategory());
     }
 
     /**
      * Clears the editor.
      */
     public void clearEntries() {
-        this.definitionTerm.setText("");
-        this.definitionEditor.setText("");
-        this.flagButton.setSelected(false);
-        this.wordClassDropDown.setSelectedIndex(0);
-        this.categoryDropDown.setSelectedIndex(0);
+        definitionTerm.setText("");
+        definitionEditor.setText("");
+        flagButton.setSelected(false);
+        wordClassDropDown.getSelectionModel().selectFirst();
+        categoryDropDown.getSelectionModel().selectFirst();
     }
 
     /**
      * Adds the values in the editor as a new entry in the list.
      */
+    @FXML
     public void addDefinition() {
-        String term = this.definitionTerm.getText();
-        String definition = this.definitionEditor.getText();
-        boolean flagged = this.flagButton.isSelected();
+        String term = definitionTerm.getText();
+        String definition = definitionEditor.getText();
+        boolean flagged = flagButton.isSelected();
         
         WordClass newWordClass = null;
-        if(wordClassDropDown.getSelectedIndex() != 0)
-            newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
+        if(wordClassDropDown.getSelectionModel().getSelectedIndex() != 0)
+            newWordClass = (WordClass)wordClassDropDown.getSelectionModel().getSelectedItem();
         Category newCategory = null;
-        if(categoryDropDown.getSelectedIndex() != 0)
-            newCategory = (Category)this.categoryDropDown.getSelectedItem();
+        if(categoryDropDown.getSelectionModel().getSelectedIndex() != 0)
+            newCategory = (Category)categoryDropDown.getSelectionModel().getSelectedItem();
 
         Entry newTerm = new Entry(term, definition, flagged);
         if(newWordClass != null)
@@ -185,13 +186,14 @@ public class LanguagePanel extends javax.swing.JPanel {
         if(newCategory != null)
             newTerm.setCategory(newCategory);
 
-        this.entryList.add(newTerm);
-        this.entryList.sort();
+        entryList.add(newTerm);
+        entryList.sort();
     }
 
     /**
      * Deletes the selected entry.
      */
+    @FXML
     public void deleteSelected() {
         // TODO: Confirmation dialog!
         int idx = this.definitionList.getSelectedIndex();
@@ -206,6 +208,7 @@ public class LanguagePanel extends javax.swing.JPanel {
     /**
      * Update the selected item with the new details from the editor.
      */
+    @FXML
     public void modifySelected() {
         int idx = this.definitionList.getSelectedIndex();
         if (idx == -1) {
@@ -312,7 +315,7 @@ public class LanguagePanel extends javax.swing.JPanel {
 
     public void searchForTerm(String term) {
         Entry x = entryList.search(term);
-        this.definitionList.setSelectedValue(x, true);
+        definitionList.getSelectionModel().select(x);
     }
 
     public void clearListSelection() {

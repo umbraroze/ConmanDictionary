@@ -25,7 +25,7 @@ import javafx.scene.layout.*;
 import java.io.*;
 import java.util.*;
 
-public class SearchBox extends VBox {
+public class SearchBox extends HBox {
     private final String fxmlFile = "SearchBox.fxml";
     private List<SearchBoxListener> searchBoxListeners;
     @FXML private TextField search;

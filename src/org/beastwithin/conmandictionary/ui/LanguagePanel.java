@@ -196,7 +196,7 @@ public class LanguagePanel extends VBox {
     @FXML
     public void deleteSelected() {
         // TODO: Confirmation dialog!
-        int idx = this.definitionList.getSelectedIndex();
+        int idx = this.definitionList.getSelectionModel().getSelectedIndex();
         if (idx == -1) {
             return;
         }
@@ -210,7 +210,7 @@ public class LanguagePanel extends VBox {
      */
     @FXML
     public void modifySelected() {
-        int idx = this.definitionList.getSelectedIndex();
+        int idx = this.definitionList.getSelectionModel().getSelectedIndex();
         if (idx == -1) {
             return;
         }
@@ -219,16 +219,17 @@ public class LanguagePanel extends VBox {
         e.setDefinition(this.definitionEditor.getText());
         e.setFlagged(this.flagButton.isSelected());
         WordClass newWordClass = null;
-        if(wordClassDropDown.getSelectedIndex() != 0)
-            newWordClass = (WordClass)this.wordClassDropDown.getSelectedItem();
+        if(wordClassDropDown.getSelectionModel().getSelectedIndex() != 0)
+            newWordClass = (WordClass)this.wordClassDropDown.getSelectionModel().getSelectedItem();
         e.setWordClass(newWordClass);
         Category newCategory = null;
-        if(categoryDropDown.getSelectedIndex() != 0)
-            newCategory = (Category)this.categoryDropDown.getSelectedItem();
+        if(categoryDropDown.getSelectionModel().getSelectedIndex() != 0)
+            newCategory = (Category)this.categoryDropDown.getSelectionModel().getSelectedItem();
         e.setCategory(newCategory);
 
         this.entryList.sort();
-        this.definitionList.repaint();
+        // FIXME: Swing needed a call to repaint() here. Is JavaFX affected?
+        //this.definitionList.repaint();
     }
 
     /**
@@ -241,7 +242,9 @@ public class LanguagePanel extends VBox {
 
     public void setEntryList(EntryList l) {
         entryList = l;
-        definitionList.setModel(entryList);
+        definitionList.setModel(entryList); // Swing
+        // FIXME: Of course, JavaFX is completely different from Swing.
+        //definitionList.setCellFactory();
         resetLanguageLabel();
     }
     

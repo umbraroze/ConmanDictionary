@@ -24,6 +24,7 @@ import org.beastwithin.conmandictionary.document.*;
 import java.io.*;
 import java.util.*;
 import javafx.fxml.*;
+import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
@@ -54,8 +55,8 @@ public class LanguagePanel extends VBox {
 
     // Internal data model
     private EntryList entryList;
-    private List<WordClass> wordClasses;
-    private List<Category> categories;
+    private ObservableList<WordClass> wordClasses;
+    private ObservableList<Category> categories;
     private ComboBoxModelWithNullChoice wordClassModel;
     private ComboBoxModelWithNullChoice categoriesModel;
     private LanguagePanelSearchBoxListener searchListener;
@@ -242,7 +243,7 @@ public class LanguagePanel extends VBox {
 
     public void setEntryList(EntryList l) {
         entryList = l;
-        definitionList.setModel(entryList); // Swing
+        definitionList.setItems(entryList); // Swing
         // FIXME: Of course, JavaFX is completely different from Swing.
         //definitionList.setCellFactory();
         resetLanguageLabel();
@@ -268,7 +269,7 @@ public class LanguagePanel extends VBox {
         // Damn you and your vectors
         Vector<WordClass> v = new Vector<WordClass>(this.wordClasses);
         wordClassModel = new ComboBoxModelWithNullChoice(v);
-        wordClassDropDown.setModel(wordClassModel);
+        wordClassDropDown.setItems(wordClassModel);
         //wordClassDropDown.contentsChanged(new ListDataEvent(v, ListDataEvent.CONTENTS_CHANGED, 0, v.size() - 1));
     }
     public void wordClassesChanged() {
@@ -298,7 +299,7 @@ public class LanguagePanel extends VBox {
         // Damn you and your vectors
         Vector<Category> v = new Vector<Category>(this.categories);
         categoriesModel = new ComboBoxModelWithNullChoice(v);
-        categoryDropDown.setModel(categoriesModel);
+        categoryDropDown.setItems(categoriesModel);
     }
     public void categoriesChanged() {
         setCategories(categories);

@@ -26,13 +26,16 @@ import java.io.*;
 import java.util.*;
 
 public class SearchBox extends HBox {
-    private final String fxmlFile = "SearchBox.fxml";
+    private static final String FXML_FILE = "SearchBox.fxml";
+
     private List<SearchBoxListener> searchBoxListeners;
+
     @FXML private TextField search;
     @FXML private Button clearButton;
 
     public SearchBox() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXML_FILE));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -40,6 +43,7 @@ public class SearchBox extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
         searchBoxListeners = Collections.synchronizedList(new ArrayList<SearchBoxListener>());
     }
 

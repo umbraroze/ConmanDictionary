@@ -16,10 +16,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.beastwithin.conmandictionary.document;
 
-import org.beastwithin.conmandictionary.ui.LanguagePanel;
-import org.beastwithin.conmandictionary.ConmanDictionary;
 import java.util.*;
 import java.io.*;
 import javax.xml.*;
@@ -28,7 +27,6 @@ import javax.xml.transform.stream.*;
 import org.xml.sax.*;
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
-import javax.swing.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
@@ -82,13 +80,7 @@ public class Dictionary {
             int oldLength = notePad.getLength();
             notePad.replace(0, oldLength, n, null);
         } catch (BadLocationException ble) {
-            JOptionPane.showMessageDialog(
-                    ConmanDictionary.getMainWindow(),
-                    "Error changing the text on the notepad:\n" +
-                    ble.getMessage() +
-                    "\nFurther details printed at console.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            // TODO: RAISE ERROR
             ble.printStackTrace();
         }
     }
@@ -97,13 +89,7 @@ public class Dictionary {
         try {
             return notePad.getText(0, notePad.getLength());
         } catch (BadLocationException ble) {
-            JOptionPane.showMessageDialog(
-                    ConmanDictionary.getMainWindow(),
-                    "Error getting text from the notepad:\n" +
-                    ble.getMessage() +
-                    "\nFurther details printed at console.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            // TODO: RAISE ERROR
             ble.printStackTrace();
             return "";
         }
@@ -364,9 +350,11 @@ public class Dictionary {
     public void setCategoriesModified(boolean categoriesModified) {
         this.categoriesModified = categoriesModified;
     }
-    
 
     public void exportAsDictd(String fileNameBase) {
+        System.err.println("WARNING: dictd export unavailable in this version due to code rot. Sorry about that.");
+
+        /*
         LanguagePanel lp = ConmanDictionary.getMainWindow().getLeftLanguagePanel();
         LanguagePanel rp = ConmanDictionary.getMainWindow().getRightLanguagePanel();
         String lFileName, rFileName;
@@ -400,6 +388,7 @@ public class Dictionary {
                     ioe.getMessage(),
                     "Error exporting the file.", JOptionPane.ERROR_MESSAGE);
         }
+        */
     }
     
     public List<WordClass> getWordClasses() {

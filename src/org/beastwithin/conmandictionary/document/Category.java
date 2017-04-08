@@ -19,7 +19,6 @@
 
 package org.beastwithin.conmandictionary.document;
 
-import org.beastwithin.conmandictionary.ui.OptionalBooleanAdapter;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.*;
 

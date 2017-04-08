@@ -1,89 +1,60 @@
-/*  ConmanDictionary.java: Main program.
- * 
- *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008,2013  Urpo Lankinen
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package org.beastwithin.conmandictionary;
 
-import org.beastwithin.conmandictionary.document.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.URL;
 import org.beastwithin.conmandictionary.ui.*;
-import java.io.File;
 
-/**
- * The main class of the application.
- */
-public class ConmanDictionary {
+public class ConmanDictionary extends Application {
 
-    /**
-     * Main window.
-     */
-    private static MainWindow mainWindow = null;
+    private static SearchBoxListener mainSearch;
+    private class TestSearchBoxListener implements SearchBoxListener {
+        @Override
+        public void searchBoxCleared() {
+            System.out.println("TEST LISTENER: Cleared search box");
+        }
 
-    public static MainWindow getMainWindow() {
-        return mainWindow;
-    }
-    /**
-     * Dictionary document currently edited.
-     */
-    private static Dictionary dictionary = null;
-
-    public static Dictionary getDictionary() {
-        return dictionary;
+        @Override
+        public void searchBoxContentsChanged(String newContents) {
+            System.out.println("TEST LISTENER: Search: "+newContents);
+        }
     }
 
+    //////////////////////////////////////////////////////////////////////
+
     /**
-     * @param args the command line arguments
+     * Main application entry point.
+     *
+     * @param args Command line arguments from JVM.
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * Initialise the JavaFX application.
+     *
+     * Loads the main window (from file specified at MAIN_WINDOW_FXML) to primaryStage
+     *
+     * @param primaryStage The primary JavaFX stage, to be loaded from main window FXML file.
+     * @throws IOException
+     */
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        URL fxml = getClass().getResource(MainWindowController.FXML_FILE);
+        if(fxml == null) {
+            throw new IOException("Can't find main window FXML.");
         }
-        //</editor-fold>
+        Parent root = FXMLLoader.load(fxml);
 
-        dictionary = new Dictionary();
-        mainWindow = new MainWindow();
-        mainWindow.setModel(dictionary);
+        Scene scene = new Scene(root, 600, 320);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ConmanDictionary.mainWindow.setVisible(true);
-            }
-        });
-
-        if (args.length == 1) {
-            mainWindow.openDocument(new File(args[0]));
-        }
+        primaryStage.setTitle(MainWindowController.WINDOW_TITLE);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }

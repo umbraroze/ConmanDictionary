@@ -13,7 +13,8 @@
          xmlns:fx="http://javafx.com/fxml/1"
          fx:id="searchBox"
          maxWidth="Infinity"
-         minWidth="-Infinity">
+         minWidth="-Infinity"
+         fx:controller="org.beastwithin.conmandictionary.ui.SearchBox">
     <children>
         <TextField id="search" fx:id="search"
                    prefWidth="200.0" maxWidth="Infinity"

@@ -12,7 +12,8 @@
          minWidth="-Infinity" minHeight="-Infinity"
          prefWidth="300.0"
          maxWidth="-Infinity" maxHeight="-Infinity"
-         spacing="3.0">
+         spacing="3.0"
+         fx:controller="org.beastwithin.conmandictionary.ui.LanguagePanel">
     <children>
         <Text fx:id="languageLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Language" textAlignment="CENTER"
               wrappingWidth="300.0" VBox.vgrow="NEVER"/>

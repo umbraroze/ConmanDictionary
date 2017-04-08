@@ -18,7 +18,6 @@
  */
 package org.beastwithin.conmandictionary.document;
 
-import org.beastwithin.conmandictionary.ui.OptionalBooleanAdapter;
 import java.io.*;
 import java.util.regex.*;
 import javax.xml.bind.annotation.*;

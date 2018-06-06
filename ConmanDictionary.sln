@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConmanDictionary", "ConmanDictionary\ConmanDictionary.csproj", "{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C3A8104-FB45-4E77-87EC-5A3CF5052010} = {0C3A8104-FB45-4E77-87EC-5A3CF5052010}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryDocument", "DictionaryDocument\DictionaryDocument.csproj", "{0C3A8104-FB45-4E77-87EC-5A3CF5052010}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51E9E02F-52C8-405A-A03F-F333F0977801}
+	EndGlobalSection
+EndGlobal

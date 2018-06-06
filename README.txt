@@ -4,54 +4,37 @@ Conman's Dictionary
 Overview
 --------
 
-Conman's Dictionary is a dictionary application. Currently, it is best
+Conman's Dictionary is a dictionary application. It is primarily
 geared for armchair linguists who are working on constructed languages
 (hence the name). It probably will not be that good if it's used for
-any other purpose. The program shows two word lists at a time
-(Language 1 to Language 2, and vice versa). It uses its own XML file
-format, and can export the dictionary in the plain text format used by
-dictd.
+any other, more serious and more comprehensive use.
+
+The application has two word lists at a time so you can maintain
+translations both ways. Both of the lists have headwords and
+translations to another language, word classes, and categorisation
+options. You can flag words that need attention.
+
+The application uses its own XML file format, and can export the
+dictionary in the plain text format used by dictd.
 
 Conman's Dictionary is distributed under the
 GNU General Public License version 3 (http://www.gnu.org/copyleft/gpl.html).
-The principal developer is Urpo "WWWWolf" Lankinen (wwwwolf@iki.fi).
+It is developed by Urpo Lankinen (wwwwolf@iki.fi), primarily for the
+Avarthrel (http://www.avarthrel.org/) worldbuilding project.
 
 Requirements
 ------------
 
-The project is developed in Java 7 SE, and is known to work on
-both Oracle Java 7 runtime on Windows and OpenJDK 7 on Linux.
-
-I have deprecated the Java 5 support. This isn't a gigantic problem, but
-PPC OS X fans will probably have to hope OpenJDK7's PPC port is revived...
-
-The project is developed on NetBeans (http://netbeans.org/) and uses
-Maven (http://maven.apache.org/) for building stuff. Maven should
-automatically fetch all of the dependencies. The big major external dependency
-is the gettext-commons package (http://code.google.com/p/gettext-commons/),
-which lets you use standard GNU gettext tools for localising Java software.
-This tool depends on GNU gettext, which is a standard-issue tool in Linux;
-Windows binaries are available in
-(http://gnuwin32.sourceforge.net/packages/gettext.htm) and may
-require some path-setting. (Win+Pause, Advanced, Environment Variables.
-You know the drill.)
+Version 2.0 is a complete rewrite of the application in C#,
+currently targeting .NET Framework 4.6.
+(The original version was a Java application, but unfortunately,
+it had become a big mess that resisted my attempts at fixing it.
+Also, while I loved Swing, dealing with GUIs in Java is always
+pretty darn tricky. We'll see how many headaches XAML will solve.)
 
 Quick build instructions
 ------------------------
 
-If you just check this thing out of Git, open this thing in NetBeans and try
-to compile it, it'll fail. Gettext is funny that way.
-
-Full build instructions will be in Conman's Dictionary wiki at:
-https://gitorious.org/conmandictionary/pages/Building
-However, since there's no much magic involved, here's he relevant part:
-
-  $ mvn clean gettext:dist install
-
-Then look for all the proper .jars in your Maven directory (in Linux,
-this is ~/.m2/ ).
-
-After you've done this, it should be also possible to hack further with
-NetBeans. You'll probably need to do the gettext:dist step if you ever mess
-with the localisation stuff.
+Currently there's no fancy build tool support, you just open this
+puppy in Visual Studio and build it up.
 

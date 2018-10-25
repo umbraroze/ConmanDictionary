@@ -17,8 +17,8 @@ options. You can flag words that need attention.
 The application uses its own XML file format, and can export the
 dictionary in the plain text format used by dictd.
 
-Conman's Dictionary is distributed under the
-GNU General Public License version 3 (http://www.gnu.org/copyleft/gpl.html).
+Conman's Dictionary is distributed under the GNU General Public
+License version 3 (http://www.gnu.org/copyleft/gpl.html).
 It is developed by Urpo Lankinen (wwwwolf@iki.fi), primarily for the
 Avarthrel (http://www.avarthrel.org/) worldbuilding project.
 

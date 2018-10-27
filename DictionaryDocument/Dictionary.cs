@@ -1,82 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DictionaryDocument
 {
+    [XmlRoot("dictionarydatabase")]
     public class Dictionary
     {
+        [XmlElement("notepad")]
+        public string NotePad = "";
+
+        [XmlArrayItem("item")]
+        [XmlArray("todo")]
         public List<string> ToDoItems;
+
+        [XmlArray(ElementName = "categories")]
         public List<Category> Categories;
+
+        [XmlArrayItem(ElementName = "class")]
+        [XmlArray("wordclasses")]
         public List<WordClass> WordClasses;
+
+        [XmlElement("definitions")]
         public List<EntryList> Definitions;
-        private void PopulateDefaultWordClasses()
-        {
-            WordClasses = new List<WordClass>();
-            WordClass n = new WordClass("Noun", "n");
-            WordClass v = new WordClass("Verb", "v");
-            WordClass a = new WordClass("Adjective", "a");
-            WordClasses.Add(n);
-            WordClasses.Add(v);
-            WordClasses.Add(a);
-        }
-        private void PopulateDefaultEntryLists()
-        {
-            Definitions = new List<EntryList>();
-            EntryList left = new EntryList("Language 1");
-            EntryList right = new EntryList("Language 2");
-            Definitions.Add(left);
-            Definitions.Add(right);
-        }
+
+        /*
+         * Construct an empty dictionary document with default content.
+         */
         public Dictionary()
         {
             ToDoItems = new List<string>();
             Categories = new List<Category>();
-            PopulateDefaultWordClasses();
-            PopulateDefaultEntryLists();
+            // Populate default word classes
+            WordClasses = new List<WordClass>();
+            WordClasses.Add(new WordClass { Name = "Noun", Abbreviation = "n" });
+            WordClasses.Add(new WordClass { Name = "Verb", Abbreviation = "v" });
+            WordClasses.Add(new WordClass { Name = "Adjective", Abbreviation = "a" });
+            // Populate default entry lists
+            Definitions = new List<EntryList>();
+            Definitions.Add(new EntryList { Language = "Language 1" });
+            Definitions.Add(new EntryList { Language = "Language 2" });
         }
         public override string ToString()
         {
             return "[Dictionary]";
         }
     }
+
     public class EntryList
     {
+        [XmlAttribute("language")]
         public string Language { get; set; }
-        public List<Entry> Entries;
-        public EntryList(string language)
-        {
-            Language = language;
-            Entries = new List<Entry>();
-        }
+
+        [XmlElement(ElementName = "entry")]
+        public List<Entry> Entries = new List<Entry>();
     }
+
+    [XmlRoot("entry")]
     public class Entry
     {
+        [XmlElement("term")]
         public string Term { get; set; }
+
+        [XmlElement("definition")]
         public string Definition { get; set; }
+
+        [XmlAttribute("flagged")]
         public bool Flagged { get; set; }
+
+        // FIXME: REFERENCE
+        // [XmlAttribute("class")]
         public WordClass WordClass { get; set; }
+
+        // FIXME: REFERENCE
+        // [XmlAttribute("category")]
         public Category Category { get; set; }
+
         public override string ToString()
         {
             return Term + " (" + WordClass.Abbreviation + ".): " + Definition;
         }
     }
+
+    [XmlRoot("class")]
     public class WordClass
     {
-        public String Name { get; set; }
-        public String Abbreviation { get; set; }
-        public String Description { get; set; }
-        public Boolean Flagged { get; set; }
-        public WordClass(string name, string abbreviation)
-        {
-            Name = name; Abbreviation = abbreviation;
-            Description = ""; Flagged = false;
-        }
+        [XmlAttribute("name")]
+        public string Name { get; set; } = "";
+
+        [XmlAttribute("abbreviation")]
+        public string Abbreviation { get; set; } = "";
+
+        [XmlAttribute("description")]
+        public string Description { get; set; } = "";
+
+        [XmlAttribute("flagged")]
+        public bool   Flagged { get; set; } = false;
     }
+
+    [XmlRoot("category")]
     public class Category
     {
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public Boolean Flagged { get; set; }
+
+        [XmlAttribute("name")]
+        public string  Name { get; set; }
+
+        [XmlAttribute("description")]
+        public string  Description { get; set; }
+
+        [XmlAttribute("flagged")]
+        public bool    Flagged { get; set; }
     }
 }

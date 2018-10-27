@@ -1,5 +1,16 @@
-﻿using System;
+﻿/*
+ * FIXME:
+ * Random old stackoverflow stuff says System.Xml.Serialization can't handle ID/IDREF correctly
+ * (despite xsd.exe spitting out code that specifies exactly that).
+ * The correct way is supposedly to use System.Runtime.Serialization.DataContractSerializer.
+ * https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer
+ * https://docs.microsoft.com/en-us/dotnet/framework/wcf/feature-details/using-data-contracts
+ * Read up and change the code?
+ */
+
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace DictionaryDocument
@@ -66,14 +77,15 @@ namespace DictionaryDocument
         public string Definition { get; set; }
 
         [XmlAttribute("flagged")]
+        [DefaultValue(false)]
         public bool Flagged { get; set; }
 
-        // FIXME: REFERENCE
-        // [XmlAttribute("class")]
+        //[XmlAttribute("class", DataType = "IDREF")]    // FIXME
+        [XmlElement("class")]
         public WordClass WordClass { get; set; }
 
-        // FIXME: REFERENCE
-        // [XmlAttribute("category")]
+        //[XmlAttribute("category", DataType = "IDREF")]    // FIXME
+        [XmlElement("category")]
         public Category Category { get; set; }
 
         public override string ToString()
@@ -85,6 +97,7 @@ namespace DictionaryDocument
     [XmlRoot("class")]
     public class WordClass
     {
+        //[XmlAttribute("name", DataType = "ID")]    // FIXME
         [XmlAttribute("name")]
         public string Name { get; set; } = "";
 
@@ -95,20 +108,23 @@ namespace DictionaryDocument
         public string Description { get; set; } = "";
 
         [XmlAttribute("flagged")]
-        public bool   Flagged { get; set; } = false;
+        [DefaultValue(false)]
+        public bool Flagged { get; set; } = false;
     }
 
     [XmlRoot("category")]
     public class Category
     {
 
-        [XmlAttribute("name")]
+        //[XmlAttribute(AttributeName = "name", DataType = "ID")]    // FIXME
+        [XmlAttribute("name")]    // FIXME
         public string  Name { get; set; }
 
         [XmlAttribute("description")]
-        public string  Description { get; set; }
+        public string Description { get; set; }
 
         [XmlAttribute("flagged")]
-        public bool    Flagged { get; set; }
+        [DefaultValue(false)]
+        public bool Flagged { get; set; } = false;
     }
 }

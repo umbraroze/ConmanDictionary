@@ -20,8 +20,8 @@ namespace TryConcept
     {
         static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, string fileName)
         {
-            XmlSerializer ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
-            StreamWriter serout = new StreamWriter(fileName);
+            var ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
+            var serout = new StreamWriter(fileName);
             ser.Serialize(serout, dictionary);
             serout.Close();
         }
@@ -30,20 +30,20 @@ namespace TryConcept
         {
             Console.WriteLine("Start of the app");
 
-            DictionaryDocument.Dictionary d = new DictionaryDocument.Dictionary();
+            var d = new DictionaryDocument.Dictionary();
 
             Console.WriteLine("Fiddling.");
 
             d.NotePad = "This is some random text for the notepad.";
 
             d.Definitions[0].Language = "Aybeeseean";
-            List<DictionaryDocument.Entry> left = d.Definitions[0].Entries;
+            var left = d.Definitions[0].Entries;
             d.Definitions[1].Language = "English";
-            List<DictionaryDocument.Entry> right = d.Definitions[1].Entries;
+            var right = d.Definitions[1].Entries;
 
-            DictionaryDocument.WordClass wcverb = d.WordClasses.Find(x => x.Name.Equals("Verb"));
-            DictionaryDocument.WordClass wcnoun = d.WordClasses.Find(x => x.Name.Equals("Noun"));
-            DictionaryDocument.WordClass wcadj = d.WordClasses.Find(x => x.Name.Equals("Adjective"));
+            var wcverb = d.WordClasses.Find(x => x.Name.Equals("Verb"));
+            var wcnoun = d.WordClasses.Find(x => x.Name.Equals("Noun"));
+            var wcadj = d.WordClasses.Find(x => x.Name.Equals("Adjective"));
 
             left.Add(new DictionaryDocument.Entry {
                 Term = "foo",

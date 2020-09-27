@@ -14,19 +14,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace TryConcept
+namespace DictTool
 {
-    class Program
+    class DictToolUtility
     {
-        static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, string fileName)
+        private static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, FileInfo fileName)
         {
             var ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
-            var serout = new StreamWriter(fileName);
+            var serout = new StreamWriter(fileName.FullName);
             ser.Serialize(serout, dictionary);
             serout.Close();
         }
 
-        static void Main(string[] args)
+        public static void TestOutput(FileInfo outputFile)
         {
             Console.WriteLine("Start of the app");
 
@@ -45,7 +45,8 @@ namespace TryConcept
             var wcnoun = d.WordClasses.Find(x => x.Name.Equals("Noun"));
             var wcadj = d.WordClasses.Find(x => x.Name.Equals("Adjective"));
 
-            left.Add(new DictionaryDocument.Entry {
+            left.Add(new DictionaryDocument.Entry
+            {
                 Term = "foo",
                 Definition = "to pity",
                 WordClass = wcverb
@@ -81,8 +82,8 @@ namespace TryConcept
                 WordClass = wcadj
             });
 
-            Console.WriteLine("Dumping to test.xml");
-            SerializeDictionary(d, "test.xml");
+            Console.WriteLine($"Dumping to {outputFile.FullName}");
+            SerializeDictionary(d, outputFile);
 
             Console.WriteLine("End of the app");
         }

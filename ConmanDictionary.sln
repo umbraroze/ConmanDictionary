@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConmanDictionary", "ConmanDictionary\ConmanDictionary.csproj", "{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryDocument", "DictionaryDocument\DictionaryDocument.csproj", "{0C3A8104-FB45-4E77-87EC-5A3CF5052010}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictTool", "DictTool\DictTool.csproj", "{3F4A190D-310A-4035-BC2C-537D3DA1E770}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010} = {0C3A8104-FB45-4E77-87EC-5A3CF5052010}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryDocument", "DictionaryDocument\DictionaryDocument.csproj", "{0C3A8104-FB45-4E77-87EC-5A3CF5052010}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictTool", "DictTool\DictTool.csproj", "{3F4A190D-310A-4035-BC2C-537D3DA1E770}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConmanDictionary", "ConmanDictionary\ConmanDictionary.csproj", "{DD38E9AD-AD98-433A-88D8-5C5780A7078A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010} = {0C3A8104-FB45-4E77-87EC-5A3CF5052010}
 	EndProjectSection
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6829E52B-1CA5-405C-BCCC-93BEE9254B1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{3F4A190D-310A-4035-BC2C-537D3DA1E770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F4A190D-310A-4035-BC2C-537D3DA1E770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F4A190D-310A-4035-BC2C-537D3DA1E770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

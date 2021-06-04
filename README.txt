@@ -21,8 +21,9 @@ dictionary in the plain text format used by dictd.
 
 Conman's Dictionary is distributed under the GNU General Public
 License version 3 (http://www.gnu.org/copyleft/gpl.html).
-It is developed by Urpo Lankinen (wwwwolf@iki.fi), primarily for the
-Avarthrel (http://www.avarthrel.org/) worldbuilding project.
+It is developed by Rose Midford (wwwwolf@iki.fi) [a/k/a Urpo Lankinen],
+primarily for the Avarthrel (http://www.avarthrel.org/) worldbuilding
+project.
 
 
 
@@ -30,8 +31,12 @@ Requirements
 ------------
 
 Version 2.0 is a complete rewrite of the application in C#,
-currently targeting .NET Framework 4.6.
+currently targeting .NET 5.0.
 
+Some choice frameworks:
+ - Avalonia
+ - ExtendedXMLSerializer
+ - System.CommandLine
 
 
 Quick build instructions
@@ -41,9 +46,8 @@ Note that the 2.0 total rewrite is *NOT* yet functional. At all.
 Just, uh, hold off on that, please.
 
 I am a total C# newbie and I have absolutely no idea how to build
-this project in anything other than Visual Studio 2017.
-Currently there's no fancy build tool support, you just open this
-puppy in Visual Studio and build it up.
+this project in anything other than Visual Studio 2019.
+"dotnet build" or something along those lines seems to work.
 
 
 
@@ -54,6 +58,10 @@ Currently, the application is split in two different packages:
 
   ConmanDictionary [ConmanDictionary.exe]
     The GUI application. Doesn't have much yet, unfortunately.
+
+  DictTool [DictTool.exe]
+    A command-line tool for handing .dictx files. Not
+    much here either.
 
   DictionaryDocument [ConmanDictX.dll]
     Code that deals with the .dictx dictionary files and

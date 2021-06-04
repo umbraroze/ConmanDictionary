@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ConmanDictionary.MainWindow"
+        Title="Conman's Dictionary">
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="_New"/>
+        <MenuItem Header="_Open..."/>
+        <MenuItem Header="_Save"/>
+        <MenuItem Header="Save _as..."/>
+        <Separator/>
+        <MenuItem Header="_Merge from..."/>
+        <MenuItem Header="E_xport as plain text..."/>
+        <Separator/>
+        <MenuItem
+           x:Name="QuitMenuItem"
+           Header="_Quit"
+           Command="{Binding QuitCommand}" />
+      </MenuItem>
+      <MenuItem Header="_Research">
+        <MenuItem Header="Show _notepad..."/>
+        <MenuItem Header="_Statistics"/>
+      </MenuItem>
+      <MenuItem Header="_Settings">
+        <MenuItem Header="Save only flagged items" IsEnabled="False">
+          <MenuItem.Icon>
+            <CheckBox BorderThickness="0"
+                      IsHitTestVisible="False"
+                      Command="{Binding ToggleOnlyFlaggedCommand}" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Language Names..."/>
+        <MenuItem Header="Word Classes..."/>
+        <MenuItem Header="Categories..."/>
+      </MenuItem>
+      <MenuItem Header="_Help">
+        <MenuItem Header="About Conman's Dictionary..."/>
+      </MenuItem>
+    </Menu>
+    <Label>Rest of the window contents should go here.</Label>
+  </DockPanel>
+</Window>

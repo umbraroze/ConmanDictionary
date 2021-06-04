@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>ConmanDictX</AssemblyName>
+    <Company>beastwithin.org</Company>
+    <Authors>Rose Midford</Authors>
+    <Product>ConmanDictionary</Product>
+    <Description>A POCO mapping of Conman's Dictionary .dictx files.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExtendedXmlSerializer" Version="3.7.1" />
+  </ItemGroup>
 
 </Project>

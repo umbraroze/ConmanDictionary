@@ -1,0 +1,18 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="100"
+        x:Class="ConmanDictionary.AboutWindow"
+        Title="About Conman's Dictionary">
+	<StackPanel>
+		<Label HorizontalContentAlignment="Center">Conman's Dictionary</Label>
+		<Label HorizontalContentAlignment="Center">© Rose Midford 2006-2022</Label>
+		<Button HorizontalAlignment="Right"
+				x:Name="AboutWindowClose"
+				Command="{Binding AboutWindowClose}">
+			Close
+		</Button>
+	</StackPanel>
+	
+</Window>

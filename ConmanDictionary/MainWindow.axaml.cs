@@ -3,20 +3,51 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System.Reactive;
+using System.ComponentModel;
 
-namespace ConmanDictionary {
+namespace ConmanDictionary
+{
 
-    public class MainWindowViewModel {
-        public ReactiveCommand<Unit, Unit> QuitCommand { get; }
+    public class MainWindowViewModel : INotifyPropertyChanged
+    {
+        string buttonText = "Click Me!";
 
-        public MainWindowViewModel()
+        private Window parent;
+        private AboutWindow aboutWindow;
+
+        public MainWindowViewModel(Window parent) : base()
         {
-            QuitCommand = ReactiveCommand.Create(Quit);
-
+            this.parent = parent;
         }
-        void Quit()
+
+        public string ButtonText
+        {
+            get => buttonText;
+            set
+            {
+                buttonText = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonText)));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void ButtonClicked() => ButtonText = "Hello, Avalonia!";
+
+        public void QuitCommand()
         {
             System.Diagnostics.Debug.WriteLine("Quit");
+            parent.Close();
+        }
+
+        public void ShowAboutWindowCommand()
+        {
+            System.Diagnostics.Debug.WriteLine("Show About Window");
+            if(aboutWindow == null)
+            {
+                aboutWindow = new AboutWindow();
+                aboutWindow.Show();
+            }
         }
     }
 
@@ -26,13 +57,13 @@ namespace ConmanDictionary {
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(this);
 #if DEBUG
             this.AttachDevTools();
 #endif
         }
 
-        
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

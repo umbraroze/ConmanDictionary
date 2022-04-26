@@ -5,9 +5,8 @@
 
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.IO;
-using DictionaryDocument;
 
 namespace DictTool
 {

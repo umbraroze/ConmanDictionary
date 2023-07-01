@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>ConmanDictX</AssemblyName>
     <Company>beastwithin.org</Company>
     <Authors>Rose Midford</Authors>
@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExtendedXmlSerializer" Version="3.7.6" />
+    <PackageReference Include="ExtendedXmlSerializer" Version="3.7.11" />
   </ItemGroup>
 
 </Project>

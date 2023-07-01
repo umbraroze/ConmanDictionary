@@ -12,12 +12,12 @@ namespace ConmanDictionary
     {
         string buttonText = "Click Me!";
 
-        private Window parent;
-        private AboutWindow aboutWindow;
+        private Window? _parent;
+        private AboutWindow? _aboutWindow;
 
         public MainWindowViewModel(Window parent) : base()
         {
-            this.parent = parent;
+            this._parent = parent;
         }
 
         public string ButtonText
@@ -30,23 +30,23 @@ namespace ConmanDictionary
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void ButtonClicked() => ButtonText = "Hello, Avalonia!";
 
         public void QuitCommand()
         {
             System.Diagnostics.Debug.WriteLine("Quit");
-            parent.Close();
+            _parent?.Close();
         }
 
         public void ShowAboutWindowCommand()
         {
             System.Diagnostics.Debug.WriteLine("Show About Window");
-            if(aboutWindow == null)
+            if (_aboutWindow == null)
             {
-                aboutWindow = new AboutWindow();
-                aboutWindow.Show();
+                _aboutWindow = new AboutWindow();
+                _aboutWindow.Show();
             }
         }
     }

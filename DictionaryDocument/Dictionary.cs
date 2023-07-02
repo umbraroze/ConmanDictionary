@@ -1,36 +1,20 @@
-﻿/*
- * FIXME:
- * Random old stackoverflow stuff says System.Xml.Serialization can't handle ID/IDREF correctly
- * (despite xsd.exe spitting out code that specifies exactly that).
- * The correct way is supposedly to use System.Runtime.Serialization.DataContractSerializer.
- * https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.datacontractserializer
- * https://docs.microsoft.com/en-us/dotnet/framework/wcf/feature-details/using-data-contracts
- * Read up and change the code?
- */
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.Serialization;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace DictionaryDocument
 {
-    [DataContract(Name = "dictionarydatabase")]
     public class Dictionary
     {
-        [DataMember(Name = "notepad")]
         public string NotePad = "";
 
-        [DataMember(Name = "todo")] // Array = todo, ArrayItem = item
         public List<string> ToDoItems;
 
-        [DataMember(Name = "categories")]
         public List<Category> Categories;
 
-        [DataMember(Name = "wordclasses")] // Array = wordclasses, ArrayItem = class
         public List<WordClass> WordClasses;
 
-        [DataMember(Name = "definitions")]
         public List<EntryList> Definitions;
 
         /*
@@ -54,72 +38,96 @@ namespace DictionaryDocument
         {
             return "[Dictionary]";
         }
+
+        public XElement ToXml()
+        {
+            XElement r = new XElement("dictionarydatabase",
+                new XElement("notepad", NotePad),
+                new XElement("todo", ToDoItems),
+                new XElement("categories", Categories.Select(cat => cat.ToXml())),
+                new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())),
+                new XElement("definitions", Definitions.Select(d => d.ToXml())));
+            return r;
+        }
     }
 
-    [DataContract(Name = "entrylist")] // FIXME: name???
     public class EntryList
     {
-        [DataMember(Name = "language")] // FIXME: Attribute
         public string Language { get; set; }
 
-        [DataMember(Name = "entries")]
         public List<Entry> Entries = new List<Entry>();
+
+        public XElement ToXml()
+        {
+            return new XElement("entries",
+                new XAttribute("language", Language),
+                Entries.Select(entry => entry.ToXml()));
+        }
     }
 
-    [DataContract(Name = "entry")]
     public class Entry
     {
-        [DataMember(Name = "term")]
         public string Term { get; set; }
 
-        [DataMember(Name = "definition")]
         public string Definition { get; set; }
 
-        [DataMember(Name = "flagged")]
-        [DefaultValue(false)]
-        public bool Flagged { get; set; }
+        public bool Flagged { get; set; } = false;
 
-        [DataMember(Name = "class")] // FIXME: Reference by Name
         public WordClass WordClass { get; set; }
 
-        [DataMember(Name = "category")] // FIXME: Reference by Name
         public Category Category { get; set; }
 
         public override string ToString()
         {
             return $"{Term} ({WordClass.Abbreviation}.): {Definition}";
         }
+
+        public XElement ToXml()
+        {
+            return new XElement("entry",
+                new XElement("term", Term),
+                new XElement("definition", Definition),
+                new XElement("flagged", Flagged),
+                new XElement("class", WordClass?.Name),
+                new XElement("category", Category?.Name));
+        }
     }
 
-    [DataContract(Name = "class", IsReference = true)] // FIXME: Referenced by Name
     public class WordClass
     {
-        [DataMember(Name = "name")]
         public string Name { get; set; } = "";
 
-        [DataMember(Name = "abbreviation")]
         public string Abbreviation { get; set; } = "";
 
-        [DataMember(Name = "description")]
         public string Description { get; set; } = "";
 
-        [DataMember(Name = "flagged")]
-        [DefaultValue(false)]
         public bool Flagged { get; set; } = false;
+        public XElement ToXml()
+        {
+            return new XElement("category",
+                new XElement("name", Name),
+                new XElement("abbreviation", Abbreviation),
+                new XElement("description", Description),
+                new XElement("flagged", Flagged));
+        }
     }
 
-    [DataContract(Name = "category", IsReference = true)] // FIXME: Referenced by Name
     public class Category
     {
 
-        [DataMember(Name = "name")]
-        public string  Name { get; set; }
+        public string Name { get; set; }
 
-        [DataMember(Name = "description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "flagged")]
         [DefaultValue(false)]
         public bool Flagged { get; set; } = false;
+
+        public XElement ToXml()
+        {
+            return new XElement("category",
+                new XElement("name", Name),
+                new XElement("description", Description),
+                new XElement("flagged", Flagged));
+        }
     }
 }

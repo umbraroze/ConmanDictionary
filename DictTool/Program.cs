@@ -9,6 +9,8 @@ using System.CommandLine.NamingConventionBinder;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace DictTool
 {
@@ -18,11 +20,10 @@ namespace DictTool
         {
             var d = DictToolUtility.GetMockDocument();
             var filename = "test.xml";
-            FileStream writer = new FileStream(filename,
-            FileMode.OpenOrCreate);
-            DataContractSerializer ser =
-                new DataContractSerializer(typeof(DictionaryDocument.Dictionary));
-            ser.WriteObject(writer, d);
+            FileStream writer = new FileStream(filename,FileMode.OpenOrCreate);
+            XmlSerializer ser =
+                new XmlSerializer(typeof(XElement));
+            ser.Serialize(writer, d.ToXml());
             writer.Close();
 
             return 0;

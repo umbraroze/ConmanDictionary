@@ -6,11 +6,7 @@
     <Company>beastwithin.org</Company>
     <Authors>Rose Midford</Authors>
     <Product>ConmanDictionary</Product>
-    <Description>A POCO mapping of Conman's Dictionary .dictx files.</Description>
+    <Description>Classes representing dictionary documents for Conman's Dictionary, and the XML serialisation/deserialisation for .dictx files.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="ExtendedXmlSerializer" Version="3.7.11" />
-  </ItemGroup>
 
 </Project>

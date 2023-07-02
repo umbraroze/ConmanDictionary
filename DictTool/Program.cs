@@ -6,13 +6,29 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace DictTool
 {
     class Program
     {
         static int Main(string[] args)
+        {
+            var d = DictToolUtility.GetMockDocument();
+            var filename = "test.xml";
+            FileStream writer = new FileStream(filename,
+            FileMode.OpenOrCreate);
+            DataContractSerializer ser =
+                new DataContractSerializer(typeof(DictionaryDocument.Dictionary));
+            ser.WriteObject(writer, d);
+            writer.Close();
+
+            return 0;
+        }
+
+        static int Main2(string[] args)
         {
             // Example code is from https://github.com/dotnet/command-line-api/blob/main/docs/Your-first-app-with-System-CommandLine.md
 

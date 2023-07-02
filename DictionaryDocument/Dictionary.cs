@@ -11,28 +11,26 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace DictionaryDocument
 {
-    [XmlRoot("dictionarydatabase")]
+    [DataContract(Name = "dictionarydatabase")]
     public class Dictionary
     {
-        [XmlElement("notepad")]
+        [DataMember(Name = "notepad")]
         public string NotePad = "";
 
-        [XmlArrayItem("item")]
-        [XmlArray("todo")]
+        [DataMember(Name = "todo")] // Array = todo, ArrayItem = item
         public List<string> ToDoItems;
 
-        [XmlArray(ElementName = "categories")]
+        [DataMember(Name = "categories")]
         public List<Category> Categories;
 
-        [XmlArrayItem(ElementName = "class")]
-        [XmlArray("wordclasses")]
+        [DataMember(Name = "wordclasses")] // Array = wordclasses, ArrayItem = class
         public List<WordClass> WordClasses;
 
-        [XmlElement("definitions")]
+        [DataMember(Name = "definitions")]
         public List<EntryList> Definitions;
 
         /*
@@ -58,72 +56,69 @@ namespace DictionaryDocument
         }
     }
 
+    [DataContract(Name = "entrylist")] // FIXME: name???
     public class EntryList
     {
-        [XmlAttribute("language")]
+        [DataMember(Name = "language")] // FIXME: Attribute
         public string Language { get; set; }
 
-        [XmlElement(ElementName = "entry")]
+        [DataMember(Name = "entries")]
         public List<Entry> Entries = new List<Entry>();
     }
 
-    [XmlRoot("entry")]
+    [DataContract(Name = "entry")]
     public class Entry
     {
-        [XmlElement("term")]
+        [DataMember(Name = "term")]
         public string Term { get; set; }
 
-        [XmlElement("definition")]
+        [DataMember(Name = "definition")]
         public string Definition { get; set; }
 
-        [XmlAttribute("flagged")]
+        [DataMember(Name = "flagged")]
         [DefaultValue(false)]
         public bool Flagged { get; set; }
 
-        //[XmlAttribute("class", DataType = "IDREF")]    // FIXME
-        [XmlElement("class")]
+        [DataMember(Name = "class")] // FIXME: Reference by Name
         public WordClass WordClass { get; set; }
 
-        //[XmlAttribute("category", DataType = "IDREF")]    // FIXME
-        [XmlElement("category")]
+        [DataMember(Name = "category")] // FIXME: Reference by Name
         public Category Category { get; set; }
 
         public override string ToString()
         {
-            return Term + " (" + WordClass.Abbreviation + ".): " + Definition;
+            return $"{Term} ({WordClass.Abbreviation}.): {Definition}";
         }
     }
 
-    [XmlRoot("class")]
+    [DataContract(Name = "class", IsReference = true)] // FIXME: Referenced by Name
     public class WordClass
     {
-        //[XmlAttribute("name", DataType = "ID")]    // FIXME
-        [XmlAttribute("name")]
+        [DataMember(Name = "name")]
         public string Name { get; set; } = "";
 
-        [XmlAttribute("abbreviation")]
+        [DataMember(Name = "abbreviation")]
         public string Abbreviation { get; set; } = "";
 
-        [XmlAttribute("description")]
+        [DataMember(Name = "description")]
         public string Description { get; set; } = "";
 
-        [XmlAttribute("flagged")]
+        [DataMember(Name = "flagged")]
         [DefaultValue(false)]
         public bool Flagged { get; set; } = false;
     }
 
-    [XmlRoot("category")]
+    [DataContract(Name = "category", IsReference = true)] // FIXME: Referenced by Name
     public class Category
     {
 
-        //[XmlAttribute(AttributeName = "name", DataType = "ID")]    // FIXME
-        [XmlAttribute("name")]    // FIXME
+        [DataMember(Name = "name")]
         public string  Name { get; set; }
 
-        [XmlAttribute("description")]
+        [DataMember(Name = "description")]
         public string Description { get; set; }
 
-        [XmlAttribute("flagged")]
+        [DataMember(Name = "flagged")]
         [DefaultValue(false)]
         public bool Flagged { get; set; } = false;
     }

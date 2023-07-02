@@ -18,21 +18,9 @@ namespace DictTool
 {
     class DictToolUtility
     {
-        private static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, FileInfo fileName)
+        public static DictionaryDocument.Dictionary GetMockDocument()
         {
-            var ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
-            var serout = new StreamWriter(fileName.FullName);
-            ser.Serialize(serout, dictionary);
-            serout.Close();
-        }
-
-        public static void TestOutput(FileInfo outputFile)
-        {
-            Console.WriteLine("Start of the app");
-
             var d = new DictionaryDocument.Dictionary();
-
-            Console.WriteLine("Fiddling.");
 
             d.NotePad = "This is some random text for the notepad.";
 
@@ -81,6 +69,24 @@ namespace DictTool
                 Definition = "zzbaz",
                 WordClass = wcadj
             });
+
+            return d;
+        }
+
+        private static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, FileInfo fileName)
+        {
+            var ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
+            var serout = new StreamWriter(fileName.FullName);
+            ser.Serialize(serout, dictionary);
+            serout.Close();
+        }
+
+        public static void TestOutput(FileInfo outputFile)
+        {
+            Console.WriteLine("Start of the app");
+
+            Console.WriteLine("Fiddling.");
+            var d = GetMockDocument();
 
             Console.WriteLine($"Dumping to {outputFile.FullName}");
             SerializeDictionary(d, outputFile);

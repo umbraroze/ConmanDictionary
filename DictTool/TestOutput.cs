@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DictTool
@@ -75,9 +76,9 @@ namespace DictTool
 
         private static void SerializeDictionary(DictionaryDocument.Dictionary dictionary, FileInfo fileName)
         {
-            var ser = new XmlSerializer(typeof(DictionaryDocument.Dictionary));
-            var serout = new StreamWriter(fileName.FullName);
-            ser.Serialize(serout, dictionary);
+            FileStream serout = new FileStream(fileName.FullName, FileMode.OpenOrCreate);
+            XmlSerializer ser = new XmlSerializer(typeof(XElement));
+            ser.Serialize(serout, dictionary.ToXml());
             serout.Close();
         }
 

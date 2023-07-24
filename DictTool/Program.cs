@@ -18,19 +18,6 @@ namespace DictTool
     {
         static int Main(string[] args)
         {
-            var d = DictToolUtility.GetMockDocument();
-            var filename = "test.xml";
-            FileStream writer = new FileStream(filename,FileMode.OpenOrCreate);
-            XmlSerializer ser =
-                new XmlSerializer(typeof(XElement));
-            ser.Serialize(writer, d.ToXml());
-            writer.Close();
-
-            return 0;
-        }
-
-        static int Main2(string[] args)
-        {
             // Example code is from https://github.com/dotnet/command-line-api/blob/main/docs/Your-first-app-with-System-CommandLine.md
 
             // Create a root command with some options
@@ -60,7 +47,7 @@ namespace DictTool
             // Subcommands
             var testOutputCommand = new Command("test-output");
             testOutputCommand.Description = "A rudimentary test of outputting stuff.";
-            testOutputCommand.Add(new Option<FileInfo>("--output", "Output file name."));
+            testOutputCommand.Add(new Option<FileInfo>(name: "--output", description: "Output file name. (Default: test.xml)"));
             testOutputCommand.Handler = CommandHandler.Create<FileInfo>((output) =>
             {
                 output = output ?? new FileInfo("test.xml");

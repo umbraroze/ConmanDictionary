@@ -1,10 +1,6 @@
-Conman's Dictionary
-===================
+# Conman's Dictionary
 
-
-
-Overview
---------
+## Overview
 
 Conman's Dictionary is a dictionary application. It is primarily
 geared for armchair linguists who are working on constructed languages
@@ -19,62 +15,60 @@ options. You can flag words that need attention.
 The application uses its own XML file format, and can export the
 dictionary in the plain text format used by dictd.
 
-Conman's Dictionary is distributed under the GNU General Public
-License version 3 (http://www.gnu.org/copyleft/gpl.html).
-It is developed by Rose Midford (wwwwolf@iki.fi) [a/k/a Urpo Lankinen],
-primarily for the Avarthrel (http://www.avarthrel.org/) worldbuilding
-project.
+Conman's Dictionary is distributed under the
+[GNU General Public License version 3](http://www.gnu.org/copyleft/gpl.html).
+It is developed by Rose Midford, primarily for the Avarthrel
+worldbuilding project.
 
+## Requirements
 
+Version 2.0 is a complete rewrite of the application in C#.
+It's trying to target the open .NET APIs/platforms whenever
+possible.
 
-Requirements
-------------
+Some choice frameworks we've needed so far:
 
-Version 2.0 is a complete rewrite of the application in C#,
-currently targeting .NET 5.0.
-
-Some choice frameworks:
  - Avalonia
- - ExtendedXMLSerializer
+ - ReactiveUI
  - System.CommandLine
 
+## Quick build instructions
 
-Quick build instructions
-------------------------
-
-Note that the 2.0 total rewrite is *NOT* yet functional. At all.
+There used to be quick build instructions for the Java version.
+However, the 2.0 total rewrite is *NOT* yet functional. At all.
 Just, uh, hold off on that, please.
 
 I am a total C# newbie and I have absolutely no idea how to build
-this project in anything other than Visual Studio 2019.
-"dotnet build" or something along those lines seems to work.
+this project in anything other than Visual Studio.
+`dotnet build` or something along those lines seems to work. Kinda.
+I think.
 
-
-
-Source organisation
--------------------
+## Source organisation
 
 Currently, the application is split in two different packages:
 
-  ConmanDictionary [ConmanDictionary.exe]
-    The GUI application. Doesn't have much yet, unfortunately.
+### ConmanDictionary
 
-  DictTool [DictTool.exe]
-    A command-line tool for handing .dictx files. Not
-    much here either.
+The GUI application. Doesn't have much yet, unfortunately.
 
-  DictionaryDocument [ConmanDictX.dll]
-    Code that deals with the .dictx dictionary files and
-    the application data model.
+### DictTool
+
+A command-line tool for handing .dictx files. Not much here either.
+Will be initially used as the test tool for seeing how file
+handling works.
+
+### DictionaryDocument (ConmanDictX.dll)
+
+Code that deals with the .dictx dictionary files and
+the application data model.
+
+### Legacy stuff
 
 All of the legacy Java code is stored in the "obsolete" folder,
 and is purely used for reference (and will be gone once the
 work to reimplement the code in C# is done).
 
-
-
-History
--------
+## History
 
 The application was originally written between 2006 and 2012 as a
 cavalcade of me learning about new and interesting Java software
@@ -100,16 +94,17 @@ trying to make vague sense of JavaFX, which is supposedly the new
 and hot way to make Java desktop apps.
 
 Buuuut. The major problem was this:
- 1) The Java version had been the result of heavy modifications
-    over time and thus had a few features that could be politely
-    described as "not very clean". Despite the fact that the app
-    design was *fairly* sensible, I genuinely couldn't even wrap
-    my head around some of the bits.
- 2) I really wanted to use a stable, sensible GUI API - Swing fit
-    that bill. I wanted the GUI to have a stable declarative GUI
-    markup language. Swing most clearly didn't fit that bill. I
-    wasn't sure if Oracle was even all that interested in keeping
-    Java a highly relevant desktop programming language.
+
+1. The Java version had been the result of heavy modifications
+   over time and thus had a few features that could be politely
+   described as "not very clean". Despite the fact that the app
+   design was *fairly* sensible, I genuinely couldn't even wrap
+   my head around some of the bits.
+2. I really wanted to use a stable, sensible GUI API - Swing fit
+   that bill. I wanted the GUI to have a stable declarative GUI
+   markup language. Swing most clearly didn't fit that bill. I
+   wasn't sure if Oracle was even all that interested in keeping
+   Java a highly relevant desktop programming language.
 
 Ultimately, I thought that the easiest and finest way to fix the
 convoluted and prototypesque mess would be to just rewrite the

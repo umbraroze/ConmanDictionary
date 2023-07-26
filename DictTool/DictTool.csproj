@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DictionaryDocument.Tests\DictionaryDocument.Tests.csproj" />
     <ProjectReference Include="..\DictionaryDocument\DictionaryDocument.csproj" />
   </ItemGroup>
 

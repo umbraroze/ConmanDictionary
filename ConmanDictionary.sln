@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConmanDictionary", "ConmanD
 		{0C3A8104-FB45-4E77-87EC-5A3CF5052010} = {0C3A8104-FB45-4E77-87EC-5A3CF5052010}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryDocument.Tests", "DictionaryDocument.Tests\DictionaryDocument.Tests.csproj", "{0F75549B-B59F-42C7-B8D9-CA170E9763D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD38E9AD-AD98-433A-88D8-5C5780A7078A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F75549B-B59F-42C7-B8D9-CA170E9763D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F75549B-B59F-42C7-B8D9-CA170E9763D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F75549B-B59F-42C7-B8D9-CA170E9763D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F75549B-B59F-42C7-B8D9-CA170E9763D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

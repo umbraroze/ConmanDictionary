@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace DictionaryDocument
 {
@@ -48,6 +51,14 @@ namespace DictionaryDocument
                 new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())),
                 new XElement("definitions", Definitions.Select(d => d.ToXml())));
             return r;
+        }
+
+        public void SaveDictx(FileInfo fileName)
+        {
+            FileStream serout = new FileStream(fileName.FullName, FileMode.OpenOrCreate);
+            XmlSerializer ser = new XmlSerializer(typeof(XElement));
+            ser.Serialize(serout, ToXml());
+            serout.Close();
         }
     }
 

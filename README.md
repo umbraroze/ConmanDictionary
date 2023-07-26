@@ -13,12 +13,35 @@ translations to another language, word classes, and categorisation
 options. You can flag words that need attention.
 
 The application uses its own XML file format, and can export the
-dictionary in the plain text format used by dictd.
+dictionary in the plain text format used by dictd. (Ostensibly.
+I don't actually use dictd, you see; I just need it to be in
+plain text format.)
 
 Conman's Dictionary is distributed under the
 [GNU General Public License version 3](http://www.gnu.org/copyleft/gpl.html).
 It is developed by Rose Midford, primarily for the Avarthrel
 worldbuilding project.
+
+## A really important point
+
+This is less of a serious tool designed for a diverse group of
+users with a lot of use-cases and user research... and more of
+a tool designed for my specific use-cases based solely on "dang,
+wouldn't it be neat if it did that" feels.
+
+I've received *zero* user feedback of any kind, as far as I can
+remember. I'm pretty sure no one *actually* uses the
+application - but if you do, please let me know! Once the C#
+version is release-worthy, and hits the same functional threshold
+as the Java version had, maybe I can start cautiously advertise
+the fact that this thing is a thing and consider that maybe
+someone would have further ideas on how to improve it. But
+as things stand now, I'm reluctant to go there just yet.
+
+Above all, however, this tool was a way for me to learn Java
+development and various related technologies. Now, it will
+be a way for me to learn C# development and various related
+technologies.
 
 ## Requirements
 
@@ -26,41 +49,61 @@ Version 2.0 is a complete rewrite of the application in C#.
 It's trying to target the open .NET APIs/platforms whenever
 possible.
 
-Some choice frameworks we've needed so far:
+Aside of the standard C# stuff, here are some choice Nugettable
+packages the project has needed so far:
 
- - Avalonia
- - ReactiveUI
- - System.CommandLine
+* Avalonia
+* ReactiveUI
+* System.CommandLine
+* NUnit
 
 ## Quick build instructions
 
-There used to be quick build instructions for the Java version.
-However, the 2.0 total rewrite is *NOT* yet functional. At all.
-Just, uh, hold off on that, please.
+As of now, all I can say "just use `dotnet build` or build the
+thing with Visual Studio." ...I'm not sure there's an actual reason
+to do that as of now, however!
 
-I am a total C# newbie and I have absolutely no idea how to build
-this project in anything other than Visual Studio.
-`dotnet build` or something along those lines seems to work. Kinda.
-I think.
+The 2.0 total C# rewrite is *NOT* yet functional. At all.
+Well, there's some code, but it doesn't really do much yet
+for the end-user.
+
+If you absolutely need the Java branch, you need to grab it from
+the appropriate Git tag (`1.0X_JDESKTOP`) and then build it
+using Apache Maven. It *should* still work. ...Unless things have
+changed *really* dramatically in Java land since 2013.
 
 ## Source organisation
 
-Currently, the application is split in two different packages:
+Currently, the application is split in a few different packages:
 
 ### ConmanDictionary
 
 The GUI application. Doesn't have much yet, unfortunately.
 
+Planned functionality:
+
+* The usual dictionary editing and management commands
+* Word class and category editors
+* Notepad editor
+* Merge dictionaries
+
 ### DictTool
 
-A command-line tool for handing .dictx files. Not much here either.
-Will be initially used as the test tool for seeing how file
-handling works.
+A command-line tool for handing `.dictx` files. Not much here either.
+Will be initially used as a development aid and a test tool for
+seeing how file handling works.
+
+Some of the planned command-line functionality:
+
+* Validate `.dictx` document against schema
+* Merge `.dictx` files
+* Convert `.dictx` to plain text `dictd` files 
 
 ### DictionaryDocument (ConmanDictX.dll)
 
-Code that deals with the .dictx dictionary files and
-the application data model.
+Classes representing the data model of dictionary documents, with
+code for saving and loading `.dictx` files, and validating
+the `.dictx` document contents against the schema definition.
 
 ### Legacy stuff
 
@@ -108,8 +151,13 @@ Buuuut. The major problem was this:
 
 Ultimately, I thought that the easiest and finest way to fix the
 convoluted and prototypesque mess would be to just rewrite the
-app from ground up. After tossing various ideas, in 2018, I decided to use
-C#, .NET Framework and do that supposedly sweet sweet XAML thing. 
+app from ground up.
+
+After tossing various ideas, in 2018, I decided to use
+C#, .NET Framework and settled on using Avalonia for the UI.
+Then, suddenly, after a few more years, in 2023, I decided to
+actually start to write some real vaguely working code, because
+I've *clearly* procrastinated enough with this project.
 
 So this is the start of version 2.0 - even though technically the
 Java version didn't even reach 1.0. This is basically where we

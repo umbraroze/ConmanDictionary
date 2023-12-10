@@ -9,17 +9,20 @@
     <Description>Conman's Dictionary desktop application.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc1.1" />
-    <PackageReference Include="ReactiveUI" Version="19.2.1" />
+    <PackageReference Include="Avalonia" Version="11.0.6" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.6" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.6" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.6" />
+    <PackageReference Include="ReactiveUI" Version="19.5.1" />
    </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DictionaryDocument\DictionaryDocument.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="SearchBox.axaml" />
   </ItemGroup>
 </Project>

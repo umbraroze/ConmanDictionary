@@ -5,6 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.Schema;
+using System.Xml;
+using System;
+using System.Resources;
+using System.Data;
 
 namespace DictionaryDocument
 {
@@ -46,7 +51,7 @@ namespace DictionaryDocument
         {
             XElement r = new XElement("dictionarydatabase",
                 new XElement("notepad", NotePad),
-                new XElement("todo", ToDoItems),
+                new XElement("todoitems", ToDoItems),
                 new XElement("categories", Categories.Select(cat => cat.ToXml())),
                 new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())),
                 new XElement("definitions", Definitions.Select(d => d.ToXml())));
@@ -59,6 +64,50 @@ namespace DictionaryDocument
             XmlSerializer ser = new XmlSerializer(typeof(XElement));
             ser.Serialize(serout, ToXml());
             serout.Close();
+        }
+
+        public static XmlSchema GetDictxSchema()
+        {
+            // Grab the schema document from resources.
+            string schemaText = DictionaryDocument.Properties.Resources.dictx_schema;
+
+            // Parse the returned string as XML and turn it into a schema.
+            XmlReader schemaReader = XmlReader.Create(new StringReader(schemaText));
+            XmlSchema schema = XmlSchema.Read(schemaReader,null);
+
+            return schema;
+        }
+
+        public static bool ValidateDictx(FileInfo filename)
+        {
+            XmlReaderSettings dictxSettings = new XmlReaderSettings();
+            dictxSettings.Schemas.Add(GetDictxSchema());
+            dictxSettings.ValidationType = ValidationType.Schema;
+            dictxSettings.ValidationEventHandler += ValidateDictxEventHandler;
+
+            XmlReader dictx = XmlReader.Create(filename.FullName, dictxSettings);
+
+            try
+            {
+                while (dictx.Read()) { }
+            }
+            catch(XmlException)
+            {
+                return false;
+            }
+            return true;
+        }
+        private static void ValidateDictxEventHandler(object sender, ValidationEventArgs e)
+        {
+            if (e.Severity == XmlSeverityType.Warning)
+            {
+                Console.Error.WriteLine($"DictX validation WARNING: {e.Message}");
+            }
+            else if (e.Severity == XmlSeverityType.Error)
+            {
+                Console.Error.WriteLine($"DictX validation ERROR: {e.Message}");
+                throw new XmlException(e.Message);
+            }
         }
     }
 

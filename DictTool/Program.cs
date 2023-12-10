@@ -55,6 +55,16 @@ namespace DictTool
             });
             rootCommand.Add(testOutputCommand);
 
+            var testValidationCommand = new Command("test-validation");
+            testValidationCommand.Description = "A rudimentary test of outputting stuff.";
+            testValidationCommand.Add(new Option<FileInfo>(name: "--input", description: "Input file name. (Default: test.xml)"));
+            testValidationCommand.Handler = CommandHandler.Create<FileInfo>((input) =>
+            {
+                input = input ?? new FileInfo("test.xml");
+                DictToolUtility.TestValidation(input);
+            });
+            rootCommand.Add(testValidationCommand);
+
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args).Result;
         }

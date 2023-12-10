@@ -49,17 +49,23 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            XElement r = new XElement("dictionarydatabase",
-                new XElement("notepad", NotePad),
-                new XElement("todoitems", ToDoItems),
-                new XElement("categories", Categories.Select(cat => cat.ToXml())),
-                new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())),
-                new XElement("definitions", Definitions.Select(d => d.ToXml())));
+            XElement r = new XElement("dictionarydatabase");
+            r.Add(new XElement("notepad", NotePad));
+            if(ToDoItems.Count > 0)
+            {
+                r.Add(new XElement("todoitems", ToDoItems)); // FIXME: Wrap each item into a tag
+            }
+            r.Add(new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())));
+            r.Add(new XElement("categories", Categories.Select(cat => cat.ToXml())));
+            r.Add(Definitions[0].ToXml()); // Left list
+            r.Add(Definitions[1].ToXml()); // Right list
             return r;
         }
 
         public void SaveDictx(FileInfo fileName)
         {
+            if(File.Exists(fileName.FullName))
+                File.Delete(fileName.FullName);
             FileStream serout = new FileStream(fileName.FullName, FileMode.OpenOrCreate);
             XmlSerializer ser = new XmlSerializer(typeof(XElement));
             ser.Serialize(serout, ToXml());
@@ -119,7 +125,7 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            return new XElement("entries",
+            return new XElement("definitions",
                 new XAttribute("language", Language),
                 Entries.Select(entry => entry.ToXml()));
         }
@@ -144,12 +150,15 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            return new XElement("entry",
-                new XElement("term", Term),
-                new XElement("definition", Definition),
-                new XElement("flagged", Flagged),
-                new XElement("class", WordClass?.Name),
-                new XElement("category", Category?.Name));
+            XElement e = new XElement("entry");
+            e.Add(new XElement("term", Term));
+            e.Add(new XElement("definition", Definition));
+            if(Flagged)
+                e.SetAttributeValue("flagged", true);
+            e.SetAttributeValue("class", WordClass?.Name);
+            if(Category != null)
+                e.SetAttributeValue("category", Category.Name);
+            return e;
         }
     }
 
@@ -164,11 +173,14 @@ namespace DictionaryDocument
         public bool Flagged { get; set; } = false;
         public XElement ToXml()
         {
-            return new XElement("category",
-                new XElement("name", Name),
-                new XElement("abbreviation", Abbreviation),
-                new XElement("description", Description),
-                new XElement("flagged", Flagged));
+            XElement e = new XElement("class");
+            e.SetAttributeValue("name", Name);
+            e.SetAttributeValue("abbreviation", Abbreviation);
+            if(Description.Length > 0)
+                e.SetAttributeValue("description", Description);
+            if(Flagged)
+                e.SetAttributeValue("flagged", true);
+            return e;
         }
     }
 

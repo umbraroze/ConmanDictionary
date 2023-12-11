@@ -13,11 +13,11 @@ namespace ConmanDictionary
     {
         string buttonText = "Click Me!";
 
-        private Window? _parent;
+        private MainWindow? _mainWindow;
 
-        public MainWindowViewModel(Window parent) : base()
+        public MainWindowViewModel(MainWindow parent) : base()
         {
-            _parent = parent;
+            _mainWindow = parent;
         }
 
         public string ButtonText
@@ -37,14 +37,16 @@ namespace ConmanDictionary
         public void QuitCommand()
         {
             System.Diagnostics.Debug.WriteLine("Quit");
-            _parent?.Close();
+            _mainWindow?.Close();
         }
 
         public async void ShowAboutWindowCommand()
         {
-            System.Diagnostics.Debug.WriteLine("Show About Window");
+            if (_mainWindow == null)
+                return;
+            // System.Diagnostics.Debug.WriteLine("Show About Window");
             AboutWindow about = new AboutWindow();
-            await about.ShowDialog(_parent);
+            await about.ShowDialog(_mainWindow);
         }
     }
 

@@ -3,14 +3,9 @@
  * as automated conversion, merging and validation.
  */
 
-using System;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
-using System.Diagnostics;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace DictTool
 {
@@ -18,52 +13,46 @@ namespace DictTool
     {
         static int Main(string[] args)
         {
-            // Example code is from https://github.com/dotnet/command-line-api/blob/main/docs/Your-first-app-with-System-CommandLine.md
-
-            // Create a root command with some options
             var rootCommand = new RootCommand
             {
-                new Option<int>(
-                    "--int-option",
-                    getDefaultValue: () => 42,
-                    description: "An option whose argument is parsed as an int"),
-                new Option<bool>(
-                    "--bool-option",
-                    "An option whose argument is parsed as a bool"),
-                new Option<FileInfo>(
-                    "--file-option",
-                    "An option whose argument is parsed as a FileInfo")
+                // Root options should go here.
             };
             rootCommand.Description = "DictX Command-Line Tool";
 
-            // Note that the parameters of the handler method are matched according to the names of the options
             rootCommand.Handler = CommandHandler.Create<int, bool, FileInfo>((intOption, boolOption, fileOption) =>
             {
-                Console.WriteLine($"The value for --int-option is: {intOption}");
-                Console.WriteLine($"The value for --bool-option is: {boolOption}");
-                Console.WriteLine($"The value for --file-option is: {fileOption?.FullName ?? "null"}");
+                // Root handler should go here. Do nothing for now. Should probably bail out with usage instead.
             });
 
             // Subcommands
+
+#if DEBUG
+            // Generate mock document and write it to the specified file.
             var testOutputCommand = new Command("test-output");
-            testOutputCommand.Description = "A rudimentary test of outputting stuff.";
-            testOutputCommand.Add(new Option<FileInfo>(name: "--output", description: "Output file name. (Default: test.xml)"));
+            testOutputCommand.Description = "(Debug build only) Save a mock document to a specified file.";
+            testOutputCommand.Add(new Argument<FileInfo>(name: "output",
+                description: "Output file name.",
+                getDefaultValue: () => new FileInfo("test.xml")));
             testOutputCommand.Handler = CommandHandler.Create<FileInfo>((output) =>
             {
                 output = output ?? new FileInfo("test.xml");
                 DictToolUtility.TestOutput(output);
             });
             rootCommand.Add(testOutputCommand);
+#endif
 
-            var testValidationCommand = new Command("test-validation");
-            testValidationCommand.Description = "A rudimentary test of outputting stuff.";
-            testValidationCommand.Add(new Option<FileInfo>(name: "--input", description: "Input file name. (Default: test.xml)"));
-            testValidationCommand.Handler = CommandHandler.Create<FileInfo>((input) =>
+            // Validate DictX document structure.
+            var validationCommand = new Command("validate");
+            validationCommand.Description = "Validate a DictX document structure.";
+            validationCommand.Add(new Argument<FileInfo>(name: "input",
+                    description: "Input file name.",
+                    getDefaultValue: () => new FileInfo("dictionary.xml")));
+            validationCommand.Handler = CommandHandler.Create<FileInfo>((input) =>
             {
-                input = input ?? new FileInfo("test.xml");
-                DictToolUtility.TestValidation(input);
+                input = input ?? new FileInfo("dictionary.xml");
+                DictToolUtility.ValidateDocument(input);
             });
-            rootCommand.Add(testValidationCommand);
+            rootCommand.Add(validationCommand);
 
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args).Result;

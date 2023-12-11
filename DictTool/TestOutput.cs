@@ -1,9 +1,6 @@
 ﻿/*
- * 
- * This application exists mostly to try out various concepts during the development
- * without the overhead of the main application. In other words, I don't know a thing
- * about C#, I'm just fooling around here, this is not the real app, please go away.
- *
+ * This is the "application logic" of the DictTool utility. These get called from the main program.
+ * These may or may not be useful for any purpose.
  */
 
 using System;
@@ -15,33 +12,23 @@ namespace DictTool
     {
         public static void TestOutput(FileInfo outputFile)
         {
-            Console.WriteLine("Start of the app");
-
-            Console.WriteLine("Fiddling.");
             var d = DictionaryDocument.Tests.Generators.GetMockDocument();
-
-            Console.WriteLine($"Dumping to {outputFile.FullName}");
+            Console.WriteLine($"Writing a mock document to {outputFile.FullName}");
             d.SaveDictx(outputFile);
-
-            Console.WriteLine("End of the app");
         }
 
-        public static void TestValidation(FileInfo inputFile)
+        public static void ValidateDocument(FileInfo inputFile)
         {
-            Console.WriteLine("Start of the app");
-
-            Console.WriteLine("Doing a Thing.");
             bool result = DictionaryDocument.Dictionary.ValidateDictx(inputFile);
-            if(result)
+            switch(result)
             {
-                Console.WriteLine($"{inputFile.FullName} is a valid DictX document.");
+                case true:
+                    Console.WriteLine($"{inputFile.FullName} is a valid DictX document.");
+                    break;
+                case false:
+                    Console.WriteLine($"{inputFile.FullName} is an invalid DictX document!");
+                    break;
             }
-            else
-            {
-                Console.WriteLine($"{inputFile.FullName} is an invalid DictX document!");
-            }
-
-            Console.WriteLine("End of the app");
         }
     }
 }

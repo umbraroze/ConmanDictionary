@@ -13,7 +13,7 @@ using System.Data;
 
 namespace DictionaryDocument
 {
-    public class Dictionary
+    public record Dictionary
     {
         public string NotePad = "";
 
@@ -44,7 +44,7 @@ namespace DictionaryDocument
         }
         public override string ToString()
         {
-            return "[Dictionary]";
+            return $"[Dictionary: {Definitions[0].Language}, {Definitions[1].Language}]";
         }
 
         public XElement ToXml()
@@ -53,7 +53,7 @@ namespace DictionaryDocument
             r.Add(new XElement("notepad", NotePad));
             if(ToDoItems.Count > 0)
             {
-                r.Add(new XElement("todoitems", ToDoItems)); // FIXME: Wrap each item into a tag
+                r.Add(new XElement("todoitems", ToDoItems.Select(item => new XElement("todoitem",item))));
             }
             r.Add(new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())));
             r.Add(new XElement("categories", Categories.Select(cat => cat.ToXml())));
@@ -117,7 +117,7 @@ namespace DictionaryDocument
         }
     }
 
-    public class EntryList
+    public record EntryList
     {
         public string Language { get; set; }
 
@@ -131,7 +131,7 @@ namespace DictionaryDocument
         }
     }
 
-    public class Entry
+    public record Entry
     {
         public string Term { get; set; }
 
@@ -162,7 +162,7 @@ namespace DictionaryDocument
         }
     }
 
-    public class WordClass
+    public record WordClass
     {
         public string Name { get; set; } = "";
 
@@ -184,7 +184,7 @@ namespace DictionaryDocument
         }
     }
 
-    public class Category
+    public record Category
     {
 
         public string Name { get; set; }
@@ -196,10 +196,13 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            return new XElement("category",
-                new XElement("name", Name),
-                new XElement("description", Description),
-                new XElement("flagged", Flagged));
+            XElement e = new XElement("category");
+            e.SetAttributeValue("name", Name);
+            if(Flagged)
+                e.SetAttributeValue("flagged", true);
+            // FIXME: Description doesn't actually appear in the schema, though?
+            e.Add(new XElement("description", Description));
+            return e;
         }
     }
 }

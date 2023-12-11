@@ -3,6 +3,7 @@
  * as automated conversion, merging and validation.
  */
 
+using System;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
 using System.IO;
@@ -36,7 +37,7 @@ namespace DictTool
             testOutputCommand.Handler = CommandHandler.Create<FileInfo>((output) =>
             {
                 output = output ?? new FileInfo("test.xml");
-                DictToolUtility.TestOutput(output);
+                TestOutput(output);
             });
             rootCommand.Add(testOutputCommand);
 #endif
@@ -50,12 +51,35 @@ namespace DictTool
             validationCommand.Handler = CommandHandler.Create<FileInfo>((input) =>
             {
                 input = input ?? new FileInfo("dictionary.xml");
-                DictToolUtility.ValidateDocument(input);
+                ValidateDocument(input);
             });
             rootCommand.Add(validationCommand);
 
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args).Result;
+        }
+
+#if DEBUG
+        public static void TestOutput(FileInfo outputFile)
+        {
+            var d = DictionaryDocument.Tests.Generators.GetMockDocument();
+            Console.WriteLine($"Writing a mock document to {outputFile.FullName}");
+            d.SaveDictx(outputFile);
+        }
+#endif
+
+        public static void ValidateDocument(FileInfo inputFile)
+        {
+            bool result = DictionaryDocument.Dictionary.ValidateDictx(inputFile);
+            switch (result)
+            {
+                case true:
+                    Console.WriteLine($"{inputFile.FullName} is a valid DictX document.");
+                    break;
+                case false:
+                    Console.WriteLine($"{inputFile.FullName} is an invalid DictX document!");
+                    break;
+            }
         }
     }
 }

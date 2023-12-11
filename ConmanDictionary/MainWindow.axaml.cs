@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System.Reactive;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ConmanDictionary
 {
@@ -13,11 +14,10 @@ namespace ConmanDictionary
         string buttonText = "Click Me!";
 
         private Window? _parent;
-        private AboutWindow? _aboutWindow;
 
         public MainWindowViewModel(Window parent) : base()
         {
-            this._parent = parent;
+            _parent = parent;
         }
 
         public string ButtonText
@@ -40,14 +40,11 @@ namespace ConmanDictionary
             _parent?.Close();
         }
 
-        public void ShowAboutWindowCommand()
+        public async void ShowAboutWindowCommand()
         {
             System.Diagnostics.Debug.WriteLine("Show About Window");
-            if (_aboutWindow == null)
-            {
-                _aboutWindow = new AboutWindow();
-                _aboutWindow.Show();
-            }
+            AboutWindow about = new AboutWindow();
+            await about.ShowDialog(_parent);
         }
     }
 

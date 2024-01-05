@@ -2,26 +2,16 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:annotation>
         <xs:documentation>
-            dictionary.xsd: Conman's Dictionary database file XML Schema.
+            dictionary.xsd: Conman's Dictionary database file XML Schema,
+            version 1.0.
+
+            Original author: Rose Midford.
             
-            Conman's Dictionary, a dictionary application for conlang makers.
-            Copyright (C) 2006,2007,2008,2009,2010 Urpo Lankinen
-            
-            This program is free software: you can redistribute it
-            and/or modify it under the terms of the GNU General Public
-            License as published by the Free Software Foundation, either
-            version 3 of the License, or (at your option) any later
-            version.
-            
-            This program is distributed in the hope that it will be
-            useful, but WITHOUT ANY WARRANTY; without even the implied
-            warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-            PURPOSE. See the GNU General Public License for more
-            details.
-            
-            You should have received a copy of the GNU General Public
-            License along with this program. If not, see
-            &lt;http://www.gnu.org/licenses/&gt;.
+            Unlike the rest of the project files, this XML Schema definition
+            file is dedicated to the Public Domain, or (if not applicable
+            under any given jurisdiction) the original author allows
+            unlimited modification and distribution of this file for any
+            purpose. There is NO WARRANTY whatsoever.
         </xs:documentation>
     </xs:annotation>
     
@@ -83,9 +73,12 @@
             <xs:documentation>Word classes. Word classes are identified by their primary human-readable name (saved in "name" attribute).</xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence></xs:sequence>
-            <xs:attribute name="abbreviation" type="xs:string" use="required"/>
-            <xs:attribute name="name" type="xs:ID" use="required"/>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="name" type="xs:ID" use="required"/>
+                    <xs:attribute name="abbreviation" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="category">
@@ -93,9 +86,12 @@
             <xs:documentation>Word categories. Categories are identified by their primary human-readable name (saved in "name" attribute).</xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence></xs:sequence>
-            <xs:attribute name="name" type="xs:ID" use="required"/>
-            <xs:attribute name="flagged" type="xs:boolean" default="false"/>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                        <xs:attribute name="name" type="xs:ID" use="required"/>
+                        <xs:attribute name="flagged" type="xs:boolean" default="false"/>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
 </xs:schema>

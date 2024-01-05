@@ -176,10 +176,10 @@ namespace DictionaryDocument
             XElement e = new XElement("class");
             e.SetAttributeValue("name", Name);
             e.SetAttributeValue("abbreviation", Abbreviation);
-            if(Description.Length > 0)
-                e.SetAttributeValue("description", Description);
-            if(Flagged)
+            if (Flagged)
                 e.SetAttributeValue("flagged", true);
+            if (Description?.Length > 0)
+                e.SetValue(Description);
             return e;
         }
     }
@@ -198,10 +198,10 @@ namespace DictionaryDocument
         {
             XElement e = new XElement("category");
             e.SetAttributeValue("name", Name);
-            if(Flagged)
+            if (Flagged)
                 e.SetAttributeValue("flagged", true);
-            // FIXME: Description doesn't actually appear in the schema, though?
-            e.Add(new XElement("description", Description));
+            if (Description?.Length > 0)
+                e.SetValue(Description);
             return e;
         }
     }

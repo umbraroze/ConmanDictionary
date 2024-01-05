@@ -21,4 +21,19 @@
     <ProjectReference Include="..\DictionaryDocument\DictionaryDocument.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestFiles\complexfile.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\complexfile2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\complexfiles_mergedbyhand.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\simplefile.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -10,13 +10,27 @@ using System.Xml;
 using System;
 using System.Resources;
 using System.Data;
+using System.Xml.XPath;
 
 namespace DictionaryDocument
 {
     public record Dictionary
     {
-        public string NotePad = "";
+        private string _notepad = "";
+        public string NotePad {
+            get { return _notepad; }
+            set
+            {
+                // Handle the nullitude of the NotePad. NotePad
+                // should always have a value, even if it's an empty string.
+                if (value == null)
+                    _notepad = "";
+                else
+                    _notepad = value;
+            }
+        }
 
+        // TODO: Is it a list of strings, tho?
         public List<string> ToDoItems;
 
         public List<Category> Categories;
@@ -70,6 +84,32 @@ namespace DictionaryDocument
             XmlSerializer ser = new XmlSerializer(typeof(XElement));
             ser.Serialize(serout, ToXml());
             serout.Close();
+        }
+
+        public static Dictionary FromXml(XElement element)
+        {
+            if (element.Name != "dictionary")
+                throw new XmlException($"Wrong base tag; expected \"dictionary\", got \"{element.Name}\"");
+            Dictionary dictionary = new Dictionary();
+            // notepad
+            dictionary.NotePad = element.XPathSelectElement("notepad")?.Value;
+            // wordclasses
+            // categories
+            // definitions 1, 2
+
+            throw new NotImplementedException(); // TODO
+            return dictionary;
+        }
+
+        public static Dictionary LoadDictx(FileInfo fileName)
+        {
+            FileStream xmlin = new FileStream(fileName.FullName, FileMode.Open);
+            //XmlReader reader = XmlReader.Create(xmlin);
+            XElement document = XElement.Load(xmlin); // XElement document = XNode.ReadFrom(reader).Document.Root;
+            xmlin.Close();
+            return FromXml(document);
+
+            throw new NotImplementedException(); // TODO
         }
 
         public static XmlSchema GetDictxSchema()
@@ -129,6 +169,11 @@ namespace DictionaryDocument
                 new XAttribute("language", Language),
                 Entries.Select(entry => entry.ToXml()));
         }
+
+        public static EntryList FromXml(XElement element)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public record Entry
@@ -160,6 +205,13 @@ namespace DictionaryDocument
                 e.SetAttributeValue("category", Category.Name);
             return e;
         }
+
+        public static Entry FromXml(XElement element)
+        {
+            if (element.Name != "entry")
+                throw new XmlException($"Wrong base tag; expected \"entry\", got \"{element.Name}\"");
+            throw new NotImplementedException(); // TODO
+        }
     }
 
     public record WordClass
@@ -182,6 +234,12 @@ namespace DictionaryDocument
                 e.SetValue(Description);
             return e;
         }
+        public static WordClass FromXml(XElement element)
+        {
+            if (element.Name != "class")
+                throw new XmlException($"Wrong base tag; expected \"class\", got \"{element.Name}\"");
+            throw new NotImplementedException();
+        }
     }
 
     public record Category
@@ -203,6 +261,13 @@ namespace DictionaryDocument
             if (Description?.Length > 0)
                 e.SetValue(Description);
             return e;
+        }
+
+        public static Category FromXml(XElement element)
+        {
+            if (element.Name != "category")
+                throw new XmlException($"Wrong base tag; expected \"category\", got \"{element.Name}\"");
+            throw new NotImplementedException(); // TODO
         }
     }
 }

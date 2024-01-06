@@ -7,8 +7,9 @@ baseurl: ""
 url: ""
 github_username: umbraroze
 
-# Build settings
-theme: midnight
-#plugins:
+#theme: midnight
+remote_theme: pages-themes/midnight@v0.2.0
+plugins:
+- jekyll-remote-theme
 #  - jekyll-feed
 

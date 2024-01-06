@@ -1,0 +1,14 @@
+
+title: Conman's Dictionary
+email: wwwwolf@iki.fi
+description: >-
+  A dictionary application for articial/constructed language enthusiasts.
+baseurl: ""
+url: ""
+github_username: umbraroze
+
+# Build settings
+theme: midnight
+#plugins:
+#  - jekyll-feed
+

@@ -3,9 +3,11 @@ title: Conman's Dictionary
 email: wwwwolf@iki.fi
 description: >-
   A dictionary application for articial/constructed language enthusiasts.
-baseurl: ""
-url: ""
+domain: umbraroze.github.io
+baseurl: /ConmanDictionary/
+url: https://umbraroze.github.io
 github_username: umbraroze
+
 
 #theme: midnight
 remote_theme: pages-themes/midnight@v0.2.0

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Build instructions
 permalink: /build.html
 ---

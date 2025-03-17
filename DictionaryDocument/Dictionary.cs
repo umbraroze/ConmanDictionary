@@ -90,19 +90,46 @@ namespace DictionaryDocument
         {
             if (element.Name != "dictionarydatabase")
                 throw new XmlException($"Wrong base tag; expected \"dictionarydatabase\", got \"{element.Name}\"");
-            
+
             //var definitions = EntryList.FromXml(element.Elements("definitions"));
 
             Dictionary dictionary = new()
             {
-                NotePad = element.Element("notepad")?.Value ?? "",
-                WordClasses = [.. element.Element("wordclasses").Elements("class").Select(WordClass.FromXml)],
-                Categories = [.. element.Element("categories").Elements("category").Select(Category.FromXml)],
-                // definitions 1, 2
-                //Definitions[0] = 
+                // Parse notepad
+                NotePad = element.Element("notepad")?.Value ?? ""
             };
-            
-            //throw new NotImplementedException(); // TODO
+
+            // Parse todo items
+            var todoItems = element.Element("todoitems")?.Elements("todoitem");
+            if (todoItems != null)
+            {
+                dictionary.ToDoItems = [.. todoItems.Select(item => item.Value)];
+            }
+
+            // Parse word classes
+            var wordClasses = element.Element("wordclasses")?.Elements("class");
+            if (wordClasses != null)
+            {
+                dictionary.WordClasses = [.. wordClasses.Select(wc => WordClass.FromXml(wc))];
+            }
+
+            // Parse categories
+            var categories = element.Element("categories")?.Elements("category");
+            if (categories != null)
+            {
+                dictionary.Categories = [.. categories.Select(cat => Category.FromXml(cat))];
+            }
+
+            // Parse definitions
+            var definitionElements = element.Elements("definitions");
+            if (definitionElements.Count() == 2)
+            {
+                dictionary.Definitions = [.. definitionElements.Select(def => EntryList.FromXml(def))];
+            }
+            else
+            {
+                throw new XmlException("Expected exactly two definition lists");
+            }
             return dictionary;
         }
 

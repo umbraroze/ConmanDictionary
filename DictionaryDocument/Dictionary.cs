@@ -88,16 +88,21 @@ namespace DictionaryDocument
 
         public static Dictionary FromXml(XElement element)
         {
-            if (element.Name != "dictionary")
-                throw new XmlException($"Wrong base tag; expected \"dictionary\", got \"{element.Name}\"");
-            Dictionary dictionary = new Dictionary();
-            // notepad
-            dictionary.NotePad = element.XPathSelectElement("notepad")?.Value;
-            // wordclasses
-            // categories
-            // definitions 1, 2
+            if (element.Name != "dictionarydatabase")
+                throw new XmlException($"Wrong base tag; expected \"dictionarydatabase\", got \"{element.Name}\"");
+            
+            //var definitions = EntryList.FromXml(element.Elements("definitions"));
 
-            throw new NotImplementedException(); // TODO
+            Dictionary dictionary = new()
+            {
+                NotePad = element.Element("notepad")?.Value ?? "",
+                WordClasses = [.. element.Element("wordclasses").Elements("class").Select(WordClass.FromXml)],
+                Categories = [.. element.Element("categories").Elements("category").Select(Category.FromXml)],
+                // definitions 1, 2
+                //Definitions[0] = 
+            };
+            
+            //throw new NotImplementedException(); // TODO
             return dictionary;
         }
 
@@ -108,8 +113,6 @@ namespace DictionaryDocument
             XElement document = XElement.Load(xmlin); // XElement document = XNode.ReadFrom(reader).Document.Root;
             xmlin.Close();
             return FromXml(document);
-
-            throw new NotImplementedException(); // TODO
         }
 
         public static XmlSchema GetDictxSchema()
@@ -172,7 +175,16 @@ namespace DictionaryDocument
 
         public static EntryList FromXml(XElement element)
         {
-            throw new NotImplementedException();
+            if (element.Name != "definitions")
+                throw new XmlException($"Wrong base tag; expected \"definitions\", got \"{element.Name}\"");
+
+            EntryList entryList = new EntryList
+            {
+                Language = element.Attribute("language")?.Value ?? "",
+                Entries = [.. element.Elements("entry").Select(entry => Entry.FromXml(entry))]
+            };
+
+            return entryList;
         }
     }
 
@@ -210,7 +222,17 @@ namespace DictionaryDocument
         {
             if (element.Name != "entry")
                 throw new XmlException($"Wrong base tag; expected \"entry\", got \"{element.Name}\"");
-            throw new NotImplementedException(); // TODO
+
+            Entry entry = new Entry
+            {
+                Term = element.Element("term")?.Value ?? "",
+                Definition = element.Element("definition")?.Value ?? "",
+                Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false"),
+                WordClass = new WordClass { Name = element.Attribute("class")?.Value ?? "" },
+                Category = element.Attribute("category") != null ? new Category { Name = element.Attribute("category").Value } : null
+            };
+
+            return entry;
         }
     }
 
@@ -238,7 +260,16 @@ namespace DictionaryDocument
         {
             if (element.Name != "class")
                 throw new XmlException($"Wrong base tag; expected \"class\", got \"{element.Name}\"");
-            throw new NotImplementedException();
+            
+            WordClass wordClass = new WordClass
+            {
+                Name = element.Attribute("name")?.Value ?? "",
+                Abbreviation = element.Attribute("abbreviation")?.Value ?? "",
+                Description = element.Value,
+                Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false")
+            };
+
+            return wordClass;
         }
     }
 
@@ -267,7 +298,15 @@ namespace DictionaryDocument
         {
             if (element.Name != "category")
                 throw new XmlException($"Wrong base tag; expected \"category\", got \"{element.Name}\"");
-            throw new NotImplementedException(); // TODO
+
+            Category category = new Category
+            {
+                Name = element.Attribute("name")?.Value ?? "",
+                Description = element.Value,
+                Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false")
+            };
+
+            return category;
         }
     }
 }

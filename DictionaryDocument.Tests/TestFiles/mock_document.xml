@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dictionarydatabase>
+  <notepad>This is some random text for the notepad.</notepad>
+  <wordclasses>
+    <class name="Noun" abbreviation="n" />
+    <class name="Verb" abbreviation="v" />
+    <class name="Adjective" abbreviation="a" />
+  </wordclasses>
+  <categories />
+  <definitions language="Aybeeseean">
+    <entry class="Verb">
+      <term>foo</term>
+      <definition>to pity</definition>
+    </entry>
+    <entry class="Noun">
+      <term>bah</term>
+      <definition>bad sigh</definition>
+    </entry>
+    <entry class="Adjective">
+      <term>zzbaz</term>
+      <definition>annoying</definition>
+    </entry>
+  </definitions>
+  <definitions language="English">
+    <entry class="Verb">
+      <term>pity</term>
+      <definition>foo</definition>
+    </entry>
+    <entry class="Noun">
+      <term>sigh</term>
+      <definition>bah (bad sigh)</definition>
+    </entry>
+    <entry class="Adjective">
+      <term>annoying</term>
+      <definition>zzbaz</definition>
+    </entry>
+  </definitions>
+</dictionarydatabase>

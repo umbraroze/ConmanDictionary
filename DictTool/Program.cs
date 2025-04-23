@@ -30,7 +30,7 @@ namespace DictTool
 
             // Global options
             Option<FileInfo> inputFileOption = new(
-                name: "input",
+                name: "--input",
                 description: "Input file name.",
                 getDefaultValue: () => new FileInfo(DEFAULT_INPUT_FILE)
             )
@@ -38,7 +38,7 @@ namespace DictTool
                 AllowMultipleArgumentsPerToken = true,
             };
             Option<FileInfo> outputFileOption = new(
-                name: "output",
+                name: "--output",
                 description: "Output file name.",
                 getDefaultValue: () => new FileInfo(DEFAULT_OUTPUT_FILE)
             )

@@ -21,7 +21,7 @@ public class LoadDictx
     {
         foreach (String file in _TestFiles)
         {
-            Assert.That(File.Exists(file),"Testing environment build failed: {0} not found.", file);
+            Assert.That(File.Exists(file),$"Testing environment build failed: {file} not found.");
         }
     }
 
@@ -31,7 +31,7 @@ public class LoadDictx
         foreach (String file in _TestFiles)
         {
             var f = new FileInfo(file);
-            Assert.That(DictionaryDocument.Dictionary.ValidateDictx(f), "Validation of a test data file {0} failed.", file);
+            Assert.That(DictionaryDocument.Dictionary.ValidateDictx(f), $"Validation of a test data file {file} failed.");
         }
     }
 

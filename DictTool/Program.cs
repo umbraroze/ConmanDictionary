@@ -94,7 +94,7 @@ namespace DictTool
 #if DEBUG
         public static void TestOutput(FileInfo outputFile)
         {
-            var d = DictionaryDocument.Tests.Generators.GetMockDocument();
+            var d = DictionaryDocument.Generators.GetMockDocument();
             Console.WriteLine($"Writing a mock document to {outputFile.FullName}");
             d.SaveDictx(outputFile);
         }

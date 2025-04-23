@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
-    <Product>ConmanDictionary</Product>
-    <Company>beastwithin.org</Company>
-    <Authors>Rose Midford</Authors>
-    <Description>A command-line tool for handling Conman's Dictionary .dictx files.</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<Product>ConmanDictionary</Product>
+		<Company>beastwithin.org</Company>
+		<Authors>Rose Midford</Authors>
+		<Description>A command-line tool for handling Conman's Dictionary .dictx files.</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-    <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+		<PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DictionaryDocument.Tests\DictionaryDocument.Tests.csproj" />
-    <ProjectReference Include="..\DictionaryDocument\DictionaryDocument.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DictionaryDocument\DictionaryDocument.csproj" />
+	</ItemGroup>
 
 </Project>

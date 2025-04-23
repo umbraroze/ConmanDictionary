@@ -1,4 +1,4 @@
-﻿namespace DictionaryDocument.Tests;
+﻿namespace DictionaryDocument;
 
 public class Generators
 {

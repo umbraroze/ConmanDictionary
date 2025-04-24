@@ -2,9 +2,14 @@
 
 public class Generators
 {
-    public static DictionaryDocument.Dictionary GetMockDocument()
+    /*
+     * NOTE: When changing the this, also generate the corresponding XML
+     *       using DictTool's test-output command, and stick it in 
+     *       DictionaryDocument.Tests/TestFiles/mock_document.xml
+     */
+    public static Dictionary GetMockDocument()
     {
-        var d = new DictionaryDocument.Dictionary();
+        var d = new Dictionary();
 
         d.Definitions[0].Language = "Aybeeseean";
         var left = d.Definitions[0].Entries;
@@ -17,37 +22,37 @@ public class Generators
         var wcnoun = d.WordClasses.Find(x => x.Name.Equals("Noun"));
         var wcadj = d.WordClasses.Find(x => x.Name.Equals("Adjective"));
 
-        left.Add(new DictionaryDocument.Entry
+        left.Add(new Entry
         {
             Term = "foo",
             Definition = "to pity",
             WordClass = wcverb
         });
-        left.Add(new DictionaryDocument.Entry
+        left.Add(new Entry
         {
             Term = "bah",
             Definition = "bad sigh",
             WordClass = wcnoun
         });
-        left.Add(new DictionaryDocument.Entry
+        left.Add(new Entry
         {
             Term = "zzbaz",
             Definition = "annoying",
             WordClass = wcadj
         });
-        right.Add(new DictionaryDocument.Entry
+        right.Add(new Entry
         {
             Term = "pity",
             Definition = "foo",
             WordClass = wcverb
         });
-        right.Add(new DictionaryDocument.Entry
+        right.Add(new Entry
         {
             Term = "sigh",
             Definition = "bah (bad sigh)",
             WordClass = wcnoun
         });
-        right.Add(new DictionaryDocument.Entry
+        right.Add(new Entry
         {
             Term = "annoying",
             Definition = "zzbaz",

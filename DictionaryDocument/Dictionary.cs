@@ -44,17 +44,20 @@ namespace DictionaryDocument
          */
         public Dictionary()
         {
-            ToDoItems = new List<string>();
-            Categories = new List<Category>();
+            ToDoItems = [];
+            Categories = [];
             // Populate default word classes
-            WordClasses = new List<WordClass>();
-            WordClasses.Add(new WordClass { Name = "Noun", Abbreviation = "n" });
-            WordClasses.Add(new WordClass { Name = "Verb", Abbreviation = "v" });
-            WordClasses.Add(new WordClass { Name = "Adjective", Abbreviation = "a" });
+            WordClasses =
+            [
+                new WordClass { Name = "Noun", Abbreviation = "n" },
+                new WordClass { Name = "Verb", Abbreviation = "v" },
+                new WordClass { Name = "Adjective", Abbreviation = "a" },
+            ];
             // Populate default entry lists
-            Definitions = new List<EntryList>();
-            Definitions.Add(new EntryList { Language = "Language 1" });
-            Definitions.Add(new EntryList { Language = "Language 2" });
+            Definitions = [
+                new EntryList { Language = "Language 1" },
+                new EntryList { Language = "Language 2" }
+            ];
         }
         public override string ToString()
         {
@@ -63,7 +66,7 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            XElement r = new XElement("dictionarydatabase");
+            XElement r = new("dictionarydatabase");
             r.Add(new XElement("notepad", NotePad));
             if(ToDoItems.Count > 0)
             {
@@ -80,8 +83,8 @@ namespace DictionaryDocument
         {
             if(File.Exists(fileName.FullName))
                 File.Delete(fileName.FullName);
-            FileStream serout = new FileStream(fileName.FullName, FileMode.OpenOrCreate);
-            XmlSerializer ser = new XmlSerializer(typeof(XElement));
+            FileStream serout = new(fileName.FullName, FileMode.OpenOrCreate);
+            XmlSerializer ser = new(typeof(XElement));
             ser.Serialize(serout, ToXml());
             serout.Close();
         }
@@ -135,7 +138,7 @@ namespace DictionaryDocument
 
         public static Dictionary LoadDictx(FileInfo fileName)
         {
-            FileStream xmlin = new FileStream(fileName.FullName, FileMode.Open);
+            FileStream xmlin = new(fileName.FullName, FileMode.Open);
             //XmlReader reader = XmlReader.Create(xmlin);
             XElement document = XElement.Load(xmlin); // XElement document = XNode.ReadFrom(reader).Document.Root;
             xmlin.Close();
@@ -145,7 +148,7 @@ namespace DictionaryDocument
         public static XmlSchema GetDictxSchema()
         {
             // Grab the schema document from resources.
-            string schemaText = DictionaryDocument.Properties.Resources.dictx_schema;
+            string schemaText = Properties.Resources.dictx_schema;
 
             // Parse the returned string as XML and turn it into a schema.
             XmlReader schemaReader = XmlReader.Create(new StringReader(schemaText));
@@ -156,7 +159,7 @@ namespace DictionaryDocument
 
         public static bool ValidateDictx(FileInfo filename)
         {
-            XmlReaderSettings dictxSettings = new XmlReaderSettings();
+            XmlReaderSettings dictxSettings = new();
             dictxSettings.Schemas.Add(GetDictxSchema());
             dictxSettings.ValidationType = ValidationType.Schema;
             dictxSettings.ValidationEventHandler += ValidateDictxEventHandler;
@@ -185,13 +188,112 @@ namespace DictionaryDocument
                 throw new XmlException(e.Message);
             }
         }
+
+        public virtual bool Equals(Dictionary other)
+        {
+            if (other == null)
+                return false;
+            if (NotePad != other.NotePad)
+                return false;
+            if (!ToDoItemsEqual(other.ToDoItems))
+                return false;
+            if (!CategoriesEqual(other.Categories))
+                return false;
+            if (!WordClassesEqual(other.WordClasses))
+                return false;
+            if (!DefinitionsEqual(other.Definitions))
+                return false;
+
+            return true;
+        }
+
+        private bool ToDoItemsEqual(List<string> otherItems)
+        {
+            if (ToDoItems == null && otherItems == null)
+                return true;
+            if (ToDoItems == null || otherItems == null)
+                return false;
+            if (ToDoItems.Count != otherItems.Count)
+                return false;
+
+            return ToDoItems.SequenceEqual(otherItems);
+        }
+
+        private bool CategoriesEqual(List<Category> otherCategories)
+        {
+            if (Categories == null && otherCategories == null)
+                return true;
+            if (Categories == null || otherCategories == null)
+                return false;
+            if (Categories.Count != otherCategories.Count)
+                return false;
+
+            return Categories.SequenceEqual(otherCategories);
+        }
+
+        private bool WordClassesEqual(List<WordClass> otherClasses)
+        {
+            if (WordClasses == null && otherClasses == null)
+                return true;
+            if (WordClasses == null || otherClasses == null)
+                return false;
+            if (WordClasses.Count != otherClasses.Count)
+                return false;
+
+            return WordClasses.SequenceEqual(otherClasses);
+        }
+
+        private bool DefinitionsEqual(List<EntryList> otherDefinitions)
+        {
+            if (Definitions == null && otherDefinitions == null)
+                return true;
+            if (Definitions == null || otherDefinitions == null)
+                return false;
+            if (Definitions.Count != otherDefinitions.Count)
+                return false;
+
+            return Definitions.SequenceEqual(otherDefinitions);
+        }
+
+        // Override GetHashCode as well when you override Equals
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(NotePad);
+
+            if (ToDoItems != null)
+            {
+                foreach (var item in ToDoItems)
+                    hash.Add(item);
+            }
+
+            if (Categories != null)
+            {
+                foreach (var category in Categories)
+                    hash.Add(category);
+            }
+
+            if (WordClasses != null)
+            {
+                foreach (var wordClass in WordClasses)
+                    hash.Add(wordClass);
+            }
+
+            if (Definitions != null)
+            {
+                foreach (var definition in Definitions)
+                    hash.Add(definition);
+            }
+
+            return hash.ToHashCode();
+        }
     }
 
     public record EntryList
     {
         public string Language { get; set; }
 
-        public List<Entry> Entries = new List<Entry>();
+        public List<Entry> Entries = [];
 
         public XElement ToXml()
         {
@@ -205,13 +307,40 @@ namespace DictionaryDocument
             if (element.Name != "definitions")
                 throw new XmlException($"Wrong base tag; expected \"definitions\", got \"{element.Name}\"");
 
-            EntryList entryList = new EntryList
+            EntryList entryList = new()
             {
                 Language = element.Attribute("language")?.Value ?? "",
                 Entries = [.. element.Elements("entry").Select(entry => Entry.FromXml(entry))]
             };
 
             return entryList;
+        }
+
+        public virtual bool Equals(EntryList other)
+        {
+            if (other == null)
+                return false;
+            if (Language != other.Language)
+                return false;
+            if (Entries == null && other.Entries == null)
+                return true;
+            if (Entries == null || other.Entries == null)
+                return false;
+            if (Entries.Count != other.Entries.Count)
+                return false;
+
+            return Entries.SequenceEqual(other.Entries);
+        }
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(Language);
+            if (Entries != null)
+            {
+                foreach (var item in Entries)
+                    hash.Add(item);
+            }
+            return hash.ToHashCode();
         }
     }
 
@@ -234,7 +363,7 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            XElement e = new XElement("entry");
+            XElement e = new("entry");
             e.Add(new XElement("term", Term));
             e.Add(new XElement("definition", Definition));
             if(Flagged)
@@ -250,7 +379,7 @@ namespace DictionaryDocument
             if (element.Name != "entry")
                 throw new XmlException($"Wrong base tag; expected \"entry\", got \"{element.Name}\"");
 
-            Entry entry = new Entry
+            Entry entry = new()
             {
                 Term = element.Element("term")?.Value ?? "",
                 Definition = element.Element("definition")?.Value ?? "",
@@ -274,7 +403,7 @@ namespace DictionaryDocument
         public bool Flagged { get; set; } = false;
         public XElement ToXml()
         {
-            XElement e = new XElement("class");
+            XElement e = new("class");
             e.SetAttributeValue("name", Name);
             e.SetAttributeValue("abbreviation", Abbreviation);
             if (Flagged)
@@ -288,7 +417,7 @@ namespace DictionaryDocument
             if (element.Name != "class")
                 throw new XmlException($"Wrong base tag; expected \"class\", got \"{element.Name}\"");
             
-            WordClass wordClass = new WordClass
+            WordClass wordClass = new()
             {
                 Name = element.Attribute("name")?.Value ?? "",
                 Abbreviation = element.Attribute("abbreviation")?.Value ?? "",
@@ -312,7 +441,7 @@ namespace DictionaryDocument
 
         public XElement ToXml()
         {
-            XElement e = new XElement("category");
+            XElement e = new("category");
             e.SetAttributeValue("name", Name);
             if (Flagged)
                 e.SetAttributeValue("flagged", true);
@@ -326,7 +455,7 @@ namespace DictionaryDocument
             if (element.Name != "category")
                 throw new XmlException($"Wrong base tag; expected \"category\", got \"{element.Name}\"");
 
-            Category category = new Category
+            Category category = new()
             {
                 Name = element.Attribute("name")?.Value ?? "",
                 Description = element.Value,

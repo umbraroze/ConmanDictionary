@@ -83,10 +83,9 @@ namespace DictionaryDocument
         {
             if(File.Exists(fileName.FullName))
                 File.Delete(fileName.FullName);
-            FileStream serout = new(fileName.FullName, FileMode.OpenOrCreate);
+            using FileStream serout = new(fileName.FullName, FileMode.OpenOrCreate);
             XmlSerializer ser = new(typeof(XElement));
             ser.Serialize(serout, ToXml());
-            serout.Close();
         }
 
         public static Dictionary FromXml(XElement element)
@@ -138,10 +137,8 @@ namespace DictionaryDocument
 
         public static Dictionary LoadDictx(FileInfo fileName)
         {
-            FileStream xmlin = new(fileName.FullName, FileMode.Open);
-            //XmlReader reader = XmlReader.Create(xmlin);
-            XElement document = XElement.Load(xmlin); // XElement document = XNode.ReadFrom(reader).Document.Root;
-            xmlin.Close();
+            using FileStream xmlin = new(fileName.FullName, FileMode.Open);
+            XElement document = XElement.Load(xmlin);
             return FromXml(document);
         }
 

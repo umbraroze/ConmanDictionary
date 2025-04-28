@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace DictionaryDocument.Tests;
 
 [TestFixture]
@@ -28,13 +30,22 @@ public class LoadDictx
     }
 
     [Test]
-    public void TestFilesAreValid()
+    public void AllTestFilesAreValid()
     {
         foreach (String file in _TestFiles)
         {
             var f = new FileInfo(file);
-            Assert.That(DictionaryDocument.Dictionary.ValidateDictx(f), $"Validation of a test data file {file} failed.");
+            Assert.That(Dictionary.ValidateDictx(f), $"Validation of a test data file {file} failed.");
         }
+    }
+
+    [Test]
+    public void TwoSameLoadedFilesAreEqual()
+    {
+        var mockFile = new FileInfo(generatedMockDocumentFile);
+        Dictionary mockDocument1 = Dictionary.LoadDictx(mockFile);
+        Dictionary mockDocument2 = Dictionary.LoadDictx(mockFile);
+        Assert.That(mockDocument1, Is.EqualTo(mockDocument2), $"Two instances of the same document loaded from disk aren't equal.");
     }
 
     [Test]

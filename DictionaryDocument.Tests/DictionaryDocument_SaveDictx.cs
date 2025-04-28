@@ -11,8 +11,13 @@ public class SaveDictx
     [Test]
     public void SaveGeneratedDocument()
     {
-        // TODO: Generate mock document, then just try to save it somewhere
-        Assert.Pass();
+        // Generate mock document.
+        Dictionary mockDocument = Generators.GetMockDocument();
+        // Save it to disk.
+        FileInfo mockDocFile = new FileInfo(Path.GetTempFileName());
+        mockDocument.SaveDictx(mockDocFile);
+        // Should throw hella exceptions above, so we just check if the file exists
+        Assert.That(File.Exists(mockDocFile.FullName),$"File wasn't successfully saved.");
     }
 
     [Test]

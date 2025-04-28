@@ -33,7 +33,7 @@ worldbuilding project.
 
 - **[Build instructions](build.html)**:
   Don't fancy the binaries? Just build it from the source.
-- **[Subprojects and components](project.html)**:
+- **Subprojects and components** (Upcoming):
   What tools are there?
   How is the source laid out?
 - **[Design and history](design.html)**:

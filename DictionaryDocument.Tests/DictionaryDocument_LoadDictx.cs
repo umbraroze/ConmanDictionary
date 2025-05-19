@@ -49,6 +49,14 @@ public class LoadDictx
     }
 
     [Test]
+    public void TwoMockDocumentsAreEqual()
+    {
+        Dictionary mockDocument1 = Generators.GetMockDocument();
+        Dictionary mockDocument2 = Generators.GetMockDocument();
+        Assert.That(mockDocument1, Is.EqualTo(mockDocument2), $"Two mock documents from the mock document generator aren't equal.");
+    }
+
+    [Test]
     public void CompareGeneratedToStaticFile()
     {
         // Generate mock document.

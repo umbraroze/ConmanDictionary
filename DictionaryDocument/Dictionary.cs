@@ -14,7 +14,7 @@ using System.Xml.XPath;
 
 namespace DictionaryDocument
 {
-    public record Dictionary
+    public record Dictionary : IEquatable<Dictionary>
     {
         private string _notepad = "";
         public string NotePad {
@@ -61,7 +61,7 @@ namespace DictionaryDocument
         }
         public override string ToString()
         {
-            return $"[Dictionary: {Definitions[0].Language}, {Definitions[1].Language}]";
+            return $"[Dictionary({GetHashCode()}): {Definitions[0].Language}, {Definitions[1].Language}]";
         }
 
         public XElement ToXml()
@@ -137,8 +137,11 @@ namespace DictionaryDocument
 
         public static Dictionary LoadDictx(FileInfo fileName)
         {
-            using FileStream xmlin = new(fileName.FullName, FileMode.Open);
-            XElement document = XElement.Load(xmlin);
+            XElement document;
+            using (FileStream xmlin = new(fileName.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                document = XElement.Load(xmlin);
+            }
             return FromXml(document);
         }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -8,9 +7,8 @@ using System.Xml.Serialization;
 using System.Xml.Schema;
 using System.Xml;
 using System;
-using System.Resources;
 using System.Data;
-using System.Xml.XPath;
+using System.Diagnostics;
 
 namespace DictionaryDocument
 {
@@ -112,21 +110,21 @@ namespace DictionaryDocument
             var wordClasses = element.Element("wordclasses")?.Elements("class");
             if (wordClasses != null)
             {
-                dictionary.WordClasses = [.. wordClasses.Select(wc => WordClass.FromXml(wc))];
+                dictionary.WordClasses = [.. wordClasses.Select(WordClass.FromXml)];
             }
 
             // Parse categories
             var categories = element.Element("categories")?.Elements("category");
             if (categories != null)
             {
-                dictionary.Categories = [.. categories.Select(cat => Category.FromXml(cat))];
+                dictionary.Categories = [.. categories.Select(Category.FromXml)];
             }
 
             // Parse definitions
             var definitionElements = element.Elements("definitions");
             if (definitionElements.Count() == 2)
             {
-                dictionary.Definitions = [.. definitionElements.Select(def => EntryList.FromXml(def))];
+                dictionary.Definitions = [.. definitionElements.Select(EntryList.FromXml)];
             }
             else
             {
@@ -192,17 +190,35 @@ namespace DictionaryDocument
         public virtual bool Equals(Dictionary other)
         {
             if (other == null)
+            {
+                Debug.WriteLine("Dictionary.Equals(): Other is null");
                 return false;
+            }
             if (NotePad != other.NotePad)
+            {
+                Debug.WriteLine("Dictionary.Equals(): Notepads don't match");
                 return false;
+            }
             if (!ToDoItemsEqual(other.ToDoItems))
+            {
+                Debug.WriteLine("Dictionary.Equals(): ToDoItems don't match");
                 return false;
+            }
             if (!CategoriesEqual(other.Categories))
+            {
+                Debug.WriteLine("Dictionary.Equals(): Categories don't match");
                 return false;
+            }
             if (!WordClassesEqual(other.WordClasses))
+            {
+                Debug.WriteLine("Dictionary.Equals(): WordClasses don't match");
                 return false;
+            }
             if (!DefinitionsEqual(other.Definitions))
+            {
+                Debug.WriteLine("Dictionary.Equals(): Definitions don't match");
                 return false;
+            }
 
             return true;
         }
@@ -310,7 +326,7 @@ namespace DictionaryDocument
             EntryList entryList = new()
             {
                 Language = element.Attribute("language")?.Value ?? "",
-                Entries = [.. element.Elements("entry").Select(entry => Entry.FromXml(entry))]
+                Entries = [.. element.Elements("entry").Select(Entry.FromXml)]
             };
 
             return entryList;

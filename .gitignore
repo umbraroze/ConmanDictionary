@@ -1,5 +1,6 @@
 .vs
 .vscode
 
-input.xml
-output.xml
+input*.xml
+output*.xml
+output*.txt

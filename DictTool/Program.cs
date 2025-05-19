@@ -6,6 +6,7 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection.Metadata;
 using DictionaryDocument;
@@ -19,8 +20,14 @@ namespace DictTool
 
         static int Main(string[] args)
         {
+#if DEBUG
+            // Make debug messages go on the console
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+#endif
+
             var rootCommand = new RootCommand
             {
+
                 Description = "DictX Command-Line Tool",
 
                 Handler = CommandHandler.Create(() =>
@@ -89,7 +96,7 @@ namespace DictTool
                     })
             };
             rootCommand.Add(playgroundCommand);
-#endif
+#endif // DEBUG
 
             // Validate DictX document structure.
             var validationCommand = new Command("validate")
@@ -110,53 +117,81 @@ namespace DictTool
             return rootCommand.InvokeAsync(args).Result;
         }
 
-#if DEBUG
+        [Conditional("DEBUG")]
         public static void TestOutput(FileInfo outputFile)
         {
             var d = DictionaryDocument.Generators.GetMockDocument();
             Console.WriteLine($"Writing a mock document to {outputFile.FullName}");
             d.SaveDictx(outputFile);
         }
+
+        [Conditional("DEBUG")]
         public static void CloneOutput(FileInfo inputFile, FileInfo outputFile)
         {
             var d = DictionaryDocument.Dictionary.LoadDictx(inputFile);
             Console.WriteLine($"Writing a clone of {inputFile.FullName} to {outputFile.FullName}");
             d.SaveDictx(outputFile);
         }
+        
+        [Conditional("DEBUG")]
         public static void Playground()
         {
             // This function is for random tests 'n' stuff.
 
             var builtMockDocument = Generators.GetMockDocument();
 
-            string generatedMockDocumentFile = @"DictionaryDocument.Tests/TestFiles/mock_document.xml";
-            var mockFile = new FileInfo(generatedMockDocumentFile);
+            var testFile1 = new FileInfo(@"output.xml");
+            var testFile1d = new FileInfo(@"output_dump.txt");
+            var testFile2 = new FileInfo(@"output2.xml");
+            var testFile2d = new FileInfo(@"output2_dump.txt");
+            var mockFile = new FileInfo(@"DictionaryDocument.Tests/TestFiles/mock_document.xml");
+
+            Console.WriteLine("\n*** Same document loaded twice ***");
             Dictionary mockDocument1 = Dictionary.LoadDictx(mockFile);
             Dictionary mockDocument2 = Dictionary.LoadDictx(mockFile);
             Console.WriteLine($"Hash for document 1: {mockDocument1.GetHashCode()}");
             Console.WriteLine($"Hash for document 2: {mockDocument2.GetHashCode()}");
-
             if (mockDocument1 == mockDocument2)
                 Console.WriteLine("Two instances of loading same document matches");
             else
                 Console.WriteLine("NO MATCH!");
 
-            var testFile = new FileInfo(@"output.xml");
-            mockDocument1.SaveDictx(testFile);
-            var loadedMockDocument1 = Dictionary.LoadDictx(testFile);
+            Console.WriteLine("\n*** Roundtrip a document originally loaded from disk ***");
+            mockDocument1.SaveDictx(testFile1);
+            var loadedMockDocument1 = Dictionary.LoadDictx(testFile1);
             if (mockDocument1 == loadedMockDocument1)
                 Console.WriteLine($"Document roundtrip works");
             else
                 Console.WriteLine($"ROUNDTRIP FAIL!");
 
-            builtMockDocument.SaveDictx(testFile);
+            Console.WriteLine("\n*** Compare to a generated document ***");
             Console.WriteLine($"Hash for API-built mock document: {builtMockDocument.GetHashCode()}");
+            if (mockDocument1 == null)
+            {
+                Console.WriteLine("mockDocument1 is null");
+            }
+            if (builtMockDocument == null)
+            {
+                Console.WriteLine("builtMockDocument is null");
+            }
             if (mockDocument1 == builtMockDocument)
                 Console.WriteLine("API's mock document matches loaded mock document");
             else
-                Console.WriteLine("API/LOADED MISMATCH");
+                Console.WriteLine($"API/LOADED MISMATCH ({mockDocument1.GetHashCode()} / {builtMockDocument.GetHashCode()})");
+
+            Console.WriteLine("\n*** Roundtrip a generated document ***");
+            builtMockDocument.SaveDictx(testFile1);
+            var loadedMockDocument3 = Dictionary.LoadDictx(testFile1);
+            loadedMockDocument3.SaveDictx(testFile2);
+            if (builtMockDocument == loadedMockDocument3)
+                Console.WriteLine($"Generated mock document loading works");
+            else
+                Console.WriteLine($"GEN/LOAD MISMATCH ({builtMockDocument.GetHashCode()} / {loadedMockDocument3.GetHashCode()})");
+            if (loadedMockDocument1 == loadedMockDocument3)
+                Console.WriteLine($"Saved Generated mock document matches first loaded one");
+            else
+                Console.WriteLine($"GEN/FIRST MISMATCH ({loadedMockDocument1.GetHashCode()} / {loadedMockDocument3.GetHashCode()})");
         }
-#endif
 
         public static void ValidateDocument(FileInfo inputFile)
         {

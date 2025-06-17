@@ -283,6 +283,23 @@ namespace DictionaryDocument
             else
             {
                 Debug.WriteLine("Dictionary.DefinitionsEqual(): Sequences don't match");
+                Debug.WriteLine("Sequence 1:");
+                foreach (var x in Definitions)
+                {
+                    Debug.WriteLine($" - {x.ToString()}");
+                    foreach (var y in x.Entries)
+                    {
+                        Debug.WriteLine($"   - {y.ToString()}");
+                    }
+                }
+                Debug.WriteLine("Sequence 2:");
+                foreach(var x in otherDefinitions) {
+                    Debug.WriteLine($" - {x.ToString()}");
+                    foreach (var y in x.Entries)
+                    {
+                        Debug.WriteLine($"   - {y.ToString()}");
+                    }
+                }
                 return false;
             }
         }
@@ -415,6 +432,8 @@ namespace DictionaryDocument
                 Term = element.Element("term")?.Value ?? "",
                 Definition = element.Element("definition")?.Value ?? "",
                 Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false"),
+                // FIXME: WHAT THE HELL IS GOING ON HERE????!?!?! WHAT WAS I THINKING????!?!?
+                //        WordClass and Category objects should NOT be created out of whole cloth here!
                 WordClass = new WordClass { Name = element.Attribute("class")?.Value ?? "" },
                 Category = element.Attribute("category") != null ? new Category { Name = element.Attribute("category").Value } : null
             };
@@ -449,6 +468,7 @@ namespace DictionaryDocument
         {
             XElement e = new("class");
             e.SetAttributeValue("name", Name);
+            // FIXME: ABBREVIATION SAVING COULD BE BUGGY!
             e.SetAttributeValue("abbreviation", Abbreviation);
             if (Flagged)
                 e.SetAttributeValue("flagged", true);
@@ -464,6 +484,7 @@ namespace DictionaryDocument
             WordClass wordClass = new()
             {
                 Name = element.Attribute("name")?.Value ?? "",
+                // FIXME: ABBREVIATION SAVING COULD BE BUGGY!
                 Abbreviation = element.Attribute("abbreviation")?.Value ?? "",
                 Description = element.Value,
                 Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false")

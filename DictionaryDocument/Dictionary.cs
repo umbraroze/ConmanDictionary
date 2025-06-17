@@ -13,10 +13,26 @@ using System.Reflection.Metadata;
 
 namespace DictionaryDocument
 {
+    /**
+    <summary>
+    <para><c>Dictionary</c> represents a bilingual dictionary (from language A to B, and B to A).</para>
+    
+    <para>Definitions are stored in <c>Definitions</c>, which must have exactly two
+    <c>EntryList</c> objects.
+    The <c>EntryList</c> objects contain <c>Entry</c> objects.
+    The individual entries refer to word classes stored in <c>WordClasses</c>
+    and categories in <c>Categories</c>.</para>
+    </summary>
+    */
     public record Dictionary : IEquatable<Dictionary>
     {
         private string _notepad = "";
-        public string NotePad {
+        /// <summary>
+        /// A notepad that is meant to store work-in-progress information while working with
+        /// new entries. Currently, a plain-text string.
+        /// </summary>
+        public string NotePad
+        {
             get { return _notepad; }
             set
             {
@@ -29,18 +45,37 @@ namespace DictionaryDocument
             }
         }
 
-        // TODO: Is it a list of strings, tho?
+        /// <summary>
+        /// Meant to serve as a list of things to do in the dictionary project.
+        /// </summary>
+        /// <remarks>
+        /// TODO: Is it a list of strings, tho? This never had actual real UI
+        /// design work behind it as far as I can remember.
+        /// </remarks>
         public List<string> ToDoItems;
 
+        /// <summary>
+        /// Available categories of words in the dictionary. Referred to by <c>Entry</c> objects.
+        /// </summary>
         public List<Category> Categories;
 
+        /// <summary>
+        /// Available word classes in the dictionary. Referred to by <c>Entry</c> objects.
+        /// </summary>
         public List<WordClass> WordClasses;
 
+        /// <summary>
+        /// Definitions of words. The list must contain exactly two <c>EntryList</c> objects.
+        /// </summary>
         public List<EntryList> Definitions;
 
-        /*
-         * Construct an empty dictionary document with default content.
-         */
+        /// <summary>
+        /// <para>Construct an empty dictionary document with default content.</para>
+        /// <para>The returned document is initialised to be suitable for use within
+        /// an interactive application. The document includes default word classes
+        /// (Noun, Verb, Adjective), two language lists ("Language 1" and "Language 2"),
+        /// no categories, no to-do items, and an empty notepad.</para>
+        /// </summary>
         public Dictionary()
         {
             ToDoItems = [];
@@ -60,16 +95,25 @@ namespace DictionaryDocument
         }
         public override string ToString()
         {
+#if DEBUG
+            return $"[Dictionary: {Definitions[0].Language}, {Definitions[1].Language}]";
+#else
             return $"[Dictionary({GetHashCode()}): {Definitions[0].Language}, {Definitions[1].Language}]";
+#endif
         }
 
+        /// <summary>
+        /// Produce a DictX XML representation of the entire document structure.
+        /// See <c>dictx.xsd</c> for the DictX document schema.
+        /// </summary>
+        /// <returns>XML document root element.</returns>
         public XElement ToXml()
         {
             XElement r = new("dictionarydatabase");
             r.Add(new XElement("notepad", NotePad));
-            if(ToDoItems.Count > 0)
+            if (ToDoItems.Count > 0)
             {
-                r.Add(new XElement("todoitems", ToDoItems.Select(item => new XElement("todoitem",item))));
+                r.Add(new XElement("todoitems", ToDoItems.Select(item => new XElement("todoitem", item))));
             }
             r.Add(new XElement("wordclasses", WordClasses.Select(wc => wc.ToXml())));
             r.Add(new XElement("categories", Categories.Select(cat => cat.ToXml())));
@@ -78,15 +122,30 @@ namespace DictionaryDocument
             return r;
         }
 
+        /// <summary>
+        /// <para>Produce a DictX XML representation of the entire document structure, and
+        /// save it to the specified file.</para>
+        /// <para>Target file will be overwritten if it exists.</para>
+        /// <para>See <c>dictx.xsd</c> for the DictX document schema.</para>
+        /// </summary>
+        /// <param name="fileName">
+        /// Path where the document will be saved to.
+        /// </param>
         public void SaveDictx(FileInfo fileName)
         {
-            if(File.Exists(fileName.FullName))
+            if (File.Exists(fileName.FullName))
                 File.Delete(fileName.FullName);
             using FileStream serout = new(fileName.FullName, FileMode.OpenOrCreate);
             XmlSerializer ser = new(typeof(XElement));
             ser.Serialize(serout, ToXml());
         }
 
+        /// <summary>
+        /// Parse a DictX XML object into a <c>Dictionary</c> object.
+        /// </summary>
+        /// <param name="element">Root element of the DictX document.</param>
+        /// <returns>The parsed <c>Dictionary</c> instance.</returns>
+        /// <exception cref="XmlException">Thrown if XML document is not valid.</exception>
         public static Dictionary FromXml(XElement element)
         {
             if (element.Name != "dictionarydatabase")
@@ -125,7 +184,7 @@ namespace DictionaryDocument
             var definitionElements = element.Elements("definitions");
             if (definitionElements.Count() == 2)
             {
-                dictionary.Definitions = [.. definitionElements.Select((_) => EntryList.FromXml(_,dictionary))];
+                dictionary.Definitions = [.. definitionElements.Select((_) => EntryList.FromXml(_, dictionary))];
             }
             else
             {
@@ -134,6 +193,11 @@ namespace DictionaryDocument
             return dictionary;
         }
 
+        /// <summary>
+        /// Load a <c>Dictionary</c> object from a DictX XML file and parse it.
+        /// </summary>
+        /// <param name="fileName">Source file path.</param>
+        /// <returns>The loaded and parsed object.</returns>
         public static Dictionary LoadDictx(FileInfo fileName)
         {
             XElement document;
@@ -144,6 +208,10 @@ namespace DictionaryDocument
             return FromXml(document);
         }
 
+        /// <summary>
+        /// Gets the XML Schema for the DictX XML file format.
+        /// </summary>
+        /// <returns>XML Schema.</returns>
         public static XmlSchema GetDictxSchema()
         {
             // Grab the schema document from resources.
@@ -151,25 +219,31 @@ namespace DictionaryDocument
 
             // Parse the returned string as XML and turn it into a schema.
             XmlReader schemaReader = XmlReader.Create(new StringReader(schemaText));
-            XmlSchema schema = XmlSchema.Read(schemaReader,null);
+            XmlSchema schema = XmlSchema.Read(schemaReader, null);
 
             return schema;
         }
 
-        public static bool ValidateDictx(FileInfo filename)
+        /// <summary>
+        /// Validates a DictX XML file structure against the DictX XML Schema.
+        /// </summary>
+        /// <param name="fileName">Path to the file to be validated.</param>
+        /// <returns><c>true</c> if the document is valid, <c>false</c> if the document is
+        /// invalid or if the validation failed.</returns>
+        public static bool ValidateDictx(FileInfo fileName)
         {
             XmlReaderSettings dictxSettings = new();
             dictxSettings.Schemas.Add(GetDictxSchema());
             dictxSettings.ValidationType = ValidationType.Schema;
             dictxSettings.ValidationEventHandler += ValidateDictxEventHandler;
 
-            XmlReader dictx = XmlReader.Create(filename.FullName, dictxSettings);
+            XmlReader dictx = XmlReader.Create(fileName.FullName, dictxSettings);
 
             try
             {
                 while (dictx.Read()) { }
             }
-            catch(XmlException)
+            catch (XmlException)
             {
                 return false;
             }
@@ -188,6 +262,10 @@ namespace DictionaryDocument
             }
         }
 
+        /// <summary>
+        /// Produces a textual representation of the state of the <c>Dictionary</c>
+        /// object to the <c>Debug</c> output.
+        /// </summary>
         [Conditional("DEBUG")]
         public void DebugDump()
         {
@@ -236,17 +314,17 @@ namespace DictionaryDocument
                 Debug.WriteLine(" - No word classes");
             }
             if (Categories.Count > 0)
+            {
+                Debug.WriteLine(" - Categories:");
+                foreach (var i in Categories)
                 {
-                    Debug.WriteLine(" - Categories:");
-                    foreach (var i in Categories)
-                    {
-                        Debug.WriteLine($"   - {i}");
-                    }
+                    Debug.WriteLine($"   - {i}");
                 }
-                else
-                {
-                    Debug.WriteLine(" - No categories");
-                }
+            }
+            else
+            {
+                Debug.WriteLine(" - No categories");
+            }
         }
 
         public virtual bool Equals(Dictionary other)
@@ -333,7 +411,8 @@ namespace DictionaryDocument
                 Debug.WriteLine("Dictionary.DefinitionsEqual(): Either is null");
                 return false;
             }
-            if (Definitions.Count != otherDefinitions.Count) { 
+            if (Definitions.Count != otherDefinitions.Count)
+            {
                 Debug.WriteLine("Dictionary.DefinitionsEqual(): Lists have different lengths");
                 return false;
             }
@@ -355,7 +434,8 @@ namespace DictionaryDocument
                     }
                 }
                 Debug.WriteLine("Sequence 2:");
-                foreach(var x in otherDefinitions) {
+                foreach (var x in otherDefinitions)
+                {
                     Debug.WriteLine($" - {x.ToString()}");
                     foreach (var y in x.Entries)
                     {

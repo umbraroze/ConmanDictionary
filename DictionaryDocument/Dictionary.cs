@@ -262,16 +262,31 @@ namespace DictionaryDocument
         private bool DefinitionsEqual(List<EntryList> otherDefinitions)
         {
             if (Definitions == null && otherDefinitions == null)
+            {
+                Debug.WriteLine("Dictionary.DefinitionsEqual(): Both are null");
                 return true;
+            }
             if (Definitions == null || otherDefinitions == null)
+            {
+                Debug.WriteLine("Dictionary.DefinitionsEqual(): Either is null");
                 return false;
-            if (Definitions.Count != otherDefinitions.Count)
+            }
+            if (Definitions.Count != otherDefinitions.Count) { 
+                Debug.WriteLine("Dictionary.DefinitionsEqual(): Lists have different lengths");
                 return false;
+            }
 
-            return Definitions.SequenceEqual(otherDefinitions);
+            if (Definitions.SequenceEqual(otherDefinitions))
+            {
+                return true;
+            }
+            else
+            {
+                Debug.WriteLine("Dictionary.DefinitionsEqual(): Sequences don't match");
+                return false;
+            }
         }
 
-        // Override GetHashCode as well when you override Equals
         public override int GetHashCode()
         {
             HashCode hash = new();
@@ -382,10 +397,10 @@ namespace DictionaryDocument
             XElement e = new("entry");
             e.Add(new XElement("term", Term));
             e.Add(new XElement("definition", Definition));
-            if(Flagged)
+            if (Flagged)
                 e.SetAttributeValue("flagged", true);
             e.SetAttributeValue("class", WordClass?.Name);
-            if(Category != null)
+            if (Category != null)
                 e.SetAttributeValue("category", Category.Name);
             return e;
         }
@@ -406,9 +421,22 @@ namespace DictionaryDocument
 
             return entry;
         }
+        
+        public virtual bool Equals(Entry other)
+        {
+            if (Term == other.Term &&
+                Definition == other.Definition &&
+                Flagged == other.Flagged &&
+                WordClass == other.WordClass &&
+                Category == other.Category)
+                return true;
+            return false;
+        }
+
+        public override int GetHashCode() => HashCode.Combine(Term, Definition, Flagged, WordClass, Category);
     }
 
-    public record WordClass
+    public record WordClass : IEquatable<WordClass>
     {
         public string Name { get; set; } = "";
 
@@ -432,7 +460,7 @@ namespace DictionaryDocument
         {
             if (element.Name != "class")
                 throw new XmlException($"Wrong base tag; expected \"class\", got \"{element.Name}\"");
-            
+
             WordClass wordClass = new()
             {
                 Name = element.Attribute("name")?.Value ?? "",
@@ -443,9 +471,20 @@ namespace DictionaryDocument
 
             return wordClass;
         }
+
+        public virtual bool Equals(WordClass other)
+        {
+            if (Name == other.Name &&
+                Abbreviation == other.Abbreviation &&
+                Description == other.Description &&
+                Flagged == other.Flagged)
+                return true;
+            return false;
+        }
+        public override int GetHashCode() => HashCode.Combine(Name, Abbreviation, Description, Flagged);
     }
 
-    public record Category
+    public record Category : IEquatable<Category>
     {
 
         public string Name { get; set; }
@@ -480,5 +519,16 @@ namespace DictionaryDocument
 
             return category;
         }
+
+        public virtual bool Equals(WordClass other)
+        {
+            if (Name == other.Name &&
+                Description == other.Description &&
+                Flagged == other.Flagged)
+                return true;
+            return false;
+        }
+
+        public override int GetHashCode() => HashCode.Combine(Name, Description, Flagged);
     }
 }

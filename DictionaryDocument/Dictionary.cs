@@ -9,6 +9,7 @@ using System.Xml;
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 
 namespace DictionaryDocument
 {
@@ -124,7 +125,7 @@ namespace DictionaryDocument
             var definitionElements = element.Elements("definitions");
             if (definitionElements.Count() == 2)
             {
-                dictionary.Definitions = [.. definitionElements.Select(EntryList.FromXml)];
+                dictionary.Definitions = [.. definitionElements.Select((_) => EntryList.FromXml(_,dictionary))];
             }
             else
             {
@@ -185,6 +186,67 @@ namespace DictionaryDocument
                 Console.Error.WriteLine($"DictX validation ERROR: {e.Message}");
                 throw new XmlException(e.Message);
             }
+        }
+
+        [Conditional("DEBUG")]
+        public void DebugDump()
+        {
+            // TODO: This isn't complete yet!!!
+
+            Debug.WriteLine("Dictionary");
+
+            // Dump the notepad.
+            if (NotePad != null)
+            {
+                if (NotePad != "")
+                    Debug.WriteLine($" - Notepad: {NotePad}");
+                else
+                    Debug.WriteLine(" - Notepad is empty");
+            }
+            else
+            {
+                Debug.WriteLine(" - Notepad is null (somehow?)");
+            }
+
+            // Dump the To-Do items.
+            if (ToDoItems.Count > 0)
+            {
+                Debug.WriteLine(" - ToDo items:");
+                foreach (var i in ToDoItems)
+                {
+                    Debug.WriteLine($"   - {i}");
+                }
+            }
+            else
+            {
+                Debug.WriteLine(" - No ToDo items.");
+            }
+
+            // Dump word classes and categories.
+            if (WordClasses.Count > 0)
+            {
+                Debug.WriteLine(" - Word classes:");
+                foreach (var i in WordClasses)
+                {
+                    Debug.WriteLine($"   - {i}");
+                }
+            }
+            else
+            {
+                Debug.WriteLine(" - No word classes");
+            }
+            if (Categories.Count > 0)
+                {
+                    Debug.WriteLine(" - Categories:");
+                    foreach (var i in Categories)
+                    {
+                        Debug.WriteLine($"   - {i}");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine(" - No categories");
+                }
         }
 
         public virtual bool Equals(Dictionary other)
@@ -350,7 +412,7 @@ namespace DictionaryDocument
                 Entries.Select(entry => entry.ToXml()));
         }
 
-        public static EntryList FromXml(XElement element)
+        public static EntryList FromXml(XElement element, Dictionary currentDictionary)
         {
             if (element.Name != "definitions")
                 throw new XmlException($"Wrong base tag; expected \"definitions\", got \"{element.Name}\"");
@@ -358,7 +420,7 @@ namespace DictionaryDocument
             EntryList entryList = new()
             {
                 Language = element.Attribute("language")?.Value ?? "",
-                Entries = [.. element.Elements("entry").Select(Entry.FromXml)]
+                Entries = [.. element.Elements("entry").Select((_) => Entry.FromXml(_,currentDictionary))]
             };
 
             return entryList;
@@ -422,20 +484,54 @@ namespace DictionaryDocument
             return e;
         }
 
-        public static Entry FromXml(XElement element)
+        public static Entry FromXml(XElement element, Dictionary currentDictionary)
         {
             if (element.Name != "entry")
                 throw new XmlException($"Wrong base tag; expected \"entry\", got \"{element.Name}\"");
 
-            Entry entry = new()
+            // Grab the wordclass and category references
+            var wordclassRef = element.Attribute("class")?.Value;
+            var categoryRef = element.Attribute("category")?.Value;
+
+            // Pointing to the entries in currentDictionary.
+            WordClass wordClass = null;
+            Category category = null;
+            // 
+            foreach (var wc in currentDictionary.WordClasses)
+            {
+                if (wc.Name == wordclassRef)
+                {
+                    Debug.WriteLine($"PARSER: Found wordclass {wordclassRef}");
+                    wordClass = wc;
+                    break;
+                }
+            }
+            if (wordClass == null)
+            {
+                throw new XmlException($"Invalid wordclass reference {wordclassRef}");
+            }
+            // Find the category reference.
+            if (categoryRef != null)
+            {
+                foreach (var cat in currentDictionary.Categories)
+                {
+                    if (cat.Name == categoryRef)
+                    {
+                        category = cat;
+                        break;
+                    }
+                }
+            }
+            // Category is optional so it may be null at this point.
+                // Should we emit an 
+
+                Entry entry = new()
             {
                 Term = element.Element("term")?.Value ?? "",
                 Definition = element.Element("definition")?.Value ?? "",
                 Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false"),
-                // FIXME: WHAT THE HELL IS GOING ON HERE????!?!?! WHAT WAS I THINKING????!?!?
-                //        WordClass and Category objects should NOT be created out of whole cloth here!
-                WordClass = new WordClass { Name = element.Attribute("class")?.Value ?? "" },
-                Category = element.Attribute("category") != null ? new Category { Name = element.Attribute("category").Value } : null
+                WordClass = wordClass,
+                Category = category
             };
 
             return entry;
@@ -443,6 +539,8 @@ namespace DictionaryDocument
         
         public virtual bool Equals(Entry other)
         {
+            if (other == null)
+                return false;
             if (Term == other.Term &&
                 Definition == other.Definition &&
                 Flagged == other.Flagged &&
@@ -468,7 +566,6 @@ namespace DictionaryDocument
         {
             XElement e = new("class");
             e.SetAttributeValue("name", Name);
-            // FIXME: ABBREVIATION SAVING COULD BE BUGGY!
             e.SetAttributeValue("abbreviation", Abbreviation);
             if (Flagged)
                 e.SetAttributeValue("flagged", true);
@@ -484,7 +581,6 @@ namespace DictionaryDocument
             WordClass wordClass = new()
             {
                 Name = element.Attribute("name")?.Value ?? "",
-                // FIXME: ABBREVIATION SAVING COULD BE BUGGY!
                 Abbreviation = element.Attribute("abbreviation")?.Value ?? "",
                 Description = element.Value,
                 Flagged = bool.Parse(element.Attribute("flagged")?.Value ?? "false")
@@ -495,6 +591,8 @@ namespace DictionaryDocument
 
         public virtual bool Equals(WordClass other)
         {
+            if (other == null)
+                return false;
             if (Name == other.Name &&
                 Abbreviation == other.Abbreviation &&
                 Description == other.Description &&
@@ -543,6 +641,8 @@ namespace DictionaryDocument
 
         public virtual bool Equals(WordClass other)
         {
+            if (other == null)
+                return false;
             if (Name == other.Name &&
                 Description == other.Description &&
                 Flagged == other.Flagged)

@@ -183,6 +183,10 @@ namespace DictTool
             builtMockDocument.SaveDictx(testFile1);
             var loadedMockDocument3 = Dictionary.LoadDictx(testFile1);
             loadedMockDocument3.SaveDictx(testFile2);
+            Console.WriteLine("Document 1:");
+            builtMockDocument.DebugDump();
+            Console.WriteLine("Document 2:");
+            loadedMockDocument3.DebugDump();
             if (builtMockDocument == loadedMockDocument3)
                 Console.WriteLine($"Generated mock document loading works");
             else

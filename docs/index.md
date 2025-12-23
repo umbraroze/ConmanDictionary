@@ -44,3 +44,4 @@ worldbuilding project.
 - **[Contributing](contributing.html)**:
   Or rather, why you shouldn't contact me at this stage!
   I'm definitely open for suggestions later, however.
+- [Old scripts](oldscripts.html): Really old and obsolete.

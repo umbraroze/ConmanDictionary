@@ -36,10 +36,24 @@ If you absolutely need the Java branch, you need to grab it from
 the appropriate Git tag (`1.0X_JDESKTOP`) and then build it
 using Apache Maven.
 
-It *should* still work. ...Unless things have
-changed *really* dramatically in Java land since 2013.
-In particular, you may need to add JAXB support back in since
-it's no longer shipped with Java SE platform. Maybe some
-other components have fallen off the wagon along the way.
-I've not really kept up with the latest developments in
-Java desktop development, so I can't say.
+The project was developed on Java SE 6, circa 2013. Building the
+Java project in this day and age is probably going to be *kinda*
+challenging, particularly if you are targeting modern versions of
+Java.
+
+I have *not* tried to actually build the project, but based on light
+research, the big sticking point is that Java XML Binding (JAXB)
+is no longer bundled with OpenJDK.
+
+Trying to forcibly duct-tape in the JAXB class files by hand and
+run the thing on modern JRE that ways was... er, an event we
+shouldn't speak of no more.
+
+That is the point where I leave the attempt to people who have kept
+more up with the recent happenings in Java land.
+
+I'm not saying it's impossible, however - the appropriate JAXB JARs
+are apparently still in Maven's repository, and the big reason why
+I introduced Maven in the first place was that I needed some way to
+fetch the JDesktop App Framework stuff when they were excised from
+Java SE the exact same way.

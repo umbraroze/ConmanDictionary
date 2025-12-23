@@ -5,10 +5,8 @@
 
 using System;
 using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection.Metadata;
 using DictionaryDocument;
 
 namespace DictTool
@@ -25,96 +23,101 @@ namespace DictTool
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 #endif
 
-            var rootCommand = new RootCommand
-            {
-
-                Description = "DictX Command-Line Tool",
-
-                Handler = CommandHandler.Create(() =>
-                    {
-                        Console.WriteLine($"DictX Command-Line Tool");
-                        Console.WriteLine($"Run with the -h command line argument for help");
-                    })
-            };
+            RootCommand rootCommand = new("DictX Command-Line Tool");
 
             // Global options
-            Option<FileInfo> inputFileOption = new(
-                name: "--input",
-                description: "Input file name.",
-                getDefaultValue: () => new FileInfo(DEFAULT_INPUT_FILE)
-            )
+            Option<FileInfo> inputFileOption = new("--input")
             {
-                AllowMultipleArgumentsPerToken = true,
+                Description = "Input file name.",
+                DefaultValueFactory = parseResult => new FileInfo(DEFAULT_INPUT_FILE),
+                AllowMultipleArgumentsPerToken = true
             };
-            Option<FileInfo> outputFileOption = new(
-                name: "--output",
-                description: "Output file name.",
-                getDefaultValue: () => new FileInfo(DEFAULT_OUTPUT_FILE)
-            )
+            Option<FileInfo> outputFileOption = new("--output")
             {
-                AllowMultipleArgumentsPerToken = true,
+                Description = "Output file name.",
+                DefaultValueFactory = parseResult => new FileInfo(DEFAULT_OUTPUT_FILE),
+                AllowMultipleArgumentsPerToken = true
             };
 
             // Subcommands
 
 #if DEBUG
             // Generate mock document and write it to the specified file.
-            var testOutputCommand = new Command("test-output")
+            var testOutputCommand = new Command("test-output",
+                "(Debug build only) Save a mock document to a specified file.")
             {
-                Description = "(Debug build only) Save a mock document to a specified file."
+                outputFileOption
             };
-            testOutputCommand.AddGlobalOption(outputFileOption);
-            testOutputCommand.Handler = CommandHandler.Create<FileInfo>((output) =>
+            testOutputCommand.SetAction(parseResult =>
             {
-                output ??= new FileInfo(DEFAULT_OUTPUT_FILE);
+                FileInfo output = parseResult.GetValue(outputFileOption);
                 TestOutput(output);
+                return 0;
             });
             rootCommand.Add(testOutputCommand);
 
             // Generate mock document and write it to the specified file.
-            var cloneDocumentCommand = new Command("clone-document")
+            var cloneDocumentCommand = new Command("clone-document",
+                "(Debug build only) Load a document, then save the document into another XML file.")
             {
-                Description = "(Debug build only) Load a document, then save the document into another XML file."
+                inputFileOption,
+                outputFileOption
             };
-            cloneDocumentCommand.AddGlobalOption(inputFileOption);
-            cloneDocumentCommand.AddGlobalOption(outputFileOption);
-            cloneDocumentCommand.Handler = CommandHandler.Create<FileInfo, FileInfo>((input, output) =>
+            cloneDocumentCommand.SetAction(parseResult =>
             {
-                input ??= new FileInfo(DEFAULT_INPUT_FILE);
-                output ??= new FileInfo(DEFAULT_OUTPUT_FILE);
+                FileInfo input = parseResult.GetValue(inputFileOption);
+                FileInfo output = parseResult.GetValue(outputFileOption);
                 CloneOutput(input, output);
+                return 0;
             });
             rootCommand.Add(cloneDocumentCommand);
 
             // This is a playground for random experimentation.
-            var playgroundCommand = new Command("playground")
+            var playgroundCommand = new Command("playground","(Debug build only) Run the experiment in a Playground() function.");
+            playgroundCommand.SetAction(parseResult =>
             {
-                Description = "(Debug build only) Run the experiment in a Playground() function.",
-                Handler = CommandHandler.Create(() =>
-                    {
-                        Playground();
-                    })
-            };
+                Playground();
+                return 0;
+            });
             rootCommand.Add(playgroundCommand);
 #endif // DEBUG
 
-            // Validate DictX document structure.
-            var validationCommand = new Command("validate")
+            var validationInputFileArgument = new Argument<FileInfo>("input")
             {
-                Description = "Validate a DictX document structure."
+                Description = "Input file name.",
+                DefaultValueFactory = parseResult => new FileInfo("dictionary.xml"),
             };
-            validationCommand.Add(new Argument<FileInfo>(name: "input",
-                    description: "Input file name.",
-                    getDefaultValue: () => new FileInfo("dictionary.xml")));
-            validationCommand.Handler = CommandHandler.Create<FileInfo>((input) =>
+            // Validate DictX document structure.
+            Command validationCommand = new("validate", "Validate a DictX document structure.")
             {
-                input ??= new FileInfo("dictionary.xml");
+                validationInputFileArgument
+            };
+            validationCommand.SetAction(parseResult =>
+            {
+                FileInfo input = parseResult.GetValue(validationInputFileArgument);
                 ValidateDocument(input);
+                return 0;
             });
             rootCommand.Add(validationCommand);
 
-            // Parse the incoming args and invoke the handler
-            return rootCommand.InvokeAsync(args).Result;
+            rootCommand.SetAction(parseResult =>
+            {
+                Console.WriteLine($"DictX Command-Line Tool");
+                Console.WriteLine($"Run with the -h command line argument for help");
+                return 0;
+            });
+
+            // Command line parsing.
+            var parseResult = rootCommand.Parse(args);
+            if (parseResult.Errors.Count > 0)
+            {
+                foreach (var e in parseResult.Errors)
+                {
+                    Console.Error.WriteLine(e.Message);
+                }
+                return 1;
+            }
+            return parseResult.Invoke();
         }
 
         [Conditional("DEBUG")]
@@ -132,7 +135,7 @@ namespace DictTool
             Console.WriteLine($"Writing a clone of {inputFile.FullName} to {outputFile.FullName}");
             d.SaveDictx(outputFile);
         }
-        
+
         [Conditional("DEBUG")]
         public static void Playground()
         {
@@ -199,15 +202,24 @@ namespace DictTool
 
         public static void ValidateDocument(FileInfo inputFile)
         {
-            bool result = DictionaryDocument.Dictionary.ValidateDictx(inputFile);
-            switch (result)
+            try {
+                bool result = DictionaryDocument.Dictionary.ValidateDictx(inputFile);
+                switch (result)
+                {
+                    case true:
+                        Console.WriteLine($"{inputFile.FullName} is a valid DictX document.");
+                        Environment.Exit(0);
+                        break;
+                    case false:
+                        Console.Error.WriteLine($"{inputFile.FullName} is an invalid DictX document!");
+                        Environment.Exit(1);
+                        break;
+                }
+            }
+            catch (Exception e)
             {
-                case true:
-                    Console.WriteLine($"{inputFile.FullName} is a valid DictX document.");
-                    break;
-                case false:
-                    Console.WriteLine($"{inputFile.FullName} is an invalid DictX document!");
-                    break;
+                Console.Error.WriteLine($"Error: {e.Message}");
+                Environment.Exit(1);
             }
         }
     }

@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="ConmanDictionary/ConmanDictionary.csproj">
+    <BuildDependency Project="DictionaryDocument/DictionaryDocument.csproj" />
+  </Project>
+  <Project Path="DictionaryDocument.Tests/DictionaryDocument.Tests.csproj" />
+  <Project Path="DictionaryDocument/DictionaryDocument.csproj" />
+  <Project Path="DictTool/DictTool.csproj">
+    <BuildDependency Project="DictionaryDocument/DictionaryDocument.csproj" />
+  </Project>
+</Solution>

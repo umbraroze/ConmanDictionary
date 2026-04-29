@@ -1,5 +1,5 @@
-fn main() {
-    println!("2 + 2 = {}",dictx::add(2,2));
+// Command line parser (clap) docs: https://docs.rs/clap/latest/clap/
 
-    println!("{:?}",dictx::get_schema());
+fn main() {
+    println!("{}",dictx::get_schema());
 }

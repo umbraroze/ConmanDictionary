@@ -1,6 +1,9 @@
 [package]
 name = "dictx"
 description = "Library for parsing and generating Conman's Dictionary .dictx XML files."
+authors = ["Rose Midford <wwwwolf@iki.fi>"]
+homepage = "https://umbraroze.github.io/ConmanDictionary/"
+license = "GPL-3.0-or-later"
 version = "2.1.0"
 edition = "2024"
 

@@ -1,7 +1,14 @@
 [package]
 name = "conmandictionary"
-version = "0.1.0"
+description = "Conman's Dictionary is an application for maintaining dictionaries, aimed at constructed and artificial language designers."
+authors = ["Rose Midford <wwwwolf@iki.fi>"]
+homepage = "https://umbraroze.github.io/ConmanDictionary/"
+license = "GPL-3.0-or-later"
+version = "2.1.0"
 edition = "2024"
 
 [dependencies]
 gtk4 = "0.11.3"
+
+[dependencies.dictx]
+path = "../dictx"

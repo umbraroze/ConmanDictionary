@@ -1,0 +1,10 @@
+[package]
+name = "dict-tool"
+description = "Command-line tool for manipulating Conman's Dictionary .dictx XML files."
+version = "2.1.0"
+edition = "2024"
+
+[dependencies]
+
+[dependencies.dictx]
+path = "../dictx"

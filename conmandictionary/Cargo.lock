@@ -49,10 +49,22 @@ dependencies = [
 
 [[package]]
 name = "conmandictionary"
-version = "0.1.0"
+version = "2.1.0"
 dependencies = [
+ "dictx",
  "gtk4",
 ]
+
+[[package]]
+name = "dict-tool"
+version = "2.1.0"
+dependencies = [
+ "dictx",
+]
+
+[[package]]
+name = "dictx"
+version = "2.1.0"
 
 [[package]]
 name = "equivalent"

@@ -6,3 +6,7 @@ homepage = "https://umbraroze.github.io/ConmanDictionary/"
 license = "GPL-3.0-or-later"
 version = "2.1.0"
 edition = "2024"
+
+[dependencies]
+facet = "0.46.1"
+facet-xml = "0.46.0"

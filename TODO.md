@@ -6,9 +6,22 @@
 TODO:
 
 - XML libraries:
-  - parsing: [xml](https://crates.io/crates/xml)
-  - schema validation: ???
-  - emitting: ???
+  - parsing:
+    - ~~[xml](https://crates.io/crates/xml)~~
+	- [quick-xml](https://crates.io/crates/quick-xml) event-based
+	- [xmltree](https://crates.io/crates/xmltree) DOM-based
+  - schema validation:
+    - [xsd](https://crates.io/crates/xsd)  
+	  "Presently under heavy construction (last updated 1 year ago)  
+	  No documentation???
+	- libxml2 (via FFI)  
+	  Do we *want* to depend on a yet another random C library???  
+	- [xmloxide](https://crates.io/crates/xmloxide)  
+	  Apparently a Rust rewrite of libxml2. Apparently maintained?
+	  Does it have a schema validation yet?
+  - emitting:
+    - [quick-xml](https://crates.io/crates/quick-xml)
+	- xmltree???
 
 ## dict-tool
 

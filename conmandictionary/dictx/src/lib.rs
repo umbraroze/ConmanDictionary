@@ -1,75 +1,74 @@
 use facet::*;
-use facet_xml::*;
 
-#[derive(Facet,Debug)]
-#[facet(rename="dictionarydocument")]
-pub struct Dictionary {
-    notepad: String,
-    todo_items: Vec<String>,
-    categories: Vec<Category>,
-    #[facet(rename="wordclasses")]
-    word_classes: Vec<WordClass>,
-    definitions: [EntryList;2]
+#[derive(Facet,Debug,Clone)]
+pub struct Dictionary<'a> {
+    pub notepad: Option<String>,
+    pub todo_items: Option<Vec<String>>,
+    pub categories: Vec<Category>,
+    pub word_classes: Vec<WordClass>,
+    pub definitions: [EntryList<'a>;2]
 }
 
-#[derive(Facet,Debug)]
-pub struct EntryList {
-    language: String,
-    entries: Vec<Entry>
+// IDEA: Need a helper function for Dictionary to find a reference to a word class or
+//       category by name
+
+#[derive(Facet,Debug,Clone)]
+pub struct EntryList<'a> {
+    pub language: String,
+    pub entries: Vec<Entry<'a>>
 }
 
-#[derive(Facet,Debug)]
-pub struct Entry {
-    term: String,
-    definition: String,
-    flagged: bool,
-    word_class: WordClass, // Reference
-    category: Category // Reference, Optional?
+#[derive(Facet,Debug,Clone)]
+pub struct Entry<'a> {
+    pub term: String,
+    pub definition: String,
+    pub flagged: bool,
+    pub word_class: Option<&'a WordClass>,
+    pub category: Option<&'a Category>
 }
 
-#[derive(Facet,Debug)]
+#[derive(Facet,Debug,Clone)]
 pub struct WordClass {
-    name: String,
-    abbreviation: String,
-    description: String, // Should be nullable
-    flagged: bool
+    pub name: String,
+    pub abbreviation: String,
+    pub description: Option<String>,
+    pub flagged: bool
 }
 
-#[derive(Facet,Debug)]
+#[derive(Facet,Debug,Clone)]
 pub struct Category {
-    name: String,
-    description: String, // Should be nullable
-    flagged: bool
+    pub name: String,
+    pub description: Option<String>,
+    pub flagged: bool
 }
-
 
 /// Get the dictx XML schema.
 pub fn get_schema() -> &'static str {
     str::from_utf8(include_bytes!("dictx.xsd")).unwrap()
 }
 
-pub fn get_mock_document() -> Dictionary {
-    let mut dictionary = Dictionary{
-        notepad: String::from("This is some random text for the notepad."),
-        todo_items: vec![],
+pub fn get_mock_document() -> Dictionary<'static> {
+    let dictionary = Dictionary {
+        notepad: Some(String::from("This is some random text for the notepad.")),
+        todo_items: None,
         categories: vec![],
         word_classes: vec![
           WordClass {
               name: String::from("Noun"),
               abbreviation: String::from("n"),
-              description: String::from(""),
+              description: None,
               flagged: false
           },
             WordClass {
               name: String::from("Verb"),
               abbreviation: String::from("v"),
-              description: String::from(""),
+              description: None,
               flagged: false
           },
             WordClass {
               name: String::from("Adjective"),
               abbreviation: String::from("a"),
-              description: String::from(""),
+              description: None,
               flagged: false
           }
         ],
@@ -84,17 +83,20 @@ pub fn get_mock_document() -> Dictionary {
             }
         ],
     };
-    return dictionary;
+    //let mut defs1 = &dictionary.definitions[0].entries;
+    //let mut defs2 = &dictionary.definitions[1].entries;
 
-    /*
-    definitions[0].entries.push(Entry {
+    /* // FIXME: THIS STUFF BREAKS
+    &dictionary.definitions[0].entries.push(Entry {
         term: String::from("foo"),
         definition: String::from("to pity"),
-        word_class: wordclasses[0],
+        word_class: Some(&dictionary.word_classes[0]), // THIS BORROW THING BREAKS EVERYTHING
         category: None,
         flagged: false
     });
-     */
+    */ // FIXME: END OF BREAKING STUFF
+
+    return dictionary;
 }
 
 /*

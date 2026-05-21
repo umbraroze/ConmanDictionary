@@ -14,8 +14,7 @@ worldbuilding project.
 
 For more background information, design notes, and other
 project documentation, please see the
-[Conman's Dictionary home page at GitHub Pages](https://umbraroze.github.io/ConmanDictionary/)
-(or the `docs` folder, if you checked out this repository via Git).
+[Conman's Dictionary home page at GitHub Pages](https://umbraroze.github.io/ConmanDictionary/).
 
 ## Dependencies
 
@@ -31,9 +30,13 @@ MSYS2 C/C++ packages needed:
 - `mingw-w64-ucrt-x86_64-toolchain`
 - `base-devel`
 
+You probably can compile this on Linux too, as long as you have
+the regular C/C++ toolchain and the GTK 4 development files and their
+dependencies.
+
 ## Source organisation
 
-Currently, the application is split in a few different packages:
+Currently, the application is split in a few different sub-crates:
 
 ### conmandictionary
 
@@ -68,12 +71,26 @@ Code for handling dictionary data.
 
 ### Legacy stuff
 
-All of the legacy Java code is (for now!) stored in the
-`obsolete` folder, and is purely used for reference
-(and will be gone once the work to reimplement the code in C# is done).
-Note that the Java code living in `obsolete` folder is not guaranteed
-to build at all. Instead, consult the tag `1.0X_JDESKTOP`. It will *also*
-probably not build, but it's probably not confusing the matter!
+Legacy code is temporarily stored in `obsolete` folder as a
+reference for the Rust port project.
 
-The C# code that really didn't get that far over the years is
-now stored in `csharp` folder.
+#### Java
+
+All of the legacy Java code ("version 1.x") can be found 
+in `obsolete/java` for reference.
+
+The last version of the Java desktop app that was known to
+build in Java 6 SE JDK can be found via the
+`1.0X_JDESKTOP` tag.
+
+This legacy codebase was developed in Java 6 days, and depends on
+stuff that has since been moved from stock JDK and JRE to external
+dependencies, so it will not build or run on modern Java environments.
+
+#### C#
+
+The "version 2.0" C# code, which really didn't get that far over the
+years, is now temporarily stored in `obsolete/csharp`.  Likewise, it
+will be gone once the Rust version works adequately.
+
+

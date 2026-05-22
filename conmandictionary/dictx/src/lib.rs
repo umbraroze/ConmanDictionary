@@ -1,45 +1,54 @@
 use facet::*;
+use slotmap::*;
 
-#[derive(Facet,Debug,Clone)]
-pub struct Dictionary<'a> {
+// TODO: How do I make these use Facet?
+new_key_type! {
+    pub struct WordClassKey;
+    pub struct CategoryKey;
+}
+
+#[derive(Debug, Clone)]
+pub struct Dictionary {
     pub notepad: Option<String>,
     pub todo_items: Option<Vec<String>>,
-    pub categories: Vec<Category>,
-    pub word_classes: Vec<WordClass>,
-    pub definitions: [EntryList<'a>;2]
+    pub word_classes: SlotMap<WordClassKey, WordClass>,
+    pub categories: SlotMap<CategoryKey, Category>,
+    pub definitions: [EntryList; 2],
 }
+
+// IDEA: Use hashmap of some description for word classes and categories?
 
 // IDEA: Need a helper function for Dictionary to find a reference to a word class or
 //       category by name
 
-#[derive(Facet,Debug,Clone)]
-pub struct EntryList<'a> {
+#[derive(Debug, Clone)]
+pub struct EntryList {
     pub language: String,
-    pub entries: Vec<Entry<'a>>
+    pub entries: Vec<Entry>,
 }
 
-#[derive(Facet,Debug,Clone)]
-pub struct Entry<'a> {
+#[derive(Debug, Clone)]
+pub struct Entry {
     pub term: String,
     pub definition: String,
     pub flagged: bool,
-    pub word_class: Option<&'a WordClass>,
-    pub category: Option<&'a Category>
+    pub word_class: Option<WordClassKey>,
+    pub category: Option<CategoryKey>,
 }
 
-#[derive(Facet,Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct WordClass {
     pub name: String,
     pub abbreviation: String,
     pub description: Option<String>,
-    pub flagged: bool
+    pub flagged: bool,
 }
 
-#[derive(Facet,Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct Category {
     pub name: String,
     pub description: Option<String>,
-    pub flagged: bool
+    pub flagged: bool,
 }
 
 /// Get the dictx XML schema.
@@ -47,113 +56,90 @@ pub fn get_schema() -> &'static str {
     str::from_utf8(include_bytes!("dictx.xsd")).unwrap()
 }
 
-pub fn get_mock_document() -> Dictionary<'static> {
-    let dictionary = Dictionary {
-        notepad: Some(String::from("This is some random text for the notepad.")),
-        todo_items: None,
-        categories: vec![],
-        word_classes: vec![
-          WordClass {
-              name: String::from("Noun"),
-              abbreviation: String::from("n"),
-              description: None,
-              flagged: false
-          },
-            WordClass {
-              name: String::from("Verb"),
-              abbreviation: String::from("v"),
-              description: None,
-              flagged: false
-          },
-            WordClass {
-              name: String::from("Adjective"),
-              abbreviation: String::from("a"),
-              description: None,
-              flagged: false
-          }
-        ],
-        definitions: [
-            EntryList {
-                language: String::from("Aybeeseean"),
-                entries: vec![]
-            },
-            EntryList {
-                language: String::from("English"),
-                entries: vec![]
-            }
-        ],
-    };
-    //let mut defs1 = &dictionary.definitions[0].entries;
-    //let mut defs2 = &dictionary.definitions[1].entries;
+impl Dictionary {
+    pub fn get_mock_document() -> Dictionary {
+        let mut dictionary = Dictionary {
+            notepad: Some(String::from("This is some random text for the notepad.")),
+            todo_items: None,
+            word_classes: SlotMap::with_key(),
+            categories: SlotMap::with_key(),
+            definitions: [
+                EntryList {
+                    language: String::from("Aybeeseean"),
+                    entries: vec![],
+                },
+                EntryList {
+                    language: String::from("English"),
+                    entries: vec![],
+                },
+            ],
+        };
 
-    /* // FIXME: THIS STUFF BREAKS
-    &dictionary.definitions[0].entries.push(Entry {
-        term: String::from("foo"),
-        definition: String::from("to pity"),
-        word_class: Some(&dictionary.word_classes[0]), // THIS BORROW THING BREAKS EVERYTHING
-        category: None,
-        flagged: false
-    });
-    */ // FIXME: END OF BREAKING STUFF
-
-    return dictionary;
-}
-
-/*
-        var d = new Dictionary();
-
-        d.Definitions[0].Language = "Aybeeseean";
-        var left = d.Definitions[0].Entries;
-        d.Definitions[1].Language = "English";
-        var right = d.Definitions[1].Entries;
-
-        d.NotePad = "This is some random text for the notepad.";
-
-        var wcverb = d.WordClasses.Find(x => x.Name.Equals("Verb"));
-        var wcnoun = d.WordClasses.Find(x => x.Name.Equals("Noun"));
-        var wcadj = d.WordClasses.Find(x => x.Name.Equals("Adjective"));
-
-        left.Add(new Entry
-        {
-            Term = "foo",
-            Definition = "to pity",
-            WordClass = wcverb
+        let wc_noun = dictionary.word_classes.insert(WordClass {
+            name: String::from("Noun"),
+            abbreviation: String::from("n"),
+            description: None,
+            flagged: false,
         });
-        left.Add(new Entry
-        {
-            Term = "bah",
-            Definition = "bad sigh",
-            WordClass = wcnoun
+        let wc_verb = dictionary.word_classes.insert(WordClass {
+            name: String::from("Verb"),
+            abbreviation: String::from("v"),
+            description: None,
+            flagged: false,
         });
-        left.Add(new Entry
-        {
-            Term = "zzbaz",
-            Definition = "annoying",
-            WordClass = wcadj
-        });
-        right.Add(new Entry
-        {
-            Term = "pity",
-            Definition = "foo",
-            WordClass = wcverb
-        });
-        right.Add(new Entry
-        {
-            Term = "sigh",
-            Definition = "bah (bad sigh)",
-            WordClass = wcnoun
-        });
-        right.Add(new Entry
-        {
-            Term = "annoying",
-            Definition = "zzbaz",
-            WordClass = wcadj
+        let wc_adjective = dictionary.word_classes.insert(WordClass {
+            name: String::from("Adjective"),
+            abbreviation: String::from("a"),
+            description: None,
+            flagged: false,
         });
 
-        return d;
+        dictionary.definitions[0].entries.push(Entry {
+            term: String::from("foo"),
+            definition: String::from("to pity"),
+            word_class: Some(wc_verb),
+            category: None,
+            flagged: false
+        });
+        dictionary.definitions[0].entries.push(Entry {
+            term: String::from("bah"),
+            definition: String::from("bad sigh"),
+            word_class: Some(wc_noun),
+            category: None,
+            flagged: false
+        });
+        dictionary.definitions[0].entries.push(Entry {
+            term: String::from("zzbaz"),
+            definition: String::from("annoying"),
+            word_class: Some(wc_adjective),
+            category: None,
+            flagged: false
+        });
+        dictionary.definitions[1].entries.push(Entry {
+            term: String::from("pity"),
+            definition: String::from("foo"),
+            word_class: Some(wc_verb),
+            category: None,
+            flagged: false
+        });
+        dictionary.definitions[1].entries.push(Entry {
+            term: String::from("sigh"),
+            definition: String::from("bah (bad sigh)"),
+            word_class: Some(wc_noun),
+            category: None,
+            flagged: false
+        });
+        dictionary.definitions[1].entries.push(Entry {
+            term: String::from("annoying"),
+            definition: String::from("zzbaz"),
+            word_class: Some(wc_adjective),
+            category: None,
+            flagged: false
+        });
+
+        dictionary
     }
- */
-
+}
 
 #[cfg(test)]
 mod tests {

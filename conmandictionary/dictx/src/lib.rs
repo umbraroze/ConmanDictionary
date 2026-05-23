@@ -1,7 +1,11 @@
-use facet::*;
+use std::fs::File;
+use std::io::Read;
+use std::path::PathBuf;
 use slotmap::*;
+use xmloxide::Document;
+use xmloxide::validation::xsd::{parse_xsd, validate_xsd};
+use xmloxide::xpath::{evaluate, XPathValue};
 
-// TODO: How do I make these use Facet?
 new_key_type! {
     pub struct WordClassKey;
     pub struct CategoryKey;
@@ -15,11 +19,6 @@ pub struct Dictionary {
     pub categories: SlotMap<CategoryKey, Category>,
     pub definitions: [EntryList; 2],
 }
-
-// IDEA: Use hashmap of some description for word classes and categories?
-
-// IDEA: Need a helper function for Dictionary to find a reference to a word class or
-//       category by name
 
 #[derive(Debug, Clone)]
 pub struct EntryList {
@@ -57,6 +56,51 @@ pub fn get_schema() -> &'static str {
 }
 
 impl Dictionary {
+    pub fn new() -> Dictionary {
+        Dictionary {
+            notepad: None,
+            todo_items: None,
+            word_classes: SlotMap::with_key(),
+            categories: SlotMap::with_key(),
+            definitions: [
+                EntryList {
+                    language: String::from("Language A"),
+                    entries: vec![],
+                },
+                EntryList {
+                    language: String::from("Language B"),
+                    entries: vec![],
+                },
+            ],
+        }
+    }
+    pub fn load(source: PathBuf) -> Dictionary {
+        let mut dictionary = Dictionary::new();
+        let file = File::open(source);
+        if !file.is_ok() {
+            return dictionary; // TODO: Fail handling
+        }
+        let mut file = file.unwrap();
+        let mut source_data: String = String::new();
+        let _ = file.read_to_string(&mut source_data);
+        println!("{}", source_data);
+
+        let doc = Document::parse_str(&source_data).unwrap();
+        println!("{:#?}", doc);
+        let root = doc.root_element().unwrap();
+
+        let notepad = evaluate(&doc, root, "string(/dictionarydatabase/notepad)").unwrap();
+        println!("Parsed notepad: {}", notepad.to_xpath_string());
+
+        dictionary
+    }
+    pub fn validate(file: PathBuf) -> bool {
+        let schema = parse_xsd(get_schema()).unwrap();
+        let doc = xmloxide::Document::parse_file(file).unwrap();
+        let result = validate_xsd(&doc, &schema);
+        result.is_valid
+    }
+
     pub fn get_mock_document() -> Dictionary {
         let mut dictionary = Dictionary {
             notepad: Some(String::from("This is some random text for the notepad.")),

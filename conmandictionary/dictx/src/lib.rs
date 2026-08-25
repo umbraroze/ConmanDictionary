@@ -92,6 +92,15 @@ impl Dictionary {
         let notepad = evaluate(&doc, root, "string(/dictionarydatabase/notepad)").unwrap();
         println!("Parsed notepad: {}", notepad.to_xpath_string());
 
+        for node in doc.children(doc.root_element().unwrap()) {
+            let node_data = doc.node(node);
+
+            if(doc.node_name(node) != None) {
+                println!("{:?}", doc.node_name(node).unwrap());
+            }
+
+        }
+
         dictionary
     }
     pub fn validate(file: PathBuf) -> bool {

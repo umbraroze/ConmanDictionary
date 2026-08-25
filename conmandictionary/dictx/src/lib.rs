@@ -2,9 +2,8 @@ use std::fs::File;
 use std::io::Read;
 use std::path::PathBuf;
 use slotmap::*;
-use xmloxide::Document;
 use xmloxide::validation::xsd::{parse_xsd, validate_xsd};
-use xmloxide::xpath::{evaluate, XPathValue};
+use xmltree::Element;
 
 new_key_type! {
     pub struct WordClassKey;
@@ -85,20 +84,15 @@ impl Dictionary {
         let _ = file.read_to_string(&mut source_data);
         println!("{}", source_data);
 
-        let doc = Document::parse_str(&source_data).unwrap();
+        let doc = Element::parse(source_data.as_bytes()).unwrap();
         println!("{:#?}", doc);
-        let root = doc.root_element().unwrap();
 
-        let notepad = evaluate(&doc, root, "string(/dictionarydatabase/notepad)").unwrap();
-        println!("Parsed notepad: {}", notepad.to_xpath_string());
+        let notepad = doc.get_child("notepad");
+        println!("notepad: {:?}", notepad.unwrap().get_text().unwrap());
 
-        for node in doc.children(doc.root_element().unwrap()) {
-            let node_data = doc.node(node);
-
-            if(doc.node_name(node) != None) {
-                println!("{:?}", doc.node_name(node).unwrap());
-            }
-
+        let wordclasses = doc.get_child("wordclasses").unwrap();
+        for wordclass in wordclasses.children.clone() {
+            println!("wordclass: {:?}", wordclass.as_element().unwrap().attributes);
         }
 
         dictionary

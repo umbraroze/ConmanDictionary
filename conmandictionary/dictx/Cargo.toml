@@ -10,3 +10,4 @@ edition = "2024"
 [dependencies]
 slotmap = "1.1.1"
 xmloxide = "0.4.3"
+xmltree = "0.12.0"

@@ -171,6 +171,7 @@ version = "2.1.0"
 dependencies = [
  "slotmap",
  "xmloxide",
+ "xmltree",
 ]
 
 [[package]]
@@ -826,6 +827,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "xml"
+version = "1.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f45bb2c13fec6a6cb4c0f76a7e94839e110a14ec803ec2940777a94c347bc52"
+
+[[package]]
 name = "xmloxide"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -833,4 +840,13 @@ checksum = "a44f46eed58c1d9456ee3bd6d7c20693695dca77b6764d15c065c4d8764de906"
 dependencies = [
  "clap",
  "encoding_rs",
+]
+
+[[package]]
+name = "xmltree"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbc04313cab124e498ab1724e739720807b6dc405b9ed0edc5860164d2e4ff70"
+dependencies = [
+ "xml",
 ]

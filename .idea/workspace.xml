@@ -8,14 +8,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/CommandLineImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/CommandLineImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dictx.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/resources/dictx.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ConmanDictionary" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,59 +60,59 @@
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000000004" />
-      <entry key="S10" value="1.000000079213142" />
-      <entry key="S30" value="1.0291591670275106" />
-      <entry key="S60" value="1.7424862102358754" />
-      <entry key="M2" value="4.9298577430721755" />
-      <entry key="M5" value="15.06569683346028" />
-      <entry key="M10" value="32.288003551984886" />
-      <entry key="M15" value="47.52831530314298" />
-      <entry key="M30" value="76.67418867285748" />
-      <entry key="H1" value="100.9426135328121" />
-      <entry key="H2" value="116.8386055737861" />
-      <entry key="H4" value="125.9687582695895" />
-      <entry key="D1" value="134.26157933075294" />
-      <entry key="W1" value="135.7499699346321" />
+      <entry key="S2" value="1.0000000000011753" />
+      <entry key="S5" value="1.000039271236832" />
+      <entry key="S10" value="1.014581088564276" />
+      <entry key="S30" value="1.862529920845475" />
+      <entry key="S60" value="3.5701065719830276" />
+      <entry key="M2" value="5.94722302279995" />
+      <entry key="M5" value="12.353746694351806" />
+      <entry key="M10" value="26.26430262475142" />
+      <entry key="M15" value="40.73124386824554" />
+      <entry key="M30" value="72.63643377331445" />
+      <entry key="H1" value="102.5467735102391" />
+      <entry key="H2" value="123.49594952386065" />
+      <entry key="H4" value="135.96258052735948" />
+      <entry key="D1" value="147.54259728130856" />
+      <entry key="W1" value="149.64593501546705" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="5.0783019636711183E-23" />
-      <entry key="MS500" value="3.476511771307724E-5" />
-      <entry key="S2" value="0.07678668627785312" />
-      <entry key="S5" value="0.35819075336907924" />
-      <entry key="S10" value="0.5984903953858234" />
-      <entry key="S30" value="0.8427247102051593" />
-      <entry key="S60" value="0.9180003874085338" />
-      <entry key="M2" value="0.958165208653856" />
-      <entry key="M5" value="1.0172826291326793" />
-      <entry key="M10" value="1.3119868086799051" />
-      <entry key="M15" value="1.6697540103189439" />
-      <entry key="M30" value="2.420625952976292" />
-      <entry key="H1" value="3.0650688484026043" />
-      <entry key="H2" value="3.4891612395137157" />
-      <entry key="H4" value="3.7327039792854744" />
-      <entry key="D1" value="3.9537053574534067" />
-      <entry key="W1" value="3.9933424302524703" />
+      <entry key="MS100" value="0.003569654102458594" />
+      <entry key="MS500" value="0.32398524135833334" />
+      <entry key="S2" value="0.7544514659919741" />
+      <entry key="S5" value="0.8934135248428037" />
+      <entry key="S10" value="0.9452055560032898" />
+      <entry key="S30" value="0.983520880576521" />
+      <entry key="S60" value="1.0373378508920692" />
+      <entry key="M2" value="1.233349793702757" />
+      <entry key="M5" value="1.7683753947749643" />
+      <entry key="M10" value="2.3577230783933296" />
+      <entry key="M15" value="2.8307640265431737" />
+      <entry key="M30" value="3.791175161649963" />
+      <entry key="H1" value="4.657474442791722" />
+      <entry key="H2" value="5.254008272190454" />
+      <entry key="H4" value="5.605986422145507" />
+      <entry key="D1" value="5.931189316283448" />
+      <entry key="W1" value="5.99008987766607" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="5.36785679158971E-23" />
-      <entry key="MS500" value="3.550872721767777E-5" />
-      <entry key="S2" value="0.10142483942505576" />
-      <entry key="S5" value="0.5851222980863608" />
-      <entry key="S10" value="1.074778401876556" />
-      <entry key="S30" value="1.6527316111078105" />
-      <entry key="S60" value="2.543219002385192" />
-      <entry key="M2" value="5.825526291663437" />
-      <entry key="M5" value="16.054008924312022" />
-      <entry key="M10" value="33.578573286472626" />
-      <entry key="M15" value="49.17828959798311" />
-      <entry key="M30" value="79.0790289459956" />
-      <entry key="H1" value="103.99720249181745" />
-      <entry key="H2" value="120.32166409560071" />
-      <entry key="H4" value="129.69816135436128" />
-      <entry key="D1" value="138.2146966242984" />
-      <entry key="W1" value="139.74322738190452" />
+      <entry key="MS100" value="0.003747582878890937" />
+      <entry key="MS500" value="0.38110324027465325" />
+      <entry key="S2" value="1.2382489025131862" />
+      <entry key="S5" value="1.641118359432865" />
+      <entry key="S10" value="1.8232279925090897" />
+      <entry key="S30" value="2.768801748049278" />
+      <entry key="S60" value="4.5343834043045295" />
+      <entry key="M2" value="7.11706045071481" />
+      <entry key="M5" value="14.076526116148466" />
+      <entry key="M10" value="28.588159785768053" />
+      <entry key="M15" value="43.53300530832432" />
+      <entry key="M30" value="76.4061496083746" />
+      <entry key="H1" value="107.19023701332526" />
+      <entry key="H2" value="128.74179723887295" />
+      <entry key="H4" value="141.5641421091581" />
+      <entry key="D1" value="153.47299570446262" />
+      <entry key="W1" value="155.6359105212843" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -105,6 +127,7 @@
   "keyToString": {
     "Gradle.Build ConmanDictionary.executor": "Run",
     "Gradle.ConmanDictionary [:org.beastwithin.conmandictionary.Main.main()].executor": "Run",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -118,20 +141,26 @@
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/wwwwo/Development/ConmanDictionary/src/main/resources",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/wwwwo/Development/ConmanDictionary/src/main/java/org/beastwithin/conmandictionary/Main.java",
+    "onboarding.tips.debug.path": "C:/Users/wwwwo/Development/ConmanDictionary/document/src/main/java/org/beastwithin/conmandictionary/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.1954023",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wwwwo\Development\ConmanDictionary\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wwwwo\Development\ConmanDictionary\document\src\main\resources" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -163,7 +192,16 @@
           <line>13</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

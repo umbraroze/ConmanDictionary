@@ -1,21 +1,10 @@
-/*  Entry.java: Represents a single entry in a dictionary.
- * 
- *  Conman's Dictionary, a dictionary application for conlang makers.
- *  Copyright (C) 2006,2007,2008,2009,2010  Urpo Lankinen
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Entry.java: Represents a single entry in a dictionary.
+ * Conman's Dictionary, a dictionary application for conlang makers.
+ * Copyright © 2006,2007,2008,2009,2010,2026  Rose Midford
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
+
 package org.beastwithin.conmandictionary.document;
 
 import java.io.*;

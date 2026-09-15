@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":document"))
     // org.beastwithin.conmandictionary.document
     // Source: https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.5")

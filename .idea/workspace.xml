@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/dictx.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/CommandLineImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/CommandLineImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ConmanDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ConmanDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/EntryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/WordClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/AboutBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/AboutBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/LanguagePanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/LanguagePanel.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/LanguagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/LanguagePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/MainWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/SearchBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/SearchBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/SearchBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/SearchBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/SearchBoxListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/SearchBoxListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/about.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/about.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/aboutText.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/aboutText.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/flag.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/flag.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obsolete/java/org/beastwithin/conmandictionary/ui/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/ui/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,23 +27,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.006434304822403" />
-      <entry key="MS500" value="1.3645023447041447" />
-      <entry key="S2" value="1.7770072687840495" />
-      <entry key="S5" value="1.9040033349529426" />
-      <entry key="S10" value="1.9507908997003192" />
-      <entry key="S30" value="1.9833203010422404" />
-      <entry key="S60" value="1.9916250808860374" />
-      <entry key="M2" value="1.995803736127776" />
-      <entry key="M5" value="1.998319376673525" />
-      <entry key="M10" value="1.9991593349779229" />
-      <entry key="M15" value="1.9994394780984086" />
-      <entry key="M30" value="1.9997196997650935" />
-      <entry key="H1" value="1.9998598400601424" />
-      <entry key="H2" value="1.999929917574298" />
-      <entry key="H4" value="1.9999649581731842" />
-      <entry key="D1" value="1.999994159610256" />
-      <entry key="W1" value="1.9999991656565197" />
+      <entry key="MS100" value="1.0001775192672795" />
+      <entry key="MS500" value="1.2130065883130399" />
+      <entry key="S2" value="2.3896523828867915" />
+      <entry key="S5" value="3.7547018858488905" />
+      <entry key="S10" value="5.685810380890712" />
+      <entry key="S30" value="11.648118900908255" />
+      <entry key="S60" value="17.450362133017066" />
+      <entry key="M2" value="26.562054759441082" />
+      <entry key="M5" value="39.795142600130205" />
+      <entry key="M10" value="47.13370906183924" />
+      <entry key="M15" value="50.09323733206807" />
+      <entry key="M30" value="53.36732328781179" />
+      <entry key="H1" value="55.135787024172195" />
+      <entry key="H2" value="56.0555143359706" />
+      <entry key="H4" value="56.52460909142568" />
+      <entry key="D1" value="56.92032633140403" />
+      <entry key="W1" value="56.98860716564729" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -86,23 +65,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.904674703709721" />
-      <entry key="MS500" value="1.30072188195427" />
-      <entry key="S2" value="1.7476991437969522" />
-      <entry key="S5" value="1.8905934323323201" />
-      <entry key="S10" value="1.9437733476930954" />
-      <entry key="S30" value="1.9809084828560577" />
-      <entry key="S60" value="1.9904098879764045" />
-      <entry key="M2" value="1.9951938031247596" />
-      <entry key="M5" value="1.9980748406939606" />
-      <entry key="M10" value="1.9990369730240654" />
-      <entry key="M15" value="1.999357882569161" />
-      <entry key="M30" value="1.9996788915506873" />
-      <entry key="H1" value="1.9998394333399105" />
-      <entry key="H2" value="1.9999197135608517" />
-      <entry key="H4" value="1.9999598560031195" />
-      <entry key="D1" value="1.9999933092258912" />
-      <entry key="W1" value="1.9999990441724833" />
+      <entry key="MS100" value="0.9014093474147202" />
+      <entry key="MS500" value="1.1879073847357378" />
+      <entry key="S2" value="2.377696454379623" />
+      <entry key="S5" value="3.747419278562946" />
+      <entry key="S10" value="5.68047858124144" />
+      <entry key="S30" value="11.644655301287395" />
+      <entry key="S60" value="17.447713623051328" />
+      <entry key="M2" value="26.559900824324686" />
+      <entry key="M5" value="39.793740084358454" />
+      <entry key="M10" value="47.132842924947035" />
+      <entry key="M15" value="50.092613468141224" />
+      <entry key="M30" value="53.366984949723154" />
+      <entry key="H1" value="55.13561056602937" />
+      <entry key="H2" value="56.05542418961308" />
+      <entry key="H4" value="56.52456352642505" />
+      <entry key="D1" value="56.92031866783718" />
+      <entry key="W1" value="56.988606069138" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo"><![CDATA[{

@@ -18,66 +18,17 @@ project documentation, please see the
 
 ## Dependencies
 
-Conman's Dictionary 2.1+ is a Rust program.
+Conman's Dictionary 2.1+ is a Java 25 application.
 
-I'm developing this in Windows with regular Rust install
-with the `stable-x86_64-pc-windows-gnu` toolchain, so all of the
-dependencies will look at MSYS2.
-
-MSYS2 C/C++ packages needed:
-
-- `mingw-w64-ucrt-x86_64-gtk4`
-- `mingw-w64-ucrt-x86_64-toolchain`
-- `base-devel`
-
-You probably can compile this on Linux too, as long as you have
-the regular C/C++ toolchain and the GTK 4 development files and their
-dependencies.
+Developed in IntelliJ, with Gradle.
 
 ## Source organisation
 
-Currently, the application is split in a few different sub-crates:
+I'm bringing back my original Java codebase here.
 
-### conmandictionary
+My odyssey of failure in C# and Rust is temporarily stored in `obsolete` folder.
 
-The GUI application, using GTK 4. Doesn't have much yet, unfortunately.
-
-Planned functionality:
-
-- The usual dictionary editing and management commands
-- Word class and category editors
-- Notepad editor
-- Merge dictionaries
-
-### dict-tool
-
-A command-line tool for handing `.dictx` files. Not much here either.
-Will be initially used as a development aid and a test tool for
-seeing how file handling works.
-
-Some of the planned command-line functionality:
-
-- Command to validate `.dictx` documents against schema
-- Merge `.dictx` files
-- Convert `.dictx` to plain text `dictd` files
-
-### dictx
-
-Code for handling dictionary data.
-
-- Parse and load `.dictx` files
-- Save `.dictx` files
-- Validate `.dictx` files against XSD schema
-
-### Legacy stuff
-
-Legacy code is temporarily stored in `obsolete` folder as a
-reference for the Rust port project.
-
-#### Java
-
-All of the legacy Java code ("version 1.x") can be found 
-in `obsolete/java` for reference.
+### Last "good" build
 
 The last version of the Java desktop app that was known to
 build in Java 6 SE JDK can be found via the
@@ -86,11 +37,3 @@ build in Java 6 SE JDK can be found via the
 This legacy codebase was developed in Java 6 days, and depends on
 stuff that has since been moved from stock JDK and JRE to external
 dependencies, so it will not build or run on modern Java environments.
-
-#### C#
-
-The "version 2.0" C# code, which really didn't get that far over the
-years, is now temporarily stored in `obsolete/csharp`.  Likewise, it
-will be gone once the Rust version works adequately.
-
-

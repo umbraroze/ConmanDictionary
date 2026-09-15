@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="" />
+    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/CommandLineImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/CommandLineImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,66 +36,66 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0001775192672795" />
-      <entry key="MS500" value="1.2130065883130399" />
-      <entry key="S2" value="2.3896523828867915" />
-      <entry key="S5" value="3.7547018858488905" />
-      <entry key="S10" value="5.685810380890712" />
-      <entry key="S30" value="11.648118900908255" />
-      <entry key="S60" value="17.450362133017066" />
-      <entry key="M2" value="26.562054759441082" />
-      <entry key="M5" value="39.795142600130205" />
-      <entry key="M10" value="47.13370906183924" />
-      <entry key="M15" value="50.09323733206807" />
-      <entry key="M30" value="53.36732328781179" />
-      <entry key="H1" value="55.135787024172195" />
-      <entry key="H2" value="56.0555143359706" />
-      <entry key="H4" value="56.52460909142568" />
-      <entry key="D1" value="56.92032633140403" />
-      <entry key="W1" value="56.98860716564729" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000000000004" />
+      <entry key="S10" value="1.000000079213142" />
+      <entry key="S30" value="1.0291591670275106" />
+      <entry key="S60" value="1.7424862102358754" />
+      <entry key="M2" value="4.9298577430721755" />
+      <entry key="M5" value="15.06569683346028" />
+      <entry key="M10" value="32.288003551984886" />
+      <entry key="M15" value="47.52831530314298" />
+      <entry key="M30" value="76.67418867285748" />
+      <entry key="H1" value="100.9426135328121" />
+      <entry key="H2" value="116.8386055737861" />
+      <entry key="H4" value="125.9687582695895" />
+      <entry key="D1" value="134.26157933075294" />
+      <entry key="W1" value="135.7499699346321" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="0.0" />
-      <entry key="H1" value="0.0" />
-      <entry key="H2" value="0.0" />
-      <entry key="H4" value="0.0" />
-      <entry key="D1" value="0.0" />
-      <entry key="W1" value="0.0" />
+      <entry key="MS100" value="5.0783019636711183E-23" />
+      <entry key="MS500" value="3.476511771307724E-5" />
+      <entry key="S2" value="0.07678668627785312" />
+      <entry key="S5" value="0.35819075336907924" />
+      <entry key="S10" value="0.5984903953858234" />
+      <entry key="S30" value="0.8427247102051593" />
+      <entry key="S60" value="0.9180003874085338" />
+      <entry key="M2" value="0.958165208653856" />
+      <entry key="M5" value="1.0172826291326793" />
+      <entry key="M10" value="1.3119868086799051" />
+      <entry key="M15" value="1.6697540103189439" />
+      <entry key="M30" value="2.420625952976292" />
+      <entry key="H1" value="3.0650688484026043" />
+      <entry key="H2" value="3.4891612395137157" />
+      <entry key="H4" value="3.7327039792854744" />
+      <entry key="D1" value="3.9537053574534067" />
+      <entry key="W1" value="3.9933424302524703" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9014093474147202" />
-      <entry key="MS500" value="1.1879073847357378" />
-      <entry key="S2" value="2.377696454379623" />
-      <entry key="S5" value="3.747419278562946" />
-      <entry key="S10" value="5.68047858124144" />
-      <entry key="S30" value="11.644655301287395" />
-      <entry key="S60" value="17.447713623051328" />
-      <entry key="M2" value="26.559900824324686" />
-      <entry key="M5" value="39.793740084358454" />
-      <entry key="M10" value="47.132842924947035" />
-      <entry key="M15" value="50.092613468141224" />
-      <entry key="M30" value="53.366984949723154" />
-      <entry key="H1" value="55.13561056602937" />
-      <entry key="H2" value="56.05542418961308" />
-      <entry key="H4" value="56.52456352642505" />
-      <entry key="D1" value="56.92031866783718" />
-      <entry key="W1" value="56.988606069138" />
+      <entry key="MS100" value="5.36785679158971E-23" />
+      <entry key="MS500" value="3.550872721767777E-5" />
+      <entry key="S2" value="0.10142483942505576" />
+      <entry key="S5" value="0.5851222980863608" />
+      <entry key="S10" value="1.074778401876556" />
+      <entry key="S30" value="1.6527316111078105" />
+      <entry key="S60" value="2.543219002385192" />
+      <entry key="M2" value="5.825526291663437" />
+      <entry key="M5" value="16.054008924312022" />
+      <entry key="M10" value="33.578573286472626" />
+      <entry key="M15" value="49.17828959798311" />
+      <entry key="M30" value="79.0790289459956" />
+      <entry key="H1" value="103.99720249181745" />
+      <entry key="H2" value="120.32166409560071" />
+      <entry key="H4" value="129.69816135436128" />
+      <entry key="D1" value="138.2146966242984" />
+      <entry key="W1" value="139.74322738190452" />
     </decayedShown>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="3JN3833CIQKB7Kw1fWnxzjuQhaK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -91,6 +103,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build ConmanDictionary.executor": "Run",
     "Gradle.ConmanDictionary [:org.beastwithin.conmandictionary.Main.main()].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
@@ -100,6 +113,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "back__to__java",
+    "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/wwwwo/Development/ConmanDictionary/src/main/resources",
@@ -110,8 +124,8 @@
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/wwwwo/Development/ConmanDictionary/src/main/java/org/beastwithin/conmandictionary/Main.java",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.1954023",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
@@ -123,8 +137,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
       </set>
     </attachedChunks>
   </component>

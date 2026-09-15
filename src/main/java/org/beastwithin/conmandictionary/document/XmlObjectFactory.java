@@ -2,8 +2,8 @@
 
 package org.beastwithin.conmandictionary.document;
 
-import javax.xml.bind.*;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.*;
+import jakarta.xml.bind.annotation.*;
 import javax.xml.namespace.*;
 
 

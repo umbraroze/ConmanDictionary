@@ -20,8 +20,8 @@ package org.beastwithin.conmandictionary.document;
 
 import java.io.*;
 import java.util.regex.*;
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.*;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.*;
 
 /**
  * An entry in the dictionary.

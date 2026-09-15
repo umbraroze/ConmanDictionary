@@ -25,8 +25,8 @@ import javax.xml.*;
 import javax.xml.validation.*;
 import javax.xml.transform.stream.*;
 import org.xml.sax.*;
-import javax.xml.bind.*;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.*;
+import jakarta.xml.bind.annotation.*;
 import javax.swing.text.*;
 
 @XmlAccessorType(XmlAccessType.NONE)

@@ -19,8 +19,8 @@
 
 package org.beastwithin.conmandictionary.document;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * This is used with @XmlJavaTypeAdapter to not saving boolean attributes

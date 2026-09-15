@@ -19,8 +19,8 @@
 
 package org.beastwithin.conmandictionary.document;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.*;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.*;
 
 /**
  * Bean for word classes.

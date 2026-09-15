@@ -23,7 +23,7 @@ import javax.swing.event.*;
 import javax.swing.text.*;
 
 import java.util.*;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = { "entries" })

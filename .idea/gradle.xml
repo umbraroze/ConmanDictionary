@@ -13,6 +13,9 @@
         </option>
         <option name="myGradleHome" value="" />
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/dictionaryapp" />
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

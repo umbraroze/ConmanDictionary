@@ -4,23 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/document/src/test/java/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/.gitignore" afterDir="false" />
+    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="More file moves, update some comments">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Dictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/EntryList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/OptionalBooleanAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/WordClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/main/java/org/beastwithin/conmandictionary/document/XmlObjectFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/complexfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/test/resources/complexfile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/complexfile2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/test/resources/complexfile2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/complexfiles_mergedbyhand.xml" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/test/resources/complexfiles_mergedbyhand.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/mock_document.xml" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/test/resources/mock_document.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/simplefile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/document/src/test/resources/simplefile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/document/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/document/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,61 +46,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000001614833" />
-      <entry key="MS500" value="1.0139882926988677" />
-      <entry key="S2" value="1.6350893318828374" />
-      <entry key="S5" value="2.740867218434323" />
-      <entry key="S10" value="3.58959312408184" />
-      <entry key="S30" value="4.4454258833400075" />
-      <entry key="S60" value="4.711800919644541" />
-      <entry key="M2" value="4.971521819985014" />
-      <entry key="M5" value="7.52906153098639" />
-      <entry key="M10" value="16.993599741715933" />
-      <entry key="M15" value="29.174018717741554" />
-      <entry key="M30" value="60.97158899678486" />
-      <entry key="H1" value="95.02089603854103" />
-      <entry key="H2" value="120.70871650445494" />
-      <entry key="H4" value="136.606291407135" />
-      <entry key="D1" value="151.74400613374112" />
-      <entry key="W1" value="154.52995545398784" />
+      <entry key="MS100" value="1.000000000034134" />
+      <entry key="MS500" value="1.008065613558463" />
+      <entry key="S2" value="1.2996810988934804" />
+      <entry key="S5" value="1.6175380769146677" />
+      <entry key="S10" value="1.7858359096657155" />
+      <entry key="S30" value="1.9237005859059308" />
+      <entry key="S60" value="2.0794680770743366" />
+      <entry key="M2" value="3.4042639666482692" />
+      <entry key="M5" value="9.936457398242272" />
+      <entry key="M10" value="20.97585068988643" />
+      <entry key="M15" value="31.36103661837066" />
+      <entry key="M30" value="61.32355316892784" />
+      <entry key="H1" value="104.6120152656675" />
+      <entry key="H2" value="145.7539166286296" />
+      <entry key="H4" value="174.8693600973177" />
+      <entry key="D1" value="205.1602107746079" />
+      <entry key="W1" value="211.0055265599302" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="3.1026408567252666E-7" />
-      <entry key="MS500" value="0.051499354877567675" />
-      <entry key="S2" value="0.6717920708016824" />
-      <entry key="S5" value="1.265377282969635" />
-      <entry key="S10" value="1.5849494906935608" />
-      <entry key="S30" value="1.8492616036817173" />
-      <entry key="S60" value="1.9233741830814353" />
-      <entry key="M2" value="1.985848398709639" />
-      <entry key="M5" value="2.3549294016572393" />
-      <entry key="M10" value="3.0715010553629583" />
-      <entry key="M15" value="3.6762151949126816" />
-      <entry key="M30" value="4.9192749092730645" />
-      <entry key="H1" value="6.087490136158698" />
-      <entry key="H2" value="6.922159424398374" />
-      <entry key="H4" value="7.426092450120432" />
-      <entry key="D1" value="7.899039826196777" />
-      <entry key="W1" value="7.985440786923526" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="9.744663083212242E-214" />
+      <entry key="S5" value="6.244630289743361E-86" />
+      <entry key="S10" value="2.4989258271792226E-43" />
+      <entry key="S30" value="6.298702871614184E-15" />
+      <entry key="S60" value="7.936459380408025E-8" />
+      <entry key="M2" value="2.823975925927609E-4" />
+      <entry key="M5" value="0.04412180157480448" />
+      <entry key="M10" value="0.3514126231804576" />
+      <entry key="M15" value="0.8413699453729556" />
+      <entry key="M30" value="2.403352623248688" />
+      <entry key="H1" value="4.467779322403635" />
+      <entry key="H2" value="6.273858136155184" />
+      <entry key="H4" value="7.4938743860986134" />
+      <entry key="D1" value="8.726113503280644" />
+      <entry key="W1" value="8.960269245490707" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.536008882331524E-7" />
-      <entry key="MS500" value="0.07882974891945443" />
-      <entry key="S2" value="1.452535905171691" />
-      <entry key="S5" value="3.3563908819878225" />
-      <entry key="S10" value="4.740383434926275" />
-      <entry key="S30" value="6.114834737012505" />
-      <entry key="S60" value="6.539905668166154" />
-      <entry key="M2" value="6.907063860881977" />
-      <entry key="M5" value="9.854474117505173" />
-      <entry key="M10" value="20.0395574917" />
-      <entry key="M15" value="32.82630028198458" />
-      <entry key="M30" value="65.8709652310972" />
-      <entry key="H1" value="101.09440442207666" />
-      <entry key="H2" value="127.62238860106993" />
-      <entry key="H4" value="144.0276800550694" />
-      <entry key="D1" value="159.6421892163495" />
-      <entry key="W1" value="162.51527193873738" />
+      <entry key="MS100" value="0.18301071199630506" />
+      <entry key="MS500" value="0.7170176734360477" />
+      <entry key="S2" value="1.1844104951647545" />
+      <entry key="S5" value="1.55522264221172" />
+      <entry key="S10" value="1.7503747710946695" />
+      <entry key="S30" value="1.9107072852032387" />
+      <entry key="S60" value="2.072756764207332" />
+      <entry key="M2" value="3.4008548588133247" />
+      <entry key="M5" value="9.978243445484315" />
+      <entry key="M10" value="21.323987379096867" />
+      <entry key="M15" value="32.19735437298611" />
+      <entry key="M30" value="63.71828020386353" />
+      <entry key="H1" value="109.07052367822446" />
+      <entry key="H2" value="152.02073270693862" />
+      <entry key="H4" value="182.35885854247525" />
+      <entry key="D1" value="213.88544660756676" />
+      <entry key="W1" value="219.965666334363" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -180,10 +168,22 @@
       <option name="presentableId" value="Default" />
       <updated>1789487536907</updated>
     </task>
+    <task id="LOCAL−00001" summary="More file moves, update some comments">
+      <option name="closed" value="true" />
+      <created>1789499779743</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1789499779744</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="More file moves, update some comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="More file moves, update some comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "org.beastwithin.conmandictionary"
-version = "1.0-SNAPSHOT"
+version = "2.2-SNAPSHOT"
 
 repositories {
     mavenCentral()

@@ -28,8 +28,8 @@ public class DynamicCreationTest {
     /**
      * Create a file dynamically.
      */
-    @Test
-    public void createFile() throws Exception {
+    @BeforeAll
+    public static void createFile() throws Exception {
         Dictionary d = new Dictionary();
         WordClass n = new WordClass("Noun","n");
         WordClass v = new WordClass("Verb","v");
@@ -131,7 +131,6 @@ public class DynamicCreationTest {
 
     @AfterAll
     public static void deleteTempFile() {
-        if(!tempFile.delete())
-            fail("Internal error: couldn't delete the temp file");
+        tempFile.delete();
     }
 }

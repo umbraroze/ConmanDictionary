@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="More file moves, update some comments">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/document/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/document/build.gradle.kts" afterDir="false" />
-    </list>
+    <list default="true" id="e237c566-dc57-4976-96fc-20b6d3c902cc" name="Changes" comment="More file moves, update some comments" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +18,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -46,61 +44,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000000034134" />
-      <entry key="MS500" value="1.008065613558463" />
-      <entry key="S2" value="1.2996810988934804" />
-      <entry key="S5" value="1.6175380769146677" />
-      <entry key="S10" value="1.7858359096657155" />
-      <entry key="S30" value="1.9237005859059308" />
-      <entry key="S60" value="2.0794680770743366" />
-      <entry key="M2" value="3.4042639666482692" />
-      <entry key="M5" value="9.936457398242272" />
-      <entry key="M10" value="20.97585068988643" />
-      <entry key="M15" value="31.36103661837066" />
-      <entry key="M30" value="61.32355316892784" />
-      <entry key="H1" value="104.6120152656675" />
-      <entry key="H2" value="145.7539166286296" />
-      <entry key="H4" value="174.8693600973177" />
-      <entry key="D1" value="205.1602107746079" />
-      <entry key="W1" value="211.0055265599302" />
+      <entry key="MS100" value="1.5639655554174663" />
+      <entry key="MS500" value="3.698879259798517" />
+      <entry key="S2" value="7.471702665507746" />
+      <entry key="S5" value="12.27375729633237" />
+      <entry key="S10" value="22.106356070097245" />
+      <entry key="S30" value="49.968093609276714" />
+      <entry key="S60" value="66.07146210739488" />
+      <entry key="M2" value="77.83140059394886" />
+      <entry key="M5" value="91.43642435196926" />
+      <entry key="M10" value="105.02247050118542" />
+      <entry key="M15" value="116.3050604054454" />
+      <entry key="M30" value="147.20063310917453" />
+      <entry key="H1" value="191.12307253403023" />
+      <entry key="H2" value="232.8063052545143" />
+      <entry key="H4" value="262.3236349151902" />
+      <entry key="D1" value="293.0567797391003" />
+      <entry key="W1" value="298.9904066378225" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="9.744663083212242E-214" />
-      <entry key="S5" value="6.244630289743361E-86" />
-      <entry key="S10" value="2.4989258271792226E-43" />
-      <entry key="S30" value="6.298702871614184E-15" />
-      <entry key="S60" value="7.936459380408025E-8" />
-      <entry key="M2" value="2.823975925927609E-4" />
-      <entry key="M5" value="0.04412180157480448" />
-      <entry key="M10" value="0.3514126231804576" />
-      <entry key="M15" value="0.8413699453729556" />
-      <entry key="M30" value="2.403352623248688" />
-      <entry key="H1" value="4.467779322403635" />
-      <entry key="H2" value="6.273858136155184" />
-      <entry key="H4" value="7.4938743860986134" />
-      <entry key="D1" value="8.726113503280644" />
-      <entry key="W1" value="8.960269245490707" />
+      <entry key="S2" value="2.0570957823708726E-221" />
+      <entry key="S5" value="5.312535014930133E-89" />
+      <entry key="S10" value="7.288713888560947E-45" />
+      <entry key="S30" value="1.938877187865331E-15" />
+      <entry key="S60" value="4.403280858534047E-8" />
+      <entry key="M2" value="2.103467396271076E-4" />
+      <entry key="M5" value="0.03921779346874785" />
+      <entry key="M10" value="0.3313083005672591" />
+      <entry key="M15" value="0.808966058519148" />
+      <entry key="M30" value="2.3566177733308877" />
+      <entry key="H1" value="4.424126540265593" />
+      <entry key="H2" value="6.243133294898373" />
+      <entry key="H4" value="7.475502063545218" />
+      <entry key="D1" value="8.722544299548307" />
+      <entry key="W1" value="8.959745585198638" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.18301071199630506" />
-      <entry key="MS500" value="0.7170176734360477" />
-      <entry key="S2" value="1.1844104951647545" />
-      <entry key="S5" value="1.55522264221172" />
-      <entry key="S10" value="1.7503747710946695" />
-      <entry key="S30" value="1.9107072852032387" />
-      <entry key="S60" value="2.072756764207332" />
-      <entry key="M2" value="3.4008548588133247" />
-      <entry key="M5" value="9.978243445484315" />
-      <entry key="M10" value="21.323987379096867" />
-      <entry key="M15" value="32.19735437298611" />
-      <entry key="M30" value="63.71828020386353" />
-      <entry key="H1" value="109.07052367822446" />
-      <entry key="H2" value="152.02073270693862" />
-      <entry key="H4" value="182.35885854247525" />
-      <entry key="D1" value="213.88544660756676" />
-      <entry key="W1" value="219.965666334363" />
+      <entry key="MS100" value="1.5119192989271009" />
+      <entry key="MS500" value="3.6734373773257523" />
+      <entry key="S2" value="7.4577200743600764" />
+      <entry key="S5" value="12.26044857244104" />
+      <entry key="S10" value="22.087883993115778" />
+      <entry key="S30" value="49.948165293124376" />
+      <entry key="S60" value="66.05692328204506" />
+      <entry key="M2" value="77.82250343246324" />
+      <entry key="M5" value="91.47075528382281" />
+      <entry key="M10" value="105.3492365570376" />
+      <entry key="M15" value="117.10818865148245" />
+      <entry key="M30" value="149.54829732584798" />
+      <entry key="H1" value="195.53776948265408" />
+      <entry key="H2" value="239.04230599107004" />
+      <entry key="H4" value="269.79470918324125" />
+      <entry key="D1" value="301.7784362844542" />
+      <entry key="W1" value="307.95002126738916" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -111,38 +109,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build ConmanDictionary.executor": "Run",
-    "Gradle.ConmanDictionary [:org.beastwithin.conmandictionary.Main.main()].executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "back__to__java",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/wwwwo/Development/ConmanDictionary/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/wwwwo/Development/ConmanDictionary/document/src/main/java/org/beastwithin/conmandictionary/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.1954023",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build ConmanDictionary.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConmanDictionary [:document:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConmanDictionary [:org.beastwithin.conmandictionary.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConmanDictionary [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConmanDictionary [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;back__to__java&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/wwwwo/Development/ConmanDictionary/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/wwwwo/Development/ConmanDictionary/document/src/main/java/org/beastwithin/conmandictionary/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1954023&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wwwwo\Development\ConmanDictionary\src\main\resources" />
@@ -152,11 +153,95 @@
       <recent name="C:\Users\wwwwo\Development\ConmanDictionary\document\src\main\resources" />
     </key>
   </component>
+  <component name="RunManager" selected="Gradle.ConmanDictionary [build]">
+    <configuration name="ConmanDictionary [:document:build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":document:build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConmanDictionary [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConmanDictionary [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ConmanDictionary [build]" />
+        <item itemvalue="Gradle.ConmanDictionary [clean]" />
+        <item itemvalue="Gradle.ConmanDictionary [:document:build]" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>

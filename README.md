@@ -18,15 +18,35 @@ project documentation, please see the
 
 ## Dependencies
 
-Conman's Dictionary 2.1+ is a Java 25 application.
+Conman's Dictionary 2.1+ is a Java application.
+Currently, it is developed and tested on
+OpenJDK 25
+(specifically, I'm using [Adoptium](https://adoptium.net/) on Windows.)
 
-Developed in IntelliJ, with Gradle.
+I'm using [IntelliJ IDEA](https://www.jetbrains.com/idea/), but the build
+process probably doesn't have anything IDE-specific in it.
+
+The project uses the [Gradle](https://gradle.org/) build tool.
 
 ## Source organisation
 
 I'm bringing back my original Java codebase here.
 
 My odyssey of failure in C# and Rust is temporarily stored in `obsolete` folder.
+
+Currently the old Java GUI code lives in the main `src` folder.
+
+The program is divided into these modules:
+
+* `document`
+  * The document data classes. How the data is stored in memory,
+    saved to disk as `.dictx` XML files, and loaded from them.
+    Also code that validates the structure of `.dictx` documents.
+* `conmandictionary`
+    * This will eventually be the GUI application.
+* ???
+    * The command-line application will go into a module of its own
+      eventually as well.
 
 ### Last "good" build
 

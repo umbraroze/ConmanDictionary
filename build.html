@@ -1,0 +1,310 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.1 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>Build instructions - Conman’s Dictionary</title>
+<meta name="description" content="A dictionary application for articial/constructed language enthusiasts.">
+
+
+  <meta name="author" content="Rose Midford">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Conman&#39;s Dictionary">
+<meta property="og:title" content="Build instructions">
+<meta property="og:url" content="http://localhost:4000/ConmanDictionary/build.html">
+
+
+  <meta property="og:description" content="A dictionary application for articial/constructed language enthusiasts.">
+
+
+
+
+
+
+
+  <meta name="fediverse:creator" content="@umbraroze@tech.lgbt">
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/ConmanDictionary/build.html">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/ConmanDictionary/feed.xml" type="application/atom+xml" rel="alternate" title="Conman's Dictionary Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/ConmanDictionary/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/ConmanDictionary/">
+          Conman&#39;s Dictionary
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="https://github.com/umbraroze"
+                
+                
+              >GitHub profile</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Build instructions">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/ConmanDictionary/build.html" itemprop="url">Build instructions
+</a>
+          </h1>
+          
+
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <h2 id="requirements">Requirements</h2>
+
+<p>Version 2.0 is a complete rewrite of the application in C#.
+It’s trying to target the open .NET APIs/platforms whenever
+possible.</p>
+
+<p>Aside of the standard C# stuff, here are some choice Nugettable
+packages the project has needed so far:</p>
+
+<ul>
+  <li>Avalonia</li>
+  <li>ReactiveUI</li>
+  <li>System.CommandLine</li>
+  <li>NUnit</li>
+</ul>
+
+<h2 id="building-the-c-project">Building the C# project</h2>
+
+<p>As of now, all I can say “just use <code class="language-plaintext highlighter-rouge">dotnet build</code> or build the
+thing with Visual Studio.” …I’m not sure there’s an actual reason
+to do that as of now, however!</p>
+
+<p>The 2.0 total C# rewrite is <em>NOT</em> yet functional. At all.
+Well, there’s some code, but it doesn’t really do much yet
+for the end-user.</p>
+
+<h2 id="building-the-legacy-java-code">Building the legacy Java code</h2>
+
+<p>Hoo boy, this is going to hurt!</p>
+
+<p>If you absolutely need the Java branch, you need to grab it from
+the appropriate Git tag (<code class="language-plaintext highlighter-rouge">1.0X_JDESKTOP</code>) and then build it
+using Apache Maven.</p>
+
+<p>The project was developed on Java SE 6, circa 2013. Building the
+Java project in this day and age is probably going to be <em>kinda</em>
+challenging, particularly if you are targeting modern versions of
+Java.</p>
+
+<p>I have <em>not</em> tried to actually build the project, but based on light
+research, the big sticking point is that Java XML Binding (JAXB)
+is no longer bundled with OpenJDK.</p>
+
+<p>Trying to forcibly duct-tape in the JAXB class files by hand and
+run the thing on modern JRE that ways was… er, an event we
+shouldn’t speak of no more.</p>
+
+<p>That is the point where I leave the attempt to people who have kept
+more up with the recent happenings in Java land.</p>
+
+<p>I’m not saying it’s impossible, however - the appropriate JAXB JARs
+are apparently still in Maven’s repository, and the big reason why
+I introduced Maven in the first place was that I needed some way to
+fetch the JDesktop App Framework stuff when they were excised from
+Java SE the exact same way.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+
+
+        
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/umbraroze" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://codeberg.org/umbraroze" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-forgejo" aria-hidden="true"></i> Codeberg</a></li>
+        
+      
+    
+
+    
+      <li><a href="/ConmanDictionary/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2026 <a href="http://localhost:4000">Rose Midford</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/ConmanDictionary/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

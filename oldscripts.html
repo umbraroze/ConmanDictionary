@@ -1,0 +1,419 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.1 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>Old Scripts - Conman’s Dictionary</title>
+<meta name="description" content="A dictionary application for articial/constructed language enthusiasts.">
+
+
+  <meta name="author" content="Rose Midford">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Conman&#39;s Dictionary">
+<meta property="og:title" content="Old Scripts">
+<meta property="og:url" content="http://localhost:4000/ConmanDictionary/oldscripts.html">
+
+
+  <meta property="og:description" content="A dictionary application for articial/constructed language enthusiasts.">
+
+
+
+
+
+
+
+  <meta name="fediverse:creator" content="@umbraroze@tech.lgbt">
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/ConmanDictionary/oldscripts.html">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/ConmanDictionary/feed.xml" type="application/atom+xml" rel="alternate" title="Conman's Dictionary Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/ConmanDictionary/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/ConmanDictionary/">
+          Conman&#39;s Dictionary
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="https://github.com/umbraroze"
+                
+                
+              >GitHub profile</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Old Scripts">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/ConmanDictionary/oldscripts.html" itemprop="url">Old Scripts
+</a>
+          </h1>
+          
+
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>Long story short: Long ago, I made some <em>really quick and dirty</em>
+scripts that did various things.</p>
+
+<p>And ever since, the fact that Perl scripts are used in this repository
+has haunted the GitHub statistics.</p>
+
+<p>So in the end of 2025, I decided that I should not give false hope to
+people who were looking for a hardened Perl expert. I fear someone might
+say “ooo, this repository uses Perl – maybe it was written by a
+real Perl monk.” Truth is, I’ve not touched Perl in <em>ages</em>.</p>
+
+<p>Plus these scripts really shouldn’t be paraded as, you know, <em>useful</em>
+things. These are pretty useless. But maybe they should be stuck
+somewhere just as historical thingies.</p>
+
+<p>So here are the scripts that I originally stuck in the <code class="language-plaintext highlighter-rouge">utils</code> directory.
+If you <em>really</em> need these, look at the Markdown source at
+<code class="language-plaintext highlighter-rouge">docs/oldscripts.md</code> and copy-paste this stuff. Or something.
+These are pretty useless. I don’t think anyone needs these.</p>
+
+<p>Some plain-text Unix dict tools will eventually appear in the C# version,
+at least I hope.</p>
+
+<h2 id="readme"><code class="language-plaintext highlighter-rouge">README</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+This directory contains random script files to handle conversions
+from obsolete formats, and possibly to work with dictd-style dictionary
+files. Note that these were pretty much developed for one-shot dealies
+and are not particularly ingenious or well-tested. Unless otherwise
+mentioned, the scripts in this directory are in public domain (not GPL3)
+and you accept that you're using them entirely on your risk. -wwwwolf
+
+</code></pre></div></div>
+
+<h2 id="dict2dictxpl"><code class="language-plaintext highlighter-rouge">dict2dictx.pl</code></h2>
+
+<div class="language-perl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/perl</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># This will convert a pair of dictionaries to Conman's Dictionary XML format.</span>
+<span class="c1">#</span>
+<span class="c1"># wwwwolf 2006-09-28</span>
+<span class="c1">######################################################################</span>
+
+<span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="nv">warnings</span><span class="p">;</span>
+
+<span class="k">our</span> <span class="p">(</span><span class="nv">%d</span><span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$word</span> <span class="o">=</span> <span class="p">'';</span>
+<span class="k">my</span> <span class="nv">$def</span> <span class="o">=</span> <span class="p">'';</span>
+<span class="k">while</span> <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">chomp</span><span class="p">;</span>
+  <span class="k">next</span> <span class="k">if</span><span class="p">(</span><span class="vg">$_</span> <span class="ow">eq</span> <span class="p">'');</span>
+  <span class="k">if</span><span class="p">(</span><span class="sr">/^\s+/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$def</span> <span class="o">.=</span> <span class="p">"</span><span class="si">$_</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$word</span> <span class="ow">eq</span> <span class="p">'')</span> <span class="p">{</span>
+      <span class="nv">$word</span> <span class="o">=</span> <span class="vg">$_</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">exists</span> <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">})</span> <span class="p">{</span>
+        <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}</span> <span class="o">=</span> <span class="o">[]</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nb">push</span> <span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}},</span> <span class="nv">$def</span><span class="p">;</span>
+      <span class="nv">$word</span> <span class="o">=</span> <span class="vg">$_</span><span class="p">;</span>
+      <span class="nv">$def</span> <span class="o">=</span> <span class="p">'';</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">exists</span> <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">})</span> <span class="p">{</span>
+  <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}</span> <span class="o">=</span> <span class="o">[]</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nb">push</span> <span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}},</span> <span class="nv">$def</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="nv">$word</span> <span class="p">(</span><span class="nb">sort</span> <span class="nb">keys</span> <span class="nv">%d</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">foreach</span> <span class="nv">$def</span> <span class="p">(</span><span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}})</span> <span class="p">{</span>
+    <span class="nb">printf</span> <span class="p">"</span><span class="s2">&lt;entry&gt;&lt;term&gt;</span><span class="si">$word</span><span class="s2">&lt;/term&gt;&lt;definition&gt;</span><span class="si">$def</span><span class="s2">&lt;/definition&gt;&lt;/entry&gt;</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="dictsortpl"><code class="language-plaintext highlighter-rouge">dictsort.pl</code></h2>
+
+<div class="language-perl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/perl</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># This will sort a dictionary file that is in format</span>
+<span class="c1">#</span>
+<span class="c1">#   headline</span>
+<span class="c1">#        definition blah blah...</span>
+<span class="c1">#</span>
+<span class="c1">#   headline</span>
+<span class="c1">#        definition blah blah...</span>
+<span class="c1">#</span>
+<span class="c1"># And take into account that there can be multiple definitions with</span>
+<span class="c1"># the same headword.</span>
+<span class="c1">#</span>
+<span class="c1"># wwwwolf 2006-09-11</span>
+<span class="c1">######################################################################</span>
+
+<span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="nv">warnings</span><span class="p">;</span>
+
+<span class="k">our</span> <span class="p">(</span><span class="nv">%d</span><span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$word</span> <span class="o">=</span> <span class="p">'';</span>
+<span class="k">my</span> <span class="nv">$def</span> <span class="o">=</span> <span class="p">'';</span>
+<span class="k">while</span> <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">chomp</span><span class="p">;</span>
+  <span class="k">next</span> <span class="k">if</span><span class="p">(</span><span class="vg">$_</span> <span class="ow">eq</span> <span class="p">'');</span>
+  <span class="k">if</span><span class="p">(</span><span class="sr">/^\s+/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$def</span> <span class="o">.=</span> <span class="p">"</span><span class="si">$_</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$word</span> <span class="ow">eq</span> <span class="p">'')</span> <span class="p">{</span>
+      <span class="nv">$word</span> <span class="o">=</span> <span class="vg">$_</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">exists</span> <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">})</span> <span class="p">{</span>
+        <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}</span> <span class="o">=</span> <span class="o">[]</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nb">push</span> <span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}},</span> <span class="nv">$def</span><span class="p">;</span>
+      <span class="nv">$word</span> <span class="o">=</span> <span class="vg">$_</span><span class="p">;</span>
+      <span class="nv">$def</span> <span class="o">=</span> <span class="p">'';</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">exists</span> <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">})</span> <span class="p">{</span>
+  <span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}</span> <span class="o">=</span> <span class="o">[]</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nb">push</span> <span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}},</span> <span class="nv">$def</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="nv">$word</span> <span class="p">(</span><span class="nb">sort</span> <span class="nb">keys</span> <span class="nv">%d</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">foreach</span> <span class="nv">$def</span> <span class="p">(</span><span class="nv">@</span><span class="p">{</span><span class="nv">$d</span><span class="p">{</span><span class="nv">$word</span><span class="p">}})</span> <span class="p">{</span>
+    <span class="nb">printf</span> <span class="p">"</span><span class="si">$word</span><span class="se">\n</span><span class="si">$def</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="reclassify-wordsrb"><code class="language-plaintext highlighter-rouge">reclassify-words.rb</code></h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/ruby</span>
+<span class="c1"># Used to clean up old-style adhoc definitions to new-style word classes.</span>
+
+<span class="nb">require</span> <span class="s1">'rexml/document'</span>
+
+<span class="n">dictionary</span> <span class="o">=</span> <span class="no">REXML</span><span class="o">::</span><span class="no">Document</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="no">ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="n">dictionary</span><span class="p">.</span><span class="nf">elements</span><span class="p">.</span><span class="nf">each</span><span class="p">(</span><span class="s1">'//entry'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="nf">elements</span><span class="p">[</span><span class="s1">'definition'</span><span class="p">].</span><span class="nf">text</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">=~</span> <span class="sr">/^(n|a|v|pr|p)\.\s+/</span><span class="p">)</span>
+    <span class="n">e</span><span class="p">.</span><span class="nf">attributes</span><span class="p">[</span><span class="s1">'class'</span><span class="p">]</span> <span class="o">=</span> <span class="k">case</span> <span class="vg">$1</span>
+                            <span class="k">when</span> <span class="s1">'n'</span> <span class="k">then</span> <span class="s1">'Noun'</span>
+                            <span class="k">when</span> <span class="s1">'a'</span> <span class="k">then</span> <span class="s1">'Adjective'</span>
+                            <span class="k">when</span> <span class="s1">'v'</span> <span class="k">then</span> <span class="s1">'Verb'</span>
+                            <span class="k">when</span> <span class="s1">'pr'</span> <span class="k">then</span> <span class="s1">'Pronoun'</span>
+                            <span class="k">when</span> <span class="s1">'p'</span> <span class="k">then</span> <span class="s1">'Particle'</span>
+                            <span class="k">end</span>
+    <span class="n">t</span><span class="p">.</span><span class="nf">gsub!</span><span class="p">(</span><span class="sr">/^(n|a|v|pr|p)\.\s+/</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span>
+    <span class="n">e</span><span class="p">.</span><span class="nf">elements</span><span class="p">[</span><span class="s1">'definition'</span><span class="p">].</span><span class="nf">text</span> <span class="o">=</span> <span class="n">t</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="n">dictionary</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+
+
+        
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/umbraroze" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://codeberg.org/umbraroze" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-forgejo" aria-hidden="true"></i> Codeberg</a></li>
+        
+      
+    
+
+    
+      <li><a href="/ConmanDictionary/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2026 <a href="http://localhost:4000">Rose Midford</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/ConmanDictionary/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

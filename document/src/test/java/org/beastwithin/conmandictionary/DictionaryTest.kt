@@ -1,33 +1,28 @@
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary
 
-import org.beastwithin.conmandictionary.document.Dictionary;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import jakarta.xml.bind.JAXBException
+import org.beastwithin.conmandictionary.document.Dictionary
+import org.junit.jupiter.api.*
+import org.xml.sax.SAXException
+import java.io.File
+import java.io.IOException
 
-public class DictionaryTest {
-
-    private final String testDir = "src/test/resources/";
-    private final String simpleFileName = testDir+"simplefile.xml";
-    private final String complexFileName = testDir+"complexfile.xml";
-
-    public DictionaryTest() {
-    }
-
-    @BeforeAll
-    public static void setUp() {
-    }
+class DictionaryTest {
+    private val testDir = "src/test/resources/"
+    private val simpleFileName = testDir + "simplefile.xml"
+    private val complexFileName = testDir + "complexfile.xml"
 
     /**
      * Test of validation of simple files.
      */
     @Test
-    public void validateSimpleFile() throws Exception {
+    fun validateSimpleFile() {
         try {
-            Dictionary.validateFile(new java.io.File(simpleFileName));
-        } catch(org.xml.sax.SAXException sxe) {
-            fail("Validation of a valid document failed: " + sxe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Validation of a document failed due to file error: " + ioe.getMessage());
+            Dictionary.validateFile(File(simpleFileName))
+        } catch (sxe: SAXException) {
+            fail("Validation of a valid document failed: ${sxe.message}")
+        } catch (ioe: IOException) {
+            fail("Validation of a document failed due to file error: ${ioe.message}")
         }
     }
 
@@ -35,13 +30,13 @@ public class DictionaryTest {
      * Test of validation of complex files.
      */
     @Test
-    public void validateComplexFile() throws Exception {
+    fun validateComplexFile() {
         try {
-            Dictionary.validateFile(new java.io.File(complexFileName));
-        } catch(org.xml.sax.SAXException sxe) {
-            fail("Validation of a valid document failed: " + sxe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Validation of a document failed due to file error: " + ioe.getMessage());
+            Dictionary.validateFile(File(complexFileName))
+        } catch (sxe: SAXException) {
+            fail("Validation of a valid document failed: ${sxe.message}")
+        } catch (ioe: IOException) {
+            fail("Validation of a document failed due to file error: ${ioe.message}")
         }
     }
 
@@ -49,13 +44,13 @@ public class DictionaryTest {
      * Test loading of simple files.
      */
     @Test
-    public void loadSimpleFile() throws Exception {
+    fun loadSimpleFile() {
         try {
-            Dictionary d = Dictionary.loadDocument(new java.io.File(simpleFileName));
-        } catch(jakarta.xml.bind.JAXBException jaxbe) {
-            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Loading document failed due to file error: " + ioe.getMessage());
+            val d = Dictionary.loadDocument(File(simpleFileName))
+        } catch (jaxbe: JAXBException) {
+            fail("Loading document failed due to JAXB error: ${jaxbe.message}")
+        } catch (ioe: IOException) {
+            fail("Loading document failed due to file error: ${ioe.message}")
         }
     }
 
@@ -63,17 +58,13 @@ public class DictionaryTest {
      * Test loading of complex files.
      */
     @Test
-    public void loadComplexFile() throws Exception {
+    fun loadComplexFile() {
         try {
-            Dictionary d = Dictionary.loadDocument(new java.io.File(complexFileName));
-        } catch(jakarta.xml.bind.JAXBException jaxbe) {
-            fail("Loading document failed due to JAXB error: " + jaxbe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Loading document failed due to file error: " + ioe.getMessage());
+            val d = Dictionary.loadDocument(File(complexFileName))
+        } catch (jaxbe: JAXBException) {
+            fail("Loading document failed due to JAXB error: ${jaxbe.message}")
+        } catch (ioe: IOException) {
+            fail("Loading document failed due to file error: ${ioe.message}")
         }
-    }
-
-    @AfterAll
-    public static void tearDown() {
     }
 }

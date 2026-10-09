@@ -1,56 +1,48 @@
-package org.beastwithin.conmandictionary;
+package org.beastwithin.conmandictionary
 
-import org.beastwithin.conmandictionary.document.Dictionary;
-import java.io.*;
-import jakarta.xml.bind.*;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import jakarta.xml.bind.JAXBException
+import org.beastwithin.conmandictionary.document.Dictionary
+import org.junit.jupiter.api.*
+import java.io.File
+import java.io.IOException
 
-public class MergeTest {
-    private final String testDir = "src/test/resources/";
-    private final String complexFileName = testDir+"complexfile.xml";
-    private final String complexFile2Name = testDir+"complexfile2.xml";
-    private final String mergeResultFileName = testDir+"complexfiles_mergedbyhand.xml";
-
-    public MergeTest() {
-    }
-
-    @BeforeAll
-    public static void setUpClass() throws Exception {
-    }
+class MergeTest {
+    private val testDir = "src/test/resources/"
+    private val complexFileName = testDir + "complexfile.xml"
+    private val complexFile2Name = testDir + "complexfile2.xml"
+    private val mergeResultFileName = testDir + "complexfiles_mergedbyhand.xml"
 
     @Test
-    public void mergeFile() {
-        Dictionary dict1 = null;
-        Dictionary dict2 = null;
+    fun mergeFile() {
+        var dict1: Dictionary? = null
+        var dict2: Dictionary? = null
 
         // Load up the first file.
         try {
-            dict1 = Dictionary.loadDocument(new File(complexFileName));
-        } catch(JAXBException sxe) {
-            fail("Loading document failed due to JAXB error: " + sxe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Loading document failed due to file error: " + ioe.getMessage());
+            dict1 = Dictionary.loadDocument(File(complexFileName))
+        } catch (sxe: JAXBException) {
+            fail("Loading document failed due to JAXB error: ${sxe.message}")
+        } catch (ioe: IOException) {
+            fail("Loading document failed due to file error: ${ioe.message}")
         }
-        if(dict1 == null)
-            fail("Some odd error when loading dictionary document?");
+        if (dict1 == null) fail("Some odd error when loading dictionary document?")
 
         // Merge entries from second file.
         try {
-            dict1.mergeEntriesFrom(new File(complexFile2Name));
-        } catch(JAXBException sxe) {
-            fail("Merging document failed due to JAXB error: " + sxe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Merging document failed due to file error: " + ioe.getMessage());
+            dict1.mergeEntriesFrom(File(complexFile2Name))
+        } catch (sxe: JAXBException) {
+            fail("Merging document failed due to JAXB error: ${sxe.message}")
+        } catch (ioe: IOException) {
+            fail("Merging document failed due to file error: ${ioe.message}")
         }
 
         // Load up a third file that has been merged by hand.
         try {
-            dict2 = Dictionary.loadDocument(new File(mergeResultFileName));
-        } catch(JAXBException sxe) {
-            fail("Loading second document failed due to JAXB error: " + sxe.getMessage());
-        } catch(java.io.IOException ioe) {
-            fail("Loading second document failed due to file error: " + ioe.getMessage());
+            dict2 = Dictionary.loadDocument(File(mergeResultFileName))
+        } catch (sxe: JAXBException) {
+            fail("Loading second document failed due to JAXB error: ${sxe.message}")
+        } catch (ioe: IOException) {
+            fail("Loading second document failed due to file error: ${ioe.message}")
         }
 
         // Save the files to do comparison by hand.
@@ -66,12 +58,8 @@ public class MergeTest {
         */
 
         // Now for the interesting part.
-        if(!dict1.equals(dict2)) {
-            fail("The merged documents differ.");
+        if (!dict1.equals(dict2)) {
+            fail("The merged documents differ.")
         }
-    }
-
-    @AfterAll
-    public static void tearDown() {
     }
 }

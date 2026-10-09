@@ -1,7 +1,0 @@
-[workspace]
-resolver = "3"
-members = [
-  # "conmandictionary",     # Temporarily not building this because it sucks up a lot of space
-  "dict-tool",
-  "dictx"
-]

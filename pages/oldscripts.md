@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Old Scripts
 permalink: /oldscripts.html
 ---

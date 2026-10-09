@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Design and history
 permalink: /design.html
 ---

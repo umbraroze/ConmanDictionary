@@ -24,8 +24,9 @@ import jakarta.xml.bind.annotation.adapters.*;
 })
 @XmlRootElement(name = "entry")
 public class Entry implements Comparable<Entry>, Serializable {
+    @Serial
     @XmlTransient
-    public static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
     @XmlTransient
     private static final int maxTruncatedStringLength = 30;
     
@@ -123,7 +124,7 @@ public class Entry implements Comparable<Entry>, Serializable {
     }
 
     /**
-     * The string representation of the term, used in listbox etc,
+     * The string representation of the term, used in the UI list box etc,
      * is "foo: (w.cl.abbr.) bar baz quux..." with some truncation.
      */
     @Override
@@ -141,9 +142,9 @@ public class Entry implements Comparable<Entry>, Serializable {
      * Returns the dictionary entry as plain text (suitable for dictd
      * string builder tool). Headwords are in a line of their own,
      * the rest is indented with one TAB character. Entries separated
-     * with a single empty line (which is included after the entry.
+     * with a single empty line (which is included after the entry.)
      * 
-     * @return the string reporesentation
+     * @return the string representation
      */
     public String toDictString() {
         // Definition should have a parenthetical word class
@@ -155,7 +156,6 @@ public class Entry implements Comparable<Entry>, Serializable {
         StringBuilder s = new StringBuilder();
         s.append(term);
         s.append('\n');
-        s.append("");
         
         // Indent lines with tab characters.
         String sr;
@@ -179,7 +179,7 @@ public class Entry implements Comparable<Entry>, Serializable {
         // You know what this means, right? Fuckton of null value juggling.
         // Yes, I know this code sucks. I emphatically do know that indeed.
         // Please don't post this to thedailywtf.com. At least there's a
-        // jUnit test for this...
+        // JUnit test for this...
 
         // Check term.
         if (term == null) {
@@ -232,38 +232,33 @@ public class Entry implements Comparable<Entry>, Serializable {
         // Check wordClass.
         if (wordClass == null) {
             if (x.wordClass != null) {
-                //System.err.println("Wordclass fail 1");
+                //System.err.println("Word class fail 1");
                 return false;
             }
         } else { // wordClass != null
             if (x.wordClass == null) {
-                //System.err.println("Wordclass fail 2");
+                //System.err.println("Word class fail 2");
                 return false;
             }
             // COULD BE PROBLEMATIC???
             if (!wordClass.sharesIdentifierWith(x.wordClass)) {
-                //System.err.println("Wordclass fail 3");
+                //System.err.println("Word class fail 3");
                 return false;
             }
         }
         // Check Category.
         if (category == null) {
-            if (x.category != null) {
-                //System.err.println("Category fail 1");
-                return false;
-            }
+            //System.err.println("Category fail 1");
+            return x.category == null;
         } else { // category != null
             if (x.category == null) {
                 //System.err.println("Category fail 2");
                 return false;
             }
             // COULD BE PROBLEMATIC???
-            if (!category.sharesIdentifierWith(x.category)) {
-                //System.err.println("Category fail 3");
-                return false;
-            }
+            //System.err.println("Category fail 3");
+            return category.sharesIdentifierWith(x.category);
         }
-        return true;
 
         /*
          * I'd use the following, but the null values ruin my day.

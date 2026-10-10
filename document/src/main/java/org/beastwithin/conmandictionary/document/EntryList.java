@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "", propOrder = { "entries" })
 @XmlRootElement(name = "definitions")
-public class EntryList implements ListModel {
+public class EntryList implements ListModel<Entry> {
 
     @XmlTransient
     private boolean modified;
@@ -131,7 +131,7 @@ public class EntryList implements ListModel {
     }
 
     @Override
-    public Object getElementAt(int index) {
+    public Entry getElementAt(int index) {
         // TODO Auto-generated method stub
         return entries.get(index);
     }
@@ -157,7 +157,7 @@ public class EntryList implements ListModel {
     public List<Entry> getUnflaggedEntries() {
         List<Entry> prunedEntries = Collections.synchronizedList(new ArrayList<Entry>());
         for (Entry e : entries) {
-            if (e.isFlagged() == false) {
+            if (!e.isFlagged()) {
                 prunedEntries.add(e);
             }
         }
@@ -204,11 +204,11 @@ public class EntryList implements ListModel {
     // TODO: This is a somewhat ugly way to sort. Is there a more
     // elegant way to do this that didn't involve copying the array?
     public void sort() {
-        Object a[] = entries.toArray();
+        Object[] a = entries.toArray();
         Arrays.sort(a);
         entries.clear();
-        for (int i = 0; i < a.length; i++) {
-            entries.add((Entry) a[i]);
+        for (Object o : a) {
+            entries.add((Entry) o);
         }
         refresh();
         setModified(true);
@@ -229,8 +229,8 @@ public class EntryList implements ListModel {
 
     @Override
     public String toString() {
-        StringBuffer s = new StringBuffer();
-        s.append("\n\nLanguage: " + getLanguage() + '\n');
+        StringBuilder s = new StringBuilder();
+        s.append("\n\nLanguage: ").append(getLanguage()).append('\n');
         s.append("List:\n");
         for (Entry e : entries) {
             s.append(e.toDictString());

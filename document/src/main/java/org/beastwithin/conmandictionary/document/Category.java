@@ -19,7 +19,7 @@ import jakarta.xml.bind.annotation.adapters.*;
     "description"
 })
 @XmlRootElement(name="category")
-public class Category implements Comparable {
+public class Category implements Comparable<Category> {
 
     protected String name;
     protected String description;
@@ -35,12 +35,12 @@ public class Category implements Comparable {
     }
     public Category(String name, String description) {
         this.name = name;
-        this.description = (description.equals("") ? null : description);
+        this.description = (description.isEmpty() ? null : description);
         this.flagged = false;
     }
     public Category(String name, String description, boolean flagged) {
         this.name = name;
-        this.description = (description.equals("") ? null : description);
+        this.description = (description.isEmpty() ? null : description);
         this.flagged = flagged;
     }
     
@@ -68,9 +68,9 @@ public class Category implements Comparable {
         return description;
     }
     public void setDescription(String description) {
-        // Description is automagically null'd, because that reduces
+        // Description is automagically set to null, because that reduces
         // the amount of XML.
-        this.description = (description.equals("") ? null : description);
+        this.description = (description.isEmpty() ? null : description);
     }
 
     public boolean isFlagged() {
@@ -85,12 +85,11 @@ public class Category implements Comparable {
      * Compare category to another. The categories are compared by name; all other
      * attributes are ignored.
      *
-     * @param o Object to compare to.
+     * @param other Object to compare to.
      * @return Comparison result.
      */
-    public int compareTo(Object o) {
-        Category w = (Category) o;
-        return name.compareTo(w.name);
+    public int compareTo(Category other) {
+        return name.compareTo(other.name);
     }
 
     public static boolean categoryListsFunctionallyEqual(java.util.List<Category> x, java.util.List<Category> y) {

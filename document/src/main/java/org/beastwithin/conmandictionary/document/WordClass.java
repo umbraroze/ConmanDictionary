@@ -18,7 +18,7 @@ import jakarta.xml.bind.annotation.*;
     "description"
 })
 @XmlRootElement(name="class")
-public class WordClass implements Comparable {
+public class WordClass implements Comparable<WordClass> {
 
     protected String name;
     protected String abbreviation;
@@ -75,9 +75,9 @@ public class WordClass implements Comparable {
         return description;
     }
     public void setDescription(String description) {
-        // Description is automagically null'd, because that reduces
+        // Description is automagically set null, because that reduces
         // the amount of XML.
-        this.description = (description.equals("") ? null : description);
+        this.description = (description.isEmpty() ? null : description);
     }
     
     /**
@@ -101,12 +101,11 @@ public class WordClass implements Comparable {
      * Compare word class to another. Word classes are compared by name; all other
      * attributes are ignored.
      *
-     * @param o Object to compare to.
+     * @param other Word class to compare to.
      * @return Comparison result.
      */
-    public int compareTo(Object o) {
-        WordClass w = (WordClass) o;
-        return name.compareTo(w.name);
+    public int compareTo(WordClass other) {
+        return name.compareTo(other.name);
     }
 
     public static boolean wordClassListsFunctionallyEqual(java.util.List<WordClass> x, java.util.List<WordClass> y) {

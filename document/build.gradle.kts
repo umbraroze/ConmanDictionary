@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    java
     kotlin("jvm")
 }
 
@@ -26,3 +26,9 @@ tasks.test {
 kotlin {
     jvmToolchain(25)
 }
+
+/*
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs = listOf("-Xlint:deprecation")
+}
+*/

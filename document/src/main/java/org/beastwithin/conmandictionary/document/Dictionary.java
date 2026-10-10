@@ -161,7 +161,7 @@ public class Dictionary {
     public void saveDocument() throws JAXBException, IOException {
         JAXBContext jc = JAXBContext.newInstance(this.getClass());
         Marshaller m = jc.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         FileWriter f = new FileWriter(currentFile);
         m.marshal(this, f);
     }
